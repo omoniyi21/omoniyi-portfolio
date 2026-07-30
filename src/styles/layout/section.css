@@ -1,0 +1,187 @@
+/* ==========================================================================
+   SECTION
+   Portfolio Design System v1.0
+
+   Purpose:
+   Define consistent spacing and layout patterns for sections.
+
+   This file is responsible for:
+
+   • Section spacing
+   • Section headers
+   • Section content flow
+   • Section alignment
+
+   ========================================================================== */
+
+
+/* ==========================================================================
+   Base Section
+   ========================================================================== */
+
+   .section {
+
+    position: relative;
+  
+    padding-block: var(--section-gap);
+  
+  }
+  
+  
+  /* ==========================================================================
+     Section Sizes
+     ========================================================================== */
+  
+  .section--sm {
+  
+    padding-block: var(--section-gap-sm);
+  
+  }
+  
+  .section--lg {
+  
+    padding-block: var(--section-gap-lg);
+  
+  }
+  
+  .section--xl {
+  
+    padding-block: var(--section-gap-xl);
+  
+  }
+  
+  
+  /* ==========================================================================
+     Remove Top / Bottom Padding
+     ========================================================================== */
+  
+  .section--flush-top {
+  
+    padding-top: 0;
+  
+  }
+  
+  .section--flush-bottom {
+  
+    padding-bottom: 0;
+  
+  }
+  
+  
+  /* ==========================================================================
+     Section Header
+     ========================================================================== */
+  
+  .section__header {
+  
+    display: flex;
+  
+    flex-direction: column;
+  
+    gap: var(--space-4);
+  
+    margin-bottom: var(--space-12);
+  
+  }
+  
+  
+  /* ==========================================================================
+     Section Eyebrow
+     ========================================================================== */
+  
+  .section__eyebrow {
+  
+    display: inline-flex;
+  
+    align-items: center;
+  
+    gap: var(--space-2);
+  
+  }
+  
+  
+  /* ==========================================================================
+     Section Body
+     ========================================================================== */
+  
+  .section__body {
+  
+    display: flex;
+  
+    flex-direction: column;
+  
+    gap: var(--space-8);
+  
+  }
+  
+  
+  /* ==========================================================================
+     Content Width
+     ========================================================================== */
+  
+  .section__content {
+  
+    max-width: var(--measure-wide);
+  
+  }
+  
+  
+  /* ==========================================================================
+     Section Footer
+     ========================================================================== */
+  
+  .section__footer {
+  
+    margin-top: var(--space-12);
+  
+  }
+  
+  
+  /* ==========================================================================
+     Alignment
+     ========================================================================== */
+  
+  .section--center {
+  
+    text-align: center;
+  
+  }
+  
+  .section--center .section__header {
+  
+    align-items: center;
+  
+  }
+  
+  .section--center .section__content {
+  
+    margin-inline: auto;
+  
+  }
+  
+  
+  /* ==========================================================================
+     Responsive
+     ========================================================================== */
+  
+  @media (max-width: 768px) {
+  
+    .section {
+  
+      padding-block: var(--section-gap-mobile);
+  
+    }
+  
+    .section__header {
+  
+      margin-bottom: var(--space-8);
+  
+    }
+  
+    .section__footer {
+  
+      margin-top: var(--space-8);
+  
+    }
+  
+  }

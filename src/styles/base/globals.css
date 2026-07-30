@@ -1,0 +1,285 @@
+/* ==========================================================================
+   GLOBALS
+   Portfolio Design System v1.0
+
+   Purpose:
+   Establish global element defaults and the visual language
+   of the portfolio.
+
+   This file is responsible for:
+
+   • Root document styling
+   • Default HTML elements
+   • Global interaction styles
+   • Accessibility
+   • Scrollbars
+   • Text selection
+
+   ========================================================================== */
+
+
+/* ==========================================================================
+   Document
+   ========================================================================== */
+
+   html {
+    font-size: 100%;
+  }
+  
+  body {
+  
+    background: var(--background-page);
+  
+    color: var(--text-primary);
+  
+    font-family: var(--font-family-body);
+  
+    font-size: var(--font-size-body);
+  
+    line-height: var(--line-height-body);
+  
+    overflow-x: hidden;
+  
+  }
+  
+  
+  /* ==========================================================================
+     Main
+     ========================================================================== */
+  
+  main {
+  
+    display: block;
+  
+  }
+  
+  
+  /* ==========================================================================
+     Sections
+     ========================================================================== */
+  
+  section {
+  
+    padding-block: var(--section-gap);
+  
+  }
+  
+  
+  /* ==========================================================================
+     Images
+     ========================================================================== */
+  
+  img {
+  
+    height: auto;
+  
+  }
+  
+  
+  /* ==========================================================================
+     SVG
+     ========================================================================== */
+  
+  svg {
+  
+    display: block;
+  
+  }
+  
+  
+  /* ==========================================================================
+     Links
+     ========================================================================== */
+  
+  a {
+  
+    color: inherit;
+  
+    transition:
+      color var(--motion-normal) var(--ease-standard);
+  
+  }
+  
+  a:hover {
+  
+    color: var(--text-link);
+  
+  }
+  
+  
+  /* ==========================================================================
+     Buttons
+     ========================================================================== */
+  
+  button {
+  
+    font: inherit;
+  
+  }
+  
+  
+  /* ==========================================================================
+     Inputs
+     ========================================================================== */
+  
+  input,
+  textarea,
+  select {
+  
+    width: 100%;
+  
+    border: none;
+  
+    background: transparent;
+  
+  }
+  
+  
+  /* ==========================================================================
+     Placeholder
+     ========================================================================== */
+  
+  ::placeholder {
+  
+    color: var(--input-placeholder);
+  
+    opacity: 1;
+  
+  }
+  
+  
+  /* ==========================================================================
+     Selection
+     ========================================================================== */
+  
+  ::selection {
+  
+    background: var(--color-brand-lilac);
+  
+    color: var(--text-primary);
+  
+  }
+  
+  
+  /* ==========================================================================
+     Horizontal Rule
+     ========================================================================== */
+  
+  hr {
+  
+    border: none;
+  
+    border-top: 1px solid var(--divider);
+  
+  }
+  
+  
+  /* ==========================================================================
+     Code
+     ========================================================================== */
+  
+  code,
+  pre {
+  
+    font-family:
+      ui-monospace,
+      SFMono-Regular,
+      Consolas,
+      "Liberation Mono",
+      monospace;
+  
+  }
+  
+  
+  /* ==========================================================================
+     Keyboard Focus
+     ========================================================================== */
+  
+  :focus-visible {
+  
+    outline: none;
+  
+    box-shadow: var(--focus-ring);
+  
+    border-radius: var(--radius-sm);
+  
+  }
+  
+  
+  /* ==========================================================================
+     Skip Link
+     ========================================================================== */
+  
+  .skip-link {
+  
+    position: absolute;
+  
+    top: -100px;
+  
+    left: var(--space-4);
+  
+    z-index: var(--z-toast);
+  
+    padding:
+      var(--space-3)
+      var(--space-5);
+  
+    background: var(--background-inverse);
+  
+    color: var(--text-inverse);
+  
+    border-radius: var(--radius-md);
+  
+  }
+  
+  .skip-link:focus {
+  
+    top: var(--space-4);
+  
+  }
+  
+  
+  /* ==========================================================================
+     Scrollbar
+     ========================================================================== */
+  
+  ::-webkit-scrollbar {
+  
+    width: 10px;
+  
+  }
+  
+  ::-webkit-scrollbar-track {
+  
+    background: var(--background-page);
+  
+  }
+  
+  ::-webkit-scrollbar-thumb {
+  
+    background: var(--border-default);
+  
+    border-radius: var(--radius-pill);
+  
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+  
+    background: var(--border-strong);
+  
+  }
+  
+  
+  /* ==========================================================================
+     Reduced Motion
+     ========================================================================== */
+  
+  @media (prefers-reduced-motion: reduce) {
+  
+    html:focus-within {
+  
+      scroll-behavior: auto;
+  
+    }
+  
+  }

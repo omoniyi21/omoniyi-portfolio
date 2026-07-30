@@ -1,0 +1,9 @@
+:root {
+
+    --card-padding:32px;
+  
+    --card-gap:24px;
+  
+    --card-radius:var(--radius-lg);
+  
+  }

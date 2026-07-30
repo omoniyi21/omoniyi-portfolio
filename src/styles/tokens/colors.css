@@ -1,0 +1,37 @@
+/* ==========================================================================
+   COLORS
+   ========================================================================== */
+
+   :root {
+    /* Canvas */
+  
+    --color-canvas: #faf8f6;
+    --color-surface: #ffffff;
+  
+    /* Text */
+  
+    --color-text-primary: #171717;
+    --color-text-secondary: #66666f;
+    --color-text-muted: #8a8a93;
+    --color-text-inverse: #ffffff;
+  
+    /* Brand */
+  
+    --color-brand-lavender: #7569e3;
+    --color-brand-lilac: #d9b8f3;
+    --color-brand-peach: #f5c7a6;
+  
+    /* Borders */
+  
+    --color-border-subtle: #ece8e3;
+    --color-border-default: #ddd8d2;
+    --color-border-strong: #c9c2ba;
+  
+    /* States */
+  
+    --color-success: #2f855a;
+    --color-warning: #d69e2e;
+    --color-error: #c53030;
+  
+    --color-focus: var(--color-brand-lavender);
+  }

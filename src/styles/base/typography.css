@@ -1,0 +1,207 @@
+/* ==========================================================================
+   TYPOGRAPHY
+   Portfolio Design System v1.0
+
+   Purpose:
+   Map semantic HTML elements to typography design tokens.
+
+   This file should NOT contain:
+   • Colors
+   • Layout
+   • Margins
+   • Component-specific styles
+
+   ========================================================================== */
+
+
+/* ==========================================================================
+   Headings
+   ========================================================================== */
+
+   h1,
+   h2,
+   h3,
+   h4,
+   h5,
+   h6 {
+     font-family: var(--font-family-display);
+     font-weight: var(--font-weight-semibold);
+     line-height: var(--line-height-tight);
+     letter-spacing: var(--letter-spacing-tight);
+   }
+   
+   
+   /* ==========================================================================
+      Heading Scale
+      ========================================================================== */
+   
+   h1 {
+     font-size: var(--font-size-display-xl);
+   }
+   
+   h2 {
+     font-size: var(--font-size-display-lg);
+   }
+   
+   h3 {
+     font-size: var(--font-size-display-md);
+   }
+   
+   h4 {
+     font-size: var(--font-size-heading-lg);
+   }
+   
+   h5 {
+     font-size: var(--font-size-heading-md);
+   }
+   
+   h6 {
+     font-size: var(--font-size-heading-sm);
+   }
+   
+   
+   /* ==========================================================================
+      Body Copy
+      ========================================================================== */
+   
+   p,
+   li,
+   blockquote {
+     font-family: var(--font-family-body);
+     font-size: var(--font-size-body);
+     font-weight: var(--font-weight-regular);
+     line-height: var(--line-height-body);
+   }
+   
+   
+   /* ==========================================================================
+      Small Text
+      ========================================================================== */
+   
+   small {
+     font-size: var(--font-size-caption);
+     line-height: var(--line-height-body);
+   }
+   
+   
+   /* ==========================================================================
+      Strong & Emphasis
+      ========================================================================== */
+   
+   strong,
+   b {
+     font-weight: var(--font-weight-semibold);
+   }
+   
+   em,
+   i {
+     font-style: italic;
+   }
+   
+   
+   /* ==========================================================================
+      Links
+      ========================================================================== */
+   
+   a {
+     font: inherit;
+   }
+   
+   
+   /* ==========================================================================
+      Lists
+      ========================================================================== */
+   
+   ul,
+   ol {
+     font: inherit;
+   }
+   
+   li + li {
+     margin-top: var(--space-2);
+   }
+   
+   
+   /* ==========================================================================
+      Quotes
+      ========================================================================== */
+   
+   blockquote {
+     font-size: var(--font-size-heading-sm);
+     font-style: italic;
+     line-height: var(--line-height-relaxed);
+   }
+   
+   cite {
+     display: block;
+     font-size: var(--font-size-caption);
+     font-style: normal;
+   }
+   
+   
+   /* ==========================================================================
+      Labels
+      ========================================================================== */
+   
+   label {
+     font-size: var(--font-size-label);
+     font-weight: var(--font-weight-medium);
+     line-height: var(--line-height-body);
+   }
+   
+   
+   /* ==========================================================================
+      Form Controls
+      ========================================================================== */
+   
+   input,
+   textarea,
+   select,
+   button {
+     font-family: inherit;
+     font-size: inherit;
+     line-height: inherit;
+   }
+   
+   
+   /* ==========================================================================
+      Code
+      ========================================================================== */
+   
+   code,
+   pre,
+   kbd,
+   samp {
+     font-family: var(--font-family-mono);
+     font-size: var(--font-size-code);
+   }
+   
+   pre {
+     overflow-x: auto;
+   }
+   
+   kbd {
+     padding: var(--space-1) var(--space-2);
+     border-radius: var(--radius-sm);
+   }
+   
+   
+   /* ==========================================================================
+      Responsive Typography
+      ========================================================================== */
+   
+   @media (max-width: 768px) {
+   
+     h1 {
+       font-size: var(--font-size-display-lg);
+     }
+   
+     h2 {
+       font-size: var(--font-size-display-md);
+     }
+   
+     h3 {
+       font-size: var(--font-size-heading-lg);
+     }
+   
+   }

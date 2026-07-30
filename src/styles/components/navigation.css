@@ -1,0 +1,156 @@
+:root {
+
+    --nav-height:88px;
+  
+    --nav-padding-x:64px;
+  
+    --nav-padding-y:24px;
+  
+  }
+
+  /* ==========================================================================
+   NAVIGATION
+   Portfolio Design System v1.0
+
+   Purpose:
+   Primary site navigation.
+
+   ========================================================================== */
+
+
+/* ==========================================================================
+   Header
+   ========================================================================== */
+
+.site-header {
+
+  position: sticky;
+
+  top: 0;
+
+  z-index: var(--z-sticky);
+
+  background: var(--background-page);
+
+}
+
+
+/* ==========================================================================
+ Navigation
+ ========================================================================== */
+
+.navigation {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  min-height: 5rem;
+
+}
+
+
+/* ==========================================================================
+ Logo
+ ========================================================================== */
+
+.navigation__logo {
+
+  font-family: var(--font-family-display);
+
+  font-size: var(--font-size-heading-md);
+
+  font-weight: var(--font-weight-semibold);
+
+  letter-spacing: var(--letter-spacing-tight);
+
+  white-space: nowrap;
+
+}
+
+
+/* ==========================================================================
+ Navigation List
+ ========================================================================== */
+
+.navigation__list {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: var(--space-8);
+
+}
+
+
+/* ==========================================================================
+ Navigation Links
+ ========================================================================== */
+
+.navigation__link {
+
+  position: relative;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  padding-block: var(--space-2);
+
+  color: var(--text-secondary);
+
+  font-size: var(--font-size-body);
+
+  font-weight: var(--font-weight-medium);
+
+  transition:
+      color var(--motion-fast) var(--ease-standard);
+
+}
+
+.navigation__link:hover {
+
+  color: var(--text-primary);
+
+}
+
+.navigation__link:focus-visible {
+
+  border-radius: var(--radius-sm);
+
+}
+
+
+/* ==========================================================================
+ Active Link
+ ========================================================================== */
+
+.navigation__link[aria-current="page"] {
+
+  color: var(--text-primary);
+
+}
+
+
+/* ==========================================================================
+ Mobile
+ ========================================================================== */
+
+@media (max-width: 768px) {
+
+  .navigation {
+
+      min-height: 4.5rem;
+
+  }
+
+  .navigation__list {
+
+      gap: var(--space-5);
+
+  }
+
+}

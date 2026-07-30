@@ -1,0 +1,35 @@
+/* ==========================================================================
+   LAYOUT
+   ========================================================================== */
+
+   :root {
+    /* Containers */
+  
+    --container-reading: 720px;
+    --container-default: 1200px;
+    --container-wide: 1440px;
+  
+    /* Navigation */
+  
+    --nav-height: 88px;
+  
+    /* Layout */
+  
+    --section-gap: 8rem;
+    --content-gap: 4rem;
+    --card-gap: 2rem;
+  
+    /* Grid */
+  
+    --grid-columns-desktop: 12;
+    --grid-columns-tablet: 8;
+    --grid-columns-mobile: 4;
+  
+    --grid-gutter-desktop: 24px;
+    --grid-gutter-tablet: 24px;
+    --grid-gutter-mobile: 20px;
+  
+    --page-margin-desktop: 64px;
+    --page-margin-tablet: 32px;
+    --page-margin-mobile: 20px;
+  }
