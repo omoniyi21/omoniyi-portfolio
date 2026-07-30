@@ -3,7 +3,7 @@
    Portfolio Design System v1.0
 
    Purpose:
-   Provide consistent horizontal spacing and readable content widths.
+   Constrain content width and provide consistent horizontal spacing.
 
    ========================================================================== */
 
@@ -13,11 +13,9 @@
    ========================================================================== */
 
    .container {
-
-    width: min(100% - (var(--space-6) * 2), var(--container-xl));
+    width: min(100% - var(--space-8), 80rem);
   
     margin-inline: auto;
-  
   }
   
   
@@ -26,11 +24,9 @@
      ========================================================================== */
   
   .container--narrow {
-  
-    width: min(100% - (var(--space-6) * 2), var(--container-md));
+    width: min(100% - var(--space-8), 48rem);
   
     margin-inline: auto;
-  
   }
   
   
@@ -39,37 +35,7 @@
      ========================================================================== */
   
   .container--wide {
-  
-    width: min(100% - (var(--space-6) * 2), var(--container-2xl));
+    width: min(100% - var(--space-8), 90rem);
   
     margin-inline: auto;
-  
-  }
-  
-  
-  /* ==========================================================================
-     Full Width Container
-     ========================================================================== */
-  
-  .container--full {
-  
-    width: 100%;
-  
-  }
-  
-  
-  /* ==========================================================================
-     Responsive
-     ========================================================================== */
-  
-  @media (max-width: 768px) {
-  
-    .container,
-    .container--narrow,
-    .container--wide {
-  
-      width: min(100% - (var(--space-4) * 2), 100%);
-  
-    }
-  
   }

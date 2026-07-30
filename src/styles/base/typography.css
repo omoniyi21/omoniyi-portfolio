@@ -3,13 +3,18 @@
    Portfolio Design System v1.0
 
    Purpose:
-   Map semantic HTML elements to typography design tokens.
+   Apply typography tokens to semantic HTML elements.
 
-   This file should NOT contain:
-   • Colors
-   • Layout
-   • Margins
-   • Component-specific styles
+   This file is responsible for:
+
+   • Headings
+   • Paragraphs
+   • Lists
+   • Links
+   • Quotes
+   • Code
+   • Small text
+   • Strong & emphasis
 
    ========================================================================== */
 
@@ -24,16 +29,18 @@
    h4,
    h5,
    h6 {
+     color: var(--text-primary);
+   
      font-family: var(--font-family-display);
-     font-weight: var(--font-weight-semibold);
-     line-height: var(--line-height-tight);
+   
+     font-weight: var(--font-weight-medium);
+   
+     line-height: var(--line-height-heading);
+   
      letter-spacing: var(--letter-spacing-tight);
+   
+     text-wrap: balance;
    }
-   
-   
-   /* ==========================================================================
-      Heading Scale
-      ========================================================================== */
    
    h1 {
      font-size: var(--font-size-display-xl);
@@ -44,7 +51,7 @@
    }
    
    h3 {
-     font-size: var(--font-size-display-md);
+     font-size: var(--font-size-heading-xl);
    }
    
    h4 {
@@ -61,50 +68,21 @@
    
    
    /* ==========================================================================
-      Body Copy
+      Paragraphs
       ========================================================================== */
    
-   p,
-   li,
-   blockquote {
+   p {
+     color: var(--text-secondary);
+   
      font-family: var(--font-family-body);
+   
      font-size: var(--font-size-body);
+   
      font-weight: var(--font-weight-regular);
+   
      line-height: var(--line-height-body);
-   }
    
-   
-   /* ==========================================================================
-      Small Text
-      ========================================================================== */
-   
-   small {
-     font-size: var(--font-size-caption);
-     line-height: var(--line-height-body);
-   }
-   
-   
-   /* ==========================================================================
-      Strong & Emphasis
-      ========================================================================== */
-   
-   strong,
-   b {
-     font-weight: var(--font-weight-semibold);
-   }
-   
-   em,
-   i {
-     font-style: italic;
-   }
-   
-   
-   /* ==========================================================================
-      Links
-      ========================================================================== */
-   
-   a {
-     font: inherit;
+     text-wrap: pretty;
    }
    
    
@@ -114,7 +92,11 @@
    
    ul,
    ol {
-     font: inherit;
+     font-family: var(--font-family-body);
+   
+     font-size: var(--font-size-body);
+   
+     line-height: var(--line-height-body);
    }
    
    li + li {
@@ -123,44 +105,59 @@
    
    
    /* ==========================================================================
-      Quotes
+      Links
       ========================================================================== */
    
-   blockquote {
-     font-size: var(--font-size-heading-sm);
-     font-style: italic;
-     line-height: var(--line-height-relaxed);
-   }
-   
-   cite {
-     display: block;
-     font-size: var(--font-size-caption);
-     font-style: normal;
+   a {
+     color: inherit;
    }
    
    
    /* ==========================================================================
-      Labels
+      Strong
       ========================================================================== */
    
-   label {
-     font-size: var(--font-size-label);
-     font-weight: var(--font-weight-medium);
+   strong,
+   b {
+     font-weight: var(--font-weight-bold);
+   }
+   
+   
+   /* ==========================================================================
+      Emphasis
+      ========================================================================== */
+   
+   em,
+   i {
+     font-style: italic;
+   }
+   
+   
+   /* ==========================================================================
+      Small Text
+      ========================================================================== */
+   
+   small {
+     font-size: var(--font-size-small);
+   
      line-height: var(--line-height-body);
    }
    
    
    /* ==========================================================================
-      Form Controls
+      Blockquotes
       ========================================================================== */
    
-   input,
-   textarea,
-   select,
-   button {
-     font-family: inherit;
-     font-size: inherit;
-     line-height: inherit;
+   blockquote {
+     padding-left: var(--space-6);
+   
+     border-left: 2px solid var(--border-default);
+   
+     color: var(--text-secondary);
+   
+     font-size: var(--font-size-body-lg);
+   
+     font-style: italic;
    }
    
    
@@ -169,39 +166,35 @@
       ========================================================================== */
    
    code,
-   pre,
    kbd,
-   samp {
-     font-family: var(--font-family-mono);
-     font-size: var(--font-size-code);
+   samp,
+   pre {
+     font-family:
+       ui-monospace,
+       SFMono-Regular,
+       Consolas,
+       "Liberation Mono",
+       monospace;
    }
    
    pre {
      overflow-x: auto;
    }
    
-   kbd {
-     padding: var(--space-1) var(--space-2);
-     border-radius: var(--radius-sm);
+   
+   /* ==========================================================================
+      Horizontal Rule
+      ========================================================================== */
+   
+   hr {
+     margin-block: var(--space-12);
    }
    
    
    /* ==========================================================================
-      Responsive Typography
+      Text Selection Helpers
       ========================================================================== */
    
-   @media (max-width: 768px) {
-   
-     h1 {
-       font-size: var(--font-size-display-lg);
-     }
-   
-     h2 {
-       font-size: var(--font-size-display-md);
-     }
-   
-     h3 {
-       font-size: var(--font-size-heading-lg);
-     }
-   
+   ::marker {
+     color: var(--text-secondary);
    }

@@ -1,8 +1,14 @@
 @import "./colors.css";
-@import "./typography.css";
-@import "./spacing.css";
-@import "./radius.css";
-@import "./shadows.css";
-@import "./motion.css";
+@import "./index.css";
 @import "./layout.css";
+@import "./motion.css";
+@import "./spacing.css";
+@import "./shadows.css";
+@import "./semantic.css";
+@import "./spacing.css";
+@import "./typography.css";
+@import "./radius.css";
 @import "./z-index.css";
+
+
+

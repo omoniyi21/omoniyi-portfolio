@@ -1,6 +1,12 @@
+@import "./base/fonts.css";
 @import "./base/reset.css";
+
+@import "./tokens/index.css";
+
 @import "./base/globals.css";
 @import "./base/typography.css";
+
+@import "./layout/index.css";
 
 @import "./components/badge.css";
 @import "./components/button.css";
@@ -22,7 +28,7 @@
 @import "./pages/observations.css";
 @import "./pages/work.css";
 
-@import "./tokens/index.css";
+
 
 
 

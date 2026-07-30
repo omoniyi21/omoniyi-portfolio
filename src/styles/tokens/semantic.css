@@ -1,188 +1,21 @@
-/* ==========================================================================
-   SEMANTIC TOKENS
-   Portfolio Design System v1.0
-   ========================================================================== */
-
-   :root {
-
-    /* ==========================================================
-       BACKGROUNDS
-       ========================================================== */
-  
-    --background-page: var(--color-canvas);
-  
-    --background-surface: var(--color-surface);
-  
-    --background-overlay: rgb(23 23 23 / 60%);
-  
-    --background-inverse: var(--color-text-primary);
-  
-  
-  
-    /* ==========================================================
-       TEXT
-       ========================================================== */
-  
-    --text-primary: var(--color-text-primary);
-  
-    --text-secondary: var(--color-text-secondary);
-  
-    --text-muted: var(--color-text-muted);
-  
-    --text-inverse: var(--color-text-inverse);
-  
-    --text-link: var(--color-brand-lavender);
-  
-    --text-link-hover: var(--color-text-primary);
-  
-  
-  
-    /* ==========================================================
-       BORDERS
-       ========================================================== */
-  
-    --border-subtle: var(--color-border-subtle);
-  
-    --border-default: var(--color-border-default);
-  
-    --border-strong: var(--color-border-strong);
-  
-    --border-focus: var(--color-focus);
-  
-  
-  
-    /* ==========================================================
-       PRIMARY BUTTON
-       ========================================================== */
-  
-    --button-primary-background: var(--color-brand-lavender);
-  
-    --button-primary-background-hover: #6456dd;
-  
-    --button-primary-background-active: #5648d1;
-  
-    --button-primary-text: #ffffff;
-  
-  
-  
-    /* ==========================================================
-       SECONDARY BUTTON
-       ========================================================== */
-  
-    --button-secondary-background: transparent;
-  
-    --button-secondary-background-hover: rgba(117,105,227,.08);
-  
-    --button-secondary-border: var(--color-border-default);
-  
-    --button-secondary-text: var(--text-primary);
-  
-  
-  
-    /* ==========================================================
-       GHOST BUTTON
-       ========================================================== */
-  
-    --button-ghost-background: transparent;
-  
-    --button-ghost-background-hover: rgba(23,23,23,.05);
-  
-    --button-ghost-text: var(--text-primary);
-  
-  
-  
-    /* ==========================================================
-       INPUTS
-       ========================================================== */
-  
-    --input-background: var(--background-surface);
-  
-    --input-border: var(--border-default);
-  
-    --input-border-hover: var(--color-brand-lavender);
-  
-    --input-border-focus: var(--color-brand-lavender);
-  
-    --input-placeholder: var(--text-muted);
-  
-    --input-text: var(--text-primary);
-  
-  
-  
-    /* ==========================================================
-       CARDS
-       ========================================================== */
-  
-    --card-background: var(--background-surface);
-  
-    --card-border: var(--border-subtle);
-  
-    --card-shadow: var(--shadow-sm);
-  
-  
-  
-    /* ==========================================================
-       NAVIGATION
-       ========================================================== */
-  
-    --nav-background: rgba(250,248,246,.75);
-  
-    --nav-border: var(--border-subtle);
-  
-    --nav-link: var(--text-secondary);
-  
-    --nav-link-hover: var(--text-primary);
-  
-    --nav-link-active: var(--color-brand-lavender);
-  
-  
-  
-    /* ==========================================================
-       FOOTER
-       ========================================================== */
-  
-    --footer-background: transparent;
-  
-    --footer-border: var(--border-subtle);
-  
-    --footer-text: var(--text-secondary);
-  
-  
-  
-    /* ==========================================================
-       DIVIDERS
-       ========================================================== */
-  
-    --divider: var(--border-subtle);
-  
-  
-  
-    /* ==========================================================
-       TAGS
-       ========================================================== */
-  
-    --tag-background: rgba(117,105,227,.08);
-  
-    --tag-text: var(--color-brand-lavender);
-  
-  
-  
-    /* ==========================================================
-       STATUS
-       ========================================================== */
-  
-    --status-success: var(--color-success);
-  
-    --status-warning: var(--color-warning);
-  
-    --status-error: var(--color-error);
-  
-  
-  
-    /* ==========================================================
-       FOCUS
-       ========================================================== */
-  
-    --focus-ring: 0 0 0 3px rgb(117 105 227 / 24%);
-  
-  }
+:root {
+   /* Backgrounds */
+   --background-canvas: var(--color-gray-50);
+   --background-surface: var(--color-white);
+ 
+   /* Text */
+   --text-primary: var(--color-black);
+   --text-secondary: var(--color-gray-500);
+ 
+   /* Borders */
+   --border-default: var(--color-gray-200);
+ 
+   /* Brand */
+   --brand-primary: var(--color-lavender-500);
+   --brand-secondary: var(--color-lilac-300);
+   --brand-accent: var(--color-peach-300);
+ 
+   /* Links */
+   --link-default: var(--brand-primary);
+   --link-hover: var(--color-black);
+ }

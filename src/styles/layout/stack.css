@@ -1,0 +1,24 @@
+/* ==========================================================================
+   STACK
+   Portfolio Design System v1.0
+
+   Purpose:
+   Stack children vertically with consistent spacing.
+
+   ========================================================================== */
+
+   .stack {
+    display: flex;
+  
+    flex-direction: column;
+  
+    gap: var(--space-6);
+  }
+  
+  .stack--sm {
+    gap: var(--space-3);
+  }
+  
+  .stack--lg {
+    gap: var(--space-12);
+  }

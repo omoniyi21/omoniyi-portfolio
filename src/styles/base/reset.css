@@ -3,13 +3,18 @@
    Portfolio Design System v1.0
 
    Purpose:
-   Remove browser inconsistencies while establishing a clean foundation.
+   Normalize browser defaults and establish a consistent
+   foundation for all styling.
 
-   This file should NEVER contain:
-   • Brand colors
-   • Typography styles
-   • Layout styles
-   • Component styles
+   This file is responsible for:
+
+   • Box sizing
+   • Margin & padding reset
+   • Default element behavior
+   • Media elements
+   • Form controls
+   • Lists
+   • Tables
 
    ========================================================================== */
 
@@ -26,7 +31,7 @@
    
    
    /* ==========================================================================
-      Remove Default Margin & Padding
+      Margin & Padding
       ========================================================================== */
    
    * {
@@ -40,68 +45,11 @@
       ========================================================================== */
    
    html {
-     scroll-behavior: smooth;
-     -webkit-text-size-adjust: 100%;
+     hanging-punctuation: first last;
    }
    
    body {
      min-height: 100vh;
-     text-rendering: optimizeLegibility;
-     -webkit-font-smoothing: antialiased;
-     -moz-osx-font-smoothing: grayscale;
-   }
-   
-   
-   /* ==========================================================================
-      Media Elements
-      ========================================================================== */
-   
-   img,
-   picture,
-   svg,
-   canvas,
-   video {
-     display: block;
-     max-width: 100%;
-   }
-   
-   
-   /* ==========================================================================
-      Forms
-      ========================================================================== */
-   
-   input,
-   button,
-   textarea,
-   select {
-     font: inherit;
-     color: inherit;
-     background: transparent;
-   }
-   
-   
-   /* ==========================================================================
-      Buttons
-      ========================================================================== */
-   
-   button {
-     border: none;
-     cursor: pointer;
-   }
-   
-   
-   /* ==========================================================================
-      Text Overflow
-      ========================================================================== */
-   
-   h1,
-   h2,
-   h3,
-   h4,
-   h5,
-   h6,
-   p {
-     overflow-wrap: break-word;
    }
    
    
@@ -116,11 +64,60 @@
    
    
    /* ==========================================================================
+      Media
+      ========================================================================== */
+   
+   img,
+   picture,
+   video,
+   canvas,
+   svg {
+     display: block;
+   
+     max-width: 100%;
+   }
+   
+   
+   /* ==========================================================================
+      Images
+      ========================================================================== */
+   
+   img,
+   picture {
+     height: auto;
+   }
+   
+   
+   /* ==========================================================================
+      Form Controls
+      ========================================================================== */
+   
+   input,
+   button,
+   textarea,
+   select {
+     font: inherit;
+   
+     color: inherit;
+   }
+   
+   
+   /* ==========================================================================
+      Buttons
+      ========================================================================== */
+   
+   button {
+     border: none;
+   
+     background: none;
+   }
+   
+   
+   /* ==========================================================================
       Links
       ========================================================================== */
    
    a {
-     color: inherit;
      text-decoration: none;
    }
    
@@ -130,8 +127,20 @@
       ========================================================================== */
    
    table {
+     width: 100%;
+   
      border-collapse: collapse;
+   
      border-spacing: 0;
+   }
+   
+   
+   /* ==========================================================================
+      Horizontal Rule
+      ========================================================================== */
+   
+   hr {
+     border: 0;
    }
    
    
@@ -140,12 +149,12 @@
       ========================================================================== */
    
    fieldset {
-     border: none;
+     border: 0;
    }
    
    
    /* ==========================================================================
-      Textareas
+      Textarea
       ========================================================================== */
    
    textarea {
@@ -154,56 +163,9 @@
    
    
    /* ==========================================================================
-      Focus
-      ========================================================================== */
-   
-   :focus {
-     outline: none;
-   }
-   
-   
-   /*
-     Focus styling belongs in globals.css
-   */
-   
-   
-   /* ==========================================================================
       Hidden Attribute
       ========================================================================== */
    
    [hidden] {
      display: none !important;
-   }
-   
-   
-   /* ==========================================================================
-      Disabled Elements
-      ========================================================================== */
-   
-   :disabled {
-     cursor: not-allowed;
-   }
-   
-   
-   /* ==========================================================================
-      Reduced Motion
-      ========================================================================== */
-   
-   @media (prefers-reduced-motion: reduce) {
-   
-     html {
-       scroll-behavior: auto;
-     }
-   
-     *,
-     *::before,
-     *::after {
-       animation-duration: 0.01ms !important;
-       animation-iteration-count: 1 !important;
-   
-       transition-duration: 0.01ms !important;
-   
-       scroll-behavior: auto !important;
-     }
-   
    }

@@ -1,0 +1,30 @@
+/* ==========================================================================
+   CLUSTER
+   Portfolio Design System v1.0
+
+   Purpose:
+   Arrange items horizontally with wrapping and consistent spacing.
+
+   ========================================================================== */
+
+   .cluster {
+    display: flex;
+  
+    flex-wrap: wrap;
+  
+    align-items: center;
+  
+    gap: var(--space-4);
+  }
+  
+  .cluster--between {
+    justify-content: space-between;
+  }
+  
+  .cluster--center {
+    justify-content: center;
+  }
+  
+  .cluster--end {
+    justify-content: flex-end;
+  }

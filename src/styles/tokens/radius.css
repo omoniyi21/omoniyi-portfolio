@@ -1,12 +1,8 @@
-/* ==========================================================================
-   BORDER RADIUS
-   ========================================================================== */
-
-   :root {
-    --radius-sm: 8px;
-    --radius-md: 12px;
-    --radius-lg: 20px;
-    --radius-xl: 32px;
-  
-    --radius-pill: 999px;
-  }
+:root {
+  --radius-none: 0;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-pill: 9999px;
+}

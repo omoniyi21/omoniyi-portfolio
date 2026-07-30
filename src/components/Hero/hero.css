@@ -1,0 +1,76 @@
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 6rem 2rem;
+
+    background: #FAF8F6;
+}
+
+.hero__content{
+    max-width:900px;
+}
+
+.hero__eyebrow{
+    margin-bottom:24px;
+
+    color:#66666F;
+
+    letter-spacing:.08em;
+
+    text-transform:uppercase;
+
+    font-size:.9rem;
+}
+
+.hero__title{
+
+    font-size:clamp(4rem,9vw,7rem);
+
+    line-height:.92;
+
+    font-weight:500;
+
+    margin-bottom:2rem;
+
+    color:#171717;
+}
+
+.hero__description{
+
+    max-width:550px;
+
+    font-size:1.3rem;
+
+    line-height:1.7;
+
+    color:#66666F;
+
+    margin-bottom:3rem;
+}
+
+.hero__button{
+
+    display:inline-flex;
+
+    text-decoration:none;
+
+    padding:18px 34px;
+
+    border-radius:999px;
+
+    border:1px solid #171717;
+
+    color:#171717;
+
+    transition:.25s;
+}
+
+.hero__button:hover{
+
+    background:#171717;
+
+    color:white;
+}

@@ -3,16 +3,12 @@
    ========================================================================== */
 
    :root {
-    /* Duration */
-  
     --motion-fast: 150ms;
     --motion-normal: 250ms;
     --motion-slow: 400ms;
-    --motion-extra-slow: 600ms;
   
-    /* Easings */
-  
-    --ease-standard: cubic-bezier(0.2, 0.8, 0.2, 1);
-  
-    --ease-emphasized: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-standard: ease;
+    --ease-in: ease-in;
+    --ease-out: ease-out;
+    --ease-in-out: ease-in-out;
   }
