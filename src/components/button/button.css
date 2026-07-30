@@ -1,0 +1,128 @@
+/* ==========================================================================
+   BUTTON
+   ========================================================================== */
+
+   .button {
+    position: relative;
+  
+    display: inline-flex;
+  
+    align-items: center;
+  
+    justify-content: center;
+  
+    overflow: hidden;
+  
+    gap: var(--space-3);
+  
+    isolation: isolate;
+  
+    min-height: 3rem;
+  
+    padding:
+        var(--space-3)
+        var(--space-6);
+  
+    border: none;
+  
+    border-radius: var(--radius-pill);
+  
+    cursor: pointer;
+  
+    transition:
+        transform .25s ease,
+        filter .25s ease;
+  }
+  
+  /* ===================================================== */
+  
+  .button__label {
+    position: relative;
+  
+    z-index: 2;
+  
+    font-family: var(--font-family-body);
+  
+    font-size: var(--font-size-body);
+  
+    font-weight: var(--font-weight-medium);
+  
+    color: inherit;
+  }
+  
+  /* ===================================================== */
+  
+  .button__texture {
+  
+    position: absolute;
+  
+    inset: 0;
+  
+    z-index: 1;
+  
+    background-image: url("../../assets/textures/noise.svg");
+  
+    background-size: 180px;
+  
+    opacity: .06;
+  
+    mix-blend-mode: soft-light;
+  
+    pointer-events: none;
+  }
+  
+  /* ===================================================== */
+  
+  .button--primary {
+  
+    background:
+        linear-gradient(
+            145deg,
+            #8679ec 0%,
+            #7569e3 45%,
+            #675dd7 100%
+        );
+  
+    color: white;
+  }
+  
+  /* ===================================================== */
+  
+  .button--secondary {
+  
+    background: white;
+  
+    color: var(--text-primary);
+  
+    border: 1px solid var(--border-default);
+  }
+  
+  /* ===================================================== */
+  
+  .button--ghost {
+  
+    background: transparent;
+  
+    color: var(--text-primary);
+  }
+  
+  /* ===================================================== */
+  
+  .button:hover {
+  
+    transform: translateY(-1px);
+  
+    filter: brightness(1.04);
+  }
+  
+  .button:active {
+  
+    transform: translateY(0);
+  }
+  
+  .button:disabled {
+  
+    opacity: .45;
+  
+    pointer-events: none;
+  }
