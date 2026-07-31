@@ -2,9 +2,28 @@
    SHADOWS
    ========================================================================== */
 
-   :root {
-    --shadow-xs: 0 1px 2px rgb(0 0 0 / 0.05);
-    --shadow-sm: 0 2px 8px rgb(0 0 0 / 0.08);
-    --shadow-md: 0 8px 24px rgb(0 0 0 / 0.10);
-    --shadow-lg: 0 16px 40px rgb(0 0 0 / 0.12);
-  }
+:root {
+
+      --shadow-xs: 0 1px 2px rgb(0 0 0 / 0.05);
+      --shadow-sm: 0 2px 8px rgb(0 0 0 / 0.08);
+      --shadow-md: 0 8px 24px rgb(0 0 0 / 0.10);
+      --shadow-lg: 0 16px 40px rgb(0 0 0 / 0.12);
+      --shadow-paper:
+            0 1px 2px rgba(17, 17, 17, .04),
+            0 6px 18px rgba(17, 17, 17, .05);
+
+      /* Floating Surfaces */
+
+      --shadow-floating:
+
+            0 1px 2px rgba(17, 17, 17, .05),
+
+            0 12px 32px rgba(17, 17, 17, .08);
+
+      --shadow-floating-hover:
+
+            0 2px 4px rgba(17, 17, 17, .06),
+
+            0 18px 42px rgba(17, 17, 17, .12);
+
+}

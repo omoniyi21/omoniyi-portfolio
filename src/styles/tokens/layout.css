@@ -12,6 +12,7 @@
     /* Navigation */
   
     --nav-height: 88px;
+    --navbar-max-width: var(--container-wide);
   
     /* Layout */
   
@@ -32,4 +33,9 @@
     --page-margin-desktop: 64px;
     --page-margin-tablet: 32px;
     --page-margin-mobile: 20px;
+
+    /*Hero*/
+
+    --hero-max-width: 960px;
+
   }

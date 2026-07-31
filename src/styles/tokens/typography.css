@@ -5,8 +5,8 @@
    :root {
     /* Font Families */
   
-    --font-display: "Space Grotesk", sans-serif;
-    --font-body: "Satoshi", sans-serif;
+    --font-family-display: "Space Grotesk", sans-serif;
+    --font-family-body: "Satoshi", sans-serif;
   
     /* Font Weights */
   
@@ -33,6 +33,7 @@
     --text-body-lg: 1.25rem;
     --text-body: 1.125rem;
     --text-body-sm: 1rem;
+    --text-body-xs: .72rem;
   
     /* Caption */
   

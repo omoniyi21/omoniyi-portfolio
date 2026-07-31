@@ -1,32 +1,23 @@
+import HeroContent from "./HeroContent";
+import HeroConstellation from "./HeroConstellation";
+import HeroProjects from "./HeroProjects";
+
 import "./hero.css";
 
-function Hero() {
-  return (
-    <section className="hero">
-      <div className="hero__content">
-        <p className="hero__eyebrow">
-          Product Designer · Dallas, TX
-        </p>
+export default function Hero() {
 
-        <h1 className="hero__title">
-          Helping people
-          <br />
-          navigate
-          <br />
-          complex systems.
-        </h1>
+    return (
 
-        <p className="hero__description">
-          I create systems, products, and experiences with clarity
-          and beauty.
-        </p>
+        <section className="hero">
 
-        <a href="#work" className="hero__button">
-          View Selected Work
-        </a>
-      </div>
-    </section>
-  );
+            <HeroContent />
+
+            <HeroConstellation />
+
+            <HeroProjects />
+
+        </section>
+
+    );
+
 }
-
-export default Hero;

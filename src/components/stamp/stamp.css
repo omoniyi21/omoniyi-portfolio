@@ -1,0 +1,62 @@
+/* ==========================================================================
+   Stamp
+   ========================================================================== */
+
+.stamp {
+
+   display: inline-flex;
+
+   align-items: center;
+
+   justify-content: center;
+
+   position: relative;
+
+   overflow: hidden;
+
+   white-space: nowrap;
+
+   user-select: none;
+
+   padding: 1rem 2rem;
+
+   border-radius: var(--radius-md);
+
+}
+
+/* ==========================================================================
+     Label
+     ========================================================================== */
+
+.stamp__label {
+
+   position: relative;
+
+   z-index: 5;
+
+   display: inline-flex;
+
+   align-items: center;
+
+   justify-content: center;
+
+   padding: .625rem 1rem;
+
+   background: rgba(255, 183, 161, 0.05);
+
+   backdrop-filter: blur(2px);
+
+   border-radius: .35rem;
+
+   color: var(--text-primary);
+
+   font-family: var(--font-family-secondary);
+
+   font-size: var(--text-body-xs);
+
+   font-weight: 500;
+   line-height: 1;
+   letter-spacing: .14em;
+   text-transform: uppercase;
+
+}

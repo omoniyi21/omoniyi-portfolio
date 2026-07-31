@@ -3,126 +3,150 @@
    ========================================================================== */
 
    .button {
-    position: relative;
-  
     display: inline-flex;
-  
     align-items: center;
-  
     justify-content: center;
   
-    overflow: hidden;
-  
-    gap: var(--space-3);
-  
-    isolation: isolate;
-  
-    min-height: 3rem;
-  
-    padding:
-        var(--space-3)
-        var(--space-6);
-  
-    border: none;
-  
-    border-radius: var(--radius-pill);
-  
-    cursor: pointer;
-  
-    transition:
-        transform .25s ease,
-        filter .25s ease;
-  }
-  
-  /* ===================================================== */
-  
-  .button__label {
     position: relative;
   
-    z-index: 2;
+    min-height: 3rem;
+    padding: 0.875rem 1.5rem;
+  
+    border: 1px solid transparent;
+    border-radius: var(--radius-pill);
   
     font-family: var(--font-family-body);
-  
     font-size: var(--font-size-body);
+    font-weight: var(--font-medium);
+    line-height: 1;
+    text-decoration: none;
+    white-space: nowrap;
   
-    font-weight: var(--font-weight-medium);
+    cursor: pointer;
+    user-select: none;
   
-    color: inherit;
+    transition:
+      background-color var(--motion-fast) var(--ease-standard),
+      border-color var(--motion-fast) var(--ease-standard),
+      color var(--motion-fast) var(--ease-standard),
+      transform var(--motion-fast) var(--ease-standard),
+      box-shadow var(--motion-fast) var(--ease-standard),
+      filter var(--motion-fast) var(--ease-standard);
   }
   
-  /* ===================================================== */
+  .button:focus-visible {
+    outline: 2px solid var(--color-brand-500);
+    outline-offset: 4px;
+  }
   
-  .button__texture {
-  
-    position: absolute;
-  
-    inset: 0;
-  
-    z-index: 1;
-  
-    background-image: url("../../assets/textures/noise.svg");
-  
-    background-size: 180px;
-  
-    opacity: .06;
-  
-    mix-blend-mode: soft-light;
-  
+  .button:disabled {
+    opacity: .55;
+    cursor: not-allowed;
     pointer-events: none;
   }
+
+    /* content */
+
+  .button__content {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
   
-  /* ===================================================== */
-  
-  .button--primary {
-  
-    background:
-        linear-gradient(
-            145deg,
-            #8679ec 0%,
-            #7569e3 45%,
-            #675dd7 100%
-        );
-  
-    color: white;
+    position: relative;
+    z-index: 1;
   }
   
-  /* ===================================================== */
+  .button__label {
+    display: inline-flex;
+  }
   
+  .button__icon {
+    flex-shrink: 0;
+  
+    transition:
+      transform var(--motion-fast) var(--ease-standard);
+  }
+
+    /* primary button */
+
+    .button--primary {
+
+      background: var(--gradient-brand-primary);
+      color: var(--text-on-brand);
+      border: 1px solid  var(--color-lavender-500);
+      box-shadow:
+      0 4px 8px rgba(119, 63, 247, 0.06),
+      0 2px 5px rgba(121, 63, 247, 0.26); 
+     
+  
+  }
+
+
+
+  .button--primary:hover {
+
+    filter:
+        brightness(1.02)
+        saturate(1.02);
+
+    transform:
+        translateY(-1px);
+    
+        box-shadow:
+        0 14px 28px rgba(147, 112, 255, 0.05),
+        0 4px 10px rgba(121, 63, 247, 0.45);
+
+}
+  
+  .button--primary:hover .button__icon {
+    transform: translate(2px,-2px);
+  }
+  
+  .button--primary:active {
+    transform: translateY(0);
+  
+    filter: brightness(.98);
+    box-shadow:
+      0 4px 8px rgba(147, 112, 255, 0.02),
+      0 1px 4px rgba(121, 63, 247, 0.5);  
+     
+  }
+
+    /* secondary button */
+
+
   .button--secondary {
-  
-    background: white;
+    background: rgba(255,255,255,.92);
   
     color: var(--text-primary);
   
-    border: 1px solid var(--border-default);
+    border-color: var(--border-default);
   }
   
-  /* ===================================================== */
+  .button--secondary:hover {
+    background: white;
+  
+    border-color: var(--color-brand-500);
+  
+    transform: translateY(-1px);
+  }
+  
+  .button--secondary:hover .button__icon {
+    transform: translate(2px,-2px);
+  }
+
+  /*ghost*/
   
   .button--ghost {
-  
     background: transparent;
   
     color: var(--text-primary);
   }
   
-  /* ===================================================== */
-  
-  .button:hover {
-  
-    transform: translateY(-1px);
-  
-    filter: brightness(1.04);
+  .button--ghost:hover {
+    background: rgba(124,112,239,.08);
   }
   
-  .button:active {
-  
-    transform: translateY(0);
-  }
-  
-  .button:disabled {
-  
-    opacity: .45;
-  
-    pointer-events: none;
+  .button--ghost:hover .button__icon {
+    transform: translate(2px,-2px);
   }

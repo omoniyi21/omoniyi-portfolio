@@ -1,0 +1,115 @@
+/* ==========================================================================
+   Paper
+   ========================================================================== */
+
+.surface--paper {
+
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background: var(--surface-paper);
+    border-radius: inherit;
+    border: 5px solid var(--color-white);
+    box-shadow:
+        0 0 0 1px rgba(0, 0, 0, .03),
+        0 2px 4px rgba(0, 0, 0, .08),
+        0 0 12px rgba(0, 0, 0, .03);
+    outline: .5px solid rgba(0, 0, 0, .03);
+    outline-offset: .5px;
+
+}
+
+/* ==========================================================================
+   Printed Frame
+   ========================================================================== */
+
+.surface--paper::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 4px;
+
+    border-radius: var(--radius-sm);
+
+    border: 1.325px solid rgba(100, 28, 255, 0.72);
+
+    pointer-events: none;
+
+    z-index: 3;
+
+}
+
+/* ==========================================================================
+   Pattern Layer
+   ========================================================================== */
+
+.surface--paper::after {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    border-radius: inherit;
+
+    z-index: 1;
+
+}
+
+/* ==========================================================================
+   Clean Paper
+   ========================================================================== */
+
+.pattern--clean::after {
+
+    background:
+
+        linear-gradient(180deg,
+            rgba(255, 255, 255, .42),
+            transparent 42%);
+
+}
+
+/* ==========================================================================
+   Grid paper
+   ========================================================================== */
+
+.pattern--grid::after {
+
+    background-image:
+
+        linear-gradient(var(--paper-grid-color) 1px,
+            transparent 1px),
+
+        linear-gradient(90deg,
+            var(--paper-grid-color) 1px,
+            transparent 1px);
+
+    background-size: 18px 18px;
+
+}
+
+/* ==========================================================================
+   Receipt Paper
+   ========================================================================== */
+
+.pattern--receipt::after {
+
+    background:
+
+        repeating-linear-gradient(180deg,
+
+            var(--paper-rule-color) 0,
+
+            var(--paper-rule-color) 1px,
+
+            transparent 1px,
+
+            transparent 12px);
+
+}

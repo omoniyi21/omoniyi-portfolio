@@ -1,0 +1,59 @@
+.section-header {
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:.75rem;
+
+    max-width:42rem;
+
+}
+
+.section-header--center {
+
+    margin-inline:auto;
+
+    text-align:center;
+
+}
+
+.section-header--left {
+
+    text-align:left;
+
+}
+
+.section-header__title{
+
+    margin:0;
+
+    color:var(--text-primary);
+
+    font-family:var(--font-family-display);
+
+    font-size: var(--text-display-lg);
+
+    font-weight:500;
+
+    line-height:.92;
+
+    letter-spacing:-.06em;
+
+    text-wrap:balance;
+
+}
+
+.section-header__description{
+
+    margin:0;
+
+    max-width: 34ch;
+
+    color:var(--text-secondary);
+
+    font-size:1.125rem;
+
+    line-height:1.65;
+
+}

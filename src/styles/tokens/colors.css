@@ -2,26 +2,50 @@
    COLORS
    ========================================================================== */
 
-   :root {
+:root {
     /* Neutral */
     --color-white: #ffffff;
     --color-black: #171717;
-  
+
     --color-gray-50: #faf8f6;
     --color-gray-100: #f3f1ef;
     --color-gray-200: #e8e5e2;
     --color-gray-300: #d6d1cc;
     --color-gray-400: #b4aea7;
     --color-gray-500: #66666f;
-  
+
     /* Brand */
     --color-lavender-500: #7569e3;
     --color-lilac-300: #d9b8f3;
     --color-peach-300: #f5c7a6;
-  
+
     /* Status (future-proofing) */
     --color-success: #3ba55d;
     --color-warning: #ffb020;
     --color-error: #d14343;
     --color-info: #276ef1;
-  }
+
+    /* Page */
+
+    --background-page: #FFFAD6;
+    --background-page-alt: #F7F4FD;
+
+    /* Surfaces */
+
+    --surface-primary: #FFFFFF;
+    --surface-secondary: #F9F8FC;
+    --surface-paper: var(--color-peach-300);
+
+    /* dividers */
+
+    --paper-grid-color: rgba(148,132,215,.14);
+    --paper-rule-color:rgba(176,166,145,.18);
+
+    /* Text */
+
+    --text-primary: #111111;
+    --text-secondary: #555555;
+    --text-tertiary: #888888;
+
+
+}

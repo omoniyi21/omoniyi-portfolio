@@ -1,0 +1,27 @@
+:root {
+
+    /* Width */
+
+    --stroke-width: 2px;
+
+    /* Highlight */
+
+    --stroke-highlight:
+    rgba(255,255,255,0.28);
+
+    /* Lavender */
+
+    --stroke-lavender:
+    rgba(190,150,255,0.55);
+
+    /* Pink */
+
+    --stroke-pink:
+    rgba(255,182,229,0.45);
+
+    /* Bloom */
+
+    --stroke-bloom:
+    rgba(214,162,255.0.40);
+
+}
