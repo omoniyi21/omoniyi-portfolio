@@ -1,6 +1,6 @@
 import HeroContent from "./HeroContent";
-import HeroConstellation from "./HeroConstellation";
-import HeroProjects from "./HeroProjects";
+import HeroConstellation from "./constellation/HeroConstellation";
+import HeroProjects from "../work/SelectedWork";
 
 import "./hero.css";
 
@@ -10,13 +10,18 @@ export default function Hero() {
 
         <section className="hero">
 
-            <HeroContent />
+<div className="hero__main">
 
-            <HeroConstellation />
+<HeroContent />
 
-            <HeroProjects />
+<HeroConstellation />
 
-        </section>
+</div>
+
+
+<HeroProjects />
+
+</section>
 
     );
 

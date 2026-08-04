@@ -73,7 +73,7 @@
 
       background: var(--gradient-brand-primary);
       color: var(--text-on-brand);
-      border: 1px solid  var(--color-lavender-500);
+      border: 1.5px solid  var(--color-lavender-500);
       box-shadow:
       0 4px 8px rgba(119, 63, 247, 0.06),
       0 2px 5px rgba(121, 63, 247, 0.26); 

@@ -1,57 +1,13 @@
-import "./styles/app.css";
+import { Routes, Route } from "react-router-dom";
 
-import Stamp from "./components/stamp/Stamp";
-import Button from "./components/button/Button";
-import SectionHeader from "./components/section-header/SectionHeader";
-import ProjectCard from "./components/project-card/ProjectCard";
-import Hero from "./components/hero/Hero";
+import Home from "./pages/Home";
+import About from "./pages/About";
 
-function App() {
+export default function App() {
   return (
-    <main className="section">
-      <div
-        className="container stack"
-        style={{
-          alignItems: "flex-start",
-          gap: "2rem",
-        }}
-      >
-      <Hero>
-        
-      </Hero>
-      <SectionHeader
-
-title="Selected Work"
-
-description="Enterprise products, accessibility, and scalable design systems."
-
-/>
-
-<ProjectCard
-
-
-stamp="Government Contract"
-
-pattern="grid"
-
-title="Nike Inc."
-
-description="A conceptual sportswear experience exploring editorial layouts, immersive storytelling, and modern product presentation."
-
->
-
-<Button>
-
-    View Case Study
-
-</Button>
-
-</ProjectCard>
-
-        
-      </div>
-    </main>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/about" element={<About />} />
+    </Routes>
   );
 }
-
-export default App;

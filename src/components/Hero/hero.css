@@ -1,76 +1,114 @@
 .hero {
+    
     min-height: 100vh;
+    padding: 1.5rem 2.5rem;
+    overflow: visible;
+    isolation: isolate;
+    z-index: 0;
+}
+
+.hero__main {
+
+    display: grid;
+    grid-template-columns: 560px 1fr;
+    gap: 5rem;
+    align-items: center;
+    max-width: 1500px;
+    margin: auto;
+
+}
+
+.hero__content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    z-index: 2;
+}
+
+.hero__eyebrow {
+
     display: flex;
     align-items: center;
-    justify-content: center;
-
-    padding: 6rem 2rem;
-
-    
+    gap: .6rem;
+    margin-bottom: 2rem;
+    color: var(--text-secondary);
+    font-size: .9rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
 }
 
-.hero__content{
-    
+.hero__highlight {
+
+    display: inline-block;
+    padding: .02em .23em .20em;
+    border-radius: 24px;
+    background:
+        linear-gradient(90deg,
+            rgba(214, 197, 255, .45),
+            rgba(255, 211, 190, .45));
+
 }
 
-.hero__eyebrow{
-    margin-bottom:24px;
+.hero__title {
 
-    color:#66666F;
+    font-family: var(--font-display);
+    font-size: var(--text-h1);
 
-    letter-spacing:.08em;
+    font-weight: 500;
 
-    text-transform:uppercase;
+    line-height: 1;
 
-    font-size:.9rem;
+    letter-spacing: -.045em;
+
+    color: var(--text-primary);
+    margin-bottom: 2rem;
+    min-width: 620px;
 }
 
-.hero__title{
+.hero__description {
 
-    font-size:clamp(4rem,9vw,7rem);
+    max-width: 520px;
+    margin-bottom: 2.25rem;
+    color: var(--text-secondary);
+    font-size: 1.35rem;
+    line-height: 1.75;
 
-    line-height:.92;
-
-    font-weight:500;
-
-    margin-bottom:2rem;
-
-    color:#171717;
 }
 
-.hero__description{
+.hero__button {
 
-    max-width:550px;
-
-    font-size:1.3rem;
-
-    line-height:1.7;
-
-    color:#66666F;
-
-    margin-bottom:3rem;
+    display: inline-flex;
+    text-decoration: none;
+    padding: 18px 34px;
+    border-radius: 999px;
+    border: 1px solid #171717;
+    color: #171717;
+    transition: .25s;
+    margin-top: .5rem;
 }
 
-.hero__button{
+.hero__button:hover {
 
-    display:inline-flex;
-
-    text-decoration:none;
-
-    padding:18px 34px;
-
-    border-radius:999px;
-
-    border:1px solid #171717;
-
-    color:#171717;
-
-    transition:.25s;
+    background: #171717;
+    color: white;
 }
 
-.hero__button:hover{
 
-    background:#171717;
 
-    color:white;
+@media (max-width: 1100px) {
+
+    .hero {
+
+        grid-template-columns: 1fr;
+        gap: 5rem;
+        padding-top: 8rem;
+
+    }
+
+    .hero__content {
+
+        max-width: 700px;
+
+    }
+
 }

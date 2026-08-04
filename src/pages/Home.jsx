@@ -1,27 +1,41 @@
+
+import Stamp from "../components/shared/stamp/Stamp";
+import Button from "../components/shared/button/Button";
+import SectionHeader from "../components/shared/section-header/SectionHeader";
+import ProjectCard from "../components/work/project-card/ProjectCard";
+import Hero from "../components/hero/Hero";
+
 function Home() {
-    return (
-      <main>
-        <section
-          style={{
-            minHeight: "100vh",
-            display: "grid",
-            placeItems: "center",
-            textAlign: "center",
-            padding: "2rem",
-          }}
-        >
-          <div>
-            <p>Product Designer</p>
-  
-            <h1>Helping people navigate complex systems.</h1>
-  
-            <p>
-              I create systems, products, and experiences with clarity and beauty.
-            </p>
-          </div>
-        </section>
-      </main>
-    );
-  }
-  
-  export default Home;
+  return (
+    <main className="section">
+      <div
+        className="container stack"
+        style={{
+          alignItems: "flex-start",
+          gap: "2rem",
+        }}
+      >
+      <Hero>
+        
+      </Hero>
+      <SectionHeader
+title="Selected Work"
+description="Enterprise products, accessibility, and scalable design systems."
+/>
+<ProjectCard
+stamp="Government Contract"
+pattern="grid"
+title="Nike Inc."
+description="A conceptual sportswear experience exploring editorial layouts, immersive storytelling, and modern product presentation."
+>
+
+<Button>
+    View Case Study
+</Button>
+</ProjectCard> 
+      </div>
+    </main>
+  );
+}
+
+export default Home;

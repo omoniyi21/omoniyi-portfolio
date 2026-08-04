@@ -1,4 +1,4 @@
-import Button from "../button/Button";
+import Button from "../shared/button/Button";
 
 export default function HeroContent() {
 
@@ -14,31 +14,27 @@ export default function HeroContent() {
 
             <h1 className="hero__title">
 
-                Designing products
+                I help people
                 <br />
 
-                that bring
+                navigate
+                <br />
 
                 <span className="hero__highlight">
-
-                    clarity to complexity.
-
+                    complex systems.
                 </span>
 
             </h1>
 
             <p className="hero__description">
 
-                Through research, systems thinking,
-                accessibility, and thoughtful interaction
-                design, I help organizations simplify
-                complex digital experiences.
+                I create products & experiences with clarity and beauty.
 
             </p>
 
             <Button>
 
-                View my work
+                explore case studies
 
             </Button>
 

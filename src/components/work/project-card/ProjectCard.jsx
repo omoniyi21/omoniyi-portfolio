@@ -1,6 +1,6 @@
 import clsx from "clsx";
 
-import Stamp from "../stamp/Stamp";
+import Stamp from "../../shared/stamp/Stamp";
 
 import "./project-card.css";
 

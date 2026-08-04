@@ -5,6 +5,8 @@
    @import "@fontsource/space-grotesk/400.css";
    @import "@fontsource/space-grotesk/500.css";
    @import "@fontsource/space-grotesk/700.css";
+
+   @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Gochi+Hand&display=swap');
    
    @font-face {
     font-family: "Satoshi";
