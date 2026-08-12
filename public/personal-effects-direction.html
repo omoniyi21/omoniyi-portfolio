@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Personal Effects — Direction</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap');
+      @font-face { font-family: Satoshi; src: url('/src/assets/fonts/Satoshi-Regular.woff2'); }
+      @font-face { font-family: Space Grotesk; src: url('/node_modules/@fontsource/space-grotesk/files/space-grotesk-latin-500-normal.woff2'); }
+      * { box-sizing: border-box; }
+      body { background: #fffad6; color:#201d27; margin:0; min-width: 1280px; font-family:Satoshi, sans-serif; }
+      .direction { display:grid; gap:3rem; grid-template-columns: 19rem minmax(0, 1fr); min-height:810px; padding:3.5rem; }
+      .rail { padding-top:1.5rem; }
+      .meta { color:#696277; font:700 .72rem/1 "Space Grotesk",sans-serif; letter-spacing:.19em; text-transform:uppercase; }
+      .meta b { color:#f19a83; font-size:1rem; margin-left:.45rem; }
+      h1 { font:500 clamp(3.5rem,5.3vw,5rem)/.87 "Space Grotesk",sans-serif; letter-spacing:-.09em; margin:3rem 0 1.4rem; max-width:7ch; }
+      .rail p { color:#6b6675; font-size:1.05rem; line-height:1.5; max-width:18ch; }
+      .rail a { border-bottom:1px solid currentColor; color:#201d27; display:inline-block; font-family:"Space Grotesk",sans-serif; font-size:.88rem; margin-top:2rem; padding-bottom:.2rem; text-decoration:none; }
+      .tray { background:linear-gradient(135deg,rgba(255,255,255,.76),rgba(251,244,230,.34)); border:1px solid rgba(112,95,77,.2); border-radius:2rem; box-shadow:0 2px 0 rgba(255,255,255,.9),0 30px 54px rgba(93,70,54,.14),inset 0 2px 1px rgba(255,255,255,.88),inset 0 -2px 3px rgba(116,95,76,.1); min-height:670px; overflow:hidden; position:relative; }
+      .tray::before { border:1px solid rgba(255,255,255,.75); border-radius:1.5rem; content:""; inset:.6rem; pointer-events:none; position:absolute; }
+      .masthead { display:flex; inset:2rem 2.1rem auto; justify-content:space-between; position:absolute; z-index:10; color:#5f5a69; font:700 .68rem/1 "Space Grotesk",sans-serif; letter-spacing:.17em; text-transform:uppercase; }
+      .artifact { position:absolute; transform:rotate(var(--rotation)); transform-origin:center; transition:transform .22s ease; }
+      .artifact::after { background:rgba(66,48,36,.15); border-radius:50%; content:""; filter:blur(13px); height:16%; left:10%; opacity:.8; position:absolute; top:87%; transform:rotate(calc(var(--rotation) * -1)); width:82%; z-index:-1; }
+      .artifact:hover { transform:translateY(-5px) rotate(var(--rotation)); }
+      .artifact img { display:block; filter:drop-shadow(4px 7px 4px rgba(56,41,31,.14)) drop-shadow(12px 21px 19px rgba(56,41,31,.12)); height:auto; width:100%; }
+      .reading { --rotation:-3deg; left:4%; top:14%; width:30%; z-index:5; }
+      .reading::after { background:rgba(58,43,30,.18); filter:blur(10px); height:9%; left:12%; opacity:.66; top:86%; width:77%; }
+      .reading img { filter:none; }
+      .reading-copy { color:#24211e; inset:30% 14% 10% 17%; pointer-events:none; position:absolute; transform:rotate(3deg); z-index:1; }
+      .reading-copy__eyebrow { color:#8a5444; font:700 .58rem/1 "Space Grotesk",sans-serif; letter-spacing:.24em; margin:0 0 1rem; }
+      .reading-copy__title { font:500 clamp(1.35rem,2.3vw,2.3rem)/.88 "Space Grotesk",sans-serif; letter-spacing:-.09em; margin:0 0 .85rem; }
+      .reading-copy__author { color:#a95339; font:500 clamp(1.05rem,1.75vw,1.65rem)/.9 Caveat,cursive; margin:0; }
+      .reading-copy__line { background:#544b44; height:1px; margin-top:1.75rem; width:88%; }
+      .watching { --rotation:.6deg; left:34%; top:12%; width:34%; z-index:4; }
+      .watching img, .movie img { filter:none; }
+      .watching::after { background:rgba(58,43,30,.16); filter:blur(11px); height:9%; opacity:.65; top:87%; }
+      .watching-copy { color:#28231f; display:grid; grid-template-columns:1fr 1fr; inset:22% 10% 12%; pointer-events:none; position:absolute; transform:rotate(-.6deg); z-index:1; }
+      .watching-copy__label { color:#5b4ee7; font:700 .45rem/1 "Space Grotesk",sans-serif; grid-column:1/-1; letter-spacing:.18em; margin:0; }
+      .show { border-right:1px dashed rgba(93,83,72,.33); padding:1.05rem 1.3rem 0 0; }
+      .show + .show { border:0; padding:1.05rem 0 0 1.3rem; }
+      .show h2 { font:600 clamp(.95rem,1.65vw,1.7rem)/1 "Space Grotesk",sans-serif; letter-spacing:-.06em; margin:0 0 .7rem; }
+      .show p { font:.48rem/1.45 Satoshi,Arial,sans-serif; margin:.1rem 0; }
+      .show strong { color:#4940ee; display:block; font:700 .55rem/1 "Space Grotesk",sans-serif; margin-top:.85rem; }
+      .movie { --rotation:4deg; left:70%; top:14%; width:27%; z-index:6; }
+      .movie::after { background:rgba(74,42,31,.18); filter:blur(9px); height:12%; opacity:.7; top:86%; }
+      .movie-copy { color:#342522; inset:17% 14% 12%; pointer-events:none; position:absolute; transform:rotate(-4deg); z-index:1; }
+      .movie-copy__label { color:#8b5748; font:700 .43rem/1 "Space Grotesk",sans-serif; letter-spacing:.18em; margin:0 0 .7rem; }
+      .movie-copy h2 { font:600 clamp(.9rem,1.65vw,1.6rem)/.95 "Space Grotesk",sans-serif; letter-spacing:-.07em; margin:0 0 .55rem; }
+      .movie-copy p { font:.43rem/1.35 Satoshi,Arial,sans-serif; margin:0; }
+      .movie-copy__stub { border-top:1px solid rgba(109,70,60,.6); font:.35rem/1 "Space Grotesk",sans-serif; letter-spacing:.1em; margin-top:.65rem; padding-top:.4rem; }
+      .scent { --rotation:-1deg; left:5%; top:53%; width:19%; z-index:3; }
+      .scent img, .ritual img, .thought img { filter:none; }
+      .scent::after, .ritual::after, .thought::after { background:rgba(64,46,34,.16); filter:blur(12px); height:10%; opacity:.68; top:87%; }
+      .scent-copy { color:#29241f; inset:15% 27% 16% 16%; pointer-events:none; position:absolute; transform:rotate(1deg); z-index:1; }
+      .scent-copy__label { color:#6d6255; font:700 .43rem/1 "Space Grotesk",sans-serif; letter-spacing:.16em; margin:0 0 .65rem; }
+      .scent-copy__brand { font:.55rem/1.5 Satoshi,Arial,sans-serif; margin:0 0 .9rem; }
+      .scent-copy__name { font:600 clamp(.75rem,1.2vw,1.25rem)/.95 "Space Grotesk",sans-serif; letter-spacing:-.06em; margin:0 0 1rem; }
+      .scent-copy__notes { font:.36rem/1 "Space Grotesk",sans-serif; letter-spacing:.14em; margin:0; white-space:nowrap; }
+      .ritual { --rotation:0deg; left:29%; top:53%; width:34%; z-index:7; }
+      .ritual-copy { color:#3d2c20; inset:17% 14% 12%; pointer-events:none; position:absolute; z-index:1; }
+      .ritual-copy__label { font:700 .48rem/1 "Space Grotesk",sans-serif; letter-spacing:.18em; margin:0 0 .85rem; }
+      .ritual-copy__body { font:clamp(.8rem,1.55vw,1.6rem)/1.13 Caveat,cursive; margin:0; max-width:63%; }
+      .ritual-copy__then { border-top:1px solid rgba(81,52,34,.68); font:clamp(.6rem,1.05vw,1rem)/1.3 Caveat,cursive; margin:1rem 0 0; max-width:63%; padding-top:.7rem; }
+      .thought { --rotation:-2deg; left:58%; top:51%; width:22%; z-index:8; }
+      .thought-copy { color:#44353e; inset:25% 15% 18%; pointer-events:none; position:absolute; transform:rotate(2deg); z-index:1; }
+      .thought-copy__label { color:#75647e; font:700 .37rem/1 "Space Grotesk",sans-serif; letter-spacing:.17em; margin:0 0 .75rem; }
+      .thought-copy__body { font:clamp(.8rem,1.35vw,1.35rem)/1.08 Caveat,cursive; margin:0; }
+      .podcast { --rotation:4deg; left:77%; top:53%; width:18%; z-index:7; }
+      .podcast-copy { color:#31261f; inset:23% 12% 17%; pointer-events:none; position:absolute; transform:rotate(-4deg); z-index:1; }
+      .podcast-copy__label { color:#795349; font:700 .4rem/1 "Space Grotesk",sans-serif; letter-spacing:.16em; margin:0; text-transform:uppercase; }
+      .podcast-copy h2 { font:500 clamp(.6rem,1.05vw,1.08rem)/.95 "Space Grotesk",sans-serif; letter-spacing:-.07em; margin:.7rem 0 .15rem; }
+      .podcast-copy__hosts { font:500 clamp(.55rem,.78vw,.82rem)/1 Caveat,cursive; margin:0; }
+      .podcast-wave { align-items:center; border:1px solid rgba(71,56,47,.4); border-radius:.18rem; display:flex; gap:4%; height:17%; justify-content:center; margin-top:10%; padding:0 6%; }
+      .podcast-wave i { background:rgba(61,52,47,.65); border-radius:999px; display:block; height:20%; width:5%; }.podcast-wave i:nth-child(2n) { height:52%; }.podcast-wave i:nth-child(3n) { height:74%; }
+      .podcast-copy small { display:block; font:.29rem/1 "Space Grotesk",sans-serif; letter-spacing:.08em; margin-top:9%; white-space:nowrap; }
+      .playlist { --rotation:7deg; left:87%; top:42%; width:13%; z-index:3; }
+      .playlist-copy { color:rgba(255,251,241,.92); inset:16% 14% 12%; pointer-events:none; position:absolute; transform:rotate(-7deg); z-index:1; }
+      .playlist-copy__label { border-bottom:1px solid rgba(255,251,241,.6); display:flex; font:700 .38rem/1 "Space Grotesk",sans-serif; justify-content:space-between; letter-spacing:.14em; margin:0; padding-bottom:13%; text-transform:uppercase; }
+      .track { align-items:start; display:grid; gap:8%; grid-template-columns:15% 1fr; margin-top:17%; }.track b { font:500 .36rem "Space Grotesk",sans-serif; }.track p { font:.72rem/.85 Caveat,cursive; margin:0; }.track small { display:block; font:55%/1.5 Satoshi,sans-serif; margin-top:7%; }
+      .stardust { bottom:-.45rem; left:4%; position:absolute; width:8rem; z-index:10; }
+      .trail { bottom:1.4rem; left:10%; opacity:.7; position:absolute; width:16rem; z-index:9; }
+      .annotation { bottom:2rem; color:#665f70; font:700 .57rem/1.5 "Space Grotesk",sans-serif; letter-spacing:.15em; position:absolute; right:2rem; text-align:right; text-transform:uppercase; z-index:10; }
+    </style>
+  </head>
+  <body>
+    <main class="direction">
+      <aside class="rail">
+        <div class="meta">02 &nbsp; Personal Effects <b>✦</b></div>
+        <h1>What’s On My Mind?</h1>
+        <p>A few things currently shaping how I think :)</p>
+        <a href="#">design dossier ↗</a>
+      </aside>
+      <section class="tray" aria-label="Personal Effects direction mockup">
+        <div class="masthead"><span>In My Bag</span><span>Field Notes · Vol. 01</span></div>
+        <div class="artifact reading"><img src="/src/assets/images/personal-effects-refined/reading-paper-v2-trim.png" alt="Reading: The Artist's Way by Julia Cameron" /><div class="reading-copy"><p class="reading-copy__eyebrow">READING</p><p class="reading-copy__title">The Artist’s<br />Way</p><p class="reading-copy__author">Julia Cameron</p><div class="reading-copy__line"></div></div></div>
+        <div class="artifact watching"><img src="/src/assets/images/personal-effects-refined/watching-paper-v2-trim.png" alt="Watching: From and Furious" /><div class="watching-copy"><p class="watching-copy__label">WATCHING · TV</p><div class="show"><h2>FROM</h2><p>a mysterious town.</p><p>no way out.</p><p>questions at every turn.</p><strong>ON MGM+</strong></div><div class="show"><h2>FURIOUS</h2><p>how victimhood can</p><p>change you—and how</p><p>far is too far for revenge.</p><strong>ON HULU</strong></div></div></div>
+        <div class="artifact movie"><img src="/src/assets/images/personal-effects-refined/movie-ticket-v2-trim.png" alt="Movie obsession: I Love Boosters" /><div class="movie-copy"><p class="movie-copy__label">MOVIE OBSESSION</p><h2>I LOVE<br />BOOSTERS</h2><p>the movie that lives<br />in my head rent free.</p><p class="movie-copy__stub">THEATER 02 · ROW D · SEAT 07</p></div></div>
+        <div class="artifact scent"><img src="/src/assets/images/personal-effects-refined/scent-paper-v3-trim.png" alt="Current scent: Ode to Dullness by Juliette Has a Gun" /><div class="scent-copy"><p class="scent-copy__label">CURRENT SCENT</p><p class="scent-copy__brand">Juliette<br />Has a Gun</p><p class="scent-copy__name">ODE TO<br />DULLNESS</p><p class="scent-copy__notes">WOODY · MUSKY · WARM</p></div></div>
+        <div class="artifact ritual"><img src="/src/assets/images/personal-effects-refined/ritual-paper-v3-trim.png" alt="Current ritual: coffee with honey, a little salt, whole lactose-free milk" /><div class="ritual-copy"><p class="ritual-copy__label">CURRENT RITUAL</p><p class="ritual-copy__body">coffee with honey<br />a little salt<br />whole lactose-free milk</p><p class="ritual-copy__then">then:<br />walking the dogs</p></div></div>
+        <div class="artifact thought"><img src="/src/assets/images/personal-effects-refined/thought-paper-v3-trim.png" alt="Current thought: Design should feel inevitable" /><div class="thought-copy"><p class="thought-copy__label">CURRENT THOUGHT</p><p class="thought-copy__body">Design should<br />feel inevitable.</p></div></div>
+        <div class="artifact podcast"><img src="/src/assets/images/personal-effects-refined/podcast-paper-v3-trim.png" alt="Podcast: Good Noticings with Ashley and Claire" /><div class="podcast-copy"><p class="podcast-copy__label">Podcast</p><h2>Good Noticings</h2><p class="podcast-copy__hosts">with Ashley &amp; Claire</p><div class="podcast-wave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><small>EP ————— &nbsp; DATE — / —</small></div></div>
+        <div class="artifact playlist"><img src="/src/assets/images/personal-effects-refined/playlist-paper-v3-trim.png" alt="On repeat: Julia Wolf, Sade, and Asake" /><div class="playlist-copy"><p class="playlist-copy__label">On repeat <span>▶</span></p><div class="track"><b>01</b><p>Julia Wolf<small>In My Room</small></p></div><div class="track"><b>02</b><p>Sade<small>By Your Side</small></p></div><div class="track"><b>03</b><p>Asake<small>MBHC</small></p></div></div></div>
+        <img class="trail" src="/src/assets/images/portfolio-personal-effects-assets/png/12-decorative-constellation-trail.png" alt="" />
+        <img class="stardust" src="/src/assets/branding/stardust-creature-kit/png/1024/observations-telescope.png" alt="Stardust observing the collection" />
+        <p class="annotation">a living archive of creative fuel<br />and personal practice</p>
+      </section>
+    </main>
+  </body>
+</html>

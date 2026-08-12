@@ -28,7 +28,7 @@ export default function Navigation({ id, open, onNavigate }) {
                 Design Dossier
             </a>
 
-            <a href="#" onClick={onNavigate}>
+            <a href="/observations" onClick={onNavigate}>
                 Observations
             </a>
 
