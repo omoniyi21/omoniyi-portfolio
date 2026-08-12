@@ -1,6 +1,6 @@
 
 import PersonalEffects from "../components/personal-effects/PersonalEffects";
-import Hero from "../components/hero/Hero";
+import Hero from "../components/Hero/Hero";
 import WriteMe from "../components/contact/WriteMe";
 
 
