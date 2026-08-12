@@ -57,3 +57,107 @@
     line-height:1.65;
 
 }
+
+.section-header{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:20px;
+
+    margin-bottom:80px;
+
+}
+
+.section-header__meta{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:16px;
+
+}
+
+.section-header__number{
+
+    font-size:.875rem;
+
+    letter-spacing:.18em;
+
+    text-transform:uppercase;
+
+    color:var(--color-accent);
+
+}
+
+.section-header__eyebrow{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:.52rem;
+
+    font-size:.875rem;
+
+    letter-spacing:.24em;
+
+    text-transform:uppercase;
+
+    color:var(--color-text-muted);
+
+}
+
+.section-header__eyebrow-glyph{
+
+    color:var(--color-info);
+
+    font-size:.95rem;
+
+    line-height:1;
+
+    letter-spacing:0;
+
+}
+
+.section-header[data-section-number="04"] .section-header__eyebrow-glyph{
+
+    color:var(--color-lavender-500);
+
+}
+
+.section-header__title{
+
+    max-width:700px;
+
+}
+
+.section-header__description{
+
+    max-width:600px;
+
+}
+
+.section-header__action{
+
+    width:fit-content;
+
+    margin-top:8px;
+
+    font-size:.95rem;
+
+    text-decoration:none;
+
+    border-bottom:1px solid currentColor;
+
+    transition:.3s;
+
+}
+
+.section-header__action:hover{
+
+    opacity:.6;
+
+}

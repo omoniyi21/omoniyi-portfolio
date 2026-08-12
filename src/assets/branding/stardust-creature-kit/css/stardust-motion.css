@@ -1,0 +1,40 @@
+.stardust {
+  display: block;
+  height: auto;
+  transform-origin: 50% 85%;
+}
+
+.stardust--float {
+  animation: stardust-float 5.5s ease-in-out infinite;
+}
+
+.stardust--peek {
+  animation: stardust-peek 7s ease-in-out infinite;
+}
+
+.stardust--breathe {
+  animation: stardust-breathe 4.8s ease-in-out infinite;
+}
+
+@keyframes stardust-float {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(-0.5deg); }
+  50% { transform: translate3d(0, -8px, 0) rotate(0.8deg); }
+}
+
+@keyframes stardust-peek {
+  0%, 18%, 100% { transform: translateY(10px); }
+  30%, 72% { transform: translateY(0); }
+}
+
+@keyframes stardust-breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.018, 0.99); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stardust--float,
+  .stardust--peek,
+  .stardust--breathe {
+    animation: none;
+  }
+}

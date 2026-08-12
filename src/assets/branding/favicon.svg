@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">Omoniyi favicon</title>
+  <defs><filter id="g" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="2" result="b"/><feFlood flood-color="#ff4fa3" flood-opacity=".55" result="c"/><feComposite in="c" in2="b" operator="in" result="o"/><feMerge><feMergeNode in="o"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+  <circle cx="32" cy="32" r="31" fill="#151515"/>
+  <path fill="#ff4fa3" filter="url(#g)" d="M32 12c1.6 11.8 5.8 16.5 17.5 18-11.7 1.5-15.9 5.7-17.5 17.5C30.4 35.7 26.2 31.5 14.5 30 26.2 28.5 30.4 23.8 32 12Z"/>
+</svg>

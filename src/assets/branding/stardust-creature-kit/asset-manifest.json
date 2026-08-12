@@ -1,0 +1,134 @@
+{
+  "name": "Omoniyi Stardust Creature Kit",
+  "version": "1.0.0",
+  "palette": {
+    "cream": "#F7F2ED",
+    "ink": "#1B1B1F",
+    "pink": "#FF8DB6",
+    "lavender": "#7C6CFF",
+    "peach": "#FFB26B",
+    "gray": "#A3A3A3"
+  },
+  "assets": [
+    {
+      "name": "stardust-mark",
+      "title": "Stardust Creature logo mark",
+      "viewBox": "0 0 160 160",
+      "formats": [
+        "svg",
+        "png-512",
+        "png-1024"
+      ]
+    },
+    {
+      "name": "hero-explorer",
+      "title": "Stardust Creature exploring the hero",
+      "viewBox": "0 0 420 340",
+      "formats": [
+        "svg",
+        "png-512",
+        "png-1024"
+      ]
+    },
+    {
+      "name": "nav-peek",
+      "title": "Stardust Creature peeking over navigation",
+      "viewBox": "0 0 280 150",
+      "formats": [
+        "svg",
+        "png-512",
+        "png-1024"
+      ]
+    },
+    {
+      "name": "project-curious",
+      "title": "Stardust Creature beside a project card",
+      "viewBox": "0 0 300 280",
+      "formats": [
+        "svg",
+        "png-512",
+        "png-1024"
+      ]
+    },
+    {
+      "name": "observations-telescope",
+      "title": "Stardust Creature observing patterns",
+      "viewBox": "0 0 380 280",
+      "formats": [
+        "svg",
+        "png-512",
+        "png-1024"
+      ]
+    },
+    {
+      "name": "insight-point",
+      "title": "Stardust Creature pointing out an insight",
+      "viewBox": "0 0 340 280",
+      "formats": [
+        "svg",
+        "png-512",
+        "png-1024"
+      ]
+    },
+    {
+      "name": "systems-trail",
+      "title": "Stardust Creature moving through systems",
+      "viewBox": "0 0 560 260",
+      "formats": [
+        "svg",
+        "png-512",
+        "png-1024"
+      ]
+    },
+    {
+      "name": "possibilities-flag",
+      "title": "Stardust Creature discovering possibilities",
+      "viewBox": "0 0 340 320",
+      "formats": [
+        "svg",
+        "png-512",
+        "png-1024"
+      ]
+    },
+    {
+      "name": "about-shy",
+      "title": "Shy Stardust Creature for the about section",
+      "viewBox": "0 0 300 280",
+      "formats": [
+        "svg",
+        "png-512",
+        "png-1024"
+      ]
+    },
+    {
+      "name": "contact-wave",
+      "title": "Stardust Creature waving hello",
+      "viewBox": "0 0 340 290",
+      "formats": [
+        "svg",
+        "png-512",
+        "png-1024"
+      ]
+    },
+    {
+      "name": "footer-sleeping",
+      "title": "Sleeping Stardust Creature at the end of the journey",
+      "viewBox": "0 0 600 250",
+      "formats": [
+        "svg",
+        "png-512",
+        "png-1024"
+      ]
+    },
+    {
+      "name": "decorative-sparkles",
+      "title": "Stardust decorative sparkles",
+      "viewBox": "0 0 520 220",
+      "formats": [
+        "svg",
+        "png-512",
+        "png-1024"
+      ]
+    }
+  ]
+}

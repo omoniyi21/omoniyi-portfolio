@@ -1,151 +1,119 @@
-.constellation {
-    position: absolute;
-    z-index: 1;
-    inset: 0;
-    overflow: visible;
-    pointer-events: none;
-    isolation: isolate;
-    font-family: var(--font-family-personal);
-  }
-  
-  .constellation__aurora {
-    position: absolute;
-    z-index: 0;
-    width: 42rem;
-    height: 42rem;
-    top: -14rem;
-    right: -13rem;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgb(153 149 255 / 15%), rgb(90 157 221 / 5%) 42%, transparent 70%);
-    filter: blur(8px);
-    animation: constellation-breathe 12s ease-in-out infinite alternate;
-  }
-  
-  .constellation-network { position: absolute; z-index: 1; inset: 0; width: 100%; height: 100%; }
-  .constellation-network__line {
-    stroke: url(#constellation-line);
-    stroke-width: 1.5;
-    stroke-dasharray: 3 5;
-    opacity: .72;
-    animation: constellation-draw 10s linear infinite;
-  }
-  
-  .constellation__stars, .constellation-dust { position: absolute; inset: 0; }
-  .constellation-star { position: absolute; width: 1px; height: 1px; animation: constellation-float 7s ease-in-out var(--delay) infinite; }
-  .constellation-star__halo, .constellation-star__dot { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
-  .constellation-star__halo { width: 32px; height: 32px; border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, var(--star-color) 44%, transparent) 0%, transparent 68%); filter: blur(1px); animation: constellation-pulse 3.5s ease-in-out var(--delay) infinite; }
-  
-  /* A four-point CSS sparkle keeps the constellation illustrative rather than UI-like. */
-  .constellation-star__dot {
-    width: 18px;
-    height: 18px;
-    filter: drop-shadow(0 0 3px #fffdf8) drop-shadow(0 0 8px var(--star-color)) drop-shadow(0 0 17px color-mix(in srgb, var(--star-color) 55%, transparent));
-  }
-  .constellation-star__mark { display: block; width: 100%; height: 100%; overflow: visible; }
-  .constellation-star__mark path { fill: color-mix(in srgb, var(--star-color) 35%, #fffdf8); stroke: var(--star-color); stroke-width: 1.5; stroke-linejoin: round; }
-  .constellation-star__mark circle { fill: #fffdf8; }
-  .constellation-star--large .constellation-star__dot { width: 28px; height: 28px; }
-  .constellation-star--large .constellation-star__halo { width: 38px; height: 38px; }
-  .constellation-star--small .constellation-star__dot { width: 12px; height: 12px; }
-  .constellation-star--small .constellation-star__halo { width: 18px; height: 18px; }
-  .constellation-star__label { position: absolute; left: 16px; top: -4px; color: rgb(42 37 61 / 62%); font-family: inherit; font-size: .68rem; font-weight: 600; letter-spacing: .13em; text-transform: uppercase; text-shadow: 0 1px 9px rgb(255 252 227 / 90%); white-space: nowrap; }
-  
-  /* .constellation-dust__particle { position: absolute; width: calc(var(--dust-size) * 2px); height: calc(var(--dust-size) * 2px); background: #8170c8; border-radius: 50%; box-shadow: 0 0 4px rgb(129 112 200 / 45%); opacity: .34; animation: constellation-dust 6s ease-in-out var(--dust-delay) infinite; }
-  .constellation-dust__particle--spark { width: calc(var(--dust-size) * 5px); height: calc(var(--dust-size) * 5px); border-radius: 0; background: #a68ae8; clip-path: polygon(50% 0%, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0% 50%, 39% 39%); box-shadow: 0 0 6px rgb(166 138 232 / 62%); opacity: .48; } */
-
-/* ==========================
-   Dust Particles
-========================== */
-
+.constellation { --constellation-heartbeat:5.2s; position:absolute; inset:0; z-index:0; isolation:isolate; overflow:visible; pointer-events:none; transform:translate(calc(clamp(8.5rem, 12vw, 11rem) + 43px), 15px); transform-origin:center; }
+.constellation::before,
+.constellation::after { content:""; position:absolute; pointer-events:none; }
+.constellation::before {
+  inset:7% 0 3% 11%;
+  z-index:0;
+  background:
+    radial-gradient(ellipse at 57% 42%, rgb(255 255 255 / 46%) 0 12%, rgb(255 252 239 / 29%) 35%, transparent 68%),
+    radial-gradient(ellipse at 76% 59%, rgb(221 209 255 / 14%), transparent 48%),
+    radial-gradient(ellipse at 39% 69%, rgb(255 226 207 / 11%), transparent 42%);
+  filter:blur(2px);
+  mask-image:radial-gradient(ellipse 67% 58% at 61% 52%, #000 0 43%, rgb(0 0 0 / 72%) 59%, transparent 86%);
+  animation:constellation-field-heartbeat var(--constellation-heartbeat) cubic-bezier(.22, 1, .36, 1) infinite;
+}
+.constellation::after {
+  inset:5% 0 2% 9%;
+  z-index:0;
+  opacity:.42;
+  background-image:radial-gradient(rgb(75 65 91 / 16%) .55px, transparent .72px);
+  background-size:9px 9px;
+  mask-image:radial-gradient(ellipse 62% 54% at 62% 52%, #000 4%, rgb(0 0 0 / 68%) 54%, transparent 83%);
+  animation:constellation-dot-heartbeat var(--constellation-heartbeat) cubic-bezier(.22, 1, .36, 1) infinite;
+}
+.constellation-network, .constellation-dust, .constellation__stars { position:absolute; inset:0; width:100%; height:100%; }
+.constellation-network { z-index:2; }.constellation-dust { z-index:1; animation:constellation-dust-heartbeat var(--constellation-heartbeat) cubic-bezier(.22, 1, .36, 1) infinite; }.constellation__stars { z-index:3; }
+.constellation-network__line {
+  stroke-width: 1;
+  opacity: .86;
+  stroke-linecap: round;
+  stroke-dasharray: 2.25 5;
+  animation: constellation-thread-flow var(--thread-duration, 8.5s) linear infinite var(--thread-delay, 0s);
+}
 .dust {
-
-    position: absolute;
-    z-index: 0;
-    border-radius: 999px;
-
-    pointer-events: none;
-
-    filter:blur(.2px);
-
-    will-change:transform,opacity;
-
-    animation:
-        dustFloat linear infinite,
-        dustTwinkle ease-in-out infinite;
+  position:absolute;
+  display:grid;
+  width:auto !important;
+  height:auto !important;
+  color:var(--dust-color);
+  font-family:var(--font-family-display);
+  font-size:var(--dust-size, .45rem);
+  line-height:1;
+  opacity:.7;
 }
-
-  @keyframes constellation-breathe { to { transform: scale(1.12) translate(-3%, 4%); opacity: .75; } }
-  @keyframes constellation-draw { to { stroke-dashoffset: -80; } }
-  @keyframes constellation-pulse { 50% { transform: translate(-50%, -50%) scale(1.5); opacity: .4; } }
-  @keyframes constellation-float { 50% { transform: translate3d(0, -8px, 0); } }
-  @keyframes dustFloat {
-
-    0% {
-
-        transform:
-            translate3d(0,0,0)
-            scale(.95);
-
-    }
-
-    25% {
-
-        transform:
-            translate3d(4px,-6px,0)
-            scale(1);
-
-    }
-
-    50% {
-
-        transform:
-            translate3d(-2px,-10px,0)
-            scale(.96);
-
-    }
-
-    75% {
-
-        transform:
-            translate3d(5px,-4px,0)
-            scale(1);
-
-    }
-
-    100% {
-
-        transform:
-            translate3d(0,0,0)
-            scale(.95);
-
-    }
-
+.dust--xl { opacity:.34; }
+.dust--lg { opacity:.30; }
+.dust--md { opacity:.27; }
+.dust--sm { opacity:.22; }
+.dust--xs { opacity:.38; font-size:.28rem; }
+.dust--xl,
+.dust--lg { filter:drop-shadow(0 0 4px color-mix(in srgb, var(--dust-color) 46%, transparent)); }
+.dust--drift { animation: constellation-dust-drift 10.5s ease-in-out infinite var(--dust-delay, 0s); }
+.constellation-star { position:absolute; width:1px; height:1px; color:var(--star-color); }
+.constellation-star__mark { position:absolute; left:50%; top:50%; display:block; transform:translate(-50%, -50%); color:var(--star-color); font-family:var(--font-family-display); font-size:1.45rem; line-height:1; filter:drop-shadow(0 0 4px color-mix(in srgb, var(--star-color) 36%, transparent)); z-index:1; }
+.constellation-star--large { pointer-events:auto; cursor:grab; touch-action:none; }
+.constellation-star--large:active { cursor:grabbing; }
+.constellation-star--large::before { content:""; position:absolute; left:50%; top:50%; width:78px; height:66px; transform:translate(-50%, -50%) rotate(-8deg); opacity:.68; background:radial-gradient(ellipse at 43% 48%, color-mix(in srgb, var(--star-color) 40%, transparent) 0 7%, color-mix(in srgb, var(--star-color) 16%, transparent) 31%, transparent 67%), radial-gradient(circle at 69% 31%, color-mix(in srgb, var(--star-color) 24%, transparent) 0 3%, transparent 27%), radial-gradient(circle at 29% 72%, color-mix(in srgb, var(--star-color) 18%, transparent) 0 2%, transparent 25%); filter:blur(3.5px); animation:constellation-glow-heartbeat var(--constellation-heartbeat) cubic-bezier(.22, 1, .36, 1) infinite; }
+.constellation-star--large::after { content:""; position:absolute; left:50%; top:50%; width:3px; height:3px; border-radius:50%; transform:translate(-50%, -50%); background:color-mix(in srgb, var(--star-color) 56%, transparent); box-shadow:-24px -8px 0 -1px color-mix(in srgb, var(--star-color) 38%, transparent), 21px -13px 0 -1.4px color-mix(in srgb, var(--star-color) 29%, transparent), 27px 10px 0 -1.2px color-mix(in srgb, var(--star-color) 34%, transparent), -17px 19px 0 -1.3px color-mix(in srgb, var(--star-color) 25%, transparent); animation:constellation-particle-heartbeat var(--constellation-heartbeat) cubic-bezier(.22, 1, .36, 1) infinite; }
+.constellation-star--large .constellation-star__mark { font-size:2.8rem; filter:drop-shadow(1px 1px 2px color-mix(in srgb, var(--star-color) 48%, transparent)) drop-shadow(-2px 2px 7px color-mix(in srgb, var(--star-color) 18%, transparent)); }
+.constellation-star--large .constellation-star__mark { animation:constellation-star-heartbeat var(--constellation-heartbeat) cubic-bezier(.22, 1, .36, 1) infinite; }
+.constellation-star--small .constellation-star__mark { font-size:.85rem; animation: constellation-small-twinkle 7.2s ease-in-out infinite var(--star-delay, 0s); }
+.constellation-star__label { position:absolute; top:7px; left:25px; color:rgb(31 29 42 / 82%); font-family:var(--font-family-personal); font-size:1.35rem; font-weight:500; letter-spacing:.01em; text-transform:none; white-space:nowrap; }
+@keyframes constellation-thread-flow {
+  0% { opacity: .52; stroke-dashoffset: 0; }
+  45% { opacity: .9; }
+  100% { opacity: .52; stroke-dashoffset: -30; }
 }
-
-@keyframes dustTwinkle {
-
-    0%,
-    100% {
-
-        opacity: .15;
-
-    }
-
-    50% {
-
-        opacity: .85;
-
-    }
-
+@keyframes constellation-star-heartbeat {
+  0%, 18%, 100% { opacity:.93; transform:translate(-50%, -50%) scale(1) rotate(-.25deg); }
+  5% { opacity:1; transform:translate(-50%, -50%) scale(1.045) rotate(.2deg); }
+  9% { opacity:.95; transform:translate(-50%, -50%) scale(1.006) rotate(0); }
+  12% { opacity:.99; transform:translate(-50%, -50%) scale(1.026) rotate(.1deg); }
+  16% { opacity:.93; transform:translate(-50%, -50%) scale(1); }
 }
-  
-  @media (max-width: 700px) {
-    .constellation { opacity: .72; }
-    .constellation-star__label { display: none; }
-    .constellation__aurora { right: -23rem; }
-  }
-  
-  @media (prefers-reduced-motion: reduce) {
-    .constellation *, .constellation { animation: none !important; }
-  }
-  
+@keyframes constellation-small-twinkle {
+  0%, 100% { opacity:.58; transform:translate(-50%, -50%) scale(.9); }
+  48% { opacity:1; transform:translate(-50%, -50%) scale(1.08); }
+  60% { opacity:.74; transform:translate(-50%, -50%) scale(.98); }
+}
+@keyframes constellation-dust-drift {
+  0%, 100% { opacity:.22; transform:translate3d(0, 0, 0); }
+  50% { opacity:.5; transform:translate3d(var(--dust-drift-x, 1px), var(--dust-drift-y, -1px), 0); }
+}
+@keyframes constellation-field-heartbeat {
+  0%, 18%, 100% { opacity:.56; transform:translate3d(-1px, 1px, 0) scale(.995); }
+  5% { opacity:.76; transform:translate3d(1px, -1px, 0) scale(1.008); }
+  9% { opacity:.6; transform:translate3d(0, 0, 0) scale(1); }
+  12% { opacity:.69; transform:translate3d(1px, -1px, 0) scale(1.004); }
+  16% { opacity:.56; transform:translate3d(-1px, 1px, 0) scale(.995); }
+}
+@keyframes constellation-dot-heartbeat {
+  0%, 18%, 100% { opacity:.22; transform:translate3d(0, 0, 0); }
+  5% { opacity:.4; transform:translate3d(1px, -1px, 0); }
+  9% { opacity:.26; transform:translate3d(0, 0, 0); }
+  12% { opacity:.34; transform:translate3d(1px, -1px, 0); }
+  16% { opacity:.22; transform:translate3d(0, 0, 0); }
+}
+@keyframes constellation-dust-heartbeat {
+  0%, 18%, 100% { opacity:.76; }
+  5% { opacity:.96; }
+  9% { opacity:.8; }
+  12% { opacity:.9; }
+  16% { opacity:.76; }
+}
+@keyframes constellation-glow-heartbeat {
+  0%, 18%, 100% { opacity:.42; transform:translate(-50%, -50%) rotate(-8deg) scale(.97); }
+  5% { opacity:.66; transform:translate(-48%, -52%) rotate(-5deg) scale(1.035); }
+  9% { opacity:.47; transform:translate(-50%, -50%) rotate(-8deg) scale(.99); }
+  12% { opacity:.57; transform:translate(-49%, -51%) rotate(-6deg) scale(1.018); }
+  16% { opacity:.42; transform:translate(-50%, -50%) rotate(-8deg) scale(.97); }
+}
+@keyframes constellation-particle-heartbeat {
+  0%, 18%, 100% { opacity:.24; transform:translate(-50%, -50%) rotate(0); }
+  5% { opacity:.52; transform:translate(-47%, -54%) rotate(4deg); }
+  9% { opacity:.29; transform:translate(-50%, -50%) rotate(1deg); }
+  12% { opacity:.44; transform:translate(-48%, -52%) rotate(3deg); }
+  16% { opacity:.24; transform:translate(-50%, -50%) rotate(0); }
+}
+@media (prefers-reduced-motion: reduce) { .constellation::before, .constellation::after, .constellation-network__line, .constellation-dust, .constellation-star__mark, .constellation-star--large::before, .constellation-star--large::after, .dust--drift { animation: none; } }
+@media (max-width:700px) { .constellation { opacity:.62; transform:translate(calc(1.5rem + 43px), 15px); }.constellation-star__label { display:none; } }

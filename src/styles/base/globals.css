@@ -37,7 +37,22 @@
   
     overflow-x: hidden;
   
-    background: var(--background-page);
+    /* The page grid is deliberately quiet: it gives the paper field the
+       same measured editorial texture as the approved homepage mockup
+       without competing with the constellation or the content. */
+    background-color: var(--background-page);
+    background-image:
+      linear-gradient(
+        to right,
+        rgb(117 105 227 / 3.8%) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        to bottom,
+        rgb(117 105 227 / 3.8%) 1px,
+        transparent 1px
+      );
+    background-size: 18px 18px;
     color: var(--text-primary);
   
     font-family: var(--font-family-body);

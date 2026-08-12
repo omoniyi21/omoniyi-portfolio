@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 250" role="img" aria-labelledby="title desc">
+  <title id="title">Sleeping Stardust Creature at the end of the journey</title>
+  <desc id="desc">Omoniyi's hand-drawn Stardust Creature portfolio companion.</desc>
+  
+  <defs>
+    <filter id="soft-shadow" x="-30%" y="-50%" width="160%" height="200%">
+      <feGaussianBlur stdDeviation="2.2"/>
+    </filter>
+  </defs>
+  
+  <style>
+    .ink { fill: none; stroke: #1B1B1F; stroke-width: 3.25; stroke-linecap: round; stroke-linejoin: round; }
+    .fine { fill: none; stroke: #1B1B1F; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .ghost { fill: none; stroke: #A3A3A3; stroke-width: 1.25; stroke-linecap: round; opacity: .42; }
+    .pink { fill: none; stroke: #FF8DB6; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+    .lavender { fill: none; stroke: #7C6CFF; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+  <g transform="translate(292 217)" opacity=".32">
+    <ellipse cx="0" cy="0" rx="92.5" ry="7" fill="#7C6CFF" filter="url(#soft-shadow)"/>
+    <path d="M-92.5 0 C-46.25 -5 37 6 92.5 -1" fill="none" stroke="#7C6CFF" stroke-width="2" stroke-linecap="round"/>
+    <path d="M-70.3 5 C-22.2 1 29.6 8 70.3 3" fill="none" stroke="#7C6CFF" stroke-width="1.4" stroke-linecap="round"/>
+  </g><g transform="translate(207 76) rotate(0 85 85) scale(0.88)">
+    
+    <path d="M27 105 q-10 10 -8 22 M143 104 q10 9 8 21" class="ink"/>
+    <path d="M17 97 C13 72 25 43 47 25 C64 11 88 8 110 16 C135 14 145 33 153 53 C168 74 158 112 140 129 C119 148 75 146 45 137 C25 131 17 116 17 97Z" fill="#F7F2ED" stroke="#1B1B1F" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M20 96 C17 69 30 43 49 28 C67 15 88 13 108 20 C131 18 143 36 150 55 C160 78 154 108 137 126" class="ghost"/>
+    <path d="M23 113 C34 134 66 140 93 138 C118 138 137 130 147 116" fill="none" stroke="#A3A3A3" stroke-width="1.1" stroke-linecap="round" opacity=".28"/>
+    <ellipse cx="49" cy="43" rx="9" ry="5.5" transform="rotate(-20 49 43)" fill="none" stroke="#A3A3A3" stroke-width="2"/>
+    <ellipse cx="112" cy="31" rx="7" ry="4.5" transform="rotate(11 112 31)" fill="none" stroke="#A3A3A3" stroke-width="1.8"/>
+    <ellipse cx="143" cy="65" rx="5" ry="8" transform="rotate(-8 143 65)" fill="none" stroke="#A3A3A3" stroke-width="1.8"/>
+    <path d="M34 70 q4 -5 8 -1 M122 53 q4 -3 7 1 M70 29 q3 -2 5 0" class="ghost"/>
+    <g fill="#A3A3A3" opacity=".42">
+      <circle cx="38" cy="120" r="1.4"/><circle cx="73" cy="130" r="1.1"/><circle cx="128" cy="117" r="1.2"/><circle cx="98" cy="42" r="1.2"/><circle cx="29" cy="89" r=".9"/><circle cx="137" cy="94" r="1"/>
+    </g>
+    <path d="M45 84 q9 8 18 0 M107 84 q9 8 18 0" class="ink"/>
+    <path d="M82 108 q6 -4 12 0" class="fine"/>
+    
+    <g fill="#FF8DB6" opacity=".82">
+      <circle cx="34" cy="106" r="2.3"/><circle cx="40" cy="108" r="1.8"/><circle cx="130" cy="106" r="1.8"/><circle cx="136" cy="108" r="2.3"/>
+    </g>
+  </g><path d="M125 213 C203 205 375 218 465 211" class="ghost"/><path d="M414 51 C392 65 399 91 425 93 C411 104 383 96 380 72 C377 49 396 34 414 32 C408 38 407 45 414 51Z" fill="#1B1B1F"/><g transform="translate(120 72) scale(0.75)" fill="none" stroke="#1B1B1F" stroke-width="2.3" stroke-linecap="round">
+    <path d="M0 -7 L1.8 -1.8 L7 0 L1.8 1.8 L0 7 L-1.8 1.8 L-7 0 L-1.8 -1.8Z"/>
+  </g><g transform="translate(485 119) scale(0.55)" fill="none" stroke="#FF8DB6" stroke-width="2.3" stroke-linecap="round">
+    <path d="M0 -7 L1.8 -1.8 L7 0 L1.8 1.8 L0 7 L-1.8 1.8 L-7 0 L-1.8 -1.8Z"/>
+  </g><g transform="translate(502 57) scale(0.42)" fill="none" stroke="#7C6CFF" stroke-width="2.3" stroke-linecap="round">
+    <path d="M0 -7 L1.8 -1.8 L7 0 L1.8 1.8 L0 7 L-1.8 1.8 L-7 0 L-1.8 -1.8Z"/>
+  </g><g fill="#7C6CFF" font-family="Arial, sans-serif" font-weight="700"><text x="342" y="91" font-size="21" transform="rotate(-7 342 91)">z</text><text x="367" y="72" font-size="25" transform="rotate(-5 367 72)">z</text><text x="397" y="48" font-size="30">z</text></g>
+</svg>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title">
+  <title id="title">Omoniyi logo mark</title>
+  <defs>
+    <filter id="glow" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="4" result="b"/><feFlood flood-color="#ff4fa3" flood-opacity=".58" result="c"/><feComposite in="c" in2="b" operator="in" result="g"/><feMerge><feMergeNode in="g"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <circle cx="64" cy="64" r="62" fill="#151515"/>
+  <path fill="#ff4fa3" filter="url(#glow)" d="M64 24c3.2 23.5 11.5 33 35 36-23.5 3-31.8 11.5-35 35-3.2-23.5-11.5-32-35-35 23.5-3 31.8-12.5 35-36Z"/>
+</svg>

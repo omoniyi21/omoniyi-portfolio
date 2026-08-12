@@ -1,0 +1,32 @@
+.write-me {
+  display: grid;
+  grid-template-columns: minmax(18rem, .68fr) minmax(0, 1.32fr);
+  gap: clamp(2.5rem, 7vw, 8rem);
+  width: min(calc(100vw - 6rem), 82rem);
+  margin: 0 0 5rem 2rem;
+  padding: clamp(4rem, 7vw, 7rem) 0;
+}
+
+.write-me__intro { align-self: start; position: relative; }
+.write-me__meta { display: flex; align-items: center; gap: .85rem; color: var(--text-secondary); font-family: var(--font-family-display); font-size: .75rem; font-weight: 700; letter-spacing: .19em; text-transform: uppercase; }
+.write-me__meta span:last-child { color: var(--color-lavender-500); font-size: 1rem; letter-spacing: 0; }
+.write-me__heading { align-items: end; display: flex; gap: .65rem; margin: 2.1rem 0 1.1rem; }
+.write-me h2 { margin: 0; color: var(--text-primary); font-family: var(--font-family-display); font-size: clamp(3.4rem, 6vw, 6.4rem); font-weight: 500; letter-spacing: -.08em; line-height: .86; }
+.write-me__stardust-side { align-items: center; display: flex; gap: .35rem; left: 0; min-width: 0; padding-bottom: .2rem; position: absolute; top: -4.2rem; }
+.write-me__stardust-trail { color: var(--color-lavender-500); font-family: var(--font-family-display); font-size: .66rem; left: .1rem; letter-spacing: .16em; opacity: .68; position: absolute; top: -.65rem; transform: rotate(-12deg); white-space: nowrap; }
+.write-me__stardust { align-self: center; animation: contact-stardust-float 5.2s ease-in-out infinite; display: block; flex: 0 0 auto; height: auto; margin: .15rem 0 0; max-width: 5.775rem; object-fit: contain; width: clamp(3.85rem, 5.5vw, 5.775rem); }
+@keyframes contact-stardust-float { 0%, 100% { transform: translate3d(0, 0, 0) rotate(-3deg); } 50% { transform: translate3d(0, -7px, 0) rotate(1deg); } }
+.write-me__intro > p { color: var(--text-secondary); font-size: 1.05rem; line-height: 1.55; margin: 0; max-width: 29ch; }
+.write-me__links { display: flex; flex-direction: column; gap: .9rem; margin-top: 2.5rem; }
+.write-me__links a { align-items: center; color: var(--text-primary); display: flex; gap: .65rem; width: fit-content; font-size: .94rem; }.write-me__links a span { border-bottom: 1px solid currentColor; padding-bottom: .16rem; }.write-me__links a svg:last-child { margin-left: -.25rem; transition: transform .2s ease; }.write-me__links a:hover svg:last-child { transform: translate(2px, -2px); }
+
+.contact-form { position: relative; overflow: hidden; border: 1px solid rgb(255 255 255 / 74%); border-radius: 1.65rem; background: linear-gradient(140deg, rgb(255 255 255 / 63%), rgb(250 244 231 / 38%)); box-shadow: 0 20px 48px rgb(64 44 118 / 10%), inset 0 1px 0 rgb(255 255 255 / 86%); padding: clamp(1.5rem, 3.4vw, 3rem); }.contact-form::before { content: ""; inset: 0; position: absolute; z-index: -1; background: linear-gradient(to right, rgb(117 105 227 / 3.5%) 1px, transparent 1px), linear-gradient(to bottom, rgb(117 105 227 / 3.5%) 1px, transparent 1px); background-size: 18px 18px; opacity: .62; }
+.contact-form__masthead { display: flex; justify-content: space-between; color: rgb(34 30 44 / 72%); font-family: var(--font-family-display); font-size: .7rem; font-weight: 700; letter-spacing: .17em; text-transform: uppercase; }.contact-form__masthead span:last-child { color: var(--color-peach-300); font-size: .95rem; }
+.contact-form__masthead-note { color: rgb(34 30 44 / 58%); font-family: var(--font-family-body); font-size: .78rem; line-height: 1.45; margin: .55rem 0 0; max-width: 54ch; }
+.contact-form__fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.45rem; margin-top: 2rem; }.contact-form label { display: flex; flex-direction: column; gap: .65rem; color: rgb(34 30 44 / 73%); font-family: var(--font-family-display); font-size: .68rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }.contact-form__message { grid-column: 1 / -1; }.contact-form input, .contact-form textarea { border: 0; border-bottom: 1px solid rgb(45 39 54 / 30%); border-radius: 0; color: var(--text-primary); font-family: var(--font-family-body); font-size: 1rem; line-height: 1.5; outline: none; padding: .5rem 0 .7rem; resize: vertical; transition: border-color .2s ease, background-color .2s ease; }.contact-form textarea { min-height: 8rem; padding-right: .5rem; }.contact-form input:focus, .contact-form textarea:focus { border-color: var(--color-lavender-500); }.contact-form input::placeholder, .contact-form textarea::placeholder { color: rgb(45 39 54 / 43%); }
+.contact-form__honeypot { height: 0; margin: 0; opacity: 0; overflow: hidden; pointer-events: none; position: absolute; width: 0; }.contact-form__footer { align-items: end; display: flex; gap: 1rem; justify-content: space-between; margin-top: 2.35rem; }.contact-form__footer p { color: var(--text-secondary); font-size: .78rem; line-height: 1.45; margin: 0; max-width: 28ch; }.contact-form__status--error { color: #a1395b !important; }.contact-form button { align-items: center; border: 1px solid var(--color-lavender-500); border-radius: 999px; background: linear-gradient(105deg, rgba(221, 209, 255, .78), rgba(255, 234, 240, .82)); color: var(--text-primary); display: inline-flex; gap: .55rem; padding: .8rem 1.05rem; transition: transform .2s ease, box-shadow .2s ease; }.contact-form button:hover:not(:disabled) { box-shadow: 0 8px 16px rgb(92 71 161 / 18%); transform: translateY(-2px); }.contact-form button:disabled { cursor: wait; opacity: .68; }
+
+@media (max-width: 900px) { .write-me { grid-template-columns: 1fr; margin-left: 0; width: 100%; }.write-me__intro > p { max-width: 35ch; } }
+@media (max-width: 560px) { .write-me { margin-top: 3rem; padding-inline: 0; }.write-me h2 { font-size: clamp(3.8rem, 17vw, 5.4rem); }.write-me__heading { align-items: flex-start; flex-direction: column; gap: .55rem; }.write-me__stardust-side { left: 0; top: -3.8rem; }.write-me__stardust { width: 3.96rem; }.contact-form { border-radius: 1.2rem; padding: 1.35rem; }.contact-form__fields { grid-template-columns: 1fr; gap: 1.2rem; margin-top: 2rem; }.contact-form__footer { align-items: flex-start; flex-direction: column; }.contact-form button { width: 100%; justify-content: center; } }
+
+@media (prefers-reduced-motion: reduce) { .write-me__stardust { animation: none; } }

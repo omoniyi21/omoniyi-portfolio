@@ -1,0 +1,29 @@
+.case-study {
+  --ink: var(--text-primary);
+  --paper: var(--background-page);
+  background: var(--background-page);
+}
+
+.case-hero__intro h1 em {
+  background: none;
+  color: var(--text-primary);
+}
+
+.case-hero__intro {
+  isolation: isolate;
+  position: relative;
+}
+
+.case-hero__intro::before {
+  background:
+    radial-gradient(ellipse at 42% 46%, rgb(255 255 255 / 74%) 0%, rgb(255 255 255 / 33%) 30%, transparent 69%),
+    radial-gradient(circle at 20% 25%, rgb(255 255 255 / 46%) 0 1px, transparent 2px),
+    radial-gradient(circle at 68% 73%, rgb(255 255 255 / 38%) 0 1px, transparent 2px);
+  background-size: auto, 15px 15px, 21px 21px;
+  content: "";
+  filter: blur(.2px);
+  inset: -4rem -3rem -3rem -3.5rem;
+  pointer-events: none;
+  position: absolute;
+  z-index: -1;
+}

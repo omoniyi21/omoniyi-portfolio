@@ -1,0 +1,52 @@
+.case-anatomy--real .case-screen {
+  overflow: hidden;
+  padding: .8rem;
+}
+
+.case-anatomy--real .case-screen small {
+  display: block;
+  margin: 0 0 .6rem .1rem;
+}
+
+.case-anatomy--real .case-screen img {
+  display: block;
+  width: 100%;
+  height: 5.5rem;
+  object-fit: cover;
+  object-position: top;
+  border: 1px solid rgba(26, 31, 47, .14);
+  border-radius: .25rem;
+}
+
+.case-anatomy--real .case-screen--nav-image {
+  display: block;
+  padding: .45rem;
+}
+
+.case-anatomy--real .case-screen--nav-image img {
+  height: 2.5rem;
+  border: 0;
+  border-radius: .2rem;
+}
+
+.case-anatomy--real .case-screen--short img {
+  height: 4.6rem;
+}
+
+.case-story__tiles article {
+  overflow: hidden;
+}
+
+.case-workflow-screen {
+  display: block;
+  width: calc(100% + 2.4rem);
+  height: 11.3rem;
+  margin: -1.2rem -1.2rem 1.45rem;
+  object-fit: cover;
+  object-position: top;
+  border-bottom: 1px solid rgba(26, 31, 47, .15);
+}
+
+@media (max-width: 760px) {
+  .case-workflow-screen { height: 13rem; }
+}

@@ -1,18 +1,49 @@
-export default function Star({ x, y, label, color, size = "medium", delay = "0s" }) {
-    return (
-      <div
-        className={`constellation-star constellation-star--${size}`}
-        style={{ left: `${x}%`, top: `${y}%`, "--star-color": color, "--delay": delay }}
-      >
-        <span className="constellation-star__halo" />
-        <span className="constellation-star__dot">
-          <svg className="constellation-star__mark" viewBox="0 0 40 40" aria-hidden="true">
-            <path d="M20 1.8C21 13.1 24.1 16.8 38.1 20c-13.4 2.7-16.9 6.1-18.1 18.2C17.3 26.4 13.5 22.9 1.8 20 13.8 17.2 17 13.5 20 1.8Z" />
-            <circle cx="20" cy="20" r="2.2" />
-          </svg>
-        </span>
-        {label && <span className="constellation-star__label">{label}</span>}
-      </div>
-    );
-  }
-  
+import { useRef, useState } from "react";
+
+export default function Star({ x, y, label, color, size = "small", index = 0 }) {
+  const [position, setPosition] = useState({ x, y });
+  const dragRef = useRef(null);
+
+  const handlePointerDown = (event) => {
+    if (size !== "large") return;
+
+    event.currentTarget.setPointerCapture(event.pointerId);
+    dragRef.current = {
+      startX: event.clientX,
+      startY: event.clientY,
+      x: position.x,
+      y: position.y,
+      bounds: event.currentTarget.parentElement?.getBoundingClientRect(),
+    };
+  };
+
+  const handlePointerMove = (event) => {
+    const drag = dragRef.current;
+    if (!drag?.bounds) return;
+
+    const nextX = drag.x + ((event.clientX - drag.startX) / drag.bounds.width) * 100;
+    const nextY = drag.y + ((event.clientY - drag.startY) / drag.bounds.height) * 100;
+    setPosition({ x: Math.min(96, Math.max(4, nextX)), y: Math.min(94, Math.max(6, nextY)) });
+  };
+
+  const handlePointerUp = (event) => {
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+    dragRef.current = null;
+  };
+
+  return (
+    <div
+      className={`constellation-star constellation-star--${size}`}
+      style={{ left: `${position.x}%`, top: `${position.y}%`, "--star-color": color, "--star-delay": `${index * -0.47}s` }}
+      onPointerDown={handlePointerDown}
+      onPointerMove={handlePointerMove}
+      onPointerUp={handlePointerUp}
+      onPointerCancel={handlePointerUp}
+    >
+      <span className="constellation-star__mark" aria-hidden="true">{size === "large" ? "✶" : "✦"}</span>
+      {label && <span className="constellation-star__label">{label}</span>}
+    </div>
+  );
+}

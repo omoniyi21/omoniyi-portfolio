@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-labelledby="title desc">
+  <title id="title">Stardust Creature logo mark</title>
+  <desc id="desc">Omoniyi's hand-drawn Stardust Creature portfolio companion.</desc>
+  
+  <defs>
+    <filter id="soft-shadow" x="-30%" y="-50%" width="160%" height="200%">
+      <feGaussianBlur stdDeviation="2.2"/>
+    </filter>
+  </defs>
+  
+  <style>
+    .ink { fill: none; stroke: #1B1B1F; stroke-width: 3.25; stroke-linecap: round; stroke-linejoin: round; }
+    .fine { fill: none; stroke: #1B1B1F; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .ghost { fill: none; stroke: #A3A3A3; stroke-width: 1.25; stroke-linecap: round; opacity: .42; }
+    .pink { fill: none; stroke: #FF8DB6; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+    .lavender { fill: none; stroke: #7C6CFF; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+  <circle cx="80" cy="80" r="62" fill="#1B1B1F"/><g transform="translate(80 80) scale(2.2)" fill="none" stroke="#FF8DB6" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M0 -13 C1 -4 4 -1 12 0 C4 1 1 4 0 13 C-1 4 -4 1 -12 0 C-4 -1 -1 -4 0 -13Z"/>
+  </g><circle cx="80" cy="80" r="4" fill="#FF8DB6"/>
+</svg>
