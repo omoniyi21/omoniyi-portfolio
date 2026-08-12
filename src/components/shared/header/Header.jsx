@@ -36,10 +36,8 @@ export default function Header() {
     return (
 
         <header
-          className="site-header"
+          className={`site-header ${open ? "is-open" : ""}`}
           ref={headerRef}
-          onPointerEnter={() => setOpen(true)}
-          onPointerLeave={() => setOpen(false)}
         >
           <img className="header-stardust" src={stardustPeek} alt="" aria-hidden="true" />
           <button

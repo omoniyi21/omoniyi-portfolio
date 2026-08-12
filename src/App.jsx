@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Observations from "./pages/Observations";
+import NotFound from "./pages/NotFound";
 import Work from "./pages/Work";
 import HouseCaseStudy from "./pages/HouseCaseStudy";
 import ProjectCaseStudy from "./pages/ProjectCaseStudy";
@@ -25,6 +26,7 @@ export default function App() {
         <Route path="/usda" element={<ProjectCaseStudy study={caseStudies.usda} />} />
         <Route path="/athletico" element={<ProjectCaseStudy study={caseStudies.athletico} />} />
         <Route path="/library-of-congress" element={<ProjectCaseStudy study={caseStudies.libraryOfCongress} />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
     </>

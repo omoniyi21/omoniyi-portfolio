@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import resume from "../../../assets/branding/Omoniyi Alimi Resume (2026).pdf";
 
 export default function Navigation({ id, open, onNavigate }) {
@@ -12,29 +13,29 @@ export default function Navigation({ id, open, onNavigate }) {
             className={`header-menu ${open ? "open" : ""}`}
 
         >
-            <a href="/" onClick={onNavigate}>
+            <Link to="/" onClick={onNavigate}>
                 Home
-            </a>
+            </Link>
 
-            <a href="/work" onClick={onNavigate}>
+            <Link to="/work" onClick={onNavigate}>
                 Case Studies
-            </a>
+            </Link>
 
             <a href={resume} onClick={onNavigate} target="_blank" rel="noreferrer">
                 Resume
             </a>
 
-            <a href="/about" onClick={onNavigate}>
+            <Link to="/about" onClick={onNavigate}>
                 Design Dossier
-            </a>
+            </Link>
 
-            <a href="/observations" onClick={onNavigate}>
+            <Link to="/observations" onClick={onNavigate}>
                 Observations
-            </a>
+            </Link>
 
-            <a href="#write-me" onClick={onNavigate}>
+            <Link to="/#contact" onClick={onNavigate}>
                 Contact
-            </a>
+            </Link>
 
         </nav>
 
