@@ -1,0 +1,73 @@
+/* SD is a small navigation guide: landing on the compact moon, peeking behind the open panel. */
+.site-header { isolation: isolate; }
+
+.header-stardust--standing {
+  bottom: 42px;
+  right: -2px;
+  width: 128px;
+}
+
+.header-stardust--peek { z-index: 0; }
+
+.header-stardust__tip {
+  background: rgb(27 27 31 / 90%);
+  border-radius: .5rem;
+  color: #fff;
+  font-family: var(--font-family-body);
+  font-size: .72rem;
+  line-height: 1.2;
+  opacity: 0;
+  padding: .48rem .62rem;
+  pointer-events: none;
+  position: absolute;
+  right: 4.5rem;
+  top: 4.25rem;
+  transform: translateY(-4px);
+  transition: opacity .18s ease, transform .18s ease;
+  white-space: nowrap;
+  z-index: 5;
+}
+
+.header-stardust__tip::after {
+  border: 5px solid transparent;
+  border-left-color: rgb(27 27 31 / 90%);
+  content: "";
+  position: absolute;
+  right: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.site-header:not(.is-open):hover .header-stardust__tip,
+.site-header:not(.is-open):focus-within .header-stardust__tip {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* The glass sheet sits over SD's lower curve, so the ink line becomes the menu's top seam. */
+.site-header.is-open {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+.site-header.is-open::after {
+  background: rgb(255 255 255 / 90%);
+  border: 1px solid rgb(255 255 255 / 96%);
+  border-radius: 1.35rem;
+  box-shadow: 0 16px 36px rgb(39 31 43 / 15%), inset 0 1px rgb(255 255 255 / 96%);
+  content: "";
+  inset: 0;
+  position: absolute;
+  z-index: 1;
+}
+
+.site-header.is-open .site-brand,
+.site-header.is-open .header-menu {
+  position: relative;
+  z-index: 2;
+}
+
+@media (max-width: 700px) {
+  .header-stardust--standing { bottom: 38px; right: -2px; width: 112px; }
+}
