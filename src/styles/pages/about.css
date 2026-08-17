@@ -29,3 +29,54 @@
 .about-current { padding: 1.25rem; }
 .observations-page__hero { padding: clamp(4rem, 8vw, 7rem) 0 3.5rem; }
 .observations-page__hero h1 em { font-family: var(--font-family-personal); }
+
+/* Final dossier polish: richer contrast and the three approved portfolio families only. */
+.about-dossier {
+  background: linear-gradient(135deg, #f7bfd0, #f3aabf);
+  color: #211a23;
+}
+
+.about-dossier::before {
+  background-image: radial-gradient(rgb(78 39 58 / 18%) .7px, transparent .8px);
+  opacity: .38;
+}
+
+.about-dossier__header,
+.about-dossier__footer,
+.about-dossier__beyond {
+  border-color: rgb(46 26 37 / 28%);
+}
+
+.about-dossier p,
+.about-current small {
+  color: #463841;
+  font-family: var(--font-family-body);
+  font-weight: 500;
+}
+
+.about-dossier h1,
+.about-dossier__scale h2,
+.about-dossier__beyond h2,
+.about-dossier__quote small,
+.about-dossier__header,
+.about-dossier__footer,
+.about-dossier__eyebrow,
+.about-current > p,
+.about-current span {
+  font-family: var(--font-family-display);
+}
+
+.about-dossier__kicker,
+.about-dossier__closing,
+.about-dossier__quote blockquote,
+.about-dossier__annotation {
+  color: #2a2028;
+  font-family: var(--font-family-personal) !important;
+  font-style: normal;
+}
+
+.about-current h3 {
+  color: #211a23;
+  font-family: var(--font-family-body);
+  font-style: normal;
+}

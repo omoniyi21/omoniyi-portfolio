@@ -1,4 +1,5 @@
 import "./personal-effects.css";
+import { Link } from "react-router-dom";
 
 import ObservationsTelescope from "../../assets/branding/stardust-creature-kit/png/1024/observations-telescope.png";
 import ReadingPaper from "../../assets/images/personal-effects-refined/reading-paper-v2-trim.png";
@@ -21,7 +22,7 @@ export default function PersonalEffects() {
       <div className="personal-effects__meta"><span>02</span><span>Personal Effects</span><span className="personal-effects__glyph">✦</span></div>
       <h2 id="personal-effects-title">What’s On My Mind?</h2>
       <p>A few things currently shaping how I think :)</p>
-      <a href="#design-dossier">design dossier <span aria-hidden="true">↗</span></a>
+      <Link to="/about">design dossier <span aria-hidden="true">↗</span></Link>
       <img className="personal-effects__stardust stardust--float" src={ObservationsTelescope} alt="SD observing a few creative patterns" />
       <p className="personal-effects__coordinates">7.8003° N, 5.3790° E<br />SD archive<br />Observing, always.</p>
     </aside>
@@ -40,5 +41,18 @@ export default function PersonalEffects() {
         <img className="personal-effects__trail" src={Trail} alt="" />
       </div>
     </div>
+    <section className="personal-effects__mobile-card" aria-label="Current creative fuel">
+      <p className="personal-effects__mobile-kicker">About me / design dossier</p>
+      <div className="personal-effects__mobile-grid">
+        <article><span>Currently reading</span><h3>The Artist’s Way</h3><p>Julia Cameron</p></article>
+        <article><span>Currently watching</span><h3>FROM + Furious</h3><p>On MGM+ and Hulu</p></article>
+        <article><span>Current movie obsession</span><h3>I Love Boosters</h3><p>The movie that lives in my head rent free.</p></article>
+        <article><span>Current scent</span><h3>Ode to Dullness</h3><p>Juliette Has a Gun · woody, musky, warm</p></article>
+        <article><span>Current ritual</span><h3>Coffee with honey, a little salt</h3><p>Then walking the dogs.</p></article>
+        <article><span>Current thought</span><h3>Design should feel inevitable.</h3></article>
+        <article><span>Podcast rec</span><h3>Good Noticings</h3><p>with Ashley &amp; Claire</p></article>
+        <article><span>On repeat</span><h3>Julia Wolf · Sade · Asake</h3><p>In My Room · By Your Side · MBHC</p></article>
+      </div>
+    </section>
   </section>;
 }

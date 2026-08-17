@@ -1,5 +1,6 @@
 import "./selected-work.css";
 import { useRef } from "react";
+import { Link } from "react-router-dom";
 import {
     ArrowRight,
     ArrowUpRight,
@@ -47,7 +48,7 @@ const featuredProjects = [
         title: "A Third Space",
         description: "Creating a place for people to gather around the films they love.",
         category: "Hobbies",
-        href: "#work",
+        href: "/work",
         icon: CirclePlus,
     },
 ];
@@ -144,7 +145,7 @@ export default function HeroProjects({ projects = featuredProjects }) {
                 onClickCapture={preventDraggedClick}
             >
                 {projects.map((project, index) => (
-                    <a key={project.client} className="hero-project" href={project.href} role="listitem">
+                    <Link key={project.client} className="hero-project" to={project.href} role="listitem">
                         <span className="hero-project__number">{String(index + 1).padStart(2, "0")}</span>
                         <project.icon className="hero-project__icon" aria-hidden="true" />
                         <span className="hero-project__content">
@@ -160,12 +161,12 @@ export default function HeroProjects({ projects = featuredProjects }) {
                                 <ArrowUpRight aria-hidden="true" />
                             </span>
                         </div>
-                    </a>
+                    </Link>
                 ))}
-                <a className="hero-project hero-project--all" href="#work" role="listitem">
+                <Link className="hero-project hero-project--all" to="/work" role="listitem">
                     <span>View all<br />projects</span>
                     <ArrowRight aria-hidden="true" />
-                </a>
+                </Link>
             </div>
         </section>
     );

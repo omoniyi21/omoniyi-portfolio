@@ -11,10 +11,12 @@ import { caseStudies } from "./data/caseStudies";
 
 import Header from "./components/shared/header/Header";
 import Footer from "./components/shared/footer/Footer";
+import ScrollManager from "./components/shared/ScrollManager";
 
 export default function App() {
   return (
     <>
+      <ScrollManager />
       <Header />
 
       <Routes>

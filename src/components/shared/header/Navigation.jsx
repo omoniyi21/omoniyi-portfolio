@@ -33,7 +33,7 @@ export default function Navigation({ id, open, onNavigate }) {
                 Observations
             </Link>
 
-            <Link to="/#contact" onClick={onNavigate}>
+            <Link to={{ pathname: "/", hash: "#contact" }} onClick={onNavigate}>
                 Contact
             </Link>
 

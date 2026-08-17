@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Omoniyi Alimi — Senior Product Designer</title>
+  <desc id="desc">A warm butter-yellow portfolio share image with Omoniyi Alimi's black and pink star logo.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop stop-color="#fff8d8"/>
+      <stop offset="1" stop-color="#fff0b5"/>
+    </linearGradient>
+    <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse">
+      <path d="M24 0H0V24" fill="none" stroke="#8377bc" stroke-opacity=".12"/>
+    </pattern>
+    <filter id="glow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="12" result="b"/>
+      <feFlood flood-color="#ff4fa3" flood-opacity=".55" result="c"/>
+      <feComposite in="c" in2="b" operator="in"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <circle cx="108" cy="104" r="38" fill="#151515"/>
+  <path d="M108 78c2.2 16.2 7.9 22.7 24.2 24.8-16.3 2.1-22 7.9-24.2 24.2-2.2-16.3-7.9-22.1-24.2-24.2 16.3-2.1 22-8.6 24.2-24.8Z" fill="#ff4fa3" filter="url(#glow)"/>
+  <path d="M108 78c2.2 16.2 7.9 22.7 24.2 24.8-16.3 2.1-22 7.9-24.2 24.2-2.2-16.3-7.9-22.1-24.2-24.2 16.3-2.1 22-8.6 24.2-24.8Z" fill="#ff4fa3"/>
+  <text x="166" y="114" fill="#17151d" font-family="Arial, sans-serif" font-size="34" font-weight="700">omoniyi.</text>
+  <text x="96" y="248" fill="#756e86" font-family="Arial, sans-serif" font-size="18" font-weight="700" letter-spacing="5">SENIOR PRODUCT DESIGNER</text>
+  <text x="91" y="356" fill="#17151d" font-family="Arial, sans-serif" font-size="83" font-weight="700" letter-spacing="-5">I help people</text>
+  <text x="91" y="442" fill="#17151d" font-family="Arial, sans-serif" font-size="83" font-weight="700" letter-spacing="-5">navigate complex systems.</text>
+  <text x="96" y="529" fill="#5f5967" font-family="Arial, sans-serif" font-size="28">Clarity and beauty for products, services, and systems.</text>
+  <path d="M1014 188l13 33 33 13-33 13-13 33-13-33-33-13 33-13z" fill="#826de4" opacity=".9"/>
+  <path d="M1098 370l9 23 23 9-23 9-9 23-9-23-23-9 23-9z" fill="#ff9c4a" opacity=".92"/>
+  <path d="M1002 496l6 15 15 6-15 6-6 15-6-15-15-6 15-6z" fill="#ff79aa" opacity=".9"/>
+</svg>

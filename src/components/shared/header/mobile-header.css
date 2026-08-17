@@ -1,0 +1,21 @@
+@media (max-width: 700px) {
+  .site-header { right: 1rem; top: 1rem; }
+  .header-stardust, .site-brand__mark, .site-brand__wordmark, .menu-icon { display: none !important; }
+  .mobile-menu-icon { color: var(--text-primary); display: block !important; }
+  .mobile-close-icon { display: none; }
+  .site-brand, .site-brand:hover, .site-header:focus-within .site-brand {
+    align-items: center;
+    background: rgb(255 255 255 / 92%);
+    border-radius: .9rem;
+    height: 48px;
+    justify-content: center;
+    padding: 0;
+    width: 48px;
+  }
+  .site-header.is-open { box-sizing: border-box; padding: .55rem; width: min(18.5rem, calc(100vw - 2rem)); }
+  .site-header.is-open .site-brand { height: 44px; justify-content: flex-end; width: 100%; }
+  .site-header.is-open .mobile-menu-icon { display: none !important; }
+  .site-header.is-open .mobile-close-icon { color: var(--text-primary); display: block !important; }
+  .site-header.is-open .header-menu { gap: 0; margin: .25rem 0 0; padding: .2rem 0 0; }
+  .site-header.is-open .header-menu a { border-top: 1px solid rgb(34 30 44 / 9%); font-size: 1.05rem; padding: .85rem .6rem; }
+}

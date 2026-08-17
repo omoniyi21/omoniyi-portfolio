@@ -296,7 +296,7 @@
     .hero-projects { margin-top: -1.5rem; grid-template-columns: 1fr; gap: 1rem; }
     .hero-projects__rail { grid-auto-columns: minmax(17rem, 82vw); }
     .hero-project__description { max-width: 35ch; }
-    .hero-projects__scroll-guide { top: 2.5rem; }
+    .hero-projects__scroll-guide { display: none; }
     .hero-projects__scroll-hint { font-size: 1.1rem; }
   }
 

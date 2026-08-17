@@ -1,10 +1,11 @@
 import { useEffect, useId, useRef, useState } from "react";
 import "./header.css";
+import "./mobile-header.css";
 
 import logoMark from "../../../assets/branding/logo-mark.svg";
 import stardustPeek from "../../../assets/branding/stardust-creature-kit/svg/nav-peek.svg";
 import Navigation from "./Navigation";
-import { Plus } from "lucide-react";
+import { Menu, Plus, X } from "lucide-react";
 
 export default function Header() {
     const [open, setOpen] = useState(false);
@@ -52,6 +53,8 @@ export default function Header() {
             <img className="site-brand__mark" src={logoMark} alt="" />
             <span className="site-brand__wordmark" aria-hidden="true">omoniyi.</span>
             <Plus size={18} strokeWidth={1.75} className={`menu-icon ${open ? "open" : ""}`} />
+            <Menu size={22} strokeWidth={1.8} className="mobile-menu-icon" aria-hidden="true" />
+            <X size={22} strokeWidth={1.8} className="mobile-close-icon" aria-hidden="true" />
           </button>
 
             <Navigation id={menuId} open={open} onNavigate={() => setOpen(false)} />
