@@ -60,9 +60,10 @@ export default function HeroProjects({ projects = featuredProjects }) {
 
     const handlePointerDown = (event) => {
         if (event.pointerType === "mouse" && event.button !== 0) return;
-        // Keep project cards dependable links. The open rail space remains the
-        // drag surface, while card presses are reserved for navigation.
-        if (event.target.closest(".hero-project")) return;
+        // A mouse press on a card remains a dependable link. On touch and pen
+        // devices, though, the cards themselves must be a drag surface—there
+        // is not enough empty rail space to start a swipe reliably.
+        if (event.pointerType === "mouse" && event.target.closest(".hero-project")) return;
         const rail = railRef.current;
         if (!rail) return;
 

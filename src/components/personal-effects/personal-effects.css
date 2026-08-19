@@ -195,7 +195,9 @@
 @media (max-width: 900px) {
   .personal-effects { grid-template-columns: 1fr; margin-left: 0; width: 100%; }
   .personal-effects { padding-top: clamp(3rem, 8vw, 4.5rem); }
-  .personal-effects__rail { min-height: 22rem; }
+  /* On a single-column tablet layout, do not stretch this editorial rail to
+     the glass tray's full height—finish just after SD's coordinate note. */
+  .personal-effects__rail { align-self: start; min-height: 25rem; }
   .personal-effects__spread { width: 100%; }
   .personal-effects__rail h2 { margin-top: 2rem; max-width: 8ch; }
   .personal-effects__rail > p:not(.personal-effects__coordinates) { margin-top: 1.25rem; max-width: 30ch; }

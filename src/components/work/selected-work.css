@@ -145,6 +145,7 @@
     grid-auto-flow: column;
     gap:1.15rem;
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
     overscroll-behavior-x: contain;
     scroll-behavior: smooth;
     cursor: grab;

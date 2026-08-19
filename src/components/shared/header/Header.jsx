@@ -5,7 +5,6 @@ import "./mobile-header.css";
 
 import logoMark from "../../../assets/branding/logo-mark.svg";
 import stardustPeek from "../../../assets/branding/stardust-creature-kit/svg/nav-peek.svg";
-import stardustStanding from "../../../assets/branding/stardust-creature-kit/svg/project-curious.svg";
 import Navigation from "./Navigation";
 import { Menu, Plus, X } from "lucide-react";
 
@@ -42,9 +41,8 @@ export default function Header() {
           className={`site-header ${open ? "is-open" : ""}`}
           ref={headerRef}
         >
-          <img className="header-stardust header-stardust--standing" src={stardustStanding} alt="" aria-hidden="true" />
           <img className="header-stardust header-stardust--peek" src={stardustPeek} alt="" aria-hidden="true" />
-          <span className="header-stardust__tip" role="tooltip">Meet SD — your stardust guide.</span>
+          <span className="header-stardust__tip" role="tooltip">Hi, I’m Stardust — or SD! Use this menu to look around.</span>
           <button
             ref={triggerRef}
             className="site-brand"
