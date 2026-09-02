@@ -1,0 +1,229 @@
+/* ========================================================================== 
+   RESPONSIVE SYSTEM
+
+   This final cascade layer keeps the portfolio proportionate from compact
+   phones through 4K displays. Component files still own their visual design;
+   these rules coordinate shared gutters, readable widths, and breakpoints.
+   ========================================================================== */
+
+:root {
+  --page-gutter-fluid: clamp(1rem, 3vw, 4rem);
+  --content-max-fluid: 112rem;
+}
+
+.container {
+  width: min(
+    calc(100% - var(--page-gutter-fluid) - var(--page-gutter-fluid)),
+    var(--content-max-fluid)
+  );
+  margin-inline: auto;
+}
+
+.section {
+  padding-block: clamp(1.25rem, 2.5vw, 3rem);
+}
+
+/* Keep the homepage composition centered once the viewport grows beyond the
+   content frame, while allowing its project rail to remain exploratory. */
+.hero__main {
+  width: 100%;
+  max-width: none;
+}
+
+.hero-projects__rail {
+  width: 100vw;
+  grid-auto-columns: clamp(
+    22rem,
+    calc((100% - 3.45rem) / 3.25),
+    38rem
+  );
+  margin-left: calc(50% - 50vw);
+  padding-left: max(
+    var(--page-gutter-fluid),
+    calc((100vw - var(--content-max-fluid)) / 2)
+  );
+  scroll-padding-inline-start: max(
+    var(--page-gutter-fluid),
+    calc((100vw - var(--content-max-fluid)) / 2)
+  );
+}
+
+.hero-projects__scroll-guide {
+  right: 0;
+}
+
+.personal-effects {
+  width: 100%;
+  margin-left: 0;
+}
+
+.write-me {
+  width: min(100%, 82rem);
+  margin-inline: auto;
+}
+
+/* Fixed pixel caps looked undersized on large displays. Rem-based caps grow
+   with the TV breakpoint while retaining the exact same desktop proportions. */
+.about-dossier {
+  max-width: 90rem;
+}
+
+.observation-index {
+  max-width: 65rem;
+}
+
+.observation-post article {
+  max-width: 75rem;
+}
+
+.about-page,
+.observations-page {
+  overflow-x: clip;
+}
+
+/* Tablet: show two comfortable project cards instead of three narrow ones. */
+@media (min-width: 701px) and (max-width: 1100px) {
+  .hero-projects__rail {
+    grid-auto-columns: minmax(20rem, 44vw);
+  }
+
+  .observations-page__hero img {
+    right: 0;
+  }
+}
+
+@media (max-width: 1200px) {
+  .case-study,
+  .project-case {
+    padding-inline: 1.5rem;
+  }
+
+  .case-hero__layout,
+  .project-case__hero-grid,
+  .project-case__system,
+  .project-case__outcome > div,
+  .project-case__story > div:not(.project-case__evidence),
+  .project-case__evidence,
+  .project-case__learn-grid,
+  .project-case__decision-grid,
+  .case-story > div,
+  .case-story__tiles,
+  .case-figma-spread,
+  .case-insight-grid,
+  .case-decision-grid,
+  .case-outcome {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .case-facts,
+  .project-case__facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding-top: 0;
+  }
+
+  .case-hero__bar span,
+  .project-case__bar span {
+    display: none;
+  }
+
+  .case-hero__intro::before {
+    inset-inline: -1.5rem;
+  }
+}
+
+/* Compact layouts: remove intrinsic grid widths that previously clipped
+   system boards and the House headline behind the viewport edge. */
+@media (max-width: 700px) {
+  .project-case__hero,
+  .project-case__story,
+  .project-case__system,
+  .project-case__chapter {
+    padding-inline: 0;
+  }
+
+  .project-case__hero-grid,
+  .project-case__hero-grid > *,
+  .project-case__system,
+  .project-case__system > *,
+  .project-case__system-board,
+  .case-hero__layout,
+  .case-hero__layout > * {
+    min-width: 0;
+  }
+
+  .project-case__system-board {
+    width: 100%;
+    padding: 1.15rem;
+  }
+
+  .project-case__system-board > div {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: .65rem;
+  }
+
+  .project-case__system-board section {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .project-case__system-board footer {
+    grid-template-columns: minmax(0, 1fr) repeat(3, 1.5rem);
+  }
+
+  .case-hero__layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .case-hero__intro h1 {
+    font-size: clamp(2.9rem, 14vw, 3.8rem);
+  }
+}
+
+@media (max-width: 390px) {
+  .project-case__system-board section {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* A typical 64-inch television is commonly 4K. Scaling the root gently at
+   ultrawide resolutions keeps text, controls, and texture legible at distance
+   without stretching reading lines across the screen. */
+@media (min-width: 2000px) {
+  html {
+    font-size: clamp(16px, .57vw, 22px);
+  }
+
+  body,
+  .about-page::before,
+  .observations-page::before,
+  .observation-post::before,
+  .personal-effects__spread::before,
+  .contact-form::before {
+    background-size: 1.125rem 1.125rem;
+  }
+
+  .hero__main {
+    min-height: clamp(42rem, 52vh, 58rem);
+  }
+
+  .site-header {
+    right: var(--page-gutter-fluid);
+    top: clamp(2rem, 3vw, 5rem);
+  }
+
+  .site-brand {
+    width: 3.75rem;
+    height: 3.75rem;
+    padding: .4375rem;
+  }
+
+  .site-brand:hover,
+  .site-header:focus-within .site-brand {
+    width: 13.125rem;
+  }
+
+  .site-brand__mark {
+    width: 2.875rem;
+    height: 2.875rem;
+  }
+}

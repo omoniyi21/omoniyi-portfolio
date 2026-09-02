@@ -13,7 +13,7 @@ const current = [
 export default function About() {
   return (
     <main className="about-page">
-      <div className="about-page__masthead"><span><b>03</b> Design dossier <i>✦</i></span><span>Field notes · vol. 02</span></div>
+      <div className="about-page__masthead"><span><b>03</b> Design dossier (About me) <i>✦</i></span><span>Field notes · vol. 02</span></div>
       <article className="about-dossier">
         <header className="about-dossier__header"><span>About / Omoniyi Alimi</span><span>Issue 02 · 009</span></header>
         <section className="about-dossier__lead">

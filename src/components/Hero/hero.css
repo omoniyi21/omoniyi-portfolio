@@ -129,7 +129,11 @@
     margin-top: 1.7rem;
 }
 
-
+.hero__button.button--primary {
+    background: var(--gradient-brand-primary);
+    border-color: var(--color-lavender-500);
+    color: var(--text-on-brand);
+}
 
 @media (max-width: 1100px) {
 
@@ -161,8 +165,13 @@
 }
 
 @media (max-width: 700px) {
+    .hero {
+        min-height: 0;
+        padding: 1.5rem 0 0;
+    }
     .hero__main {
-        min-height: 620px;
+        min-height: 0;
+        padding: 6rem 0 2.5rem;
         justify-items: center;
     }
     .hero__content {
@@ -173,7 +182,7 @@
     }
     .hero__title { font-size: clamp(3.3rem, 14vw, 4.8rem); }
     .hero__eyebrow { font-size: .65rem; letter-spacing: .13em; }
-    .hero__description { font-size: 1rem; }
+    .hero__description { color: var(--text-primary); font-size: 1rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {

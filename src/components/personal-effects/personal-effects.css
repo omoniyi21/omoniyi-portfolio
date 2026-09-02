@@ -207,6 +207,9 @@
 }
 
 @media (max-width: 620px) {
+  .personal-effects { padding-block: 2rem 1.5rem; }
+  .personal-effects__rail { min-height: 0; padding-top: 0; }
+  .personal-effects__mobile-card { margin-top: 1.5rem; }
   .personal-effects__spread { min-height: 56rem; }
   .personal-effects__masthead { inset: 1rem; font-size: .54rem; }
   .effect-paper__eyebrow { font-size: .4rem; }

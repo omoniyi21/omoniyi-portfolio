@@ -1,4 +1,16 @@
-.constellation { --constellation-heartbeat:5.2s; position:absolute; inset:0; z-index:0; isolation:isolate; overflow:visible; pointer-events:none; transform:translate(calc(clamp(8.5rem, 12vw, 11rem) + 43px), 15px); transform-origin:center; }
+.constellation {
+  --constellation-heartbeat:5.2s;
+  position:absolute;
+  inset:0 auto 0 50%;
+  width:min(100%, 76rem);
+  z-index:0;
+  isolation:isolate;
+  overflow:visible;
+  pointer-events:none;
+  /* Keep one consistent celestial frame as the hero gets wider. */
+  transform:translate3d(-50%, 15px, 0);
+  transform-origin:center;
+}
 .constellation::before,
 .constellation::after { content:""; position:absolute; pointer-events:none; }
 .constellation::before {
@@ -116,4 +128,4 @@
   16% { opacity:.24; transform:translate(-50%, -50%) rotate(0); }
 }
 @media (prefers-reduced-motion: reduce) { .constellation::before, .constellation::after, .constellation-network__line, .constellation-dust, .constellation-star__mark, .constellation-star--large::before, .constellation-star--large::after, .dust--drift { animation: none; } }
-@media (max-width:700px) { .constellation { opacity:.62; transform:translate(calc(1.5rem + 43px), 15px); }.constellation-star__label { display:none; } }
+@media (max-width:700px) { .constellation { opacity:.62; transform:translate3d(-50%, 15px, 0); }.constellation-star__label { display:none; } }

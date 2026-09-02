@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import resume from "../../../assets/branding/Omoniyi Alimi Resume (2026).pdf";
+import resume from "../../../assets/branding/Omoniyi Alimi Resume (2026)-accessibility.pdf";
 
 export default function Navigation({ id, open, onNavigate }) {
 
@@ -26,11 +26,11 @@ export default function Navigation({ id, open, onNavigate }) {
             </a>
 
             <Link to="/about" onClick={onNavigate}>
-                Design Dossier
+                Design Dossier (About Me)
             </Link>
 
             <Link to="/observations" onClick={onNavigate}>
-                Observations
+                Observations (Blog)
             </Link>
 
             <Link to={{ pathname: "/", hash: "#contact" }} onClick={onNavigate}>

@@ -21,7 +21,7 @@ export default function HeroContent() {
                 I create products &amp; experiences with clarity and beauty.
             </p>
 
-            <Button className="hero__button">
+            <Button className="hero__button" to="/work">
                 explore my case studies
             </Button>
 

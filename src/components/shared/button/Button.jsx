@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import { ArrowUpRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import "./button.css";
 
 export default function Button({
@@ -9,13 +10,10 @@ export default function Button({
   disabled = false,
   icon = true,
   className,
+  to,
   ...props
 }) {
-  return (
-    <button
-      type={type}
-      disabled={disabled}
-      className={clsx(
+  const buttonClassName = clsx(
         "button",
         "surface--stroke",
         {
@@ -29,9 +27,9 @@ export default function Button({
                 variant === "ghost",
         },
         className
-      )}
-      {...props}
-    >
+      );
+
+  const content = (
       <span className="button__content">
         <span className="button__label">{children}</span>
 
@@ -43,6 +41,24 @@ export default function Button({
           />
         )}
       </span>
+  );
+
+  if (to) {
+    return (
+      <Link to={to} className={buttonClassName} {...props}>
+        {content}
+      </Link>
+    );
+  }
+
+  return (
+    <button
+      type={type}
+      disabled={disabled}
+      className={buttonClassName}
+      {...props}
+    >
+      {content}
     </button>
   );
 }

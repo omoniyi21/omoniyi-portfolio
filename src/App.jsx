@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Observations from "./pages/Observations";
+import ObservationPost from "./pages/ObservationPost";
 import NotFound from "./pages/NotFound";
 import Work from "./pages/Work";
 import HouseCaseStudy from "./pages/HouseCaseStudy";
@@ -23,6 +24,7 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/observations" element={<Observations />} />
+        <Route path="/observations/remote-life-contract-work" element={<ObservationPost />} />
         <Route path="/work" element={<Work />} />
         <Route path="/house" element={<HouseCaseStudy />} />
         <Route path="/usda" element={<ProjectCaseStudy study={caseStudies.usda} />} />
