@@ -1,4 +1,5 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import UIKit from "./pages/UIKit";
 
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -15,13 +16,17 @@ import Footer from "./components/shared/footer/Footer";
 import ScrollManager from "./components/shared/ScrollManager";
 
 export default function App() {
+  const { pathname } = useLocation();
+  const isKitPage = /^\/uikits?\/?$/.test(pathname);
   return (
     <>
       <ScrollManager />
-      <Header />
+      {!isKitPage && <Header />}
 
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/uikit" element={<UIKit />} />
+        <Route path="/uikits" element={<Navigate to="/uikit" replace />} />
         <Route path="/about" element={<About />} />
         <Route path="/observations" element={<Observations />} />
         <Route path="/observations/remote-life-contract-work" element={<ObservationPost />} />
@@ -33,7 +38,7 @@ export default function App() {
         <Route path="/library-of-congress" element={<ProjectCaseStudy study={caseStudies.libraryOfCongress} />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
-      <Footer />
+      {!isKitPage && <Footer />}
     </>
   );
 }

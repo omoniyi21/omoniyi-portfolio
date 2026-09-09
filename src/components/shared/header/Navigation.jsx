@@ -21,6 +21,10 @@ export default function Navigation({ id, open, onNavigate }) {
                 Case Studies
             </Link>
 
+            <Link to="/uikit" onClick={onNavigate}>
+                UI Kits
+            </Link>
+
             <a href={resume} onClick={onNavigate} target="_blank" rel="noreferrer">
                 Resume
             </a>
