@@ -29,6 +29,7 @@ export default function App() {
         <Route path="/house" element={<HouseCaseStudy />} />
         <Route path="/usda" element={<ProjectCaseStudy study={caseStudies.usda} />} />
         <Route path="/athletico" element={<ProjectCaseStudy study={caseStudies.athletico} />} />
+        <Route path="/copyright-accounting" element={<ProjectCaseStudy study={caseStudies.accounting} />} />
         <Route path="/library-of-congress" element={<ProjectCaseStudy study={caseStudies.libraryOfCongress} />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

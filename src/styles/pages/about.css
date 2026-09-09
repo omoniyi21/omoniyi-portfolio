@@ -80,3 +80,108 @@
   font-family: var(--font-family-body);
   font-style: normal;
 }
+
+/* Desktop reads left-to-right; narrower screens keep the portrait after both stories. */
+.about-dossier__lead {
+  display: grid;
+  gap: clamp(1.75rem, 4vw, 4.5rem);
+  grid-template-areas:
+    "intro portrait scale"
+    "intro annotation scale";
+  grid-template-columns: minmax(18rem, 1fr) minmax(18rem, 1.05fr) minmax(17rem, .9fr);
+  min-height: 650px;
+  padding: 1.5rem 1.1rem 2.25rem;
+}
+
+.about-dossier__intro {
+  grid-area: intro;
+  min-width: 0;
+}
+
+.about-dossier__portrait {
+  align-self: center;
+  grid-area: portrait;
+  justify-self: center;
+  margin: 0;
+  max-width: 34rem;
+  width: 100%;
+}
+
+.about-dossier__scale {
+  grid-area: scale;
+  min-width: 0;
+  padding-top: 2.4rem;
+}
+
+.about-dossier__quote {
+  bottom: auto;
+  box-sizing: border-box;
+  margin: 2.25rem 0 .5rem;
+  max-width: 25rem;
+  position: relative;
+  right: auto;
+  top: auto;
+  width: min(100%, 25rem);
+}
+
+.about-dossier__annotation {
+  align-self: end;
+  bottom: auto;
+  grid-area: annotation;
+  justify-self: center;
+  left: auto;
+  margin: 0 0 1rem;
+  position: relative;
+  width: max-content;
+}
+
+@media (max-width: 1050px) {
+  .about-dossier__lead {
+    grid-template-areas:
+      "intro scale"
+      "annotation annotation"
+      "portrait portrait";
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    min-height: 0;
+  }
+
+  .about-dossier__portrait {
+    margin: 1.5rem auto 0;
+    max-width: 30rem;
+    width: min(72%, 30rem);
+  }
+
+  .about-dossier__scale {
+    padding-top: 0;
+  }
+
+  .about-dossier__annotation {
+    margin: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .about-dossier__lead {
+    display: flex;
+    flex-direction: column;
+    gap: 2.25rem;
+    padding: .95rem;
+  }
+
+  .about-dossier__portrait {
+    margin: .5rem auto 0;
+    width: 86%;
+  }
+
+  .about-dossier__quote {
+    margin-top: 2rem;
+    width: 100%;
+  }
+
+  .about-dossier__annotation {
+    display: block;
+    margin: -.75rem 0 0 auto;
+    max-width: 75%;
+    width: auto;
+  }
+}

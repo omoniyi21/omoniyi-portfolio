@@ -11,46 +11,11 @@ import {
 } from "lucide-react";
 
 const featuredProjects = [
-    {
-        client: "U.S. House",
-        title: "Digital services",
-        description: "Making public digital services easier to understand. Designing clear pathways for people to act with confidence.",
-        category: "Government",
-        href: "/house",
-        icon: Landmark,
-    },
-    {
-        client: "USDA",
-        title: "Data systems",
-        description: "Turning complex information into tools people can use. Structure, accessibility, and clarity at scale.",
-        category: "Government",
-        href: "/usda",
-        icon: Grid2X2,
-    },
-    {
-        client: "Athletico",
-        title: "Care journeys",
-        description: "Creating more human healthcare experiences. Supporting patients across meaningful moments of care.",
-        category: "Healthcare",
-        href: "/athletico",
-        icon: CirclePlus,
-    },
-    {
-        client: "Library of Congress",
-        title: "Enterprise systems",
-        description: "Modernizing systems that support discovery. Making knowledge easier to navigate and share.",
-        category: "Government",
-        href: "/library-of-congress",
-        icon: LibraryBig,
-    },
-    {
-        client: "Movie Club <3",
-        title: "A Third Space",
-        description: "Creating a place for people to gather around the films they love.",
-        category: "Hobbies",
-        href: "/work",
-        icon: CirclePlus,
-    },
+ {client:"U.S. House",title:"Committee Voting Platform",description:"Making legislative complexity navigable through referrals, context, and clear voting actions.",category:"Government · Product design",href:"/house",icon:Landmark},
+ {client:"U.S. Copyright Office",title:"Enterprise UX Architecture",description:"Shared interaction rules for search, navigation, filtering, and administration across products.",category:"Government · Design systems",href:"/library-of-congress",icon:LibraryBig},
+ {client:"U.S. Copyright Office",title:"Accounting & Payments",description:"Understanding legacy records, financial rules, and staff workflows before designing what comes next.",category:"Government · UX research",href:"/copyright-accounting",icon:LibraryBig},
+ {client:"USDA NASS",title:"Enterprise Application Modernization",description:"A reusable theme connecting accessible patterns, specialized workflows, and engineering.",category:"Government · Design systems",href:"/usda",icon:Grid2X2},
+ {client:"Athletico",title:"Patient Onboarding & Scheduling",description:"Clearer entry, appointment access, and responsive care journeys for patients and staff.",category:"Healthcare · Research",href:"/athletico",icon:CirclePlus},
 ];
 
 export default function HeroProjects({ projects = featuredProjects }) {
@@ -146,7 +111,7 @@ export default function HeroProjects({ projects = featuredProjects }) {
                 onClickCapture={preventDraggedClick}
             >
                 {projects.map((project, index) => (
-                    <Link key={project.client} className="hero-project" to={project.href} role="listitem">
+                    <Link key={project.href} className="hero-project" to={project.href} role="listitem">
                         <span className="hero-project__number">{String(index + 1).padStart(2, "0")}</span>
                         <project.icon className="hero-project__icon" aria-hidden="true" />
                         <span className="hero-project__content">
