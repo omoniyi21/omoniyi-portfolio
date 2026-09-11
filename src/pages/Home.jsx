@@ -7,7 +7,7 @@ import WriteMe from "../components/contact/WriteMe";
 
 function Home() {
   return (
-    <main className="section">
+    <main className="section home-journal">
       <div
         className="container stack"
         style={{

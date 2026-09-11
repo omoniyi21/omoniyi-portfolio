@@ -10,9 +10,10 @@
 .hero-journal .hero__title { font-size:clamp(2.65rem,4.7vw,5.5rem); line-height:.98; letter-spacing:-.07em; }
 .hero-journal .hero__description { font-size:clamp(1rem,1.35vw,1.2rem); max-width:32rem; color:#4b4351; line-height:1.5; }
 .hero-journal .hero__button { margin-top:1.65rem; }
-.hero-message-sticker { position:relative; align-self:flex-start; padding:.8rem 1.5rem; margin:1.65rem 0 0 .25rem; border:3px solid #fffaf0; border-radius:48% 46% 44% 50% / 24% 30% 28% 25%; background-color:#eee2ef; background-image:radial-gradient(#997aab44 1.3px,transparent 1.5px); background-size:10px 10px; color:#35283e; box-shadow:1px 3px 2px #47344422; transform:rotate(-4deg); font:500 1.3rem/1.05 var(--font-family-personal); text-align:center; }
+.hero-message-sticker { position:relative; align-self:flex-start; display:grid; place-items:center; box-sizing:border-box; width:8.5rem; height:8.5rem; flex-shrink:0; padding:1rem; margin:1.5rem 0 0 .25rem; border:3px solid #fffaf0; border-radius:50%; background:#eadcec radial-gradient(#9b79ad 1.5px,transparent 1.7px) center/12px 12px; color:#35283e; box-shadow:1px 3px 3px #47344426; transform:rotate(-5deg); text-align:center; }
+.hero-message-sticker span { display:grid; place-content:center; width:100%; height:100%; border-radius:50%; background:#fff9e9; font:500 1.18rem/1.08 var(--font-family-personal); }
 .scorpio-scene { position:relative; width:110%; margin-left:-5%; aspect-ratio:700/560; isolation:isolate; }
-.scorpio-map,.scorpio-dust { position:absolute; inset:0; width:100%; height:100%; overflow:visible; pointer-events:none; }
+.scorpio-map,.scorpio-dust { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
 .scorpio-map line { stroke:#8465a3; stroke-width:1; stroke-dasharray:2.5 2; opacity:.85; }
 .scorpio-pin { fill:#956eb7; stroke:#80559e; stroke-width:.7; }
 .scorpio-orbit { transform-origin:50% 50%; animation:sky-orbit 12s ease-in-out infinite; }
@@ -20,7 +21,7 @@
 .scorpio-star--pink { filter:hue-rotate(40deg) saturate(.8); }
 .scorpio-star--peach { filter:hue-rotate(115deg) saturate(.8); }
 .scorpio-star--pearl { filter:saturate(.12) brightness(1.1); }
-.scorpio-dust { z-index:-1; fill:#9577b0; opacity:.45; animation:sky-dust 18s ease-in-out infinite; }
+.scorpio-dust { z-index:-1; }
 .scorpio-spark { stroke:#b88aa6; stroke-width:.7; animation:sky-twinkle 7s ease-in-out infinite; }
 .scorpio-caption { position:absolute; left:15%; top:17%; color:#645078; font:400 1.8rem/1.2 var(--font-family-personal); transform:rotate(-9deg); border-bottom:1px solid #a58abb; }
 .scorpio-companion { position:absolute; right:1%; bottom:0; width:24%; color:#3c2b49; text-decoration:none; }
@@ -73,3 +74,103 @@
  .hero-journal .scorpio-scene *,.hero-journal .scorpio-dust { animation:none!important; }
  .sky-control { display:none; }
 }
+
+/* Reference composition: an open notebook, with live text and existing artwork. */
+.home-journal { padding-top:3.5rem; }
+.home-journal > .container { width:calc(100% - 11.4%); max-width:1500px; margin-inline:auto; }
+.home-journal .hero-journal { padding-top:0; }
+.home-journal .hero-journal::before { left:-3%; top:-3.5rem; bottom:-2rem; }
+.home-journal .hero-journal::after { left:calc(-3% - .47rem); top:.05rem; }
+.hero-journal .hero__main { min-height:clamp(34rem,40vw,43rem); padding:6rem 0 2.5rem; grid-template-columns:48% 52%; align-items:start; }
+.hero-journal__name { top:-6rem; font-size:.8125rem; letter-spacing:.24em; }
+.hero-journal .hero__eyebrow { font-size:.875rem; letter-spacing:.23em; margin-bottom:1.7rem; }
+.hero-journal .hero__eyebrow-star { display:none; }
+.hero-journal .hero__title { font-family:var(--font-family-body); font-weight:700; font-size:clamp(3.1rem,5.05vw,5.35rem); letter-spacing:-.065em; line-height:.96; }
+.hero-journal .hero__description { font-size:clamp(1.1rem,1.5vw,1.55rem); line-height:1.4; margin-top:1.4rem; max-width:40rem; color:#726b78; }
+.hero-journal .hero__button { margin-top:1.75rem; padding:.8rem 2.4rem; min-height:3.3rem; border:1.5px solid #9780d0; border-radius:3rem; background:linear-gradient(115deg,#ded5f5,#e7def7); box-shadow:0 4px 9px #65508414; font-size:1.2rem; }
+.hero-journal__note { position:relative; width:max-content; max-width:100%; margin:1.35rem 0 0; color:#706179; font:400 clamp(1.4rem,1.85vw,1.95rem)/1.35 var(--font-family-personal); letter-spacing:.03em; transform:rotate(-4deg); }
+.hero-journal__note::after { content:""; position:absolute; width:72%; height:.45rem; left:19%; bottom:-.35rem; border-top:1px solid #8d799c; border-radius:50%; transform:rotate(-2deg); }
+.hero-journal .scorpio-scene { width:112%; margin-left:-5%; margin-top:-2.7rem; aspect-ratio:700/560; }
+.hero-journal .scorpio-caption { top:23%; left:19%; font-size:2.1rem; }
+.scorpio-annotation { position:absolute; right:0; top:48%; font:400 1.6rem/1.1 var(--font-family-personal); color:#6f5b7a; transform:rotate(-9deg); }
+.scorpio-annotation::after { content:""; display:block; width:65%; margin:.5rem auto; border-top:1px solid #8d799c; }
+.hero-journal .scorpio-companion { right:12%; bottom:-1%; width:25%; }
+.hero-journal .scorpio-companion span { right:-70%; top:25%; font-size:.875rem; padding:.5rem .85rem; }
+.hero-journal .sky-control { bottom:.2rem; font-size:.75rem; }
+.hero-journal .hero-projects { padding-top:1rem; }
+.hero-journal .hero-projects__intro { margin-bottom:.4rem; min-height:2.5rem; }
+.hero-journal .hero-projects__eyebrow { font-size:.8125rem; letter-spacing:.22em; gap:1rem; }
+.hero-journal .hero-projects__heading::after { content:""; width:10rem; height:1px; background:#b5a4b84d; }
+.hero-journal .hero-projects__count { display:none; }
+.hero-journal .hero-projects__controls { top:.15rem; }
+.hero-journal .hero-projects__controls button { width:36px; height:36px; font-size:1rem; }
+.hero-journal .hero-projects__rail { grid-auto-columns:calc((100% - 2.5rem)/3); margin-top:0; padding:.5rem 0 1.5rem; }
+.hero-journal .hero-project { min-height:12rem; padding:1.5rem 1.6rem 1.25rem; border:1px solid #b6a3c3aa; border-radius:1.3rem; background:#fffbedb3; box-shadow:0 3px 14px #73624208; column-gap:1rem; }
+.hero-journal .hero-project__client { font-family:var(--font-family-body); font-size:clamp(1.2rem,1.65vw,1.75rem); font-weight:700; letter-spacing:-.045em; }
+.hero-journal .hero-project__title { font-size:clamp(.875rem,1.15vw,1.125rem); margin-top:0; color:#726778; }
+.hero-journal .hero-project__description { font-size:.9375rem; line-height:1.4; margin-top:1.15rem; color:#7c7280; max-width:none; }
+.hero-journal .hero-project__content { grid-column:2 / -1; padding-right:1.5rem; }
+.hero-journal .hero-project__icon { z-index:1; margin-right:-.5rem; }
+.hero-journal .hero-project__footer { border-top:1px solid #bbaaac40; padding-top:1rem; font-size:.75rem; letter-spacing:.22em; justify-content:flex-start; gap:.6rem; }
+.hero-journal .hero-project__number { font-size:.875rem; }
+@media(min-width:981px) and (max-width:1199px) {
+ .hero-journal .hero__main { padding-top:6rem; min-height:34rem; }
+ .hero-journal .hero-project { padding:1.2rem; column-gap:.6rem; }
+ .hero-journal .hero-project__icon { width:1.5rem; }
+}
+@media(max-width:980px) {
+ .home-journal > .container { width:calc(100% - 4rem); }
+ .hero-journal .hero__main { grid-template-columns:1fr; padding:6rem 0 1.5rem; gap:2rem; }
+ .hero-journal .hero__content { max-width:44rem; }
+ .hero-journal .hero__title { font-size:clamp(3rem,7.8vw,4.8rem); }
+ .hero-journal .scorpio-scene { width:min(100%,43rem); margin:-1rem auto 0; }
+ .hero-journal .hero-projects__rail { grid-auto-columns:calc((100% - 1.25rem)/2); }
+ .hero-journal .hero-project__client { font-size:1.45rem; }
+ .hero-journal .hero-projects__heading::after { width:5rem; }
+}
+@media(max-width:600px) {
+ .home-journal { padding-top:2.5rem; }
+ .home-journal > .container { width:calc(100% - 3rem); }
+ .hero-journal .hero__main { padding-top:5.5rem; gap:1.8rem; }
+ .hero-journal__name { top:-5.5rem; font-size:.75rem; }
+ .hero-journal .hero__eyebrow { font-size:.75rem; letter-spacing:.14em; margin-bottom:1.25rem; }
+ .hero-journal .hero__title { font-size:clamp(2.4rem,8.9vw,3.6rem); line-height:1.02; }
+ .hero-journal .hero__description { font-size:1.125rem; margin-top:1.15rem; }
+ .hero-journal .hero__button { font-size:1.05rem; padding:.75rem 1.7rem; }
+ .hero-journal__note { font-size:1.5rem; }
+ .hero-journal .scorpio-caption { font-size:1.6rem; }
+ .scorpio-annotation { font-size:1.15rem; right:0; top:44%; }
+ .hero-journal .scorpio-companion { width:27%; right:15%; bottom:-3%; }
+ .hero-journal .scorpio-companion span { right:-60%; top:8%; font-size:.75rem; padding:.4rem .6rem; }
+ .hero-journal .sky-control { bottom:-.5rem; }
+ .hero-journal .hero-projects { padding-top:1.5rem; }
+ .hero-journal .hero-projects__rail { grid-auto-columns:93%; }
+ .hero-journal .hero-project { padding:1.25rem; min-height:13.5rem; column-gap:.75rem; }
+ .hero-journal .hero-projects__heading::after { display:none; }
+ .hero-journal .hero-project__client { font-size:1.4rem; }
+ .hero-journal .hero-projects__eyebrow { font-size:.75rem; letter-spacing:.14em; }
+ .hero-journal .hero-projects__controls { top:.9rem; }
+}
+/* Keep the constellation inside the page and the work row within the opening view. */
+.hero-journal .scorpio-scene { width:100%; margin-left:0; }
+.hero-journal .scorpio-companion span { right:-42%; }
+.hero-journal .hero-project { box-sizing:border-box; min-height:12.5rem; }
+.hero-journal .hero-project--all { min-height:0; }
+.hero-journal .hero-projects__intro { margin-bottom:0; }
+@media(min-width:981px) {
+ .hero-journal .hero__main { box-sizing:border-box; height:clamp(35rem,38.5vw,40rem); min-height:0; padding-top:7rem; }
+ .hero-journal .scorpio-scene { margin-top:-3.5rem; }
+ .hero-journal .scorpio-companion { right:17%; }
+}
+@media(max-width:360px) {
+ .hero-journal .hero__title { font-size:8.8vw; }
+}
+
+/* Preserve the original slider copy and lifted card treatment. */
+.hero-journal .hero-projects__count { display:inline; }
+.hero-journal .hero-projects__heading::after { display:none; }
+.hero-journal .hero-project { box-shadow:var(--shadow-floating); border-color:rgb(111 94 185 / 16%); }
+.hero-journal .hero-project:hover { box-shadow:var(--shadow-floating-hover); }
+.hero-journal .hero-projects__rail { padding-bottom:2.5rem; }
+.hero-journal .hero-project__footer { border-top:0; justify-content:space-between; gap:1rem; }
+.hero-journal .hero-project__description { color:rgb(40 36 49 / 88%); }

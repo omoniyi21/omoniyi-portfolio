@@ -1,5 +1,5 @@
 .site-header .header-stardust--peek { width:65px; right:calc(100% + .35rem); top:2px; z-index:3; transform:rotate(-9deg); }
-.site-header .header-stardust__tip { top:4.4rem; right:0; max-width:15rem; white-space:normal; background:#fff7db; color:#403047; border:1px solid #ab8bb7; font:500 1.1rem/1.15 var(--font-family-personal); }
+.site-header .header-stardust__tip { top:4.4rem; right:0; width:10rem; max-width:15rem; white-space:normal; background:#fff7db; color:#403047; border:1px solid #ab8bb7; font:500 1.1rem/1.15 var(--font-family-personal); }
 .site-header .header-stardust__tip::after { display:none; }
 .site-header:not(.is-open) .header-stardust--peek,.site-header:not(.is-open) .header-stardust__tip { animation:menu-greeting 6s ease both; }
 .site-header:not(.is-open):hover .header-stardust--peek,.site-header:not(.is-open):focus-within .header-stardust--peek,.site-header:not(.is-open):hover .header-stardust__tip,.site-header:not(.is-open):focus-within .header-stardust__tip { animation:none; opacity:1; }

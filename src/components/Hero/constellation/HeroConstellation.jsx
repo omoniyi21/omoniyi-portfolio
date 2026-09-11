@@ -1,3 +1,4 @@
+import CelestialDust from "./CelestialDust";
 import starArt from "../../../assets/branding/celestial/celestial-star.png";
 import stardust from "../../../assets/branding/celestial/stardust-asteroid.png";
 import { caseStudies } from "../../../data/caseStudies";
@@ -6,10 +7,9 @@ import { caseStudies } from "../../../data/caseStudies";
 const nodes = [[90,12,90,'violet'],[77,20],[71,21],[62,14],[56,23,96,'peach'],[49,34],[41,50],[40,64],[38,79],[33,89],[22,89,85,'pearl'],[13,85],[7,73],[8,62],[13,52,90,'violet'],[20,50],[28,58],[62,30],[72,36],[88,39,92,'pink']];
 const edges = [[0,1],[1,2],[2,3],[3,4],[4,5],[5,6],[6,7],[7,8],[8,9],[9,10],[10,11],[11,12],[12,13],[13,14],[14,15],[15,16],[4,17],[17,18],[18,19],[2,19]];
 const random = i => { const n = Math.sin(i * 127.1 + 31.7) * 43758.5453; return n - Math.floor(n); };
-const dust = Array.from({length:900},(_,i)=>{const t=random(i)*Math.PI*1.8; const r=170+random(i+999)*65;return {x:430+Math.cos(t)*r*1.25,y:235+Math.sin(t)*r,r:.35+random(i+2000)*.7};});
-export default function HeroConstellation() {
+export default function HeroConstellation({ paused }) {
  return <div className="scorpio-scene">
-  <svg className="scorpio-dust" viewBox="0 0 700 560" aria-hidden="true"><g>{dust.map((p,i)=><circle key={i} cx={p.x} cy={p.y} r={p.r} />)}</g></svg>
+  <CelestialDust paused={paused} />
   <svg className="scorpio-map" viewBox="0 0 700 560" aria-hidden="true">
    <g className="scorpio-orbit">
     {edges.map(([a,b])=><line key={`${a}-${b}`} x1={nodes[a][0]*6.5} y1={nodes[a][1]*4.7} x2={nodes[b][0]*6.5} y2={nodes[b][1]*4.7} />)}
@@ -19,6 +19,7 @@ export default function HeroConstellation() {
    </g>
    {Array.from({length:26},(_,i)=><path key={i} className="scorpio-spark" style={{animationDelay:`${i*-.43}s`}} transform={`translate(${random(i+200)*660} ${random(i+400)*490})`} d="M0 -4V4M-4 0H4" />)}
   </svg>
+  <span className="scorpio-annotation" aria-hidden="true">always<br />connecting the dots.</span>
   <span className="scorpio-caption" aria-hidden="true">Scorpio</span>
   <a className="scorpio-companion" href={caseStudies.house.figma.split('?')[0]} target="_blank" rel="noreferrer" aria-label="Peek into Omoniyi’s portfolio in Figma (opens in a new tab)">
    <img src={stardust} alt="Stardust, a cream asteroid with a knowing smile" /><span>Peek into Figma ↗</span>
