@@ -1,4 +1,4 @@
-import CelestialDust from "./CelestialDust";
+
 import starArt from "../../../assets/branding/celestial/celestial-star.png";
 import stardust from "../../../assets/branding/celestial/stardust-asteroid.png";
 import { caseStudies } from "../../../data/caseStudies";
@@ -9,20 +9,21 @@ const edges = [[0,1],[1,2],[2,3],[3,4],[4,5],[5,6],[6,7],[7,8],[8,9],[9,10],[10,
 const random = i => { const n = Math.sin(i * 127.1 + 31.7) * 43758.5453; return n - Math.floor(n); };
 export default function HeroConstellation({ paused }) {
  return <div className="scorpio-scene">
-  <CelestialDust paused={paused} />
+
   <svg className="scorpio-map" viewBox="0 0 700 560" aria-hidden="true">
    <g className="scorpio-orbit">
     {edges.map(([a,b])=><line key={`${a}-${b}`} x1={nodes[a][0]*6.5} y1={nodes[a][1]*4.7} x2={nodes[b][0]*6.5} y2={nodes[b][1]*4.7} />)}
     {nodes.map(([x,y,size,tone],i)=><g key={i} transform={`translate(${x*6.5} ${y*4.7})`}>
-     {size ? <image href={starArt} x={-size/2} y={-size/2} width={size} height={size} className={`scorpio-star scorpio-star--${tone}`} style={{animationDelay:`${i*-.7}s`}} /> : <path className="scorpio-pin" d="M0 -4 Q0 0 4 0 Q0 0 0 4 Q0 0 -4 0 Q0 0 0 -4" />}
+     {size ? <image href={starArt} x={-size/2} y={-size/2} width={size} height={size} className={`scorpio-star scorpio-star--${tone}`} style={{animationDelay:`${i*-.7}s`}} /> : <image href={starArt} x={-7} y={-7} width={14} height={14} className={`scorpio-star scorpio-star--${i%3===0 ? "pink" : "violet"}`} />}
     </g>)}
    </g>
-   {Array.from({length:26},(_,i)=><path key={i} className="scorpio-spark" style={{animationDelay:`${i*-.43}s`}} transform={`translate(${random(i+200)*660} ${random(i+400)*490})`} d="M0 -4V4M-4 0H4" />)}
+   {Array.from({length:42},(_,i)=><path key={i} className="scorpio-spark" style={{animationDelay:`${i*-.43}s`}} transform={`translate(${random(i+200)*660} ${random(i+400)*490})`} d="M0 -4V4M-4 0H4" />)}
   </svg>
   <span className="scorpio-annotation" aria-hidden="true">always<br />connecting the dots.</span>
   <span className="scorpio-caption" aria-hidden="true">Scorpio</span>
   <a className="scorpio-companion" href={caseStudies.house.figma.split('?')[0]} target="_blank" rel="noreferrer" aria-label="Peek into Omoniyi’s portfolio in Figma (opens in a new tab)">
-   <img src={stardust} alt="Stardust, a cream asteroid with a knowing smile" /><span>Peek into Figma ↗</span>
+   {Array.from({length:6},(_,i)=><i className={`asteroid-chip asteroid-chip--${i}`} key={i} aria-hidden="true"><img src={stardust} alt="" /></i>)}
+   <img src={stardust} alt="Stardust, a cream asteroid with a knowing smile" /><span>peek into figma ↗</span>
   </a>
  </div>;
 }

@@ -23,9 +23,9 @@ export default function HeroContent() {
             </p>
 
             <Button className="hero__button" to="/work">
-                Explore my work
+                explore my work
             </Button>
-            <p className="hero-journal__note">a whole inner world, connected.</p>
+
 
         </div>
 

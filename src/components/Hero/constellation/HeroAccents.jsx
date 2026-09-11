@@ -1,0 +1,3 @@
+import star from '../../../assets/branding/celestial/celestial-star.png';
+const accents=[[30,8,25],[40,13,19],[55,6,22],[52,14,14],[47,17,12],[34,18,10],[43,22,17],[37,24,11],[42,29,25],[47,25,18],[39,34,16],[45,36,12],[51,42,18],[44,46,13],[38,49,10],[41,55,23],[30,61,25],[26,58,12],[35,64,11],[22,65,9],[2,63,13],[56,58,14],[66,54,20],[71,49,15],[78,32,17],[74,24,13],[84,8,14],[81,4,11],[69,14,12],[63,20,10],[89,39,13]];
+export default function HeroAccents(){return <div className="hero-sky-accents" aria-hidden="true">{accents.map(([x,y,size],i)=><img key={i} src={star} alt="" className={`scorpio-star--${['violet','peach','pink'][i%3]}`} style={{left:`${x}%`,top:`${y}%`,width:size,opacity:i%4===0?.7:.4}} />)}</div>}

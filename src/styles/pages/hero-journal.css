@@ -174,3 +174,51 @@
 .hero-journal .hero-projects__rail { padding-bottom:2.5rem; }
 .hero-journal .hero-project__footer { border-top:0; justify-content:space-between; gap:1rem; }
 .hero-journal .hero-project__description { color:rgb(40 36 49 / 88%); }
+
+/* Approved swirls-and-stars composition. Existing art is reused at every scale. */
+.hero-journal { isolation:isolate; }
+.hero-journal::before,.hero-journal::after { z-index:2; }
+.journal-dust { position:absolute; left:-6.45%; top:-3.5rem; width:112.9%; height:calc(100% + 3.5rem); pointer-events:none; z-index:-1; }
+.hero-sky-accents { position:absolute; inset:-3.5rem 0 0; pointer-events:none; z-index:0; }
+.hero-sky-accents img { position:absolute; height:auto; transform:translate(-50%,-50%); }
+.home-journal { background-image:url('../../assets/textures/noise.svg'); background-size:230px; }
+.hero-journal .hero__button { background:linear-gradient(110deg,rgba(196,178,248,.64),rgba(227,187,227,.5) 56%,rgba(255,223,179,.48)); box-shadow:0 7px 13px #55436526; }
+.hero-journal .hero-project__footer { text-transform:lowercase; letter-spacing:.02em; font-weight:400; font-size:.875rem; border-top:1px solid #bbaaac40; }
+.hero-journal .hero-project { background:rgba(255,252,237,.88); }
+.hero-journal .scorpio-spark { stroke:#b582a2; opacity:.6; }
+.hero-journal .scorpio-companion::after { content:''; position:absolute; left:4%; width:92%; bottom:-3%; height:8%; background:radial-gradient(ellipse,#6e537c44,transparent 70%); filter:blur(2px); z-index:-1; }
+@media(max-width:980px){
+ .journal-dust { left:-2rem;width:calc(100% + 4rem); }
+ .hero-sky-accents { top:0; }
+ .hero-sky-accents img:nth-child(n+12) { display:none; }
+}
+@media(max-width:600px){
+ .journal-dust { left:-1.5rem;width:calc(100% + 3rem);opacity:.65; }
+ .hero-sky-accents { top:3rem; }
+ .hero-sky-accents img { max-width:14px; }
+ .hero-journal .hero-project__footer { font-size:.75rem; }
+}
+.hero-sky-accents img { opacity:.78!important; }
+.hero-journal .scorpio-star { filter:drop-shadow(0 0 3px #9173bd22); }
+.hero-journal .scorpio-star--pink { filter:hue-rotate(40deg) saturate(1.2); }
+.hero-journal .scorpio-star--peach { filter:hue-rotate(115deg) saturate(1.1); }
+.hero-journal .scorpio-star--pearl { filter:saturate(.12) brightness(1.1); }
+.asteroid-chip { position:absolute; display:block; width:9px; height:12px; overflow:hidden; border-radius:45%; pointer-events:none; }
+.hero-journal .asteroid-chip img { width:23px; max-width:none; transform:translate(-6px,-3px); animation:none; filter:none; }
+.asteroid-chip--0 {left:-9%;top:30%;transform:rotate(25deg)}
+.asteroid-chip--1 {left:-5%;top:73%;transform:rotate(-30deg);width:7px;height:9px}
+.asteroid-chip--2 {left:3%;top:4%;width:6px;height:7px}
+.asteroid-chip--3 {right:-6%;top:42%;transform:rotate(40deg)}
+.asteroid-chip--4 {right:0;top:84%;width:8px;height:8px}
+.asteroid-chip--5 {left:-12%;top:8%;width:5px;height:6px}
+@media(max-width:600px){.hero-sky-accents { display:none; }}
+
+/* Gentle celestial breathing, without shifting the approved dust paths. */
+.journal-dust { animation:journal-dust-pulse 7s ease-in-out infinite; }
+.hero-sky-accents img { animation:journal-star-pulse 5.5s ease-in-out infinite; }
+.hero-sky-accents img:nth-child(3n) { animation-delay:-2s; }
+.hero-sky-accents img:nth-child(3n + 1) { animation-delay:-4s; }
+@keyframes journal-dust-pulse { 0%,100% { opacity:.77; } 50% { opacity:1; } }
+@keyframes journal-star-pulse { 0%,100% { transform:translate(-50%,-50%) scale(.88); } 50% { transform:translate(-50%,-50%) scale(1.12); } }
+.hero-journal[data-sky-paused="true"] .journal-dust,.hero-journal[data-sky-paused="true"] .hero-sky-accents img { animation-play-state:paused; }
+@media(prefers-reduced-motion:reduce){.journal-dust,.hero-sky-accents img { animation:none!important; }}
