@@ -1,5 +1,5 @@
 import "./selected-work.css";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import {
     ArrowRight,
@@ -20,58 +20,20 @@ const featuredProjects = [
 
 export default function HeroProjects({ projects = featuredProjects }) {
     const railRef = useRef(null);
-    const dragState = useRef({ active: false, startX: 0, startScroll: 0, moved: false });
-    const suppressClick = useRef(false);
-
-    const handlePointerDown = (event) => {
-        if (event.pointerType === "mouse" && event.button !== 0) return;
-        // A mouse press on a card remains a dependable link. On touch and pen
-        // devices, though, the cards themselves must be a drag surface—there
-        // is not enough empty rail space to start a swipe reliably.
-        if (event.pointerType === "mouse" && event.target.closest(".hero-project")) return;
-        const rail = railRef.current;
-        if (!rail) return;
-
-        dragState.current = {
-            active: true,
-            startX: event.clientX,
-            startScroll: rail.scrollLeft,
-            moved: false,
-        };
-        rail.setPointerCapture?.(event.pointerId);
-        rail.classList.add("is-dragging");
-    };
-
-    const handlePointerMove = (event) => {
-        const rail = railRef.current;
-        const state = dragState.current;
-        if (!rail || !state.active) return;
-
-        const distance = event.clientX - state.startX;
-        if (Math.abs(distance) > 4) state.moved = true;
-        rail.scrollLeft = state.startScroll - distance;
-    };
-
-    const finishDrag = (event) => {
-        const rail = railRef.current;
-        if (!rail || !dragState.current.active) return;
-        const didMove = dragState.current.moved;
-        rail.releasePointerCapture?.(event.pointerId);
-        rail.classList.remove("is-dragging");
-        dragState.current = { active: false, startX: 0, startScroll: 0, moved: false };
-
-        if (!didMove) return;
-
-        suppressClick.current = true;
-        window.setTimeout(() => {
-            suppressClick.current = false;
-        }, 0);
-    };
-
-    const preventDraggedClick = (event) => {
-        if (!suppressClick.current) return;
-        event.preventDefault();
-        event.stopPropagation();
+    const [edges, setEdges] = useState({start:true,end:false});
+    useEffect(() => {
+      const rail = railRef.current;
+      const update = () => setEdges({start:rail.scrollLeft <= 2,end:rail.scrollLeft + rail.clientWidth >= rail.scrollWidth - 2});
+      update();
+      rail.addEventListener('scroll',update,{passive:true});
+      const observer = new ResizeObserver(update); observer.observe(rail);
+      return () => { rail.removeEventListener('scroll',update); observer.disconnect(); };
+    }, [projects]);
+    const scroll = direction => {
+      const rail=railRef.current;
+      const card=rail.querySelector('.hero-project');
+      const step=card.getBoundingClientRect().width + parseFloat(getComputedStyle(rail).columnGap || 0);
+      rail.scrollBy({left:direction*step,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});
     };
 
     return (
@@ -91,27 +53,21 @@ export default function HeroProjects({ projects = featuredProjects }) {
                 </div>
 
             </div>
-            <div className="hero-projects__scroll-guide" aria-hidden="true">
-                <div className="hero-projects__scroll-hint">
-                    <span>Scroll to explore</span>
-                    <svg viewBox="0 0 52 22" focusable="false">
-                        <path d="M2 12c12-1 25-2 43-1" />
-                        <path d="m38 5 8 6-8 7" />
-                    </svg>
-                </div>
+            <div className="hero-projects__controls" aria-label="Browse case studies">
+              <button type="button" aria-label="Previous case studies" aria-controls="case-study-rail" disabled={edges.start} onClick={()=>scroll(-1)}>←</button>
+              <button type="button" aria-label="Next case studies" aria-controls="case-study-rail" disabled={edges.end} onClick={()=>scroll(1)}>→</button>
             </div>
             <div
                 ref={railRef}
                 className="hero-projects__rail"
-                role="list"
-                onPointerDown={handlePointerDown}
-                onPointerMove={handlePointerMove}
-                onPointerUp={finishDrag}
-                onPointerCancel={finishDrag}
-                onClickCapture={preventDraggedClick}
+                role="group"
+                id="case-study-rail"
+                tabIndex={0}
+                aria-label="Case studies; scroll horizontally or use the previous and next buttons"
+
             >
                 {projects.map((project, index) => (
-                    <Link key={project.href} className="hero-project" to={project.href} role="listitem">
+                    <Link key={project.href} className="hero-project" to={project.href}>
                         <span className="hero-project__number">{String(index + 1).padStart(2, "0")}</span>
                         <project.icon className="hero-project__icon" aria-hidden="true" />
                         <span className="hero-project__content">
@@ -129,7 +85,7 @@ export default function HeroProjects({ projects = featuredProjects }) {
                         </div>
                     </Link>
                 ))}
-                <Link className="hero-project hero-project--all" to="/work" role="listitem">
+                <Link className="hero-project hero-project--all" to="/work">
                     <span>View all<br />projects</span>
                     <ArrowRight aria-hidden="true" />
                 </Link>

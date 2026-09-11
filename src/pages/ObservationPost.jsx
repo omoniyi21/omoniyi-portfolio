@@ -1,69 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
-const paragraphs = [
-  "I’ve been working from home for 7.5 years now, and I can say, pretty confidently, that it’s empowered me to live a lifestyle that fits my needs.",
-  "There are little things about it that I don’t think I could give up now.",
-  "My mornings usually look like waking up at least an hour before “hopping online,” making or grabbing coffee, journaling, then walking my dog. My morning ritual is making a latte with a little honey and salt (always iced), listening to This American Life, The Read, or Good Noticings while I walk Gigi, and eventually making my way to the living room, turning on my fave copaganda show, and heading to the metaphysical office, aka logging on.",
-  "There is no commute. No rush to make it in before 9 AM. And, maybe most importantly, I get to indulge in the rituals that keep me sane with little resistance.",
-  "It’s the kind of freedom I can only be thankful for, but it’s through experience that I’ve realized how temporary it can feel.",
-  "I’ve spent a lot of my career contracting. Which means I’ve gotten very proficient at starting something and somewhere new.",
-  "You enter a company where everyone already knows where the latest design files for the very new design system exist. There are 212,453 acronyms you’ve never heard, meetings that you lack context for, people whose names and roles you’re just beginning to remember, and a product with a vast history behind it.",
-  "And then you immerse yourself in the project like you would a culture on vacation. You learn it, appreciate it, and eventually add onto it and build it.",
-  "This is my favorite part, the novelty of a new environment and what that does for my brain specifically. Newness breeds the idea of possibilities.",
-  "I love the discovery phase of any project because you have the freedom to ask as many questions as necessary to understand the task at hand. And with product or UI/UX design, you get to dive into the complexities users face, whether they be good, bad, or ugly. There is something fun about exploring the perspective of another person and formulating new pathways for them to meet their goals.",
-  "Eventually, you know why there are separate interfaces for two internal teams. You know who to ask about missing file access and all the painful onboarding woes, and you start to feel like a part of the team.",
-  "You forget about the contract.",
-  "And then, just about 1.5 years in, you’re approaching the end... just that quickly.",
-  "On large project teams over the years, I’ve gotten really good at picking things up in six months or less. And when you get integrated with a team and begin to love the work, it swiftly reminds you that this is “just” a contract. Your objectives have been met, and you will soon be off to a new start.",
-  "This variety has made me a better designer.",
-  "When you move between environments, you start noticing what changes and, maybe more importantly, what doesn’t. The through line on each team I’ve been on is what makes a great team, and, as cliché as it sounds, willingness to pivot is the biggest indicator I’ve seen that a team will plow through its objectives with little flailing.",
-  "I think that’s where a lot of my ability to navigate complexity came from. I’ve had to learn how to arrive somewhere, ask the right questions, understand enough of the system to be useful, and design a meaningful solution to the presented and found problems.",
-  "You don’t always get years to figure it out.",
-  "Sometimes you get six months to acclimate and a year to execute...",
-  "So you learn how to notice.",
-  "The freedom is very, very real. I don’t want this to sound like I secretly hate working remotely.",
-  "I LOVE working from home.",
-  "I like that at 12 noon, I can cook lunch and eat with my dog on the terrace, and at 1 PM, I can be in a meeting discussing how we’ll ship the next upgrades to the design system we set up.",
-  "There is value in owning your day and still being empowered to get the work done well and on time.",
-  "Some coworkers have only ever known me as the floating OA in a Teams meeting or the young woman with the bob. And somehow, we still manage to support one another offline and chat about our favorite shows, movies, and foods.",
-  "Remote work has also given me the ability to spend time with friends & family when they’ve needed my support and I’ve needed theirs. I don’t have to build my entire life around getting to and from a building.",
-  "I really, really value that.",
-  "But quiet can get quiet.",
-  "There are days when I look up from Figma and realize I haven’t spoken in five hours.",
-  "The same solitude that lets me disappear into a problem for four hours can also mean I’ve been in this dark cave way past work hours and barely left my desk, let alone my house, all day.",
-  "And I think that’s the contradiction I’ve struggled to explain.",
-  "I don’t necessarily want water cooler talk back.",
-  "But I do miss running over to my coworker’s desk to chat about a work thing real quick, and then going on a tangent about some funny inside work joke from the last office outing.",
-  "Those aren’t the same thing.",
-  "Now, I see that the socializing briefly between meetings, catching a creative way to solve a problem, or hearing about a place to grab a bite to eat on the weekend doesn’t always translate when your coworker works across the country from you.",
-  "I don’t think I am looking for an office experience five days every week. Trust me, I value my WFH time. But I see the value of a hybrid schedule that lets you interact with someone other than your office chair and emotional support animal.",
-  "Maybe the thing I’m looking for isn’t an office.",
-  "Maybe it’s just camaraderie or a space where there’s a meeting of the minds, as they say.",
-  "I think I’ve gotten really good at leaving.",
-  "That sounds sadder than I mean it to hahaha.",
-  "Contracting taught me how to enter established spaces without needing them to reorganize themselves around me.",
-  "How to listen before assessing a problem I assume exists.",
-  "How to figure out the real pain point from asking A LOT of questions.",
-  "How to earn enough trust that someone will eventually tell me what they are really looking to improve within their team and workflow.",
-  "How to make something useful while knowing I may not be there forever.",
-  "There’s something valuable in that.",
-  "But after 7+ years of doing this, I’ve also started wondering what it would feel like to stay.",
-  "Not because I want to trade my freedom for the mundane, but because I think I want to foster an environment where my growth can be witnessed long term.",
-  "I want enough time with something to build roots and grow with a team.",
-  "Tomorrow morning, I’ll still make my latte with a little honey and a little salt (always iced).",
-  "I’ll journal.",
-  "I’ll open my laptop at 9 AM CT, probably get completely consumed by my little background show, and get to work haha.",
-  "I don’t know if this is the freedom I want to stick to or if I want to change that definition for myself now.",
-  "I think I’m just becoming more particular about what I want to build around life.",
-  "Maybe permanence isn’t forever. Maybe it’s staying long enough to see something grow.",
-];
-
-const notes = {
-  19: "I know how to cut meetings down to just the meat; all we need are the important details.",
-  37: "who is they",
-};
+import { getPublishedObservations } from "../data/observations";
+import NotFound from "./NotFound";
 
 export default function ObservationPost() {
+ const { slug } = useParams();
+ const post = getPublishedObservations().find(post => post.slug === slug);
+ if (!post) return <NotFound />;
+ const { paragraphs, notes = {} } = post;
   return (
     <main className="observation-post">
       <header className="observation-post__masthead">
@@ -73,10 +17,10 @@ export default function ObservationPost() {
 
       <article>
         <header className="observation-post__header">
-          <p>OBS. 001 · Work / remote life</p>
-          <h1>Working from home gave me the kind of life I love. Contract work made it feel temporary.</h1>
-          <p className="observation-post__dek">A field note on the freedom of remote work, acclimating quickly, the people we miss between meetings, and what permanence might mean now.</p>
-          <p className="observation-post__byline">Words by Omoniyi Alimi · August 2026</p>
+          <p>OBS. {post.number} · {post.category}</p>
+          <h1>{post.title}</h1>
+          <p className="observation-post__dek">{post.excerpt}</p>
+          <p className="observation-post__byline">Words by Omoniyi Alimi · {post.dateLabel}</p>
         </header>
 
         <div className="observation-post__rule" aria-hidden="true"><span>✦</span></div>
@@ -89,7 +33,7 @@ export default function ObservationPost() {
           ))}
         </div>
         <footer className="observation-post__footer">
-          <span>End of observation 001</span>
+          <span>End of observation {post.number}</span>
           <Link to="/observations">More field notes ↗</Link>
         </footer>
       </article>

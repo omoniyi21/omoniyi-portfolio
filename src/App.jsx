@@ -29,7 +29,7 @@ export default function App() {
         <Route path="/uikits" element={<Navigate to="/uikit" replace />} />
         <Route path="/about" element={<About />} />
         <Route path="/observations" element={<Observations />} />
-        <Route path="/observations/remote-life-contract-work" element={<ObservationPost />} />
+        <Route path="/observations/:slug" element={<ObservationPost />} />
         <Route path="/work" element={<Work />} />
         <Route path="/house" element={<HouseCaseStudy />} />
         <Route path="/usda" element={<ProjectCaseStudy study={caseStudies.usda} />} />

@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import Telescope from "../assets/branding/stardust-creature-kit/png/1024/observations-telescope.png";
 
+import { getPublishedObservations } from "../data/observations";
+
 export default function Observations() {
   return <main className="observations-page">
     <header><p><b>04</b> Observations (Blog) <i>✦</i></p><span>Field notes · vol. 03</span></header>
@@ -12,15 +14,11 @@ export default function Observations() {
     </section>
     <section className="observation-index" aria-label="Published observations">
       <p className="observation-index__kicker">Latest field note</p>
-      <Link className="observation-card" to="/observations/remote-life-contract-work">
-        <div className="observation-card__topline"><span>OBS. 001</span><span>Work / remote life</span></div>
-        <div className="observation-card__body">
-          <p className="observation-card__issue">A field note on the freedom of remote work, the rhythm of contract life, and learning how to stay.</p>
-          <h2>Working from home gave me the kind of life I love. Contract work made it feel temporary.</h2>
-          <p className="observation-card__excerpt">A personal note on rituals, acclimating quickly, meaningful camaraderie, and what permanence might mean now.</p>
-        </div>
+      {getPublishedObservations().map(post => <Link key={post.slug} className="observation-card" to={`/observations/${post.slug}`}>
+        <div className="observation-card__topline"><span>OBS. {post.number}</span><span>{post.category}</span></div>
+        <div className="observation-card__body"><h2>{post.title}</h2><p className="observation-card__excerpt">{post.excerpt}</p></div>
         <div className="observation-card__footer"><span>Read observation</span><span aria-hidden="true">↗</span></div>
-      </Link>
+      </Link>)}
     </section>
   </main>;
 }

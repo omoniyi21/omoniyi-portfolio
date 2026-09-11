@@ -2,9 +2,10 @@ import { useEffect, useId, useRef, useState } from "react";
 import "./header.css";
 import "./header-sd.css";
 import "./mobile-header.css";
+import "./header-asteroid.css";
 
 import logoMark from "../../../assets/branding/logo-mark.svg";
-import stardustPeek from "../../../assets/branding/stardust-creature-kit/svg/nav-peek.svg";
+import stardustPeek from "../../../assets/branding/celestial/stardust-asteroid.png";
 import Navigation from "./Navigation";
 import { Menu, Plus, X } from "lucide-react";
 
@@ -42,7 +43,7 @@ export default function Header() {
           ref={headerRef}
         >
           <img className="header-stardust header-stardust--peek" src={stardustPeek} alt="" aria-hidden="true" />
-          <span className="header-stardust__tip" role="tooltip">Hi, I’m Stardust — or SD! Use this menu to look around.</span>
+          <span id={`${menuId}-tip`} className="header-stardust__tip" role="tooltip">Psst… this is the menu ↗</span>
           <button
             ref={triggerRef}
             className="site-brand"
@@ -50,6 +51,7 @@ export default function Header() {
             onClick={() => setOpen((isOpen) => !isOpen)}
             aria-expanded={open}
             aria-controls={menuId}
+            aria-describedby={`${menuId}-tip`}
             aria-label={open ? "Close navigation menu" : "Open navigation menu"}
           >
             <img className="site-brand__mark" src={logoMark} alt="" />

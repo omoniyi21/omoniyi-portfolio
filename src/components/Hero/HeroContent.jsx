@@ -5,9 +5,10 @@ export default function HeroContent() {
     return (
 
         <div className="hero__content">
+            <span className="hero-journal__name">Omoniyi Alimi</span>
             <p className="hero__eyebrow">
-                <span>01</span>
-                <span>Omoniyi Alimi</span>
+                <span>Senior product designer</span>
+
                 <span className="hero__eyebrow-star" aria-hidden="true">✦</span>
             </p>
 
@@ -24,6 +25,7 @@ export default function HeroContent() {
             <Button className="hero__button" to="/work">
                 explore my case studies
             </Button>
+            <p className="hero-message-sticker">always connecting<br />the dots.</p>
 
         </div>
 

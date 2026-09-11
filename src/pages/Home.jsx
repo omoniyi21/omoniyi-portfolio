@@ -1,4 +1,5 @@
 
+import ObservationsNotebook from "../components/observations/ObservationsNotebook";
 import PersonalEffects from "../components/personal-effects/PersonalEffects";
 import Hero from "../components/Hero/Hero";
 import WriteMe from "../components/contact/WriteMe";
@@ -17,6 +18,7 @@ function Home() {
         
       <Hero>
       </Hero>
+      <ObservationsNotebook />
       <PersonalEffects>
       </PersonalEffects>
       <WriteMe />

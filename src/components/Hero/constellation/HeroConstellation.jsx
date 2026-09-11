@@ -1,47 +1,27 @@
-import "./constellation.css";
-import Dust from "./Dust";
-import Network from "./Network";
-import Star from "./Star";
+import starArt from "../../../assets/branding/celestial/celestial-star.png";
+import stardust from "../../../assets/branding/celestial/stardust-asteroid.png";
+import { caseStudies } from "../../../data/caseStudies";
 
-const stars = [
-  { id: "explore", x: 17, y: 62, label: "Explore", color: "#ef6a9e", size: "large" },
-  { id: "design", x: 28, y: 70, label: "Design", color: "#8170c8", size: "large" },
-  { id: "research", x: 45, y: 34, label: "Research", color: "#8170c8", size: "large" },
-  { id: "build", x: 62, y: 30, label: "Build", color: "#f2a447", size: "large" },
-  { id: "systems", x: 76, y: 40, label: "Systems", color: "#668ee8", size: "large" },
-  { id: "launch", x: 68, y: 72, label: "Launch", color: "#f2a447", size: "large" },
-  { id: "n1", x: 21, y: 66, color: "#8170c8", size: "small" },
-  { id: "n2", x: 24, y: 68, color: "#f2a447", size: "small" },
-  { id: "n3", x: 34, y: 63, color: "#ef6a9e", size: "small" },
-  { id: "n4", x: 38, y: 54, color: "#8170c8", size: "small" },
-  { id: "n5", x: 41, y: 45, color: "#ef6a9e", size: "small" },
-  { id: "n6", x: 51, y: 34, color: "#f2a447", size: "small" },
-  { id: "n7", x: 56, y: 32, color: "#ef6a9e", size: "small" },
-  { id: "n8", x: 68, y: 33, color: "#668ee8", size: "small" },
-  { id: "n9", x: 72, y: 27, color: "#ef6a9e", size: "small" },
-  { id: "n10", x: 80, y: 29, color: "#f2a447", size: "small" },
-  { id: "n11", x: 79, y: 49, color: "#ef6a9e", size: "small" },
-  { id: "n12", x: 73, y: 56, color: "#8170c8", size: "small" },
-  { id: "n13", x: 70, y: 64, color: "#668ee8", size: "small" },
-  { id: "n14", x: 65, y: 78, color: "#f2a447", size: "small" },
-  { id: "n15", x: 60, y: 82, color: "#ef6a9e", size: "small" },
-  { id: "n16", x: 55, y: 79, color: "#8170c8", size: "small" },
-  { id: "n17", x: 53, y: 73, color: "#668ee8", size: "small" },
-  { id: "n18", x: 83, y: 24, color: "#ef6a9e", size: "small" },
-  { id: "n19", x: 87, y: 31, color: "#f2a447", size: "small" },
-  { id: "n20", x: 84, y: 41, color: "#8170c8", size: "small" },
-  { id: "n21", x: 82, y: 57, color: "#ef6a9e", size: "small" },
-];
-
-const connections = [
-  ["explore", "n1"], ["n1", "n2"], ["n2", "design"], ["design", "n3"], ["n3", "n4"],
-  ["n4", "n5"], ["n5", "research"], ["research", "n6"], ["n6", "n7"], ["n7", "build"],
-  ["build", "n8"], ["n8", "systems"], ["systems", "n11"], ["n11", "n12"], ["n12", "n13"], ["n13", "launch"],
-  ["launch", "n14"], ["n14", "n15"], ["n15", "n16"], ["n16", "n17"],
-  ["systems", "n9"], ["n9", "n10"], ["n10", "n18"], ["n18", "n19"],
-  ["systems", "n20"], ["n20", "n21"],
-];
-
+// One coordinate space keeps every thread attached as the constellation drifts.
+const nodes = [[90,12,90,'violet'],[77,20],[71,21],[62,14],[56,23,96,'peach'],[49,34],[41,50],[40,64],[38,79],[33,89],[22,89,85,'pearl'],[13,85],[7,73],[8,62],[13,52,90,'violet'],[20,50],[28,58],[62,30],[72,36],[88,39,92,'pink']];
+const edges = [[0,1],[1,2],[2,3],[3,4],[4,5],[5,6],[6,7],[7,8],[8,9],[9,10],[10,11],[11,12],[12,13],[13,14],[14,15],[15,16],[4,17],[17,18],[18,19],[2,19]];
+const random = i => { const n = Math.sin(i * 127.1 + 31.7) * 43758.5453; return n - Math.floor(n); };
+const dust = Array.from({length:900},(_,i)=>{const t=random(i)*Math.PI*1.8; const r=170+random(i+999)*65;return {x:430+Math.cos(t)*r*1.25,y:235+Math.sin(t)*r,r:.35+random(i+2000)*.7};});
 export default function HeroConstellation() {
-  return <div className="constellation" aria-hidden="true"><Dust /><Network stars={stars} connections={connections} /><div className="constellation__stars">{stars.map((star, index) => <Star key={star.id} {...star} index={index} />)}</div></div>;
+ return <div className="scorpio-scene">
+  <svg className="scorpio-dust" viewBox="0 0 700 560" aria-hidden="true"><g>{dust.map((p,i)=><circle key={i} cx={p.x} cy={p.y} r={p.r} />)}</g></svg>
+  <svg className="scorpio-map" viewBox="0 0 700 560" aria-hidden="true">
+   <g className="scorpio-orbit">
+    {edges.map(([a,b])=><line key={`${a}-${b}`} x1={nodes[a][0]*6.5} y1={nodes[a][1]*4.7} x2={nodes[b][0]*6.5} y2={nodes[b][1]*4.7} />)}
+    {nodes.map(([x,y,size,tone],i)=><g key={i} transform={`translate(${x*6.5} ${y*4.7})`}>
+     {size ? <image href={starArt} x={-size/2} y={-size/2} width={size} height={size} className={`scorpio-star scorpio-star--${tone}`} style={{animationDelay:`${i*-.7}s`}} /> : <path className="scorpio-pin" d="M0 -4 Q0 0 4 0 Q0 0 0 4 Q0 0 -4 0 Q0 0 0 -4" />}
+    </g>)}
+   </g>
+   {Array.from({length:26},(_,i)=><path key={i} className="scorpio-spark" style={{animationDelay:`${i*-.43}s`}} transform={`translate(${random(i+200)*660} ${random(i+400)*490})`} d="M0 -4V4M-4 0H4" />)}
+  </svg>
+  <span className="scorpio-caption" aria-hidden="true">Scorpio</span>
+  <a className="scorpio-companion" href={caseStudies.house.figma.split('?')[0]} target="_blank" rel="noreferrer" aria-label="Peek into Omoniyi’s portfolio in Figma (opens in a new tab)">
+   <img src={stardust} alt="Stardust, a cream asteroid with a knowing smile" /><span>Peek into Figma ↗</span>
+  </a>
+ </div>;
 }

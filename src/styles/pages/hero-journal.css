@@ -1,0 +1,75 @@
+/* The journal identity lives on one continuous field; work remains in cards. */
+.hero.hero-journal { margin-top:0; padding-top:1rem; min-height:0; }
+.hero-journal::before { content:""; position:absolute; top:-3rem; bottom:0; left:-1.25rem; width:1px; background:#7c649a99; pointer-events:none; }
+.hero-journal::after { content:"✦"; position:absolute; top:.2rem; left:-1.74rem; color:#8861a8; font-size:1rem; }
+.hero-journal .hero__main { display:grid; grid-template-columns:1fr 1fr; min-height:clamp(36rem,46vw,48rem); width:100%; gap:0; align-items:center; padding:3rem 0 2rem; }
+.hero-journal .hero__content { width:100%; transform:none; align-items:flex-start; text-align:left; }
+.hero-journal .hero__content::before,.hero-journal .hero__content::after { display:none; }
+.hero-journal__name { position:absolute; top:-5rem; left:0; font:700 .75rem/1.4 var(--font-family-display); letter-spacing:.22em; text-transform:uppercase; }
+.hero-journal .hero__eyebrow { font-size:.68rem; letter-spacing:.18em; margin-bottom:1.5rem; color:#4e4459; }
+.hero-journal .hero__title { font-size:clamp(2.65rem,4.7vw,5.5rem); line-height:.98; letter-spacing:-.07em; }
+.hero-journal .hero__description { font-size:clamp(1rem,1.35vw,1.2rem); max-width:32rem; color:#4b4351; line-height:1.5; }
+.hero-journal .hero__button { margin-top:1.65rem; }
+.hero-message-sticker { position:relative; align-self:flex-start; padding:.8rem 1.5rem; margin:1.65rem 0 0 .25rem; border:3px solid #fffaf0; border-radius:48% 46% 44% 50% / 24% 30% 28% 25%; background-color:#eee2ef; background-image:radial-gradient(#997aab44 1.3px,transparent 1.5px); background-size:10px 10px; color:#35283e; box-shadow:1px 3px 2px #47344422; transform:rotate(-4deg); font:500 1.3rem/1.05 var(--font-family-personal); text-align:center; }
+.scorpio-scene { position:relative; width:110%; margin-left:-5%; aspect-ratio:700/560; isolation:isolate; }
+.scorpio-map,.scorpio-dust { position:absolute; inset:0; width:100%; height:100%; overflow:visible; pointer-events:none; }
+.scorpio-map line { stroke:#8465a3; stroke-width:1; stroke-dasharray:2.5 2; opacity:.85; }
+.scorpio-pin { fill:#956eb7; stroke:#80559e; stroke-width:.7; }
+.scorpio-orbit { transform-origin:50% 50%; animation:sky-orbit 12s ease-in-out infinite; }
+.scorpio-star { transform-box:fill-box; transform-origin:center; animation:sky-star 8s ease-in-out infinite; }
+.scorpio-star--pink { filter:hue-rotate(40deg) saturate(.8); }
+.scorpio-star--peach { filter:hue-rotate(115deg) saturate(.8); }
+.scorpio-star--pearl { filter:saturate(.12) brightness(1.1); }
+.scorpio-dust { z-index:-1; fill:#9577b0; opacity:.45; animation:sky-dust 18s ease-in-out infinite; }
+.scorpio-spark { stroke:#b88aa6; stroke-width:.7; animation:sky-twinkle 7s ease-in-out infinite; }
+.scorpio-caption { position:absolute; left:15%; top:17%; color:#645078; font:400 1.8rem/1.2 var(--font-family-personal); transform:rotate(-9deg); border-bottom:1px solid #a58abb; }
+.scorpio-companion { position:absolute; right:1%; bottom:0; width:24%; color:#3c2b49; text-decoration:none; }
+.scorpio-companion img { width:100%; height:auto; display:block; animation:asteroid-hover 7s ease-in-out infinite; filter:drop-shadow(0 9px 4px #5c43691a); }
+.scorpio-companion span { position:absolute; top:5%; right:-6%; transform:translateY(-100%); padding:.5rem .65rem; border:1px solid #8b759c; border-radius:2rem; background:#fffbdfe8; font:500 .7rem/1.2 var(--font-family-body); white-space:nowrap; }
+.scorpio-companion:hover span { background:#eadff0; }
+.sky-control { position:absolute; right:0; bottom:.6rem; background:transparent; border:0; border-bottom:1px solid #8a7794; padding:.35rem; color:#62516c; font:500 .65rem/1.3 var(--font-family-body); cursor:pointer; }
+.hero-journal .hero-projects { margin-top:0; padding-top:1.4rem; }
+.hero-journal .hero-projects__intro { padding-right:7rem; min-height:2.8rem; }
+.hero-projects__controls { display:flex; gap:.6rem; position:absolute; right:0; top:1rem; }
+.hero-projects__controls button { width:44px; height:44px; border:1px solid #96839d; border-radius:50%; background:#fffbe7; color:#3a2d44; font-size:1.3rem; cursor:pointer; }
+.hero-projects__controls button:hover:not(:disabled) { background:#e9ddf3; }
+.hero-projects__controls button:disabled { opacity:.35; cursor:default; }
+.hero-journal .hero-projects__rail { width:100%; margin-left:0; padding:.5rem .25rem 1.5rem; grid-auto-columns:calc((100% - 2.5rem)/3); column-gap:1.25rem; overflow-x:auto; overscroll-behavior-x:contain; touch-action:pan-x pan-y; scroll-snap-type:x proximity; scroll-padding-inline:.25rem; scrollbar-width:thin; scrollbar-color:#b8a3c9 transparent; cursor:auto; }
+.hero-journal .hero-project { scroll-snap-align:start; min-width:0; }
+.hero-journal .hero-project__client { font-size:clamp(1.1rem,1.65vw,1.7rem); }
+.hero-journal :is(a,button,[tabindex]):focus-visible { outline:3px solid #664083; outline-offset:4px; }
+@keyframes sky-orbit { 0%,100% { transform:translate(0,0) rotate(-.4deg); } 50% { transform:translate(2px,-5px) rotate(.4deg); } }
+@keyframes sky-star { 0%,100% { transform:scale(.97) rotate(-2deg); } 50% { transform:scale(1.04) rotate(2deg); } }
+@keyframes sky-dust { 0%,100% { transform:translate(0,0); opacity:.38; } 50% { transform:translate(-5px,6px); opacity:.57; } }
+@keyframes sky-twinkle { 0%,100% { opacity:.35; } 50% { opacity:.9; } }
+@keyframes asteroid-hover { 0%,100% { transform:translateY(0) rotate(-2deg); } 50% { transform:translateY(-7px) rotate(2deg); } }
+.hero-journal[data-sky-paused="true"] .scorpio-scene *,.hero-journal[data-sky-paused="true"] .scorpio-dust { animation-play-state:paused; }
+@media(max-width:980px) {
+ .hero-journal .hero__main { grid-template-columns:1fr; padding-top:6rem; gap:.5rem; }
+ .hero-journal .hero__content { max-width:40rem; }
+ .hero-journal .hero__title { font-size:clamp(2.75rem,7vw,4.8rem); }
+ .hero-journal__name { top:-4rem; }
+ .scorpio-scene { width:min(100%,43rem); margin:0 auto; }
+ .hero-journal .hero-projects__rail { grid-auto-columns:calc((100% - 1.25rem)/2); }
+ .hero-journal::before { left:-.6rem; }
+ .hero-journal::after { left:-1.08rem; }
+}
+@media(max-width:600px) {
+ .hero.hero-journal { padding-top:0; }
+ .hero-journal .hero__main { padding:5.5rem 0 2rem; gap:1rem; justify-items:stretch; }
+ .hero-journal .hero__title { font-size:clamp(2.4rem,8.7vw,3.8rem); }
+ .hero-journal .hero__eyebrow { font-size:.58rem; }
+ .hero-journal__name { font-size:.62rem; }
+ .scorpio-caption { font-size:1.3rem; }
+ .scorpio-companion { width:27%; bottom:-2%; }
+ .scorpio-companion span { font-size:.6rem; right:0; padding:.4rem; }
+ .hero-journal .hero-projects__rail { grid-auto-columns:86%; }
+ .hero-journal .hero-project__client { font-size:1.45rem; }
+ .hero-journal .hero-projects__heading { gap:.8rem; }
+ .hero-journal .hero-projects__eyebrow,.hero-journal .hero-projects__count { font-size:.65rem; letter-spacing:.1em; }
+ .hero-message-sticker { margin-top:1.3rem; font-size:1.25rem; }
+}
+@media(prefers-reduced-motion:reduce) {
+ .hero-journal .scorpio-scene *,.hero-journal .scorpio-dust { animation:none!important; }
+ .sky-control { display:none; }
+}
