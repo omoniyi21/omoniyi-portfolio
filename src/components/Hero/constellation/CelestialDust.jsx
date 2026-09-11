@@ -40,19 +40,20 @@ export default function CelestialDust({paused}){
  const hero=canvas.parentElement,motion=matchMedia('(prefers-reduced-motion: reduce)');
  let width=0,height=0,particles=[],frame=0,last=0,visible=true,strength=0;
  const pointer={x:0,y:0,active:false};
- const draw=()=>{
+ const draw=(time=0)=>{
  ctx.clearRect(0,0,width,height);
+ const driftX=Math.sin(time*.00045)*5, driftY=Math.cos(time*.00038)*4;
  const radius=110;
  for(const p of particles){
- let x=p.x,y=p.y;
+ let x=p.x+driftX,y=p.y+driftY;
  if(strength>.001){const dx=x-pointer.x,dy=y-pointer.y,d=Math.hypot(dx,dy);
  if(d<radius){const push=24*strength*(1-d/radius)**2;const angle=d>.1?Math.atan2(dy,dx):0;x+=Math.cos(angle)*push;y+=Math.sin(angle)*push;}}
  ctx.fillStyle=p.color;ctx.beginPath();ctx.arc(x,y,p.r,0,Math.PI*2);ctx.fill();
  }
  };
  const tick=now=>{frame=0;if(paused||motion.matches||!visible||document.hidden)return;
- if(now-last>=40){last=now;const target=pointer.active?1:0;strength+=(target-strength)*.16;draw();}
- if(pointer.active||strength>.003)frame=requestAnimationFrame(tick);
+ if(now-last>=40){last=now;const target=pointer.active?1:0;strength+=(target-strength)*.16;draw(now);}
+ frame=requestAnimationFrame(tick);
  };
  const start=()=>{if(!frame&&!paused&&!motion.matches&&visible&&!document.hidden)frame=requestAnimationFrame(tick);};
  const reset=()=>{cancelAnimationFrame(frame);frame=0;pointer.active=false;strength=0;draw();};

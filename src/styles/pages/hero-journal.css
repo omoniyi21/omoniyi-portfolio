@@ -203,6 +203,9 @@
 .hero-journal .scorpio-star--pink { filter:hue-rotate(40deg) saturate(1.2); }
 .hero-journal .scorpio-star--peach { filter:hue-rotate(115deg) saturate(1.1); }
 .hero-journal .scorpio-star--pearl { filter:saturate(.12) brightness(1.1); }
+.hero-journal .scorpio-caption { opacity:0; transition:opacity .25s ease; pointer-events:none; }
+.hero-journal .scorpio-scene:hover .scorpio-caption,
+.hero-journal .scorpio-scene:focus-within .scorpio-caption { opacity:1; }
 .asteroid-chip { position:absolute; display:block; width:9px; height:12px; overflow:hidden; border-radius:45%; pointer-events:none; }
 .hero-journal .asteroid-chip img { width:23px; max-width:none; transform:translate(-6px,-3px); animation:none; filter:none; }
 .asteroid-chip--0 {left:-9%;top:30%;transform:rotate(25deg)}
