@@ -6,7 +6,7 @@ Individual transparent PNG objects extracted from the corrected **What’s On My
 
 1. Reading — *The Artist’s Way*
 2. Watching — *FROM* + *Furious*
-3. Movie obsession — *The End of Oak Street* ticket
+3. Movie obsession — *I Love Boosters* ticket
 4. Podcast — *Good Noticings* with Ashley & Claire
 5. On Repeat — Julia Wolf, Sade and Asake
 6. Current scent — *Ode to Dullness* with blotter strip

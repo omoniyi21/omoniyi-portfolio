@@ -2,7 +2,7 @@ import portrait from "../assets/images/portfolio-personal-effects-assets/png/can
 
 const current = [
   ["Watching", "FROM", "several theories in progress."],
-  ["Recent favorite", "The End of Oak Street", ""],
+  ["Recent favorite", "I Love Boosters", ""],
   ["Morning ritual", "Coffee, then walking the dogs", ""],
   ["Reading", "The Artist’s Way", ""],
   ["Listening to", "Good Noticings", "with Ashley and Claire"],
@@ -40,7 +40,7 @@ export default function About() {
             <p className="about-dossier__eyebrow">Beyond the work <i>✦</i></p>
             <h2>The worlds beyond work</h2>
             <p>I appreciate things that feel intentional. A beautifully designed chair. An interesting building. A great pair of books. A home that makes people want to stay. A product that quietly solves a problem without asking for attention.</p>
-            <p>There’s also a good chance I’m watching something. Right now, I’m completely invested in FROM and always down to trade theories. One of my favorite recent watches is The End of Oak Street. I love stories that stay with you.</p>
+            <p>There’s also a good chance I’m watching something. Right now, I’m completely invested in FROM and always down to trade theories. One of my favorite recent watches is I Love Boosters. I love stories that stay with you.</p>
             <p>I’m also into fashion, travel, photography, architecture, books, and finding inspiration in unexpected places. I’m happiest learning something complicated, or spending time with people I love.</p>
             <p className="about-dossier__closing">Thoughtfully made. Deeply lived.<br />Spacious enough to remain curious.</p>
           </div>
