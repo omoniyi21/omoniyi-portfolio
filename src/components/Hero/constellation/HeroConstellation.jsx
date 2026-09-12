@@ -1,7 +1,6 @@
 
 import starArt from "../../../assets/branding/celestial/celestial-star.png";
 import stardust from "../../../assets/branding/celestial/stardust-asteroid.png";
-import { caseStudies } from "../../../data/caseStudies";
 
 // One coordinate space keeps every thread attached as the constellation drifts.
 const nodes = [[90,12,90,'violet'],[77,20],[71,21],[62,14],[56,23,96,'peach'],[49,34],[41,50],[40,64],[38,79],[33,89],[22,89,85,'pearl'],[13,85],[7,73],[8,62],[13,52,90,'violet'],[20,50],[28,58],[62,30],[72,36],[88,39,92,'pink']];
@@ -21,7 +20,7 @@ export default function HeroConstellation({ paused }) {
   </svg>
   <span className="scorpio-annotation" aria-hidden="true">always<br />connecting the dots.</span>
   <span className="scorpio-caption" aria-hidden="true">Scorpio</span>
-  <a className="scorpio-companion" href={caseStudies.house.figma.split('?')[0]} target="_blank" rel="noreferrer" aria-label="Peek into Omoniyi’s portfolio in Figma (opens in a new tab)">
+  <a className="scorpio-companion" href="https://www.figma.com/design/ZdQgGWYa2JVXtn57IIMShQ/Stardust---Dust---Notebook-%E2%80%94-Theme-History---Foundations?m=auto&t=MvhnIWJv1SgQSHrF-6" target="_blank" rel="noreferrer" aria-label="Peek into Stardust theme history in Figma (opens in a new tab)">
    {Array.from({length:6},(_,i)=><i className={`asteroid-chip asteroid-chip--${i}`} key={i} aria-hidden="true"><img src={stardust} alt="" /></i>)}
    <img src={stardust} alt="Stardust, a cream asteroid with a knowing smile" /><span>peek into figma ↗</span>
   </a>
