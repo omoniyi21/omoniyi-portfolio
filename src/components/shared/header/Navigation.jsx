@@ -17,6 +17,10 @@ export default function Navigation({ id, open, onNavigate }) {
                 Home
             </Link>
 
+            <Link to="/studio" onClick={onNavigate}>
+                Studio
+            </Link>
+
             <Link to="/work" onClick={onNavigate}>
                 Case Studies
             </Link>

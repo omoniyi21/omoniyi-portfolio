@@ -11,6 +11,7 @@ export default function Button({
   icon = true,
   className,
   to,
+  href,
   ...props
 }) {
   const buttonClassName = clsx(
@@ -48,6 +49,14 @@ export default function Button({
       <Link to={to} className={buttonClassName} {...props}>
         {content}
       </Link>
+    );
+  }
+
+  if (href) {
+    return (
+      <a href={href} className={buttonClassName} {...props}>
+        {content}
+      </a>
     );
   }
 

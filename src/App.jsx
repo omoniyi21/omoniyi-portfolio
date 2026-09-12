@@ -2,6 +2,8 @@ import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import UIKit from "./pages/UIKit";
 
 import Home from "./pages/Home";
+import Studio from "./pages/Studio";
+import StudioInquire from "./pages/StudioInquire";
 import About from "./pages/About";
 import Observations from "./pages/Observations";
 import ObservationPost from "./pages/ObservationPost";
@@ -18,13 +20,17 @@ import ScrollManager from "./components/shared/ScrollManager";
 export default function App() {
   const { pathname } = useLocation();
   const isKitPage = /^\/uikits?\/?$/.test(pathname);
+  const isStudioPage = /^\/studio(\/inquire)?\/?$/.test(pathname);
+  const hideChrome = isKitPage || isStudioPage;
   return (
     <>
       <ScrollManager />
-      {!isKitPage && <Header />}
+      {!hideChrome && <Header />}
 
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/studio" element={<Studio />} />
+        <Route path="/studio/inquire" element={<StudioInquire />} />
         <Route path="/uikit" element={<UIKit />} />
         <Route path="/uikits" element={<Navigate to="/uikit" replace />} />
         <Route path="/about" element={<About />} />
@@ -38,7 +44,7 @@ export default function App() {
         <Route path="/library-of-congress" element={<ProjectCaseStudy study={caseStudies.libraryOfCongress} />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
-      {!isKitPage && <Footer />}
+      {!hideChrome && <Footer />}
     </>
   );
 }

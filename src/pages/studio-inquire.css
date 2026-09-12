@@ -1,0 +1,398 @@
+/* ==========================================================================
+   STUDIO INQUIRE
+   The intake form that sits between a service card and a call on the
+   calendar. Same tokens as the Studio page — this file only adds the
+   form-specific layout on top of studio.css.
+   ========================================================================== */
+
+.studio-inquire__back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 0.78rem;
+  color: var(--studio-muted);
+}
+
+.studio-inquire__back:hover {
+  color: var(--studio-ink);
+}
+
+.studio-inquire__hero {
+  max-width: 40rem;
+  margin-inline: auto;
+  padding-bottom: 0;
+}
+
+.studio-inquire__title {
+  font-family: var(--studio-serif);
+  font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  margin: var(--space-5) 0 var(--space-5);
+}
+
+.studio-inquire__description {
+  max-width: 34ch;
+  font-size: var(--text-body);
+  font-weight: 300;
+  line-height: 1.65;
+  color: var(--studio-muted);
+  margin: 0;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Form section                                                           */
+/* ---------------------------------------------------------------------- */
+
+.studio-inquire__form-section {
+  padding-top: clamp(2rem, 4vw, 2.5rem);
+  padding-bottom: clamp(3.5rem, 7vw, 5rem);
+}
+
+.studio-inquire__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  max-width: 42rem;
+  margin-inline: auto;
+  width: 100%;
+}
+
+.studio-inquire__form fieldset {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.studio-inquire__form legend {
+  font-family: var(--studio-mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--studio-muted);
+  margin-bottom: var(--space-3);
+  padding: 0;
+}
+
+.studio-inquire__form label {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  font-family: var(--studio-mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--studio-muted);
+}
+
+.studio-inquire__form input[type="text"],
+.studio-inquire__form input[type="email"],
+.studio-inquire__form input[type="url"],
+.studio-inquire__form select,
+.studio-inquire__form textarea {
+  font-family: var(--font-family-body);
+  font-size: 0.9rem;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: normal;
+  color: var(--studio-ink);
+  background: var(--studio-parchment);
+  border: 1px solid var(--studio-border);
+  border-radius: var(--radius-sm);
+  padding: 0.7rem 0.85rem;
+}
+
+.studio-inquire__form textarea {
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.studio-inquire__form input:focus,
+.studio-inquire__form select:focus,
+.studio-inquire__form textarea:focus {
+  outline: none;
+  border-color: var(--studio-oxblood);
+}
+
+.studio-inquire__hp {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.studio-inquire__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-5);
+}
+
+.studio-inquire__grid--single {
+  grid-template-columns: minmax(0, 1fr);
+  max-width: 20rem;
+}
+
+.studio-inquire__textarea textarea {
+  width: 100%;
+}
+
+/* Service pills ("Interested in") */
+
+.studio-inquire__service-options {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-2);
+}
+
+.studio-inquire__service-pill {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-1);
+  padding: var(--space-3) var(--space-4);
+  background: var(--studio-parchment);
+  border: 1px solid var(--studio-border);
+  border-radius: var(--radius-sm);
+  text-align: left;
+  cursor: pointer;
+  transition: background-color var(--motion-fast) var(--ease-standard),
+    border-color var(--motion-fast) var(--ease-standard),
+    color var(--motion-fast) var(--ease-standard);
+}
+
+.studio-inquire__service-pill span:first-child {
+  font-family: var(--studio-serif);
+  font-size: 1rem;
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: normal;
+  color: var(--studio-ink);
+}
+
+.studio-inquire__service-sub {
+  font-family: var(--studio-mono);
+  font-size: 0.56rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: none;
+  color: var(--studio-muted);
+}
+
+.studio-inquire__service-pill:hover {
+  border-color: var(--studio-oxblood);
+}
+
+.studio-inquire__service-pill.is-active {
+  background: var(--studio-oxblood);
+  border-color: var(--studio-oxblood);
+}
+
+.studio-inquire__service-pill.is-active span:first-child,
+.studio-inquire__service-pill.is-active .studio-inquire__service-sub {
+  color: var(--studio-cream);
+}
+
+/* Budget radios */
+
+.studio-inquire__budget-options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.studio-inquire__budget-option {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 0.65rem 0.85rem;
+  background: var(--studio-parchment);
+  border: 1px solid var(--studio-border);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-family-body);
+  font-size: 0.86rem;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: normal;
+  color: var(--studio-ink);
+  cursor: pointer;
+}
+
+.studio-inquire__budget-option input {
+  accent-color: var(--studio-oxblood);
+}
+
+/* Submit */
+
+.studio-inquire__form-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-5);
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--studio-border-light);
+}
+
+.studio-inquire__status {
+  font-family: var(--font-family-body);
+  font-size: 0.78rem;
+  font-weight: 300;
+  text-transform: none;
+  letter-spacing: normal;
+  color: var(--studio-muted);
+  margin: 0;
+  flex: 1 1 16rem;
+}
+
+.studio-inquire__status--error {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  background: rgba(59, 16, 22, 0.08);
+  border: 1px solid rgba(59, 16, 22, 0.3);
+  border-radius: var(--radius-sm);
+  color: var(--studio-oxblood);
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.studio-inquire__status--error::before {
+  content: "!";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 1.1rem;
+  height: 1.1rem;
+  margin-top: 1px;
+  border-radius: 50%;
+  background: var(--studio-oxblood);
+  color: var(--studio-cream);
+  font-family: var(--studio-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+
+.studio-inquire__submit {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-shrink: 0;
+  padding: 0.8rem 1.5rem;
+  background: var(--studio-oxblood);
+  border: 1px solid var(--studio-oxblood);
+  border-radius: var(--radius-sm);
+  color: #fdf6ec;
+  font-family: var(--studio-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  cursor: pointer;
+}
+
+.studio-inquire__submit:hover:not(:disabled) {
+  background: var(--studio-ink);
+  border-color: var(--studio-ink);
+}
+
+.studio-inquire__submit:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Confirmation + Cal.com embed                                           */
+/* ---------------------------------------------------------------------- */
+
+.studio-inquire__confirmation {
+  max-width: 46rem;
+  margin-inline: auto;
+  padding-bottom: clamp(3.5rem, 7vw, 5rem);
+}
+
+.studio-inquire__confirmation h2 {
+  font-family: var(--studio-serif);
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin: var(--space-3) 0 var(--space-3);
+}
+
+.studio-inquire__confirmation > p {
+  max-width: 40ch;
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: var(--studio-muted);
+  margin: 0 0 var(--space-8);
+}
+
+.studio-inquire__cal {
+  background: var(--studio-parchment);
+  border: 1px solid var(--studio-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.studio-inquire__cal iframe {
+  display: block;
+  width: 100%;
+  height: 45rem;
+  border: none;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Escape hatch                                                           */
+/* ---------------------------------------------------------------------- */
+
+.studio-inquire__escape {
+  max-width: 80rem;
+  margin-inline: auto;
+  padding: var(--space-6) clamp(1.25rem, 4vw, 2.5rem) clamp(3rem, 6vw, 4rem);
+  border-top: 1px solid var(--studio-border-light);
+}
+
+.studio-inquire__escape p {
+  font-size: 0.78rem;
+  color: var(--studio-muted-light);
+  margin: 0;
+}
+
+.studio-inquire__escape a {
+  color: var(--studio-muted);
+  border-bottom: 1px solid var(--studio-border);
+}
+
+.studio-inquire__escape a:hover {
+  color: var(--studio-oxblood);
+  border-color: var(--studio-oxblood);
+}
+
+/* ---------------------------------------------------------------------- */
+/* Responsive                                                             */
+/* ---------------------------------------------------------------------- */
+
+@media (max-width: 720px) {
+  .studio-inquire__grid,
+  .studio-inquire__service-options {
+    grid-template-columns: 1fr;
+  }
+
+  .studio-inquire__form-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+  }
+
+  .studio-inquire__cal iframe {
+    height: 52rem;
+  }
+}
