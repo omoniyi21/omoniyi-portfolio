@@ -44,7 +44,7 @@ export default function StudioInquire() {
     }
 
     try {
-      const response = await fetch("/api/studio-inquiry.php", {
+      const response = await fetch("/.netlify/functions/studio-inquiry", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
