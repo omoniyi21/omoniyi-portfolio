@@ -205,10 +205,15 @@
   gap: var(--space-2);
 }
 
-.studio-inquire__budget-option {
-  display: flex !important;
-  flex-direction: row !important;
+/* Two classes (0,2,0) so this reliably beats the generic
+   `.studio-inquire__form label` reset (0,1,1) for every property below —
+   no !important tug-of-war, and nothing (uppercase, tracking, column
+   layout) leaks back in from the generic label styling. */
+.studio-inquire__budget-options .studio-inquire__budget-option {
+  display: flex;
+  flex-direction: row;
   align-items: center;
+  justify-content: flex-start;
   gap: var(--space-3);
   padding: 0.65rem 0.85rem;
   background: var(--studio-parchment);
@@ -223,8 +228,17 @@
   cursor: pointer;
 }
 
-.studio-inquire__budget-option input {
+.studio-inquire__budget-options .studio-inquire__budget-option input[type="radio"] {
+  flex: 0 0 auto;
+  width: 1.05rem;
+  height: 1.05rem;
+  margin: 0;
   accent-color: var(--studio-oxblood);
+}
+
+.studio-inquire__budget-options .studio-inquire__budget-option span {
+  flex: 1 1 auto;
+  text-align: left;
 }
 
 /* Submit */
