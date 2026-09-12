@@ -225,3 +225,19 @@
 @keyframes journal-star-pulse { 0%,100% { transform:translate(-50%,-50%) scale(.88); } 50% { transform:translate(-50%,-50%) scale(1.12); } }
 .hero-journal[data-sky-paused="true"] .journal-dust,.hero-journal[data-sky-paused="true"] .hero-sky-accents img { animation-play-state:paused; }
 @media(prefers-reduced-motion:reduce){.journal-dust,.hero-sky-accents img { animation:none!important; }}
+
+/* The margin rule ends at the notebook masthead star. */
+.home-journal__opening { position:relative; width:100%; min-width:0; --journal-rule-offset:-3%; }
+.home-journal .hero-journal::before { content:""; position:absolute; top:-3.5rem; bottom:-2rem; left:var(--journal-rule-offset); width:1px; background:#8861a8; pointer-events:none; }
+.home-journal .hero-journal::after { content:none; }
+.home-journal .hero-journal__name { top:0; left:0; width:100%; line-height:1.4; }
+.hero-journal__rule-star { position:absolute; left:calc(var(--journal-rule-offset) + .5px); top:50%; width:16px; height:16px; transform:translate(-50%,-50%); color:#8861a8; }
+.home-journal__opening > .observations-notebook { position:relative; margin-top:2rem; --notebook-rule-inset:3rem; }
+.home-journal__opening > .observations-notebook::before { content:""; position:absolute; left:var(--journal-rule-offset); top:-2rem; height:calc(2rem + var(--notebook-rule-inset) + .525rem); width:1px; background:#8861a8; pointer-events:none; }
+.home-journal__opening .notebook-masthead { padding-left:0; }
+.home-journal__opening .notebook-masthead__star { position:absolute; left:calc(var(--journal-rule-offset) + .5px); top:calc(var(--notebook-rule-inset) + .525rem); transform:translate(-50%,-50%); }
+@media(max-width:980px) { .home-journal__opening > .observations-notebook { --notebook-rule-inset:2rem; } }
+.notebook-masthead__label { display:inline-flex; align-items:center; gap:.75rem; }
+.notebook-masthead__star { flex:none; width:16px; height:16px; color:#e58a47; }
+.hero-journal .scorpio-caption { opacity:1; }
+@media(max-width:600px) { .home-journal .hero-journal::before { top:-2.5rem; } }

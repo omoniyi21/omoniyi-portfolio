@@ -16,9 +16,10 @@ function Home() {
         }}
       >
         
-      <Hero>
-      </Hero>
-      <ObservationsNotebook />
+      <div className="home-journal__opening">
+        <Hero />
+        <ObservationsNotebook />
+      </div>
       <PersonalEffects>
       </PersonalEffects>
       <WriteMe />

@@ -5,7 +5,7 @@ export default function HeroContent() {
     return (
 
         <div className="hero__content">
-            <span className="hero-journal__name">Omoniyi Alimi</span>
+
             <p className="hero__eyebrow">
                 <span>Senior product designer</span>
 
