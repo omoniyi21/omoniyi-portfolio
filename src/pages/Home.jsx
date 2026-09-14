@@ -1,8 +1,9 @@
 
 import ObservationsNotebook from "../components/observations/ObservationsNotebook";
 import PersonalEffects from "../components/personal-effects/PersonalEffects";
-import Hero from "../components/Hero/Hero";
+import Hero from "../components/hero/Hero";
 import WriteMe from "../components/contact/WriteMe";
+import LaunchKitPopup from "../components/popup/LaunchKitPopup";
 
 
 function Home() {
@@ -24,6 +25,7 @@ function Home() {
       </PersonalEffects>
       <WriteMe />
       </div>
+      <LaunchKitPopup />
     </main>
   );
 }

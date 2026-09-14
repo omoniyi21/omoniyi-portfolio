@@ -1,6 +1,10 @@
 .observations-notebook { width:100%; padding:3rem 0 4rem; color:var(--text-primary); }
 .notebook-masthead { display:flex; justify-content:space-between; gap:1rem; padding:0 .4rem 1.5rem; font:700 .7rem/1.5 var(--font-family-display); letter-spacing:.16em; text-transform:uppercase; }
 .notebook-masthead i { color:var(--color-lavender-500); margin-left:1rem; }
+/* Section index — matches the "02 Personal Effects" / "03 Write me" number
+   treatment used further down the home page, so the sequence reads 01, 02,
+   03 in scroll order instead of jumping straight to 02 after the hero. */
+.notebook-masthead__index { color:var(--color-lavender-500); margin-right:-.4rem; }
 .notebook-page { isolation:isolate; position:relative; margin:1rem 1.5rem; padding:clamp(1.5rem,4vw,4rem); background:#f0eaf6 url('../../assets/textures/paper-grain.svg'); border:1px solid #d5cdd8; box-shadow:2px 5px 3px #30213f12, 0 24px 42px #30213f13; }
 .notebook-page::before { content:""; position:absolute; inset:0; z-index:-1; background:linear-gradient(90deg,transparent 28px,#ac8cba40 29px,transparent 30px),repeating-linear-gradient(transparent 0 31px,#9b87aa12 31px 32px); pointer-events:none; }
 .notebook-page::after { content:""; position:absolute; inset:5px -7px -9px 7px; transform:rotate(-1deg); background:#faf5e5 url('../../assets/textures/paper-grain.svg'); border:1px solid #d8d0c5; z-index:-2; }

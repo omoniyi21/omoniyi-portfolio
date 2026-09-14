@@ -1,98 +1,288 @@
 import { useEffect, useRef } from 'react';
-const random = n => { const v=Math.sin(n*127.1+31.7)*43758.5453; return v-Math.floor(v); };
-const gaussian=(a,b)=>Math.sqrt(-2*Math.log(Math.max(.00001,random(a))))*Math.cos(2*Math.PI*random(b));
-// Connected Bezier currents, with feathered particle density instead of solid ribbon edges.
-// Normalized to the reference's 1568 × 1003 dust silhouette.
-const currents=[
- [[.615,-.045],[.565,.095],[.72,.10],[.705,-.035]],
- [[.705,-.035],[.80,.11],[.84,-.07],[.945,.045]],
- [[.945,.045],[1.045,.055],[.94,.125],[.98,.17]],
- [[.98,.17],[1.015,.225],[.88,.185],[.935,.285]],
- // The reference's inward S bend and hook above the cards.
- [[.935,.285],[.975,.355],[.79,.39],[.77,.455]],
- [[.77,.455],[.755,.505],[.69,.50],[.655,.565]],
- [[.655,.565],[.605,.665],[.70,.705],[.725,.68]],
- [[.725,.68],[.66,.705],[.565,.615],[.525,.61]],
- // Fine trailing curve curls toward the middle without filling the text area.
- [[.525,.61],[.49,.57],[.425,.655],[.415,.715]],
- [[1.015,.29],[.925,.36],[1.055,.405],[.985,.46]],
- [[.985,.46],[.91,.505],[1.035,.535],[1.005,.66]],
- [[1.005,.66],[.965,.81],[1.075,.94],[.88,1.025]],
- // Visible left-edge dust, widening into the lower-left curl.
- [[-.012,.565],[.038,.66],[-.016,.74],[.017,.82]],
- [[.017,.82],[-.012,.91],[.025,.995],[.13,.985]],
- [[.13,.985],[.19,.965],[.13,1.055],[.25,1.025]],
+import starSrc from '../../../assets/branding/celestial/celestial-star.png';
+
+const random = (n) => { const v = Math.sin(n * 127.1 + 31.7) * 43758.5453; return v - Math.floor(v); };
+
+// Soft fade toward zero within EDGE_MARGIN px of the sheet's edge, so dust
+// never pops or clips hard against the paper's boundary — it just settles
+// into the grain instead of getting cut off.
+const EDGE_MARGIN = 46;
+const edgeFalloff = (x, y, w, h) => {
+  const d = Math.min(x, w - x, y, h - y);
+  if (d <= 0) return 0;
+  if (d >= EDGE_MARGIN) return 1;
+  return d / EDGE_MARGIN;
+};
+
+// Two loose, counter-rotating eddies spread across the paper card — one
+// behind the headline, one lower behind the actions row — plus a soft wide
+// wash so the whole sheet reads as one field of stardust rather than two
+// separate clusters. Everything here is sized in fractions of the paper
+// card itself (not the whole hero), and the card clips its own overflow, so
+// the dust always sits on paper at any breakpoint — it never has anywhere
+// else to spill onto.
+// Two layouts share the same canvas: side-by-side columns on wide screens,
+// stacked content on narrow ones. Each gets its own swirl placement so the
+// dust frames the headline/card instead of sitting on top of dense text —
+// picked at resize() time based on the sheet's current aspect ratio.
+const SWIRLS_WIDE = [
+  { cx: 0.14, cy: 0.20, dir: 1, count: 49, dustCount: 272, minR: 0.05, maxR: 0.4, speed: 0.16 },
+  { cx: 0.88, cy: 0.22, dir: -1, count: 39, dustCount: 221, minR: 0.05, maxR: 0.36, speed: 0.22 },
+  { cx: 0.52, cy: 0.9, dir: 1, count: 26, dustCount: 153, minR: 0.04, maxR: 0.3, speed: 0.14 },
 ];
-function makeParticles(w,h,fullHeight=h){
- const particles=[];const scale=Math.max(.6,w/1568);
- currents.forEach((points,lane)=>{
- const count=lane===12?7400:lane===13?6800:lane===14?3400:lane===8?2200:5600;
- for(let i=0;i<count;i++){
- const seed=lane*270001+i*11,t=random(seed+1),u=1-t;
- const x=u*u*u*points[0][0]+3*u*u*t*points[1][0]+3*u*t*t*points[2][0]+t*t*t*points[3][0];
- const y=u*u*u*points[0][1]+3*u*u*t*points[1][1]+3*u*t*t*points[2][1]+t*t*t*points[3][1];
- // Isotropic Gaussian scatter eliminates the diagonal slashes of the previous field.
- const spread=(lane>=12?19+9*Math.sin(t*Math.PI):lane===8?11:13+9*Math.sin(t*Math.PI))*scale;
- const px=x*w+gaussian(seed+2,seed+3)*spread;
- // Stretch only the bottom edge tails to the notebook divider.
- const tail=Math.max(0,Math.min(1,(y-.8)/.2));
- const py=y*h+tail*(fullHeight-h)+gaussian(seed+4,seed+5)*spread;
- const alpha=.18+random(seed+6)*.34;
- particles.push({x:px,y:py,r:(.35+random(seed+7)*.72)*scale,color:'rgba(139,110,190,'+alpha+')'});
- }
- });
- return particles;
+
+// Stacked (mobile/tablet): just two small accents up near the persona
+// toggle. Everything further down the sheet is real UI (the description,
+// the buttons, the "Selected Work" label, the case-study card itself), so
+// there's no clear patch of bare paper left for a third cluster without
+// it sitting on top of text or getting swallowed by the card's own
+// opaque fill — better to leave that area clear than fight either.
+const SWIRLS_STACKED = [
+  { cx: 0.82, cy: 0.05, dir: 1, count: 19, dustCount: 102, minR: 0.03, maxR: 0.2, speed: 0.16 },
+  { cx: 0.18, cy: 0.05, dir: -1, count: 15, dustCount: 85, minR: 0.03, maxR: 0.18, speed: 0.18 },
+];
+
+// The exact four tones the real constellation art already ships with.
+const TONES = [
+  { name: 'violet', filter: null },
+  { name: 'pink', filter: 'hue-rotate(40deg) saturate(1.05)' },
+  { name: 'peach', filter: 'hue-rotate(115deg) saturate(1.05)' },
+  { name: 'pearl', filter: 'saturate(0.15) brightness(1.12)' },
+];
+const TONE_WEIGHTS_BASE = [0.14, 0.08, 0.08, 0.7];
+const TONE_WEIGHTS_FEATURE = [0.36, 0.3, 0.24, 0.1];
+const DUST_COLOR = '132,101,190';
+
+function pickTone(t, featured) {
+  const weights = featured ? TONE_WEIGHTS_FEATURE : TONE_WEIGHTS_BASE;
+  let acc = 0;
+  for (let i = 0; i < weights.length; i++) {
+    acc += weights[i];
+    if (t <= acc) return TONES[i].name;
+  }
+  return TONES[0].name;
 }
-export default function CelestialDust({paused}){
- const ref=useRef(null);
- const pausedRef=useRef(paused);
- useEffect(()=>{pausedRef.current=paused;},[paused]);
- useEffect(()=>{
- const canvas=ref.current,ctx=canvas.getContext('2d');if(!ctx)return;
- const hero=canvas.parentElement,motion=matchMedia('(prefers-reduced-motion: reduce)');
- let width=0,height=0,particles=[],frame=0,last=0,elapsed=0,visible=true,strength=0;
- const pointer={x:0,y:0,active:false};
- const draw=(time=0)=>{
- ctx.clearRect(0,0,width,height);
- const phase=time*.000605,scale=Math.max(.6,width/1568);
- const radius=110;
- for(const p of particles){
- // Bend the field locally with a slow travelling wave.
- let x=p.x+Math.sin(p.y/height*12-phase)*5*scale,y=p.y+Math.sin(p.x/width*10-phase*.8)*3.5*scale;
- if(strength>.001){const dx=x-pointer.x,dy=y-pointer.y,d=Math.hypot(dx,dy);
- if(d<radius){const push=24*strength*(1-d/radius)**2;const angle=d>.1?Math.atan2(dy,dx):0;x+=Math.cos(angle)*push;y+=Math.sin(angle)*push;}}
- ctx.globalAlpha=Math.min(1,Math.max(0,(height-y)/28));
- ctx.fillStyle=p.color;ctx.beginPath();ctx.arc(x,y,p.r,0,Math.PI*2);ctx.fill();
- }
- };
- const tick=now=>{frame=0;if(!visible||document.hidden)return;
- if(now-last>=40){const delta=last?Math.min(now-last,80):0;last=now;
- if(!pausedRef.current&&!motion.matches){elapsed+=delta;const target=pointer.active?1:0;strength+=(target-strength)*.16;draw(elapsed);}}
- frame=requestAnimationFrame(tick);
- };
- const start=()=>{if(!frame&&visible&&!document.hidden){last=0;frame=requestAnimationFrame(tick);}};
- const reset=()=>{cancelAnimationFrame(frame);frame=0;last=0;};
- const resize=()=>{
- const rect=hero.getBoundingClientRect(),top=rect.top+window.scrollY;width=document.documentElement.clientWidth;height=rect.height+top+40;
- const compositionHeight=height;
- const divider=document.querySelector(".notebook-masthead__star");
- if(divider)height=Math.max(height,divider.getBoundingClientRect().bottom+window.scrollY);
- const dpr=Math.min(devicePixelRatio||1,2);
- canvas.style.maxWidth='none';canvas.style.left=-rect.left+'px';canvas.style.top=-top+'px';canvas.style.width=width+'px';canvas.style.height=height+'px';
- canvas.width=Math.round(width*dpr);canvas.height=Math.round(height*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);particles=makeParticles(width,compositionHeight,height);draw(elapsed);start();
- };
- const move=e=>{if(e.pointerType!=='mouse'||pausedRef.current||motion.matches)return;const rect=canvas.getBoundingClientRect();pointer.clientY=e.clientY;pointer.x=e.clientX-rect.left;pointer.y=e.clientY-rect.top;pointer.active=pointer.x>=0&&pointer.x<=width&&pointer.y>=0&&pointer.y<=height;start();};
- const leave=()=>{pointer.active=false;start();};
- const visibility=()=>{if(document.hidden)reset();else start();};
- const preference=()=>{strength=0;pointer.active=false;draw(elapsed);start();};
- const scroll=()=>{if(!pointer.active)return;const rect=canvas.getBoundingClientRect();pointer.y=pointer.clientY-rect.top;start();};
- const observer=new ResizeObserver(resize);observer.observe(hero);
- const opening=hero.closest(".home-journal__opening");if(opening)observer.observe(opening);
- const mountFrame=requestAnimationFrame(resize);
- const mutations=new MutationObserver(resize);if(opening)mutations.observe(opening,{childList:true,subtree:true});
- const intersection=new IntersectionObserver(([entry])=>{visible=entry.isIntersecting;if(!visible)reset();else start();});intersection.observe(hero);
- window.addEventListener('resize',resize);window.addEventListener('pointermove',move,{passive:true});document.documentElement.addEventListener('pointerleave',leave);document.addEventListener('visibilitychange',visibility);motion.addEventListener('change',preference);window.addEventListener('scroll',scroll,{passive:true});resize();
- return()=>{cancelAnimationFrame(frame);cancelAnimationFrame(mountFrame);mutations.disconnect();observer.disconnect();intersection.disconnect();window.removeEventListener('resize',resize);window.removeEventListener('pointermove',move);document.documentElement.removeEventListener('pointerleave',leave);document.removeEventListener('visibilitychange',visibility);motion.removeEventListener('change',preference);window.removeEventListener('scroll',scroll);};
- },[]);
- return <canvas ref={ref} className="journal-dust" data-paused={paused} aria-hidden="true" />;
+
+function buildSprites(img) {
+  const size = 96;
+  const sprites = {};
+  for (const tone of TONES) {
+    const c = document.createElement('canvas');
+    c.width = size;
+    c.height = size;
+    const cctx = c.getContext('2d');
+    if (tone.filter) cctx.filter = tone.filter;
+    cctx.drawImage(img, 0, 0, size, size);
+    sprites[tone.name] = c;
+  }
+  return sprites;
+}
+
+function makeParticles(w, h, swirls) {
+  const stars = [];
+  const dust = [];
+  let seed = 0;
+  const scale = Math.min(w, h);
+  swirls.forEach((swirl) => {
+    for (let i = 0; i < swirl.count; i++) {
+      seed += 1;
+      const t = random(seed);
+      const radiusFrac = Math.sqrt(t) * (swirl.maxR - swirl.minR) + swirl.minR;
+      const baseRadius = radiusFrac * scale;
+      const feature = i % 7 === 0;
+      stars.push({
+        cx: swirl.cx * w,
+        cy: swirl.cy * h,
+        angle: random(seed + 500) * Math.PI * 2,
+        radius: baseRadius,
+        jitter: (0.08 + random(seed + 900) * 0.12) * baseRadius,
+        wobbleSeed: random(seed + 200) * 100,
+        wobbleSpeed: 0.35 + random(seed + 300) * 0.55,
+        angularSpeed: swirl.dir * (swirl.speed * (0.5 + random(seed + 700) * 0.7)),
+        squish: 0.55 + random(seed + 1100) * 0.14,
+        size: (feature ? 24 : 11) + random(seed + 100) * (feature ? 20 : 17),
+        alpha: (feature ? 0.85 : 0.62) + random(seed + 400) * (feature ? 0.15 : 0.36) * (1 - radiusFrac * 0.3),
+        tone: pickTone(random(seed + 1300), feature),
+        spin: (random(seed + 1600) - 0.5) * 0.6,
+        feature,
+        pulseSeed: random(seed + 1800) * 100,
+      });
+    }
+    for (let i = 0; i < swirl.dustCount; i++) {
+      seed += 1;
+      const t = random(seed);
+      const radiusFrac = Math.sqrt(t) * (swirl.maxR - swirl.minR) + swirl.minR;
+      const baseRadius = radiusFrac * scale;
+      dust.push({
+        cx: swirl.cx * w,
+        cy: swirl.cy * h,
+        angle: random(seed + 500) * Math.PI * 2,
+        radius: baseRadius,
+        jitter: (0.08 + random(seed + 900) * 0.12) * baseRadius,
+        wobbleSeed: random(seed + 200) * 100,
+        wobbleSpeed: 0.35 + random(seed + 300) * 0.55,
+        angularSpeed: swirl.dir * (swirl.speed * (0.5 + random(seed + 700) * 0.7)),
+        squish: 0.55 + random(seed + 1100) * 0.14,
+        r: 0.6 + random(seed + 100) * 1.3,
+        alpha: (0.2 + random(seed + 400) * 0.32) * (1 - radiusFrac * 0.3),
+        pulseSeed: random(seed + 2000) * 100,
+      });
+    }
+  });
+  return { stars, dust };
+}
+
+export default function CelestialDust({ paused }) {
+  const ref = useRef(null);
+  const pausedRef = useRef(paused);
+  useEffect(() => { pausedRef.current = paused; }, [paused]);
+
+  useEffect(() => {
+    const canvas = ref.current;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    const host = canvas.parentElement;
+    const motion = matchMedia('(prefers-reduced-motion: reduce)');
+    let width = 0, height = 0, stars = [], dust = [], sprites = null, frame = 0, last = 0, elapsed = 0, visible = true, strength = 0, ready = false;
+    const pointer = { x: 0, y: 0, active: false };
+
+    const image = new Image();
+    image.onload = () => {
+      sprites = buildSprites(image);
+      ready = true;
+      draw(elapsed);
+      start();
+    };
+    image.src = starSrc;
+
+    const settle = (p, t) => {
+      const angle = p.angle + t * p.angularSpeed;
+      const radius = p.radius + Math.sin(t * p.wobbleSpeed + p.wobbleSeed) * p.jitter;
+      let x = p.cx + Math.cos(angle) * radius;
+      let y = p.cy + Math.sin(angle) * radius * p.squish;
+      if (strength > 0.001) {
+        const dx = x - pointer.x, dy = y - pointer.y, d = Math.hypot(dx, dy);
+        const reach = 150;
+        if (d < reach) {
+          const push = 58 * strength * (1 - d / reach) ** 2;
+          const a = d > 0.1 ? Math.atan2(dy, dx) : 0;
+          x += Math.cos(a) * push;
+          y += Math.sin(a) * push;
+        }
+      }
+      return [x, y, angle];
+    };
+
+    const draw = (time = 0) => {
+      ctx.clearRect(0, 0, width, height);
+      const t = time * 0.001;
+      ctx.lineCap = 'round';
+
+      ctx.globalAlpha = 1;
+      for (const p of dust) {
+        const [x, y] = settle(p, t);
+        const edge = edgeFalloff(x, y, width, height);
+        if (edge <= 0) continue;
+        const twinkle = 0.75 + 0.25 * Math.sin(t * 0.9 + p.pulseSeed);
+        ctx.fillStyle = `rgba(${DUST_COLOR},${p.alpha * twinkle * edge})`;
+        ctx.beginPath();
+        ctx.arc(x, y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      if (ready) {
+        for (const p of stars) {
+          const [x, y, angle] = settle(p, t);
+          const edge = edgeFalloff(x, y, width, height);
+          if (edge <= 0) continue;
+          const sprite = sprites[p.tone];
+          let size = p.size;
+          let alpha = p.alpha;
+          if (p.feature) {
+            const pulse = 1 + 0.16 * Math.sin(t * 1.05 + p.pulseSeed);
+            size = p.size * pulse;
+            alpha = p.alpha * (0.82 + 0.18 * Math.sin(t * 0.85 + p.pulseSeed * 1.3));
+          }
+          ctx.globalAlpha = alpha * edge;
+          ctx.save();
+          ctx.translate(x, y);
+          ctx.rotate(angle * p.spin);
+          ctx.drawImage(sprite, -size / 2, -size / 2, size, size);
+          ctx.restore();
+        }
+        ctx.globalAlpha = 1;
+      }
+    };
+
+    const tick = (now) => {
+      frame = 0;
+      if (!visible || document.hidden) return;
+      if (now - last >= 32) {
+        const delta = last ? Math.min(now - last, 80) : 0;
+        last = now;
+        if (!pausedRef.current && !motion.matches) {
+          elapsed += delta;
+          const target = pointer.active ? 1 : 0;
+          strength += (target - strength) * 0.14;
+          draw(elapsed);
+        }
+      }
+      frame = requestAnimationFrame(tick);
+    };
+    const start = () => { if (!frame && visible && !document.hidden) { last = 0; frame = requestAnimationFrame(tick); } };
+    const reset = () => { cancelAnimationFrame(frame); frame = 0; last = 0; };
+
+    const resize = () => {
+      const rect = host.getBoundingClientRect();
+      width = rect.width;
+      height = rect.height;
+      const dpr = Math.min(devicePixelRatio || 1, 2);
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      canvas.width = Math.round(width * dpr);
+      canvas.height = Math.round(height * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const swirls = width > height * 1.15 ? SWIRLS_WIDE : SWIRLS_STACKED;
+      const made = makeParticles(width, height, swirls);
+      stars = made.stars;
+      dust = made.dust;
+      draw(elapsed);
+      start();
+    };
+
+    const move = (e) => {
+      if (e.pointerType !== 'mouse' || pausedRef.current || motion.matches) return;
+      const rect = canvas.getBoundingClientRect();
+      pointer.x = e.clientX - rect.left;
+      pointer.y = e.clientY - rect.top;
+      pointer.active = pointer.x >= 0 && pointer.x <= width && pointer.y >= 0 && pointer.y <= height;
+      start();
+    };
+    const leave = () => { pointer.active = false; start(); };
+    const visibility = () => { if (document.hidden) reset(); else start(); };
+    const preference = () => { strength = 0; pointer.active = false; draw(elapsed); start(); };
+
+    const observer = new ResizeObserver(resize);
+    observer.observe(host);
+    const mountFrame = requestAnimationFrame(resize);
+    const intersection = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; if (!visible) reset(); else start(); });
+    intersection.observe(host);
+
+    window.addEventListener('pointermove', move, { passive: true });
+    document.documentElement.addEventListener('pointerleave', leave);
+    document.addEventListener('visibilitychange', visibility);
+    motion.addEventListener('change', preference);
+
+    return () => {
+      cancelAnimationFrame(frame);
+      cancelAnimationFrame(mountFrame);
+      observer.disconnect();
+      intersection.disconnect();
+      window.removeEventListener('pointermove', move);
+      document.documentElement.removeEventListener('pointerleave', leave);
+      document.removeEventListener('visibilitychange', visibility);
+      motion.removeEventListener('change', preference);
+    };
+  }, []);
+
+  return <canvas ref={ref} className="hero-dust" data-paused={paused} aria-hidden="true" />;
 }

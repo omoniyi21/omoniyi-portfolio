@@ -1,0 +1,435 @@
+/* Desk-collage hero: one full-bleed paper sheet fills the whole hero — the
+   celestial dust is bounded to that sheet, never spilling past its edges —
+   and both the headline and the case-study note sit on top of it, taped
+   down like two things left on the same desk. Scoped entirely to
+   .hero-desk so nothing outside the hero is touched. */
+
+/* ---------- retire the old notebook margin rule + fixed-height row ---------- */
+.hero-desk.hero-journal::before,
+.hero-desk.hero-journal::after,
+.home-journal .hero-desk.hero-journal::before,
+.home-journal .hero-desk.hero-journal::after {
+    display: none !important;
+}
+
+.hero-desk.hero-journal .hero__main {
+    display: block;
+    height: auto;
+    min-height: 0;
+    padding: clamp(3.5rem, 6vw, 5rem) 0 2.5rem;
+    /* Elevation shadow lives here, not on .desk-surface itself — that box
+       has overflow:hidden (to keep the celestial dust clipped to the torn
+       silhouette), and a filter on the same element that clips its own
+       overflow gets its shadow clipped away too. Up here it renders freely
+       and still traces the jagged silhouette, since drop-shadow follows
+       the child's actual rendered alpha shape, not a bounding box. */
+    filter:
+        drop-shadow(0 3px 6px rgb(23 23 23 / 16%))
+        drop-shadow(0 26px 40px rgb(76 58 92 / 26%));
+}
+
+/* ---------- outer layout: paper card | work card, side by side ---------- */
+.desk-surface {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    box-sizing: border-box;
+    width: 100%;
+    padding: clamp(2.5rem, 4.5vw, 4rem) clamp(2rem, 4vw, 3.5rem);
+    /* A flat, hand-torn sheet: a cream fill clipped to an irregular
+       deckled-edge silhouette (uneven notches along the top and bottom,
+       straighter left/right sides) rather than a clean rounded rectangle.
+       A cropped, edge-free patch of the real paper photo's grain is
+       layered on top and multiplied into the fill, so the interior reads
+       as genuine paper fiber instead of a flat solid color — while the
+       torn silhouette itself stays crisp CSS, not a photographed edge. */
+    background-color: var(--color-gray-50);
+    background-image: url(../../assets/images/hero/paper-grain-swatch.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-blend-mode: multiply;
+    clip-path: polygon(
+        0% 1.2%, 4% 0%, 9% 1.8%, 15% 0.4%, 22% 1.6%, 30% 0%, 38% 1.2%,
+        47% 0.3%, 55% 1.8%, 63% 0.2%, 71% 1.4%, 80% 0%, 88% 1.6%, 95% 0.4%,
+        100% 1.1%,
+        99.4% 30%, 100% 55%, 99.3% 75%,
+        100% 98.8%, 94% 100%, 87% 98.3%, 79% 99.6%, 71% 98.4%, 62% 100%,
+        54% 98.7%, 46% 99.7%, 37% 98.2%, 29% 100%, 20% 98.5%, 12% 99.6%,
+        5% 98.1%, 0% 99%,
+        0.6% 70%, 0% 45%, 0.7% 25%
+    );
+}
+
+.desk-surface__grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1.08fr .92fr;
+    align-items: start;
+    gap: clamp(1.5rem, 3vw, 3rem);
+    box-sizing: border-box;
+    width: 100%;
+}
+
+/* grid items default to min-width:auto, which lets an oversized descendant
+   (long text, a nowrap row) blow the track out past the container — force
+   both columns to shrink with their track instead. */
+.desk-surface__grid > * {
+    min-width: 0;
+}
+
+/* ---------- the paper sheet: headline + persona toggle live here, and the
+   celestial dust is clipped to exactly this box at every breakpoint ---------- */
+.desk-surface__paper {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+/* stardust sits directly on the full paper sheet, under the text and the
+   note, clipped to the sheet's own bounds by .desk-surface's
+   overflow:hidden above */
+.hero-dust {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.desk-surface__text {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 0;
+}
+
+.desk-surface__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.35rem;
+    margin-top: 1.7rem;
+}
+
+/* ---------- persona toggle ---------- */
+.desk-persona {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .65rem;
+    margin: 0 0 1.5rem;
+}
+
+.desk-persona__label {
+    font-family: var(--font-family-personal);
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    transform: rotate(-3deg);
+}
+
+.desk-persona__options {
+    display: inline-flex;
+    gap: .4rem;
+    padding: .25rem;
+    border-radius: var(--radius-pill);
+    background: rgb(255 255 255 / 55%);
+    border: 1px solid rgb(117 105 227 / 25%);
+}
+
+.desk-persona__pill {
+    border: 0;
+    border-radius: var(--radius-pill);
+    padding: .4rem .95rem;
+    background: transparent;
+    color: var(--text-secondary);
+    font-family: var(--font-family-body);
+    font-size: .78rem;
+    font-weight: var(--font-medium);
+    letter-spacing: .01em;
+    cursor: pointer;
+    transition: background .2s ease, color .2s ease, box-shadow .2s ease;
+}
+
+.desk-persona__pill:hover { color: var(--text-primary); }
+
+.desk-persona__pill.is-active {
+    background: var(--color-lavender-500);
+    color: var(--color-white);
+    box-shadow: 0 3px 9px rgb(117 105 227 / 35%);
+}
+
+.desk-surface__sky-control {
+    position: relative;
+    z-index: 1;
+    align-self: flex-start;
+    margin-top: 1.15rem;
+    border: 0;
+    background: none;
+    padding: 0;
+    font-family: var(--font-family-body);
+    font-size: .68rem;
+    font-weight: var(--font-medium);
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    cursor: pointer;
+    opacity: .55;
+    transition: opacity .2s ease;
+}
+
+.desk-surface__sky-control:hover,
+.desk-surface__sky-control:focus-visible {
+    opacity: 1;
+    color: var(--color-lavender-500);
+}
+
+/* ---------- work column: the case-study card, floating free on the page ---------- */
+.desk-surface__work {
+    position: relative;
+    z-index: 1;
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    height: var(--work-card-h, auto);
+    padding-top: clamp(.25rem, 1vw, .75rem);
+    display: flex;
+    flex-direction: column;
+}
+
+.desk-surface__work .hero-projects,
+.desk-surface__work .hero-projects__rail,
+.desk-surface__work .hero-project,
+.desk-surface__work .hero-project__footer {
+    min-width: 0;
+}
+
+/* the intro row (eyebrow + controls) keeps its natural size; the rail below
+   it — and the card inside — stretch to fill whatever is left, so the card
+   bottoms out exactly at the work column's own bottom edge */
+.desk-surface__work .hero-projects {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 16rem;
+}
+
+.desk-surface__work .hero-projects__rail {
+    flex: 1;
+    /* Floors the rail at whatever the tallest case study actually needs
+       (measured in SelectedWork.jsx and written here as --project-card-h),
+       instead of the old fixed guess that fit the shortest project and
+       let the longest one's text overflow its own torn silhouette. Still
+       just a floor, so on the wider two-column layout below it keeps
+       stretching with flex:1 to match the hero column's height as before. */
+    min-height: var(--project-card-h, 0);
+}
+
+.hero-desk .desk-surface__work .hero-projects__rail,
+.hero-desk.hero-journal .desk-surface__work .hero-projects__rail {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    display: block;
+    overflow: visible;
+    scroll-snap-type: none;
+}
+
+/* the legacy full-width homepage slider (hero-journal.css) shares these
+   class names and sets absolute-positioned controls + wide intro padding
+   meant for its own layout — reset those structural bits for our narrower
+   column context (independent of the card-vs-plain-text visual decision). */
+.hero-desk .desk-surface__work .hero-projects,
+.hero-desk.hero-journal .desk-surface__work .hero-projects {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.hero-desk .desk-surface__work .hero-projects__intro,
+.hero-desk.hero-journal .desk-surface__work .hero-projects__intro {
+    padding-right: 0;
+    min-height: 0;
+    margin-bottom: 1.35rem;
+}
+
+.hero-desk .desk-surface__work .hero-projects__controls,
+.hero-desk.hero-journal .desk-surface__work .hero-projects__controls {
+    position: static;
+    top: auto;
+    right: auto;
+}
+
+.hero-desk .desk-surface__work .hero-projects__controls button,
+.hero-desk.hero-journal .desk-surface__work .hero-projects__controls button {
+    width: 2rem;
+    height: 2rem;
+    font-size: 1rem;
+    border: 1px solid rgb(17 17 17 / 16%);
+    background: rgb(255 255 255 / 55%);
+    color: var(--text-primary);
+}
+
+.hero-desk .desk-surface__work .hero-projects__controls button:hover:not(:disabled),
+.hero-desk.hero-journal .desk-surface__work .hero-projects__controls button:hover:not(:disabled) {
+    background: var(--color-white);
+}
+
+/* The card needs to win over the legacy homepage-slider ".hero-project"
+   rules in hero-journal.css, which share these class names — three classes
+   of specificity here beats their two, regardless of stylesheet order. */
+/* ---------- the case-study stack: each sheet is a wrapper (position +
+   elevation shadow) around a Link masked to a torn, taped note-pad
+   silhouette, tinted a different pastel per sheet. The wrapper carries the
+   shadow rather than the masked Link itself, because a filter and a
+   mask/clip-path on the same box clip each other away — same fix as the
+   desk sheet's own drop-shadow above. ---------- */
+.hero-desk .desk-surface__work .hero-project-slot {
+    position: absolute;
+    inset: 0;
+    transition: transform .45s cubic-bezier(.22, 1, .36, 1), opacity .35s ease;
+}
+
+.hero-desk .desk-surface__work .hero-project {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.5rem;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    padding: calc(2.2rem + 30px) 1.8rem 2rem;
+    /* --card-tint is set inline per card in JSX now, not by a sibling
+       selector here — each sheet lives in its own wrapper div (for the
+       stack positioning + shadow), so it's the only element of its type
+       under that parent and :nth-of-type could never tell them apart. */
+    background-color: var(--card-tint, var(--color-gray-50));
+    background-image: url(../../assets/images/personal-effects-refined/podcast-paper-v3-trim.png);
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-blend-mode: multiply;
+    -webkit-mask-image: url(../../assets/images/personal-effects-refined/podcast-paper-v3-trim.png);
+    mask-image: url(../../assets/images/personal-effects-refined/podcast-paper-v3-trim.png);
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-desk .desk-surface__work .hero-project-slot { transition: none; }
+}
+
+/* Offscreen twin of every sheet, laid out at its natural (unconstrained)
+   height purely so JS can measure it — see the useLayoutEffect in
+   SelectedWork.jsx. Absolutely positioned so it takes up no space and
+   never affects scroll, but keeps the rail's own width so text wraps the
+   same way it will in the real, visible card. */
+.hero-desk .desk-surface__work .hero-projects__measure {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    visibility: hidden;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.hero-desk .desk-surface__work .hero-projects__measure .hero-project {
+    position: static;
+    height: auto;
+    -webkit-mask-image: none;
+    mask-image: none;
+}
+
+/* The sheets behind the front one are only meant to peek out as a sliver of
+   blank tinted paper (the fanned-stack look) — their real header/wireframe/
+   footer content sits underneath the front sheet's torn, scalloped mask,
+   and the mask's cut-out gaps let that content show through as duplicated,
+   overlapping text. Hiding a peeking sheet's inner content (but not the
+   sheet itself, which still needs to render its tinted, masked paper)
+   removes that bleed-through while keeping the fan of colored edges. */
+.hero-desk .desk-surface__work .hero-project-slot[aria-hidden="true"] .hero-project__header,
+.hero-desk .desk-surface__work .hero-project-slot[aria-hidden="true"] .hero-project__wireframe,
+.hero-desk .desk-surface__work .hero-project-slot[aria-hidden="true"] .hero-project__footer {
+    visibility: hidden;
+}
+
+.hero-desk .desk-surface__work .hero-project__header {
+    display: flex;
+    align-items: flex-start;
+    gap: .85rem;
+    min-width: 0;
+}
+
+.hero-desk .desk-surface__work .hero-project__icon {
+    flex-shrink: 0;
+    margin-left: auto;
+    width: 1.9rem;
+    height: 1.9rem;
+    color: var(--text-primary);
+    stroke-width: 1.35;
+}
+
+.hero-desk .desk-surface__work .hero-project__content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.hero-desk .desk-surface__work .hero-project__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 1.1rem;
+    border-top: 1px solid rgb(17 17 17 / 10%);
+}
+
+/* ---------- the empty middle band of each sheet gets a small sketched
+   wireframe, different per case study, standing in for a UI thumbnail ---------- */
+.hero-desk .desk-surface__work .hero-project__wireframe {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 0;
+    min-width: 0;
+    color: rgb(23 23 23 / 28%);
+}
+
+.hero-desk .desk-surface__work .hero-project__wireframe svg {
+    width: 100%;
+    max-width: 14rem;
+    height: auto;
+    max-height: 100%;
+}
+
+/* ---------- responsive ---------- */
+@media (max-width: 980px) {
+    .desk-surface__grid { grid-template-columns: 1fr; }
+    .desk-surface__work {
+        margin-top: 1.5rem;
+        padding-top: 1.5rem;
+        height: auto;
+    }
+}
+
+@media (max-width: 600px) {
+    .desk-persona { flex-direction: column; align-items: flex-start; gap: .4rem; }
+    .desk-surface { padding: 2.25rem 1.5rem; }
+    .desk-surface__work .hero-projects { min-height: 14rem; }
+    .hero-desk .desk-surface__work .hero-project { padding: 1.8rem 1.4rem 1.6rem; gap: 1.1rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .desk-surface__sky-control { transition: none; }
+}

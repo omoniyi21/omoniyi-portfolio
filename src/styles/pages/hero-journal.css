@@ -232,11 +232,11 @@
 .home-journal .hero-journal::after { content:none; }
 .home-journal .hero-journal__name { top:0; left:0; width:100%; line-height:1.4; }
 .hero-journal__rule-star { position:absolute; left:calc(var(--journal-rule-offset) + .5px); top:50%; width:16px; height:16px; transform:translate(-50%,-50%); color:#8861a8; }
-.home-journal__opening > .observations-notebook { position:relative; margin-top:2rem; --notebook-rule-inset:3rem; }
-.home-journal__opening > .observations-notebook::before { content:""; position:absolute; left:var(--journal-rule-offset); top:-2rem; height:calc(2rem + var(--notebook-rule-inset) + .525rem); width:1px; background:#8861a8; pointer-events:none; }
-.home-journal__opening .notebook-masthead { padding-left:0; }
-.home-journal__opening .notebook-masthead__star { position:absolute; left:calc(var(--journal-rule-offset) + .5px); top:calc(var(--notebook-rule-inset) + .525rem); transform:translate(-50%,-50%); }
-@media(max-width:980px) { .home-journal__opening > .observations-notebook { --notebook-rule-inset:2rem; } }
+/* The vertical rule + star that used to hang off the hero's own margin
+   line and continue down to the notebook masthead is retired along with
+   that margin line (see hero-desk.css) — the star now just sits inline in
+   the masthead label like it does everywhere else the notebook is used. */
+.home-journal__opening > .observations-notebook { position:relative; margin-top:2rem; }
 .notebook-masthead__label { display:inline-flex; align-items:center; gap:.75rem; }
 .notebook-masthead__star { flex:none; width:16px; height:16px; color:#e58a47; }
 .hero-journal .scorpio-caption { opacity:1; }
