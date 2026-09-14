@@ -1,3 +1,4 @@
+import { trackEvent } from "../../lib/analytics";
 import { Send } from "lucide-react";
 import { useState } from "react";
 
@@ -34,6 +35,7 @@ export default function RecommendationForm() {
 
       form.reset();
       setStatus("success");
+      trackEvent("generate_lead", { form_name: "contact" });
       setMessage("Your note is on its way — thank you for reaching out.");
     } catch (error) {
       setStatus("error");
@@ -42,7 +44,7 @@ export default function RecommendationForm() {
   }
 
   return (
-    <form className="contact-form" onSubmit={handleSubmit}>
+    <form data-analytics-form="contact" className="contact-form" onSubmit={handleSubmit}>
       <div className="contact-form__masthead">
         <span>Drop a note</span>
         <span aria-hidden="true">✦</span>

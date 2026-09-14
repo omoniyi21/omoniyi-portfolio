@@ -1,7 +1,7 @@
 import "./personal-effects.css";
 import { Link } from "react-router-dom";
 
-import ObservationsTelescope from "../../assets/branding/stardust-creature-kit/png/1024/observations-telescope.png";
+import MovieSD from "../../assets/branding/sd-variants/sd-watching-a-movie.png";
 import ReadingPaper from "../../assets/images/personal-effects-refined/reading-paper-v2-trim.png";
 import WatchingPaper from "../../assets/images/personal-effects-refined/watching-paper-v2-trim.png";
 import MovieTicket from "../../assets/images/personal-effects-refined/movie-ticket-v2-trim.png";
@@ -23,13 +23,13 @@ export default function PersonalEffects() {
       <h2 id="personal-effects-title">What’s On My Mind?</h2>
       <p>A few things currently shaping how I think :)</p>
       <Link to="/about">design dossier <span aria-hidden="true">↗</span></Link>
-      <img className="personal-effects__stardust stardust--float" src={ObservationsTelescope} alt="SD observing a few creative patterns" />
+      <img className="personal-effects__stardust stardust--float" src={MovieSD} alt="SD watching a movie" />
       <p className="personal-effects__coordinates">7.8003° N, 5.3790° E<br />SD archive<br />Observing, always.</p>
     </aside>
     <div className="personal-effects__spread" aria-label="A collection of current interests and creative fuel">
       <span className="personal-effects__glass-cast" aria-hidden="true" />
       <div className="personal-effects__glass-content">
-        <header className="personal-effects__masthead"><span>About me / Design dossier</span><span>Field notes · vol. 01</span></header>
+        <header className="personal-effects__masthead"><span>About / Design dossier</span><span>Field notes · vol. 01</span></header>
         <Paper className="effect-paper--reading" src={ReadingPaper} label="Currently reading: The Artist's Way by Julia Cameron"><p className="paper-eyebrow">Currently reading</p><h3>The Artist’s<br />Way</h3><p className="paper-author">Julia Cameron</p><span className="paper-doodle paper-doodle--sun" aria-hidden="true">☼</span></Paper>
         <Paper className="effect-paper--watching" src={WatchingPaper} label="Currently watching: FROM and Furious"><p className="paper-eyebrow paper-eyebrow--lavender">Currently watching · TV</p><div className="watching-columns"><div><h3>FROM</h3><p>a mysterious town.<br />no way out.<br />questions at every turn.</p><b>On MGM+</b><span className="watching-doodle watching-doodle--spooky" aria-hidden="true">☾</span></div><div><h3>FURIOUS</h3><p>how victimhood can<br />change you—and how<br />far is too far for revenge.</p><b>On Hulu</b><span className="watching-doodle watching-doodle--angry" aria-hidden="true">&gt;:(</span></div></div></Paper>
         <Paper className="effect-paper--movie" src={MovieTicket} label="Current movie obsession: I Love Boosters"><p className="paper-eyebrow">Current movie obsession</p><h3>I LOVE<br />BOOSTERS</h3><p>the movie that lives<br />in my head rent free.</p><small>Theater 02 · Row D · Seat 07</small></Paper>
@@ -42,7 +42,7 @@ export default function PersonalEffects() {
       </div>
     </div>
     <section className="personal-effects__mobile-card" aria-label="Current creative fuel">
-      <p className="personal-effects__mobile-kicker">About me / design dossier</p>
+      <p className="personal-effects__mobile-kicker">About / design dossier</p>
       <div className="personal-effects__mobile-grid">
         <article><span>Currently reading</span><h3>The Artist’s Way</h3><p>Julia Cameron</p></article>
         <article><span>Currently watching</span><h3>FROM + Furious</h3><p>On MGM+ and Hulu</p></article>

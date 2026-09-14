@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import "./process-section.css";
+import FloatingSD from "../../assets/branding/celestial/stardust-asteroid.png";
 
 // The five words from the hero's old constellation, now written out: how I
 // actually think through each stage, each tied to the real project that
@@ -45,6 +46,7 @@ const STEPS = [
 export default function ProcessSection() {
   return (
     <section className="process-section" aria-labelledby="process-title">
+      <div className="process-section__opening">
       <header className="process-section__head">
         <p className="process-section__eyebrow">
           <span>How I Think</span>
@@ -55,6 +57,12 @@ export default function ProcessSection() {
           The same arc shows up in every project I take on — just aimed at a different problem each time.
         </p>
       </header>
+      <div className="process-section__sd" tabIndex={0} aria-describedby="process-sd-tooltip">
+        <img src={FloatingSD} alt="Stardust floating" />
+        <a href="https://www.figma.com/design/ZdQgGWYa2JVXtn57IIMShQ/Stardust---Dust---Notebook-%E2%80%94-Theme-History---Foundations" target="_blank" rel="noopener noreferrer" className="process-section__figma" aria-describedby="process-sd-tooltip">peek into figma <span aria-hidden="true">↗</span></a>
+        <span className="process-section__sd-tooltip" id="process-sd-tooltip" role="tooltip">I'm Stardust or SD, peek into figma to get to know me</span>
+      </div>
+      </div>
 
       <ol className="process-section__grid">
         {STEPS.map((step, index) => (

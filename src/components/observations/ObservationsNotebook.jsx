@@ -1,7 +1,6 @@
 import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { getPublishedObservations } from "../../data/observations";
-import Telescope from "../../assets/branding/stardust-creature-kit/png/1024/observations-telescope.png";
 import "./observations-notebook.css";
 
 import PinkPaper from "../../assets/images/observations/pink-grid.png";
@@ -50,7 +49,7 @@ function SignupNote() {
 export default function ObservationsNotebook() {
   const [latest, ...recent] = getPublishedObservations().slice(0, 3);
   return <section className="observations-notebook" id="observations" aria-labelledby="notebook-title">
-    <header className="notebook-masthead"><span className="notebook-masthead__index">01</span><span className="notebook-masthead__label"><svg className="notebook-masthead__star" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 0C11.5 7 13 8.5 20 10C13 11.5 11.5 13 10 20C8.5 13 7 11.5 0 10C7 8.5 8.5 7 10 0Z" fill="currentColor" /></svg>From my notebook</span><span>Thinking out loud <i aria-hidden="true">✦</i></span></header>
+    <header className="notebook-masthead"><div className="notebook-masthead__meta"><span>01</span><span>From my notebook</span><span aria-hidden="true">✦</span></div><span>Thinking out loud <i aria-hidden="true">✦</i></span></header>
     <div className="notebook-page">
       <header className="notebook-heading"><p className="notebook-label">Notes on design & being a person</p><h2 id="notebook-title">Observations</h2><p>Things I notice. Things I’m still figuring out.</p></header>
       <div className="notebook-composition">
@@ -67,7 +66,7 @@ export default function ObservationsNotebook() {
             <footer><span>{latest.dateLabel}</span><span>Read Observation ↗</span></footer>
           </Link>
         </article> : <p className="notebook-cover">The next page is still taking shape. Come back soon.</p>}
-        <div className="notebook-margin"><img src={Telescope} alt="" /><span>always looking<br />a little closer ↙</span><SignupNote /></div>
+        <div className="notebook-margin"><span>always looking<br />a little closer ↙</span><SignupNote /></div>
         {recent.length > 0 && <div className="notebook-recent">{recent.map(post => <Link className="notebook-small" key={post.slug} to={`/observations/${post.slug}`}><img className="notebook-small__paper" src={ReadingPaper} alt="" /><span className="notebook-label">OBS. {post.number} · {post.dateLabel}</span><h3>{post.title}</h3><span>Read Observation ↗</span></Link>)}</div>}
       </div>
       <footer className="notebook-bottom"><span className="notebook-bottom__note"><Artifact src={Frog} box="240 279 320 242" className="notebook-frog" />A few thoughts, kept together.</span><Link to="/observations">See all Observations <span aria-hidden="true">↗</span></Link></footer>

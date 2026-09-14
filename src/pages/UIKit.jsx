@@ -1,3 +1,4 @@
+import { trackEvent } from "../lib/analytics";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import Button from "../components/shared/button/Button";
@@ -98,12 +99,13 @@ function ReleaseDialog({ onClose }) {
       });
       if (!response.ok) throw new Error("Your request couldn’t be saved. Please try again or email me directly.");
       setStatus("success");
+      trackEvent("launchkit_pro_signup", { form_name: "launchkit_pro" });
     } catch (err) { setError(err.message); setStatus("error"); }
   }
 
   return <dialog ref={dialog} className="oui-dialog" aria-labelledby="oui-release-title" onCancel={onClose} onClick={event => { if (event.target === event.currentTarget) { const rect = event.currentTarget.getBoundingClientRect(); if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) onClose(); } }}>
     <div className="oui-dialog-top"><span>✦ LaunchKit Pro</span><button type="button" className="oui-close" aria-label="Close release form" onClick={onClose}>×</button></div>
-    {status === "success" ? <div className="oui-dialog-body" role="status"><h2 id="oui-release-title">You’re on the list.</h2><p>I’ll let you know when LaunchKit Pro is ready. In the meantime, start building with Free.</p><FreeLink /></div> : <form onSubmit={submit} className="oui-dialog-body">
+    {status === "success" ? <div className="oui-dialog-body" role="status"><h2 id="oui-release-title">You’re on the list.</h2><p>I’ll let you know when LaunchKit Pro is ready. In the meantime, start building with Free.</p><FreeLink /></div> : <form data-analytics-form="launchkit_pro" onSubmit={submit} className="oui-dialog-body">
       <h2 id="oui-release-title">Meet your next<br />starting point.</h2><p>Get an update when LaunchKit Pro is ready. Planned founding price: $49.</p>
       <label className="oui-field"><span>Email address</span><input type="email" name="email" placeholder="you@example.com" required maxLength={254} autoComplete="email" autoFocus disabled={status === "sending"} /></label>
       <label className="oui-honeypot" aria-hidden="true">Website<input name="bot-field" tabIndex={-1} autoComplete="off" /></label>

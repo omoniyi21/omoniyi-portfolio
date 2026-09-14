@@ -1,3 +1,4 @@
+import { trackEvent } from "../lib/analytics";
 import { useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
@@ -76,6 +77,7 @@ export default function StudioInquire() {
       }
 
       setStatus("success");
+      trackEvent("generate_lead", { form_name: "studio_inquiry", service });
     } catch (error) {
       setStatus("error");
       setErrorMessage(
@@ -129,7 +131,7 @@ export default function StudioInquire() {
         </section>
       ) : (
         <section className="studio-section studio-inquire__form-section">
-          <form className="studio-inquire__form" onSubmit={handleSubmit}>
+          <form data-analytics-form="studio_inquiry" className="studio-inquire__form" onSubmit={handleSubmit}>
             <fieldset className="studio-inquire__services">
               <legend>Interested in</legend>
               <div className="studio-inquire__service-options">

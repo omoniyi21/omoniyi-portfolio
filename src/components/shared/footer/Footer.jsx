@@ -1,5 +1,5 @@
 import "./footer.css";
-import SleepingStardust from "../../../assets/branding/stardust-creature-kit/png/512/footer-sleeping.png";
+import SleepingStardust from "../../../assets/branding/sd-variants/sd-sleeping.png";
 
 export default function Footer() {
   return (

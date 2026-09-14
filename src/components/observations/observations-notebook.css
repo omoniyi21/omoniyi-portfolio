@@ -145,3 +145,8 @@
 @media(max-width:380px) {
  .notebook-latest-label { width:10rem; font-size:.58rem; padding:.75rem .9rem; }
 }
+
+.notebook-masthead { align-items:center; flex-wrap:wrap; }
+.notebook-masthead__meta { display:flex; align-items:center; gap:.85rem; color:var(--text-secondary); font:700 .75rem/1.5 var(--font-family-display); letter-spacing:.19em; text-transform:uppercase; }
+.notebook-masthead__meta > span:last-child { color:var(--color-lavender-500); font-size:1rem; letter-spacing:0; }
+@media(max-width:560px) { .notebook-masthead__meta { font-size:.65rem; gap:.65rem; letter-spacing:.12em; } }

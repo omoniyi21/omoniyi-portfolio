@@ -44,11 +44,13 @@
        as genuine paper fiber instead of a flat solid color — while the
        torn silhouette itself stays crisp CSS, not a photographed edge. */
     background-color: var(--color-gray-50);
-    background-image: url(../../assets/images/hero/paper-grain-swatch.png);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-blend-mode: multiply;
+    background-image:
+        linear-gradient(rgb(255 255 255 / 30%), rgb(255 255 255 / 30%)),
+        url(../../assets/images/hero/paper-grain-swatch.png);
+    background-size: cover, cover;
+    background-position: center, center;
+    background-repeat: no-repeat, no-repeat;
+    background-blend-mode: normal, multiply;
     clip-path: polygon(
         0% 1.2%, 4% 0%, 9% 1.8%, 15% 0.4%, 22% 1.6%, 30% 0%, 38% 1.2%,
         47% 0.3%, 55% 1.8%, 63% 0.2%, 71% 1.4%, 80% 0%, 88% 1.6%, 95% 0.4%,
@@ -432,4 +434,49 @@
 
 @media (prefers-reduced-motion: reduce) {
     .desk-surface__sky-control { transition: none; }
+}
+
+/* ---------- mobile: flatten the paper card ----------
+   Below 600px the torn-paper grain, grid pattern and heavy ambient
+   drop-shadow read as clutter once the persona toggle, headline, copy
+   and both CTAs are stacked in one narrow column. Flatten the sheet to
+   a plain surface and drop the elevation shadow, but keep light,
+   simplified shadows on the interactive pieces (buttons, persona pill)
+   so they still read as tappable against the now-flat background.
+   The work-card slider (.desk-surface__work / .hero-project) keeps its
+   own paper look untouched — this only targets the outer sheet. */
+@media (max-width: 600px) {
+    .hero-desk.hero-journal .hero__main {
+        filter: none;
+    }
+
+    .desk-surface {
+        background-image: none;
+        background-color: var(--color-gray-50);
+        clip-path: none;
+        border-radius: var(--radius-xl);
+        border: 1px solid var(--border-default);
+    }
+
+    .desk-persona__pill.is-active {
+        box-shadow: 0 1px 3px rgba(17, 17, 17, .12);
+    }
+
+    .hero-desk .desk-surface__actions .button {
+        box-shadow: 0 1px 3px rgba(17, 17, 17, .08);
+    }
+
+    .hero-desk .desk-surface__actions .button--primary {
+        box-shadow: 0 1px 4px rgba(121, 63, 247, .22);
+    }
+
+    /* the glow/inset-highlight material layers read as "floating," not
+       flat — drop them here so the border + faint shadow above are the
+       whole story on mobile */
+    .hero-desk .desk-surface__actions .button.surface--stroke::before,
+    .hero-desk .desk-surface__actions .button.surface--stroke::after,
+    .hero-desk .desk-surface__actions .button.surface--celestial::before,
+    .hero-desk .desk-surface__actions .button.surface--celestial::after {
+        display: none;
+    }
 }

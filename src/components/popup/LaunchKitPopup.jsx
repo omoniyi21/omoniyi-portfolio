@@ -1,3 +1,4 @@
+import { trackEvent } from "../../lib/analytics";
 import { useEffect, useRef, useState } from "react";
 import "./launchkit-popup.css";
 
@@ -97,6 +98,7 @@ export default function LaunchKitPopup() {
       });
       if (!response.ok) throw new Error("Your request couldn’t be saved. Please try again or email me directly.");
       setStatus("success");
+      trackEvent("launchkit_signup", { form_name: "launchkit_home_popup" });
     } catch (err) {
       setError(err.message);
       setStatus("error");
@@ -137,7 +139,7 @@ export default function LaunchKitPopup() {
               </a>
             </div>
           ) : (
-            <form onSubmit={submit}>
+            <form data-analytics-form="launchkit_home_popup" onSubmit={submit}>
               <p className="lk-popup__eyebrow">Early access · Admit one</p>
               <h2 id="lk-popup-title">
                 Get early access

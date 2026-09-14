@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import Telescope from "../assets/branding/stardust-creature-kit/png/1024/observations-telescope.png";
+import Thinking from "../assets/branding/sd-variants/sd-thinking.png";
 
 import { getPublishedObservations } from "../data/observations";
 
@@ -10,7 +10,7 @@ export default function Observations() {
       <p className="observations-page__eyebrow">A living record</p>
       <h1>Things I’m <em>noticing.</em></h1>
       <p>Notes on systems, stories, design, and everything that makes a life feel more considered.</p>
-      <img src={Telescope} alt="SD looking through a telescope" />
+      <img src={Thinking} alt="SD thinking things over" />
     </section>
     <section className="observation-index" aria-label="Published observations">
       <p className="observation-index__kicker">Latest field note</p>

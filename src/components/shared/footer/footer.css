@@ -1,6 +1,5 @@
 .site-footer {
   align-items: center;
-  border-top: 1px solid rgb(38 34 48 / 12%);
   display: flex;
   justify-content: center;
   margin-top: clamp(1.5rem, 4vw, 4rem);
@@ -58,3 +57,6 @@
   .site-footer { align-items: flex-end; justify-content: space-between; min-height: 8.5rem; }
   .site-footer__issue { left: 1.25rem; }
 }
+
+.site-footer__stardust { top:auto; bottom:calc(100% - 1rem); width:4.75rem; }
+@media(max-width:560px) { .site-footer__stardust { top:auto; width:4rem; } }

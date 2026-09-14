@@ -224,3 +224,6 @@
   .stardust--float { animation: none; }
   .effect-paper { transition: none; }
 }
+
+.personal-effects__coordinates { top:20.5rem; }
+@media(max-width:560px) { .personal-effects__coordinates { top:13.2rem; } }

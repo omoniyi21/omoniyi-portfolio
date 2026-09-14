@@ -2,6 +2,7 @@ import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import BackToPreviousPage from "../components/shared/BackToPreviousPage";
 import { portfolioStudies } from "../data/caseStudies";
+import { cardTints } from "../data/cardTints";
 import "./project-case-study.css";
 
 const chapters = ["Snapshot", "Problem", "Understanding the System", "What I Learned", "Decisions That Shaped the Product", "The Experience", "The System Behind the Product", "Outcome & Reflection"];
@@ -13,8 +14,10 @@ function Evidence({ image, caption, compact = false }) {
   </figure>;
 }
 export default function ProjectCaseStudy({ study }) {
-  const next = portfolioStudies[(portfolioStudies.findIndex(s => s.slug === study.slug) + 1) % portfolioStudies.length];
-  return <main className={`portfolio-study portfolio-study--${study.slug}`}>
+  const index = portfolioStudies.findIndex(s => s.slug === study.slug);
+  const next = portfolioStudies[(index + 1) % portfolioStudies.length];
+  const tint = cardTints[index % cardTints.length];
+  return <main className={`portfolio-study portfolio-study--${study.slug}`} style={{ "--study-tint": tint }}>
     <title>{study.client} — {study.title} | Omoniyi Alimi</title>
     <meta name="description" content={study.summary}/>
     <div className="study-bar"><BackToPreviousPage/><span>{study.client} / {study.number}</span></div>

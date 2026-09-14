@@ -1,3 +1,5 @@
+import studioHeroWindow from "../assets/images/studio-hero/window-table.jpg";
+import studioHeroCoffee from "../assets/images/studio-hero/coffee.jpg";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, ArrowDown, Check } from "lucide-react";
@@ -187,7 +189,7 @@ function Hero() {
         <div className="studio-hero__collage" aria-hidden="true">
           <div className="studio-hero__collage-main">
             <img
-              src="https://images.unsplash.com/photo-1685392454791-34b3f0e5ed47?w=700&h=500&fit=crop&auto=format"
+              src={studioHeroWindow}
               alt=""
             />
             <span className="studio-hero__slide-count">0 / 5</span>
@@ -202,7 +204,7 @@ function Hero() {
             </div>
             <div className="studio-hero__collage-thumb">
               <img
-                src="https://images.unsplash.com/photo-1601993957728-1e56ab70c5a8?w=200&h=120&fit=crop&auto=format"
+                src={studioHeroCoffee}
                 alt=""
               />
             </div>
@@ -430,9 +432,6 @@ function LaunchKit() {
             </div>
           </div>
 
-          <span className="studio-hand studio-launchkit__doodle">
-            Thoughtful<br />components<br />for real products.
-          </span>
         </div>
       </div>
     </section>

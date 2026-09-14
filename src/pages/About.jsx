@@ -1,19 +1,12 @@
 import portrait from "../assets/images/portfolio-personal-effects-assets/png/candid-pic-me.png";
-
-const current = [
-  ["Watching", "FROM", "several theories in progress."],
-  ["Recent favorite", "I Love Boosters", ""],
-  ["Morning ritual", "Coffee, then walking the dogs", ""],
-  ["Reading", "The Artist’s Way", ""],
-  ["Listening to", "Good Noticings", "with Ashley and Claire"],
-  ["Based in", "Dallas, Texas", ""],
-  ["Designing", "Enterprise products + systems", ""],
-];
+import filmStrip from "../assets/images/about/film-strip.png";
+import CurrentFavoritesForm from "../components/contact/CurrentFavoritesForm";
+import CurrentFavoritesSlider from "../components/personal-effects/CurrentFavoritesSlider";
 
 export default function About() {
   return (
     <main className="about-page">
-      <div className="about-page__masthead"><span><b>03</b> Design dossier (About me) <i>✦</i></span><span>Field notes · vol. 02</span></div>
+      <div className="about-page__masthead"><span><b>03</b> Design dossier (About) <i>✦</i></span><span>Field notes · vol. 02</span></div>
       <article className="about-dossier">
         <header className="about-dossier__header"><span>About / Omoniyi Alimi</span><span>Issue 02 · 009</span></header>
         <section className="about-dossier__lead">
@@ -31,20 +24,21 @@ export default function About() {
             <p>World building always starts with discovery. Sometimes that means untangling a messy enterprise workflow. Sometimes, it means falling down a rabbit hole about why a product feels so intuitive. Other times, it means finishing a movie and immediately needing to talk about what I think the ending actually meant.</p>
             <p>My thoughts rarely move in a straight line. One question opens ten more. A movie reminds me of a book. A city changes how I think about home. A beautifully designed object makes me wonder why some things simply feel right.</p>
             <p className="about-dossier__closing">That’s probably why product design fits me so well.</p>
-          </div>
-          <p className="about-dossier__annotation">I’m usually collecting something:<br />a reference, a theory, a detail.</p>
-          <figure className="about-dossier__portrait"><img src={portrait} alt="Omoniyi seated in front of a colorful bookshelf" /></figure>
-        </section>
-        <section className="about-dossier__beyond">
-          <div>
+            <section className="about-dossier__beyond-story">
             <p className="about-dossier__eyebrow">Beyond the work <i>✦</i></p>
             <h2>The worlds beyond work</h2>
             <p>I appreciate things that feel intentional. A beautifully designed chair. An interesting building. A great pair of books. A home that makes people want to stay. A product that quietly solves a problem without asking for attention.</p>
             <p>There’s also a good chance I’m watching something. Right now, I’m completely invested in FROM and always down to trade theories. One of my favorite recent watches is I Love Boosters. I love stories that stay with you.</p>
             <p>I’m also into fashion, travel, photography, architecture, books, and finding inspiration in unexpected places. I’m happiest learning something complicated, or spending time with people I love.</p>
             <p className="about-dossier__closing">Thoughtfully made. Deeply lived.<br />Spacious enough to remain curious.</p>
+            </section>
           </div>
-          <div className="about-current"><p>Currently</p><div>{current.map(([label, value, detail]) => <section key={label}><span>{label}</span><h3>{value}</h3>{detail && <small>{detail}</small>}</section>)}</div></div>
+          <p className="about-dossier__annotation">I’m usually collecting something:<br />a reference, a theory, a detail.</p>
+          <figure className="about-dossier__portrait"><img src={portrait} alt="Omoniyi seated in front of a colorful bookshelf" /><img className="about-dossier__portrait-strip" src={filmStrip} alt="A film strip of recent snapshots: a city skyline at night, a forest trail, and a fluffy white dog" /></figure>
+        </section>
+        <section className="about-dossier__beyond">
+          <div className="about-dossier__favorites-slider"><CurrentFavoritesSlider /></div>
+          <div className="about-dossier__favorites-form"><CurrentFavoritesForm /></div>
         </section>
         <footer className="about-dossier__footer"><span>Words + design by Omoniyi Alimi</span><span>Next: How I work ↗</span></footer>
       </article>

@@ -1,0 +1,159 @@
+/* Current Favorites — the same desk artifacts from Personal Effects, one at
+   a time. Heading row and round arrow buttons intentionally mirror the
+   homepage's Selected Work slider (hero-projects) so the two feel like the
+   same interaction family; the artifacts themselves crossfade in rather
+   than tearing off like a note-pad sheet, since they're irregular
+   photographed objects (a ticket, a label, a torn note) rather than
+   uniform rectangles. */
+
+.favorites-slider {
+  width: 100%;
+}
+
+.favorites-slider__intro {
+  align-items: baseline;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .85rem;
+  margin: 0 0 1.35rem;
+}
+
+.favorites-slider .favorites-slider__eyebrow {
+  align-items: baseline;
+  color: var(--color-pink-500);
+  display: inline-flex;
+  font: 700 .78rem/1 var(--font-family-display);
+  gap: .5rem;
+  letter-spacing: .18em;
+  margin: 0;
+  max-width: none;
+  text-transform: uppercase;
+}
+
+.favorites-slider__glyph {
+  color: var(--color-lavender-500);
+  font-size: .9rem;
+  line-height: 1;
+}
+
+.favorites-slider .favorites-slider__count {
+  color: rgb(44 37 48 / 55%);
+  font-family: var(--font-family-body);
+  font-size: .8rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.favorites-slider__controls {
+  display: inline-flex;
+  gap: .4rem;
+  margin-left: auto;
+}
+
+.favorites-slider__controls button {
+  background: rgb(255 255 255 / 55%);
+  border: 1px solid rgb(44 37 48 / 22%);
+  border-radius: 50%;
+  color: inherit;
+  cursor: pointer;
+  font-size: 1rem;
+  height: 2rem;
+  line-height: 1;
+  transition: background .2s ease, border-color .2s ease;
+  width: 2rem;
+}
+
+.favorites-slider__controls button:hover:not(:disabled) {
+  background: rgb(255 255 255 / 88%);
+  border-color: rgb(117 105 227 / 55%);
+}
+
+.favorites-slider__controls button:disabled {
+  cursor: default;
+  opacity: .32;
+}
+
+.favorites-slider__stage {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  min-height: 26rem;
+  padding: 1rem 0;
+  position: relative;
+}
+
+.favorites-slider__artifact {
+  animation: favorites-fade-in .4s ease both;
+  color: #28231f;
+  max-width: 21rem;
+  position: relative;
+  transform: rotate(var(--rotation));
+  width: min(100%, 21rem);
+}
+
+.favorites-slider__artifact > img {
+  display: block;
+  filter: drop-shadow(7px 11px 8px rgb(61 43 30 / 13%)) drop-shadow(14px 25px 20px rgb(61 43 30 / 11%));
+  height: auto;
+  width: 100%;
+}
+
+.favorites-slider__artifact::after {
+  background: rgb(71 50 34 / 15%);
+  border-radius: 50%;
+  content: "";
+  filter: blur(12px);
+  height: 9%;
+  left: 12%;
+  opacity: .72;
+  position: absolute;
+  top: 87%;
+  width: 76%;
+  z-index: -1;
+}
+
+.favorites-slider__artifact figcaption {
+  inset: var(--content-inset);
+  position: absolute;
+  transform: rotate(var(--content-rotation));
+}
+
+.favorites-slider .favorites-slider__eyebrow-tag {
+  color: #a04f39;
+  font: 700 .58rem/1 var(--font-family-display);
+  letter-spacing: .12em;
+  margin: 0 0 .5rem;
+  text-transform: uppercase;
+}
+
+.favorites-slider__artifact h3 {
+  font: 500 clamp(1.15rem, 2.2vw, 1.6rem)/1.05 var(--font-family-display);
+  letter-spacing: -.04em;
+  margin: 0 0 .5rem;
+}
+
+.favorites-slider .favorites-slider__detail {
+  font: 400 .82rem/1.35 var(--font-family-body);
+  margin: 0;
+}
+
+.favorites-slider__artifact.is-light .favorites-slider__eyebrow-tag,
+.favorites-slider__artifact.is-light h3,
+.favorites-slider__artifact.is-light .favorites-slider__detail {
+  color: rgb(255 251 240 / 94%);
+  text-shadow: 0 1px 2px rgb(0 0 0 / 30%);
+}
+
+@keyframes favorites-fade-in {
+  from { opacity: 0; transform: translateY(8px) rotate(var(--rotation)); }
+  to { opacity: 1; transform: translateY(0) rotate(var(--rotation)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .favorites-slider__artifact { animation: none; }
+}
+
+@media (max-width: 600px) {
+  .favorites-slider__stage { min-height: 20rem; }
+  .favorites-slider__artifact { max-width: 16rem; }
+}

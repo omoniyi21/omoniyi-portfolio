@@ -34,7 +34,7 @@ export default function Navigation({ id, open, onNavigate }) {
             </a>
 
             <Link to="/about" onClick={onNavigate}>
-                Design Dossier (About Me)
+                Design Dossier (About)
             </Link>
 
             <Link to="/observations" onClick={onNavigate}>

@@ -438,6 +438,10 @@
   color: var(--studio-cream);
 }
 
+.studio-tier--dark ::selection {
+  color: var(--studio-cream);
+}
+
 .studio-tier__annotation {
   font-family: var(--font-family-personal);
   font-size: 1.2rem;
@@ -584,6 +588,7 @@
 
 .studio-tier--dark .studio-tier__footer {
   border-top-color: rgba(255, 255, 255, 0.12);
+  color: rgba(253, 246, 236, 0.7);
 }
 
 .studio-tier--dark .studio-tier__footer strong {
@@ -915,6 +920,11 @@
 .studio-launchkit__card {
   padding: var(--space-8);
   background: var(--studio-ink);
+  color: var(--studio-cream);
+}
+
+.studio-launchkit__card ::selection {
+  color: var(--studio-cream);
 }
 
 .studio-launchkit__card-header {
@@ -928,7 +938,6 @@
   font-family: var(--studio-serif);
   font-size: 1.3rem;
   font-weight: 600;
-  color: var(--studio-cream);
   margin: 0 0 var(--space-1);
 }
 
@@ -937,8 +946,11 @@
   font-size: 0.56rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(253, 246, 236, 0.6);
   margin: 0;
+}
+
+.studio-launchkit__card .studio-launchkit__card-label {
+  color: rgba(253, 246, 236, 0.6);
 }
 
 .studio-launchkit__glyph {
@@ -1047,16 +1059,6 @@
   font-size: 1.1rem;
   font-weight: 600;
   color: var(--studio-cream);
-}
-
-.studio-launchkit__doodle {
-  position: absolute;
-  top: -1.5rem;
-  right: -1rem;
-  font-size: 1.05rem;
-  line-height: 1.4;
-  color: var(--studio-muted);
-  transform: rotate(3deg);
 }
 
 /* ---------------------------------------------------------------------- */
@@ -1205,12 +1207,6 @@
     align-items: flex-start;
   }
 
-  .studio-launchkit__doodle {
-    position: static;
-    display: block;
-    margin-top: var(--space-4);
-    transform: none;
-  }
 }
 
 @media (max-width: 720px) {

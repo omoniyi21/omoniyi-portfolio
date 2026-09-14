@@ -1,24 +1,25 @@
 import { useLayoutEffect, useRef, useState } from "react";
 import Button from "../shared/button/Button";
+import resume from "../../assets/branding/Omoniyi Alimi Resume (2026)-accessibility.pdf";
 
 const PERSONAS = {
   hiring: {
     tabLabel: "someone hiring",
-    eyebrow: "Senior Product Designer, open to full-time roles",
-    title: ["I help people", "navigate", "complex systems."],
+    eyebrow: "Senior Product Designer",
+    title: ["I find clarity", "inside complex", "systems and design", "from there."],
     description:
-      "I turn dense, high-stakes systems into interfaces people actually understand and enjoy using.",
+      "I design clear, thoughtful experiences for systems where the information is dense, the stakes are high, and getting the next step right matters.",
     ctaLabel: "See the case studies",
     ctaTo: "/work",
     secondaryLabel: "Get the résumé",
-    secondaryTo: "/about",
+    secondaryHref: resume,
   },
   building: {
     tabLabel: "someone building",
     eyebrow: "Design partner & creator of LaunchKit UI",
-    title: ["Messy idea?", "I'll take it", "from messy to shipped."],
+    title: ["Bring me the rough idea.", "I’ll turn it into", "something real."],
     description:
-      "Need a hand turning a rough idea into a real product? That's Omoniyi Studio. Prefer to build it yourself? Start with LaunchKit UI.",
+      "Bring me the notes, references, conflicting ideas, weird constraints, and ambitious vision. I’ll help make sense of it and turn it into something designed to ship.",
     ctaLabel: "Start a project",
     ctaTo: "/studio",
     secondaryLabel: "Browse LaunchKit UI",
@@ -94,7 +95,13 @@ export default function HeroContent({ paused, onToggleDust }) {
         <Button to={copy.ctaTo}>
           {copy.ctaLabel}
         </Button>
-        <Button variant="secondary" to={copy.secondaryTo}>
+        <Button
+          variant="secondary"
+          to={copy.secondaryTo}
+          href={copy.secondaryHref}
+          target={copy.secondaryHref ? "_blank" : undefined}
+          rel={copy.secondaryHref ? "noreferrer" : undefined}
+        >
           {copy.secondaryLabel}
         </Button>
       </div>
