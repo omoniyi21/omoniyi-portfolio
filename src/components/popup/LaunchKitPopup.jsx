@@ -85,18 +85,20 @@ export default function LaunchKitPopup() {
     setStatus("sending");
     setError("");
     try {
-      const response = await fetch("/", {
+      const response = await fetch("/.netlify/functions/launchkit-signup", {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams({
-          "form-name": "launchkit-home-popup",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
           email: String(data.get("email")).trim(),
-          "bot-field": String(data.get("bot-field") || ""),
-          consent: "Email me about LaunchKit UI.",
+          website: String(data.get("bot-field") || ""),
+          list: "home-popup",
           source: "https://omoniyialimi.com/",
-        }).toString(),
+        }),
       });
-      if (!response.ok) throw new Error("Your request couldn’t be saved. Please try again or email me directly.");
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok || !result.ok) {
+        throw new Error(result.error || "Your request couldn’t be saved. Please try again or email me directly.");
+      }
       setStatus("success");
       trackEvent("launchkit_signup", { form_name: "launchkit_home_popup" });
     } catch (err) {

@@ -93,11 +93,12 @@ function ReleaseDialog({ onClose }) {
     const data = new FormData(event.currentTarget);
     setStatus("sending"); setError("");
     try {
-      const response = await fetch("/", {
-        method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams({ "form-name": "launchkit-pro", email: String(data.get("email")).trim(), "bot-field": String(data.get("bot-field") || ""), consent: "Email me when LaunchKit Pro is ready.", source: "https://omoniyialimi.com/uikit" }).toString(),
+      const response = await fetch("/.netlify/functions/launchkit-signup", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: String(data.get("email")).trim(), website: String(data.get("bot-field") || ""), list: "pro-waitlist", source: "https://omoniyialimi.com/uikit" }),
       });
-      if (!response.ok) throw new Error("Your request couldn’t be saved. Please try again or email me directly.");
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok || !result.ok) throw new Error(result.error || "Your request couldn’t be saved. Please try again or email me directly.");
       setStatus("success");
       trackEvent("launchkit_pro_signup", { form_name: "launchkit_pro" });
     } catch (err) { setError(err.message); setStatus("error"); }
