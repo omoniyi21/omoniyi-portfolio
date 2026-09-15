@@ -150,7 +150,7 @@ function Hero() {
         <div className="studio-hero__copy">
           <p className="studio-eyebrow">
             <span>Omoniyi Studio</span>
-            <span className="studio-eyebrow__sub">Digital Design for Ambitious Businesses</span>
+            <span className="studio-eyebrow__sub">An independent design practice by Omoniyi Alimi</span>
           </p>
 
           <h1 className="studio-hero__title">

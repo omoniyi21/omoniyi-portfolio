@@ -479,4 +479,12 @@
     .hero-desk .desk-surface__actions .button.surface--celestial::after {
         display: none;
     }
+
+    /* the celestial-dust swirl reads as clutter, not charm, once it's
+       squeezed into a narrow stacked column — and with the dust gone,
+       its own pause toggle has nothing left to control. */
+    .hero-dust,
+    .desk-surface__sky-control {
+        display: none;
+    }
 }
