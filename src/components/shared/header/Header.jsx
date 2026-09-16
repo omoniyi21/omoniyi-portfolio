@@ -40,6 +40,14 @@ export default function Header() {
     return (
 
         <>
+        <div className="portfolio-topscrim" aria-hidden="true" />
+        {open && (
+            <div
+                className="portfolio-menu-scrim"
+                aria-hidden="true"
+                onClick={() => setOpen(false)}
+            />
+        )}
         <div className="portfolio-signature"><BrandSignature space="portfolio" /></div>
         <header
           className={`portfolio-floating-menu ${open ? "is-open" : ""}`}

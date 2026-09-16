@@ -16,7 +16,7 @@ export default function About() {
             <h2>Hi, I’m Omoniyi.</h2>
             <p>For more than nine years, I’ve partnered with government agencies, healthcare organizations, and enterprise teams to modernize legacy systems and make people’s work a little easier.</p>
             <p>I’m drawn to complicated environments with a lot of moving parts. I ask questions, listen closely, and look beneath the obvious problem. I map how people, information, decisions, and constraints relate. Then I connect the pieces into something coherent.</p>
-            <p>My work includes product strategy, research, interaction design, prototyping, accessibility, and design systems. But my greatest talent might be word building.</p>
+            <p>My work includes product strategy, research, interaction design, prototyping, accessibility, and design systems. But my greatest talent might be world building.</p>
             <aside className="about-dossier__quote"><span>Field note / 01</span><blockquote>“Good UX isn’t<br />decoration.<br />It’s hospitality.”</blockquote><small>Clarity · care · coherence</small></aside>
           </div>
           <div className="about-dossier__scale">
