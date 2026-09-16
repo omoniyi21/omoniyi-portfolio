@@ -49,6 +49,8 @@
  .notebook-page { margin:.5rem .4rem; padding:1.5rem 1rem; }
  .notebook-heading h2 { font-size:clamp(2.5rem,9vw,4.7rem); }
  .notebook-composition { grid-template-columns:minmax(0,1fr); padding:1rem .25rem; gap:1.8rem; }
+ .notebook-margin { order:1; }
+ .notebook-cover { order:2; }
  .notebook-cover { transform:rotate(-1deg); padding:.6rem; }
  .notebook-cover h3 { font-size:clamp(2rem,7vw,3.2rem); }
  .notebook-cover__meta, .notebook-cover footer { flex-wrap:wrap; }
@@ -66,6 +68,14 @@
  .notebook-signup__embed iframe { width:calc(100% + 120px) !important; max-width:none; margin-left:-60px; }
 }
 .notebook-signup__direct { display:block; width:fit-content; margin:.8rem 0 1rem; color:inherit; font:500 .8rem/1.5 var(--font-family-body); text-underline-offset:3px; }
+
+/* The section reads as a compact two-column spread: signup first, latest note second. */
+.notebook-heading__all { display:inline-flex; gap:.35rem; margin-top:1.4rem; color:inherit; font:700 .82rem/1.4 var(--font-family-display); text-decoration:underline; text-underline-offset:5px; }
+@media(min-width:981px) {
+ .notebook-composition { grid-template-columns:minmax(280px, .85fr) minmax(0,1.65fr); }
+ .notebook-margin { grid-column:1; grid-row:1; padding-top:0; }
+ .notebook-cover { grid-column:2; grid-row:1; }
+}
 
 /* Real paper artifacts share the material language of Personal Effects. */
 .notebook-page { margin:1rem .5rem; padding:clamp(1.5rem,4vw,4rem); border:1px solid #ffffffc9; border-radius:2.5rem; background:linear-gradient(120deg,#ffffff20,#fff9df0a); box-shadow:inset 0 1px #fff,0 20px 36px #55453d18; }
@@ -157,3 +167,4 @@
 .observations-notebook .notebook-signup{background:#fffdf4;border:1px solid #17151d22;border-radius:1.25rem;box-shadow:0 8px 24px #271f2b08;transform:none;padding:clamp(1.5rem,3vw,2.5rem);isolation:auto}
 .observations-notebook .notebook-signup:hover{transform:none}
 .observations-notebook .notebook-signup::before,.observations-notebook .notebook-signup::after{display:none}
+.observations-notebook .notebook-signup { background:linear-gradient(135deg,#ffffff8c,#f3ecff55 55%,#ffffff45); border:1px solid #ffffffc7; box-shadow:inset 0 1px #fff, 0 18px 38px #49385b20; backdrop-filter:blur(18px) saturate(125%); -webkit-backdrop-filter:blur(18px) saturate(125%); }
