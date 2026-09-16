@@ -1,6 +1,8 @@
 import { Link, useParams } from "react-router-dom";
 
 import { getPublishedObservations } from "../data/observations";
+import BeehiivEmbed from "../components/observations/BeehiivEmbed";
+import Frog from "../assets/images/observations/frog.png";
 import NotFound from "./NotFound";
 
 export default function ObservationPost() {
@@ -37,6 +39,17 @@ export default function ObservationPost() {
           <Link to="/observations">More field notes ↗</Link>
         </footer>
       </article>
+
+      <aside className="observation-post__signup" aria-label="Get the next Observation">
+        <div className="observation-post__signup-fields">
+          <div className="observation-post__signup-text">
+            <p className="observation-post__signup-label">A note for you</p>
+            <h3 className="observation-post__signup-heading">Let me send you<br />the next one?</h3>
+          </div>
+          <BeehiivEmbed className="observation-post__signup-embed" />
+        </div>
+        <img className="observation-post__signup-frog" src={Frog} alt="" aria-hidden="true" />
+      </aside>
     </main>
   );
 }

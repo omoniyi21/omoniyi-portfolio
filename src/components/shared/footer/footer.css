@@ -3,30 +3,9 @@
   display: flex;
   justify-content: center;
   margin-top: clamp(1.5rem, 4vw, 4rem);
-  min-height: 7rem;
+  min-height: 5.5rem;
   padding: 1.5rem 2rem;
   position: relative;
-}
-
-.site-footer__stardust {
-  height: auto;
-  left: 50%;
-  position: absolute;
-  top: -3.6rem;
-  transform: translateX(-50%);
-  width: 9.9rem;
-}
-
-.site-footer__trail {
-  color: var(--color-lavender-500);
-  font-family: var(--font-family-display);
-  font-size: .62rem;
-  left: calc(50% + 4.4rem);
-  letter-spacing: .15em;
-  opacity: .72;
-  position: absolute;
-  top: -1.5rem;
-  transform: rotate(-8deg);
 }
 
 .site-footer p {
@@ -39,24 +18,74 @@
   text-transform: uppercase;
 }
 
-.site-footer__issue {
-  left: 2rem;
-  line-height: 1.65;
-  position: absolute;
-  text-align: left;
-}
-
 .site-footer span {
   color: var(--color-lavender-500);
   margin-left: .25rem;
 }
 
-@media (max-width: 560px) {
-  .site-footer__stardust { top: -2.95rem; width: 8.25rem; }
-  .site-footer__trail { left: calc(50% + 3.55rem); top: -1.3rem; }
-  .site-footer { align-items: flex-end; justify-content: space-between; min-height: 8.5rem; }
-  .site-footer__issue { left: 1.25rem; }
+/* Location info sits on the left, with the social links stacked above it. */
+.site-footer__issue {
+  left: 2rem;
+  position: absolute;
+  text-align: left;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
-.site-footer__stardust { top:auto; bottom:calc(100% - 1rem); width:4.75rem; }
-@media(max-width:560px) { .site-footer__stardust { top:auto; width:4rem; } }
+.site-footer__issue p {
+  line-height: 1.65;
+}
+
+.site-footer__social {
+  align-items: center;
+  display: flex;
+  gap: .6rem;
+  margin-bottom: .6rem;
+}
+
+.site-footer__social a {
+  align-items: center;
+  color: var(--text-secondary);
+  display: flex;
+  transition: color .2s ease;
+}
+
+.site-footer__social a:hover,
+.site-footer__social a:focus-visible {
+  color: var(--color-lavender-500);
+}
+
+/* The sleeping illustration mirrors the location info, but on the right. */
+.site-footer__stardust {
+  bottom: .5rem;
+  height: auto;
+  position: absolute;
+  right: 2rem;
+  width: 4.75rem;
+}
+
+.site-footer__trail {
+  color: var(--color-lavender-500);
+  font-family: var(--font-family-display);
+  font-size: .62rem;
+  letter-spacing: .15em;
+  opacity: .72;
+  position: absolute;
+  right: 7rem;
+  top: .25rem;
+  transform: rotate(-8deg);
+}
+
+@media (max-width: 560px) {
+  .site-footer {
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-between;
+    min-height: 9rem;
+    padding: 3.5rem 1.25rem 1.5rem;
+  }
+  .site-footer__issue { left: 1.25rem; position: static; transform: none; }
+  .site-footer__stardust { bottom: auto; right: 1.25rem; top: .5rem; width: 4rem; }
+  .site-footer__trail { right: 4.75rem; top: .75rem; }
+}
