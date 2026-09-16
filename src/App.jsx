@@ -17,6 +17,7 @@ import { caseStudies } from "./data/caseStudies";
 import Header from "./components/shared/header/Header";
 import Footer from "./components/shared/footer/Footer";
 import ScrollManager from "./components/shared/ScrollManager";
+import { SpaceTransitionProvider } from "./components/shared/SpaceTransition";
 
 export default function App() {
   const { pathname } = useLocation();
@@ -24,7 +25,7 @@ export default function App() {
   const isStudioPage = /^\/studio(\/inquire)?\/?$/.test(pathname);
   const hideChrome = isKitPage || isStudioPage;
   return (
-    <>
+    <SpaceTransitionProvider>
       <ScrollManager />
       <PageMetadata />
       {!hideChrome && <Header />}
@@ -47,6 +48,6 @@ export default function App() {
         <Route path="*" element={<NotFound />} />
       </Routes>
       {!hideChrome && <Footer />}
-    </>
+    </SpaceTransitionProvider>
   );
 }

@@ -9,6 +9,10 @@ import "./hero-desk.css";
 
 export default function Hero() {
   const [dustPaused, setDustPaused] = useState(false);
+  // Persona lives here, not inside HeroContent, so the dust field (a
+  // sibling) can react to it too — switching "someone building" gives
+  // the dust a warm ember kick instead of only swapping copy.
+  const [persona, setPersona] = useState("hiring");
 
   return (
     <section className="hero hero-journal hero-desk">
@@ -20,10 +24,15 @@ export default function Hero() {
             case-study note both sit on one torn sheet instead of a clean
             rounded rectangle. */}
         <div className="desk-surface">
-          <CelestialDust paused={dustPaused} />
+          <CelestialDust paused={dustPaused} mode={persona} />
           <div className="desk-surface__grid">
             <div className="desk-surface__paper">
-              <HeroContent paused={dustPaused} onToggleDust={() => setDustPaused((v) => !v)} />
+              <HeroContent
+                paused={dustPaused}
+                onToggleDust={() => setDustPaused((v) => !v)}
+                persona={persona}
+                onPersonaChange={setPersona}
+              />
             </div>
             <div className="desk-surface__work">
               <HeroProjects />

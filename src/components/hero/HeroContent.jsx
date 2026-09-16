@@ -1,5 +1,6 @@
-import { useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef } from "react";
 import Button from "../shared/button/Button";
+import { useSpaceTransition } from "../shared/SpaceTransition";
 import resume from "../../assets/branding/Omoniyi Alimi Resume (2026)-accessibility.pdf";
 
 const PERSONAS = {
@@ -22,16 +23,28 @@ const PERSONAS = {
       "Bring me the notes, references, conflicting ideas, weird constraints, and ambitious vision. I’ll help make sense of it and turn it into something designed to ship.",
     ctaLabel: "Start a project",
     ctaTo: "/studio",
+    ctaTone: "studio",
     secondaryLabel: "Browse LaunchKit UI",
     secondaryTo: "/uikit",
+    secondaryTone: "ui",
   },
 };
 
-export default function HeroContent({ paused, onToggleDust }) {
-  const [persona, setPersona] = useState("hiring");
+export default function HeroContent({ paused, onToggleDust, persona, onPersonaChange }) {
   const copy = PERSONAS[persona];
   const columnRef = useRef(null);
   const actionsRef = useRef(null);
+  const { goTo } = useSpaceTransition();
+
+  // Only the "building" persona's CTAs actually cross into another space
+  // (Studio, LaunchKit UI) — everything else (case studies, the résumé
+  // file) stays a plain link and this is a no-op.
+  const handleSpaceClick = (event, to, tone) => {
+    if (!tone || event.defaultPrevented) return;
+    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    event.preventDefault();
+    goTo(to, tone);
+  };
 
   // The case-study card on the other side of the grid should bottom out
   // exactly where the action row ends here — not the whole column (which
@@ -70,7 +83,7 @@ export default function HeroContent({ paused, onToggleDust }) {
               type="button"
               className={`desk-persona__pill${persona === key ? " is-active" : ""}`}
               aria-pressed={persona === key}
-              onClick={() => setPersona(key)}
+              onClick={() => onPersonaChange(key)}
             >
               {value.tabLabel}
             </button>
@@ -92,7 +105,7 @@ export default function HeroContent({ paused, onToggleDust }) {
       <p className="hero__description">{copy.description}</p>
 
       <div className="desk-surface__actions" ref={actionsRef}>
-        <Button to={copy.ctaTo}>
+        <Button to={copy.ctaTo} onClick={(event) => handleSpaceClick(event, copy.ctaTo, copy.ctaTone)}>
           {copy.ctaLabel}
         </Button>
         <Button
@@ -101,6 +114,7 @@ export default function HeroContent({ paused, onToggleDust }) {
           href={copy.secondaryHref}
           target={copy.secondaryHref ? "_blank" : undefined}
           rel={copy.secondaryHref ? "noreferrer" : undefined}
+          onClick={(event) => handleSpaceClick(event, copy.secondaryTo, copy.secondaryTone)}
         >
           {copy.secondaryLabel}
         </Button>

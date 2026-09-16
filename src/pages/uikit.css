@@ -16,7 +16,7 @@
 }
 .oui-page *, .oui-page *::before, .oui-page *::after { box-sizing: border-box; }
 .oui-page h1, .oui-page h2, .oui-page h3, .oui-page h4, .oui-page p, .oui-page ul, .oui-page ol, .oui-page figure { margin: 0; }
-.oui-page h1, .oui-page h2, .oui-page h3, .oui-page h4 { font-family: var(--font-family-display); font-weight: 500; color: inherit; }
+.oui-page h1, .oui-page h2, .oui-page h3, .oui-page h4 { font-family: var(--font-family-display); font-weight: 500; color: var(--oui-ink); }
 .oui-page h1 { font-size: clamp(48px, 5.28vw, 76px); line-height: 1.025; letter-spacing: -.04em; }
 .oui-page h2 { font-size: clamp(32px, 3.34vw, 48px); line-height: 1.09; letter-spacing: -.04em; }
 .oui-page h3 { font-size: 24px; line-height: 1.25; letter-spacing: -.02em; }

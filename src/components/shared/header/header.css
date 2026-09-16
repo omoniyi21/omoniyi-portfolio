@@ -1,6 +1,6 @@
 .portfolio-signature{position:absolute;top:2rem;left:clamp(1.25rem,4vw,4rem);z-index:30}
 .portfolio-floating-menu{position:fixed;right:clamp(1rem,3vw,2.5rem);top:1.5rem;z-index:1000;color:#17151d}
-.portfolio-menu-toggle{display:flex;align-items:center;gap:.6rem;border:0;padding:4px;background:#fffbedcc;border-radius:999px;color:inherit;cursor:pointer;float:right}
+.portfolio-menu-toggle{position:relative;display:flex;align-items:center;gap:.6rem;border:0;padding:4px;background:transparent;color:inherit;cursor:pointer;float:right}
 .portfolio-menu-label{font:500 .8rem var(--font-family-display);background:#fffbed;padding:.35rem .6rem;border-radius:99px}
 .portfolio-menu-orb{display:grid;place-items:center;width:52px;height:52px;border-radius:50%;background:#171717;color:#fff;box-shadow:0 0 0 5px #fffdf3,0 8px 24px #21172820}
 .portfolio-menu-orb img{display:block;width:52px;height:52px}
@@ -12,6 +12,4 @@
 .portfolio-menu-panel .ecosystem-switcher{border-top:1px solid #17151d26;margin-top:.6rem;padding:.8rem .25rem 0;font-size:.8rem}
 @media(max-width:600px){.portfolio-signature{top:1.55rem;left:1.25rem}.portfolio-floating-menu{top:1rem}.portfolio-menu-orb,.portfolio-menu-orb img{width:46px;height:46px}.portfolio-menu-toggle{gap:.25rem}.portfolio-menu-label{font-size:.72rem;padding:.3rem .4rem}.portfolio-signature .ecosystem-signature{gap:.35rem}.portfolio-signature .ecosystem-wordmark{font-size:1.4rem}.portfolio-signature .ecosystem-space{font-size:.7rem}}
 
-.portfolio-topscrim{position:fixed;top:0;left:0;right:0;height:112px;z-index:900;pointer-events:none;backdrop-filter:blur(16px) saturate(140%);-webkit-backdrop-filter:blur(16px) saturate(140%);mask-image:linear-gradient(to bottom,#000 0%,#000 45%,transparent 100%);-webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 45%,transparent 100%)}
-.portfolio-menu-scrim{position:fixed;inset:0;z-index:900;background:#17151d47;backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);cursor:pointer}
-@media(max-width:600px){.portfolio-topscrim{height:88px}}
+.portfolio-menu-blur{position:absolute;inset:-20px;z-index:-1;border-radius:999px;pointer-events:none;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}

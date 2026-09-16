@@ -117,6 +117,11 @@ const WORK = [
 
 const LAUNCHKIT_SWATCHES = ["cream", "oxblood", "tint", "ink", "chrome"];
 
+// The organizations Omoniyi Studio has actually delivered for — the names
+// a prospective client recognizes and cares about, not the staffing
+// vehicles behind the government placements.
+const STUDIO_CLIENTS = ["USDA", "Library of Congress", "Athletico", "Birthright Africa"];
+
 function StudioNav() {
   return (
     <nav className="studio-nav" aria-label="Studio navigation">
@@ -219,6 +224,31 @@ function Hero() {
             {word}
           </span>
         ))}
+      </div>
+    </section>
+  );
+}
+
+function ClientRollGroup({ hidden }) {
+  return (
+    <div className="studio-client-roll__group" aria-hidden={hidden || undefined}>
+      {STUDIO_CLIENTS.map((name, i) => (
+        <span className="studio-client-roll__item" key={name}>
+          {i > 0 && <em aria-hidden="true">/</em>}
+          {name}
+        </span>
+      ))}
+    </div>
+  );
+}
+
+function ClientRoll() {
+  return (
+    <section className="studio-client-roll" aria-label="Contracted with">
+      <p className="studio-client-roll__label">Contracted with</p>
+      <div className="studio-client-roll__track">
+        <ClientRollGroup />
+        <ClientRollGroup hidden />
       </div>
     </section>
   );
@@ -481,6 +511,7 @@ export default function Studio() {
       <StudioNav />
       <main id="studio-main">
       <Hero />
+      <ClientRoll />
       <Services />
       <Process />
       <SelectedWork />

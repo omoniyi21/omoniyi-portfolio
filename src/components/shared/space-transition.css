@@ -1,0 +1,12 @@
+/* Full-viewport, always-mounted, pointer-events:none — it only ever
+   paints something while a space-to-space navigation is in flight (see
+   SpaceTransition.jsx). Sits above the floating menu (z-index:1000) so
+   the sweep covers it too. */
+.space-curtain {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 2000;
+  pointer-events: none;
+}

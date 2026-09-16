@@ -51,7 +51,13 @@ const TONES = [
 ];
 const TONE_WEIGHTS_BASE = [0.14, 0.08, 0.08, 0.7];
 const TONE_WEIGHTS_FEATURE = [0.36, 0.3, 0.24, 0.1];
-const DUST_COLOR = '132,101,190';
+// Dust dots (not the star sprites) recolor with the hero's persona: violet
+// while reading as "someone hiring", a warm ember while reading as "someone
+// building" — a small preview of Studio's own oxblood accent before the
+// visitor ever clicks through. The switch itself gets a brief outward
+// "kick" (see kickStartRef below) so the change reads as a reaction, not
+// just a palette swap.
+const MODE_DUST_COLOR = { hiring: '132,101,190', building: '122,51,60' };
 
 function pickTone(t, featured) {
   const weights = featured ? TONE_WEIGHTS_FEATURE : TONE_WEIGHTS_BASE;
@@ -132,10 +138,22 @@ function makeParticles(w, h, swirls) {
   return { stars, dust };
 }
 
-export default function CelestialDust({ paused }) {
+export default function CelestialDust({ paused, mode = 'hiring' }) {
   const ref = useRef(null);
   const pausedRef = useRef(paused);
   useEffect(() => { pausedRef.current = paused; }, [paused]);
+
+  const modeRef = useRef(mode);
+  const kickStartRef = useRef(-Infinity);
+  const mountedModeRef = useRef(false);
+  useEffect(() => {
+    modeRef.current = mode;
+    if (mountedModeRef.current) {
+      kickStartRef.current = performance.now();
+    } else {
+      mountedModeRef.current = true;
+    }
+  }, [mode]);
 
   useEffect(() => {
     const canvas = ref.current;
@@ -155,9 +173,9 @@ export default function CelestialDust({ paused }) {
     };
     image.src = starSrc;
 
-    const settle = (p, t) => {
+    const settle = (p, t, kick = 0) => {
       const angle = p.angle + t * p.angularSpeed;
-      const radius = p.radius + Math.sin(t * p.wobbleSpeed + p.wobbleSeed) * p.jitter;
+      const radius = (p.radius + Math.sin(t * p.wobbleSpeed + p.wobbleSeed) * p.jitter) * (1 + kick * 0.4);
       let x = p.cx + Math.cos(angle) * radius;
       let y = p.cy + Math.sin(angle) * radius * p.squish;
       if (strength > 0.001) {
@@ -178,20 +196,26 @@ export default function CelestialDust({ paused }) {
       const t = time * 0.001;
       ctx.lineCap = 'round';
 
+      // Kick decays linearly over 700ms from the moment `mode` last changed.
+      const kickAge = performance.now() - kickStartRef.current;
+      const kick = kickAge < 700 ? Math.max(0, 1 - kickAge / 700) : 0;
+      const dustColor = MODE_DUST_COLOR[modeRef.current] || MODE_DUST_COLOR.hiring;
+
       ctx.globalAlpha = 1;
       for (const p of dust) {
-        const [x, y] = settle(p, t);
+        const [x, y] = settle(p, t, kick);
         const edge = edgeFalloff(x, y, width, height);
         if (edge <= 0) continue;
         const twinkle = 0.75 + 0.25 * Math.sin(t * 0.9 + p.pulseSeed);
-        ctx.fillStyle = `rgba(${DUST_COLOR},${p.alpha * twinkle * edge})`;
+        const flash = 1 + kick * 0.6;
+        ctx.fillStyle = `rgba(${dustColor},${Math.min(1, p.alpha * twinkle * edge * flash)})`;
         ctx.beginPath();
         ctx.arc(x, y, p.r, 0, Math.PI * 2);
         ctx.fill();
       }
       if (ready) {
         for (const p of stars) {
-          const [x, y, angle] = settle(p, t);
+          const [x, y, angle] = settle(p, t, kick * 0.5);
           const edge = edgeFalloff(x, y, width, height);
           if (edge <= 0) continue;
           const sprite = sprites[p.tone];
