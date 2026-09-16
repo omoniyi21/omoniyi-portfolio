@@ -8,3 +8,5 @@
 @media(prefers-reduced-motion:reduce){.portfolio-study *{scroll-behavior:auto}.study-evidence>a{transition:none}.study-evidence>a:hover{transform:none}}
 .study-hero__copy{align-self:start;padding-top:1rem}.study-anatomy .study-evidence img{max-height:11rem}.study-bar{padding-right:4rem}@media(max-width:760px){.study-hero__copy{padding-top:0}.study-bar>span{display:none}.study-anatomy .study-evidence img{max-height:17rem}}
 .study-anatomy:before{inset:-1rem}
+/* Leave the top margin clear for the shared portfolio signature. */
+.portfolio-study{padding-top:6.5rem}

@@ -4,9 +4,7 @@ import { getPublishedObservations } from "../../data/observations";
 import "./observations-notebook.css";
 
 import PinkPaper from "../../assets/images/observations/pink-grid.png";
-import CreamPaper from "../../assets/images/observations/cream-paper.png";
 import LilacPaper from "../../assets/images/observations/lilac-paper.png";
-import PinkClip from "../../assets/images/observations/pink-clip.png";
 import Tape from "../../assets/images/observations/gingham-tape.png";
 import Frog from "../../assets/images/observations/frog.png";
 import ReadingPaper from "../../assets/images/personal-effects-refined/reading-paper-v2-trim.png";
@@ -35,8 +33,6 @@ function SignupNote() {
     return () => host.replaceChildren();
   }, []);
   return <aside className="notebook-signup" aria-label="Get the next Observation">
-    <Artifact src={CreamPaper} box="171 80 458 640" className="notebook-signup__paper" />
-    <Artifact src={PinkClip} box="308 80 183 640" className="notebook-clip" />
     <p className="notebook-label">A note for you</p>
     <h3>Let me send you<br />the next one?</h3>
     <p>Thoughts on design, work, and the life around it. From my notebook to your inbox.</p>
@@ -49,7 +45,7 @@ function SignupNote() {
 export default function ObservationsNotebook() {
   const [latest, ...recent] = getPublishedObservations().slice(0, 3);
   return <section className="observations-notebook" id="observations" aria-labelledby="notebook-title">
-    <header className="notebook-masthead"><div className="notebook-masthead__meta"><span>01</span><span>From my notebook</span><span aria-hidden="true">✦</span></div><span>Thinking out loud <i aria-hidden="true">✦</i></span></header>
+    <header className="notebook-masthead"><div className="notebook-masthead__meta"><span>02</span><span>From my notebook</span><span aria-hidden="true">✦</span></div><span>Thinking out loud <i aria-hidden="true">✦</i></span></header>
     <div className="notebook-page">
       <header className="notebook-heading"><p className="notebook-label">Notes on design & being a person</p><h2 id="notebook-title">Observations</h2><p>Things I notice. Things I’m still figuring out.</p></header>
       <div className="notebook-composition">

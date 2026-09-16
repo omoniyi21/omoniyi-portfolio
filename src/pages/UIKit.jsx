@@ -1,3 +1,5 @@
+import BrandSignature from "../components/shared/BrandSignature";
+import SpaceSwitcher from "../components/shared/SpaceSwitcher";
 import { trackEvent } from "../lib/analytics";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
@@ -122,17 +124,6 @@ export default function UIKit() {
   const [showRelease, setShowRelease] = useState(false);
   const page = useRef(null);
   useEffect(() => {
-    const oldTitle = document.title;
-    const description = document.querySelector('meta[name="description"]');
-    const canonical = document.querySelector('link[rel="canonical"]');
-    const previousDescription = description?.content;
-    const previousCanonical = canonical?.href;
-    document.title = "Omoniyi UI — Thoughtful Figma UI Kits";
-    if (description) description.content = "Reusable Figma UI kits for getting version one out the door. Explore the component playground and start with LaunchKit Free.";
-    if (canonical) canonical.href = "https://omoniyialimi.com/uikit";
-    return () => { document.title = oldTitle; if (description) description.content = previousDescription; if (canonical) canonical.href = previousCanonical; };
-  }, []);
-  useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) return;
     const observer = new IntersectionObserver(entries => { entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add("oui-revealed"); observer.unobserve(entry.target); } }); }, { threshold: 0.08 });
     page.current.querySelectorAll("[data-reveal]").forEach(element => observer.observe(element));
@@ -140,7 +131,7 @@ export default function UIKit() {
   }, []);
   return <div className="oui-page" ref={page}>
     <a href="#oui-main" className="oui-skip">Skip to content</a>
-    <header className="oui-nav oui-container"><Link className="oui-wordmark" to="/uikit"><span aria-hidden="true">✦</span> Omoniyi UI</Link><nav aria-label="UI kit navigation"><a href="#kits">UI kits</a><a href="#playground">Playground</a><a href="#editions">Free vs Pro</a></nav><div className="oui-nav-cta"><FreeLink /></div><a className="oui-mobile-nav" href="#editions">Kits ↓</a></header>
+    <header className="oui-nav oui-container"><div className="ecosystem-lockup"><BrandSignature space="ui" /><SpaceSwitcher space="ui" /></div><nav aria-label="UI kit navigation"><a href="#kits">UI kits</a><a href="#playground">Playground</a><a href="#editions">Free vs Pro</a></nav><div className="oui-nav-cta"><FreeLink /></div><a className="oui-mobile-nav" href="#editions">Kits ↓</a></header>
     <main id="oui-main">
       <section className="oui-hero oui-container"><span className="oui-badge oui-badge--pink">Designed by Omoniyi / Built for your next idea</span><h1>Good ideas deserve<br />a head start.</h1><p>Thoughtful Figma UI kits for getting version one out the door.<br className="oui-desktop-break" /> Reusable components. Clear systems. Room to make it yours.</p><div className="oui-actions"><FreeLink /><Button to="#editions" variant="secondary" className="oui-button" icon={false}>Explore Pro →</Button></div><p className="oui-small">Start with Free. Grow into Pro. Make something worth shipping.</p></section>
       <Playground />

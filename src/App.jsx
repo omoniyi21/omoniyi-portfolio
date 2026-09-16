@@ -1,4 +1,5 @@
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import PageMetadata from "./components/shared/PageMetadata";
 import UIKit from "./pages/UIKit";
 
 import Home from "./pages/Home";
@@ -25,6 +26,7 @@ export default function App() {
   return (
     <>
       <ScrollManager />
+      <PageMetadata />
       {!hideChrome && <Header />}
 
       <Routes>

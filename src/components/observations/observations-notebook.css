@@ -150,3 +150,10 @@
 .notebook-masthead__meta { display:flex; align-items:center; gap:.85rem; color:var(--text-secondary); font:700 .75rem/1.5 var(--font-family-display); letter-spacing:.19em; text-transform:uppercase; }
 .notebook-masthead__meta > span:last-child { color:var(--color-lavender-500); font-size:1rem; letter-spacing:0; }
 @media(max-width:560px) { .notebook-masthead__meta { font-size:.65rem; gap:.65rem; letter-spacing:.12em; } }
+
+/* Paper posts float on the page; only the signup invitation has a card. */
+.observations-notebook .notebook-page{background:none;border:0;box-shadow:none;border-radius:0;margin:1rem 0;padding:1.5rem 1rem}
+.observations-notebook .notebook-page::before,.observations-notebook .notebook-page::after{display:none}
+.observations-notebook .notebook-signup{background:#fffdf4;border:1px solid #17151d22;border-radius:1.25rem;box-shadow:0 8px 24px #271f2b08;transform:none;padding:clamp(1.5rem,3vw,2.5rem);isolation:auto}
+.observations-notebook .notebook-signup:hover{transform:none}
+.observations-notebook .notebook-signup::before,.observations-notebook .notebook-signup::after{display:none}

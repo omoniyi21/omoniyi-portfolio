@@ -1,13 +1,14 @@
 import { useEffect, useId, useRef, useState } from "react";
 import "./header.css";
-import "./header-sd.css";
-import "./mobile-header.css";
-import "./header-asteroid.css";
 
-import logoMark from "../../../assets/branding/logo-mark.svg";
-import stardustPeek from "../../../assets/branding/celestial/stardust-asteroid.png";
+
+
+
+import BrandSignature from "../BrandSignature";
+
 import Navigation from "./Navigation";
-import { Menu, Plus, X } from "lucide-react";
+import logoMark from "../../../assets/branding/logo-mark.svg";
+import { X } from "lucide-react";
 
 export default function Header() {
     const [open, setOpen] = useState(false);
@@ -38,32 +39,29 @@ export default function Header() {
 
     return (
 
+        <>
+        <div className="portfolio-signature"><BrandSignature space="portfolio" /></div>
         <header
-          className={`site-header ${open ? "is-open" : ""}`}
+          className={`portfolio-floating-menu ${open ? "is-open" : ""}`}
           ref={headerRef}
         >
-          <img className="header-stardust header-stardust--peek" src={stardustPeek} alt="" aria-hidden="true" />
-          <span id={`${menuId}-tip`} className="header-stardust__tip" role="tooltip">Psst… this is the menu ↗</span>
           <button
             ref={triggerRef}
-            className="site-brand"
+            className="portfolio-menu-toggle"
             type="button"
             onClick={() => setOpen((isOpen) => !isOpen)}
             aria-expanded={open}
             aria-controls={menuId}
-            aria-describedby={`${menuId}-tip`}
             aria-label={open ? "Close navigation menu" : "Open navigation menu"}
           >
-            <img className="site-brand__mark" src={logoMark} alt="" />
-            <span className="site-brand__wordmark" aria-hidden="true">omoniyi.</span>
-            <Plus size={18} strokeWidth={1.75} className={`menu-icon ${open ? "open" : ""}`} />
-            <Menu size={22} strokeWidth={1.8} className="mobile-menu-icon" aria-hidden="true" />
-            <X size={22} strokeWidth={1.8} className="mobile-close-icon" aria-hidden="true" />
+            <span className="portfolio-menu-label">{open ? "Close" : "Menu"}</span>
+            <span className="portfolio-menu-orb">{open ? <X size={22} aria-hidden="true" /> : <img src={logoMark} alt="" aria-hidden="true" />}</span>
           </button>
 
             <Navigation id={menuId} open={open} onNavigate={() => setOpen(false)} />
 
         </header>
+        </>
 
     );
 

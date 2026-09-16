@@ -217,3 +217,8 @@
   .oui-page *, .oui-page *::before, .oui-page *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
   .oui-page .oui-button:hover, .oui-preview:hover { transform: none; }
 }
+
+.oui-nav .ecosystem-lockup{margin-right:auto}
+.oui-nav{flex-wrap:wrap;padding-block:.75rem;row-gap:.5rem}
+@media(max-width:1100px){.oui-nav nav{display:none}}
+@media(max-width:600px){.oui-nav{min-height:100px}.oui-nav .ecosystem-switcher a{font-size:.72rem}}

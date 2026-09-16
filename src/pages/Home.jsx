@@ -19,10 +19,11 @@ function Home() {
         
       <div className="home-journal__opening">
         <Hero />
-        <ObservationsNotebook />
+
       </div>
       <PersonalEffects>
       </PersonalEffects>
+      <ObservationsNotebook />
       <WriteMe />
       </div>
       <LaunchKitPopup />

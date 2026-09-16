@@ -18,8 +18,6 @@ export default function ProjectCaseStudy({ study }) {
   const next = portfolioStudies[(index + 1) % portfolioStudies.length];
   const tint = cardTints[index % cardTints.length];
   return <main className={`portfolio-study portfolio-study--${study.slug}`} style={{ "--study-tint": tint }}>
-    <title>{study.client} — {study.title} | Omoniyi Alimi</title>
-    <meta name="description" content={study.summary}/>
     <div className="study-bar"><BackToPreviousPage/><span>{study.client} / {study.number}</span></div>
     <header className="study-hero">
       <div className="study-hero__copy"><p className="study-kicker">Case study {study.number} <b aria-hidden="true">✦</b></p><p className="study-client">{study.client}</p><h1>{study.title}</h1><p className="study-summary">{study.summary}</p><ul className="study-tags">{study.tags.map(t=><li key={t}>{t}</li>)}</ul><div className="study-actions"><a href="#snapshot">Explore the story <ArrowRight size={16}/></a>{study.figma && <a href={study.figma} target="_blank" rel="noopener noreferrer">View Figma <ArrowUpRight size={16}/></a>}</div></div>

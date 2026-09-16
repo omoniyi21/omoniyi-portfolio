@@ -1,3 +1,4 @@
+import SpaceSwitcher from "../SpaceSwitcher";
 import { Link } from "react-router-dom";
 import resume from "../../../assets/branding/Omoniyi Alimi Resume (2026)-accessibility.pdf";
 
@@ -10,24 +11,20 @@ export default function Navigation({ id, open, onNavigate }) {
             aria-label="Primary navigation"
             aria-hidden={!open}
             inert={!open}
-            className={`header-menu ${open ? "open" : ""}`}
+            className={`portfolio-menu-panel ${open ? "open" : ""}`}
 
         >
             <Link to="/" onClick={onNavigate}>
                 Home
             </Link>
 
-            <Link to="/studio" onClick={onNavigate}>
-                Studio
-            </Link>
+
 
             <Link to="/work" onClick={onNavigate}>
                 Case Studies
             </Link>
 
-            <Link to="/uikit" onClick={onNavigate}>
-                UI Kits
-            </Link>
+
 
             <a href={resume} onClick={onNavigate} target="_blank" rel="noreferrer">
                 Resume
@@ -45,6 +42,7 @@ export default function Navigation({ id, open, onNavigate }) {
                 Contact
             </Link>
 
+            <SpaceSwitcher space="portfolio" onNavigate={onNavigate} />
         </nav>
 
     );

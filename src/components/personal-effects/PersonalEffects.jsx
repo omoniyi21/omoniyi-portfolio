@@ -19,7 +19,7 @@ function Paper({ className, src, label, children }) {
 export default function PersonalEffects() {
   return <section className="personal-effects" id="personal-effects" aria-labelledby="personal-effects-title">
     <aside className="personal-effects__rail">
-      <div className="personal-effects__meta"><span>02</span><span>Personal Effects</span><span className="personal-effects__glyph">✦</span></div>
+      <div className="personal-effects__meta"><span>01</span><span>Personal Effects</span><span className="personal-effects__glyph">✦</span></div>
       <h2 id="personal-effects-title">What’s On My Mind?</h2>
       <p>A few things currently shaping how I think :)</p>
       <Link to="/about">design dossier <span aria-hidden="true">↗</span></Link>

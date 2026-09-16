@@ -27,11 +27,14 @@ export default function Work() {
               <span>{s.facts.find(f => f[0] === 'Timeline')[1]}</span>
             </div>
             <h2>{s.client}</h2>
-            <div className="work-visual work-visual--screenshot">
+            <div className="work-visual work-visual--screenshot" style={{ backgroundImage: `url(/case-studies/previews/${covers[i]}.webp)` }}>
               <img
                 src={`/case-studies/${covers[i]}.webp${covers[i].startsWith('payments-') ? '?redacted=1' : ''}`}
                 alt={`${s.client}: ${s.title}`}
-                loading="lazy"
+                loading={i === 0 ? "eager" : "lazy"}
+                fetchPriority={i === 0 ? "high" : "auto"}
+                decoding="async"
+                onLoad={event => { event.currentTarget.style.opacity = 1; }}
               />
             </div>
             <p className="work-card__title">{s.title}</p>

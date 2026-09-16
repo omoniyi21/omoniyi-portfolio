@@ -12,7 +12,6 @@ export default function Hero() {
 
   return (
     <section className="hero hero-journal hero-desk">
-      <span className="hero-journal__name">Omoniyi Alimi</span>
       <div className="hero__main">
         {/* The whole sheet is one continuous piece of paper now — a torn,
             hand-clipped silhouette drawn in CSS, filled with the real

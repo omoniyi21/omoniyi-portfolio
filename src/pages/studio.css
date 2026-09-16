@@ -1224,3 +1224,8 @@
     gap: var(--space-3);
   }
 }
+
+/* Shared signature keeps the studio connected without changing its editorial navigation. */
+.studio-nav{height:auto;min-height:5.25rem;padding-block:.6rem;flex-wrap:wrap;row-gap:.5rem}
+@media(max-width:1050px){.studio-nav__links{display:none}}
+@media(max-width:400px){.studio-nav{column-gap:.5rem;padding-inline:1rem}.studio-nav__cta.button{padding-inline:.65rem;font-size:.7rem}.studio-nav__cta.button svg{display:none}}

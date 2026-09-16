@@ -81,3 +81,8 @@
   .work-card__meta{font-size:.62rem;gap:1rem;letter-spacing:.04em}
 }
 @media(prefers-reduced-motion:reduce){.work-card{transition:none}.work-card:hover{transform:none}}
+
+/* Tiny previews remain visible while the full screenshots load. */
+.work-visual--screenshot{background-size:contain;background-position:center top;background-origin:content-box;background-repeat:no-repeat}
+
+.work-visual--screenshot img{opacity:0}

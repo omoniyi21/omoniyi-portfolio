@@ -1,3 +1,5 @@
+import BrandSignature from "../components/shared/BrandSignature";
+import SpaceSwitcher from "../components/shared/SpaceSwitcher";
 import { trackEvent } from "../lib/analytics";
 import { useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
@@ -91,9 +93,7 @@ export default function StudioInquire() {
   return (
     <div className="studio-page studio-inquire">
       <nav className="studio-nav" aria-label="Inquiry navigation">
-        <Link to="/studio" className="studio-nav__logo">
-          Omoniyi Studio
-        </Link>
+        <div className="ecosystem-lockup"><BrandSignature space="studio" /><SpaceSwitcher space="studio" /></div>
         <Link to="/studio" className="studio-inquire__back">
           <ArrowLeft size={14} strokeWidth={1.8} aria-hidden="true" /> Back to Studio
         </Link>

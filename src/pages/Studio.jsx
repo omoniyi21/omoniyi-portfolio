@@ -1,3 +1,5 @@
+import BrandSignature from "../components/shared/BrandSignature";
+import SpaceSwitcher from "../components/shared/SpaceSwitcher";
 import studioHeroWindow from "../assets/images/studio-hero/window-table.jpg";
 import studioHeroCoffee from "../assets/images/studio-hero/coffee.jpg";
 import { useState } from "react";
@@ -118,9 +120,7 @@ const LAUNCHKIT_SWATCHES = ["cream", "oxblood", "tint", "ink", "chrome"];
 function StudioNav() {
   return (
     <nav className="studio-nav" aria-label="Studio navigation">
-      <Link to="/studio" className="studio-nav__logo">
-        Omoniyi Studio
-      </Link>
+      <div className="ecosystem-lockup"><BrandSignature space="studio" /><SpaceSwitcher space="studio" /></div>
 
       <div className="studio-nav__links">
         {NAV_LINKS.map(({ label, to, href, active }) =>
@@ -479,12 +479,14 @@ export default function Studio() {
   return (
     <div className="studio-page">
       <StudioNav />
+      <main id="studio-main">
       <Hero />
       <Services />
       <Process />
       <SelectedWork />
       <Testimonial />
       <LaunchKit />
+      </main>
       <StudioFooter />
     </div>
   );
