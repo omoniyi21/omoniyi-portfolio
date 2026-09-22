@@ -6,6 +6,8 @@ const page = (title, description, image = 'home', imageAlt = 'Omoniyi Alimi port
 export const pageMetadata = {
   '/': page('Omoniyi Alimi — Senior Product Designer', 'Explore Omoniyi Alimi’s product design portfolio: thoughtful digital experiences, enterprise systems, and human-centered work across government and healthcare.'),
   '/work': page('Selected Work | Omoniyi Alimi', 'Explore five product design case studies spanning legislative voting, copyright systems, financial workflows, agricultural applications, and patient onboarding.'),
+  '/resume': page('Résumé | Omoniyi Alimi, Senior Product Designer', 'Résumé of Omoniyi Alimi, a senior product designer with nine years designing government, healthcare, and enterprise systems.'),
+  '/resume/experience': page('Résumé | Omoniyi Alimi, Product & Experience Designer', 'Résumé of Omoniyi Alimi, a product and experience designer who designs and builds interactive, visual, and systems-driven work.'),
   '/about': page('About | Omoniyi Alimi', 'Meet Omoniyi Alimi, a senior product designer bringing curiosity, research, and systems thinking to complex digital products.'),
   '/observations': page('Observations | Omoniyi Alimi', 'Field notes by Omoniyi Alimi on design, work, remote life, and the everyday observations that shape a creative practice.'),
   '/studio': page('Omoniyi Studio | Product Design & Strategy', 'Thoughtful product design with Omoniyi Studio. Explore design services, a collaborative process, and selected work that makes complex systems easier to use.', 'studio', 'Omoniyi Studio homepage showing product design services'),

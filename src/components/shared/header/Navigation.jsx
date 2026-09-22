@@ -1,6 +1,5 @@
 import SpaceSwitcher from "../SpaceSwitcher";
 import { Link } from "react-router-dom";
-import resume from "../../../assets/branding/Omoniyi Alimi Resume (2026)-accessibility.pdf";
 
 export default function Navigation({ id, open, onNavigate }) {
 
@@ -26,9 +25,9 @@ export default function Navigation({ id, open, onNavigate }) {
 
 
 
-            <a href={resume} onClick={onNavigate} target="_blank" rel="noreferrer">
+            <Link to="/resume" onClick={onNavigate}>
                 Resume
-            </a>
+            </Link>
 
             <Link to="/about" onClick={onNavigate}>
                 Design Dossier (About)

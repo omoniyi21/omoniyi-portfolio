@@ -1,7 +1,6 @@
 import { useLayoutEffect, useRef } from "react";
 import Button from "../shared/button/Button";
 import { useSpaceTransition } from "../shared/SpaceTransition";
-import resume from "../../assets/branding/Omoniyi Alimi Resume (2026)-accessibility.pdf";
 
 const PERSONAS = {
   hiring: {
@@ -12,8 +11,8 @@ const PERSONAS = {
       "I design clear, thoughtful experiences for systems where the information is dense, the stakes are high, and getting the next step right matters.",
     ctaLabel: "See the case studies",
     ctaTo: "/work",
-    secondaryLabel: "Get the résumé",
-    secondaryHref: resume,
+    secondaryLabel: "Read the résumé",
+    secondaryTo: "/resume",
   },
   building: {
     tabLabel: "someone building",

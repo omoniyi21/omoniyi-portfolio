@@ -12,6 +12,7 @@ import NotFound from "./pages/NotFound";
 import Work from "./pages/Work";
 import HouseCaseStudy from "./pages/HouseCaseStudy";
 import ProjectCaseStudy from "./pages/ProjectCaseStudy";
+import Resume from "./pages/Resume";
 import { caseStudies } from "./data/caseStudies";
 
 import Header from "./components/shared/header/Header";
@@ -40,6 +41,8 @@ export default function App() {
         <Route path="/observations" element={<Observations />} />
         <Route path="/observations/:slug" element={<ObservationPost />} />
         <Route path="/work" element={<Work />} />
+        <Route path="/resume" element={<Resume variant="product" />} />
+        <Route path="/resume/experience" element={<Resume variant="experience" />} />
         <Route path="/house" element={<HouseCaseStudy />} />
         <Route path="/usda" element={<ProjectCaseStudy study={caseStudies.usda} />} />
         <Route path="/athletico" element={<ProjectCaseStudy study={caseStudies.athletico} />} />
