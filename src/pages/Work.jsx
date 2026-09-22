@@ -4,13 +4,13 @@ import { portfolioStudies } from '../data/caseStudies';
 import { cardTints } from '../data/cardTints';
 import './work.css';
 
-const covers = ['house-dashboard', 'loc-users', 'payments-legacy', 'usda-admin', 'athletico-overview'];
+const covers = ['house-dashboard', 'loc-users', 'payments-legacy', 'usda-admin', 'athletico-overview', 'wedding-emblem-cream', 'portfolio-hiring'];
 
 export default function Work() {
   return (
     <main className="work-page">
       <section className="work-page__header">
-        <p>Selected work / 05 <span>✦</span></p>
+        <p>Selected work / 07 <span>✦</span></p>
         <h1>Systems made <em>navigable.</em></h1>
         <p>I design digital products that make complex work feel clear, useful, and human.</p>
       </section>

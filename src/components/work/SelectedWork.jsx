@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import {
   ArrowUpRight,
   CirclePlus,
+  Flower2,
+  Network,
   Grid2X2,
   Landmark,
   LibraryBig,
@@ -106,7 +108,31 @@ const WireframeCalendar = () => {
   );
 };
 
-const wireframes = [WireframeVote, WireframeComponents, WireframeDashboard, WireframeSidebar, WireframeCalendar];
+const WireframeEmblem = () => (
+  <svg viewBox="0 0 220 120" {...sketchProps}>
+    <g filter="url(#hero-wire-sketch)">
+      <ellipse cx="110" cy="60" rx="44" ry="56" />
+      <ellipse cx="110" cy="60" rx="38" ry="50" />
+      <line x1="72" y1="52" x2="148" y2="52" /><line x1="72" y1="68" x2="148" y2="68" />
+      <path d="M110 16 C 100 28, 120 36, 110 48" /><circle cx="94" cy="32" r="6" /><circle cx="126" cy="36" r="6" />
+      <path d="M110 72 C 100 84, 120 92, 110 104" /><circle cx="94" cy="88" r="6" /><circle cx="126" cy="86" r="6" />
+      <line x1="90" y1="60" x2="130" y2="60" />
+    </g>
+  </svg>
+);
+
+const WireframeEcosystem = () => (
+  <svg viewBox="0 0 220 120" {...sketchProps}>
+    <g filter="url(#hero-wire-sketch)">
+      <rect x="80" y="6" width="60" height="30" rx="8" />
+      <line x1="110" y1="36" x2="110" y2="56" /><line x1="40" y1="56" x2="180" y2="56" />
+      <line x1="40" y1="56" x2="40" y2="74" /><line x1="110" y1="56" x2="110" y2="74" /><line x1="180" y1="56" x2="180" y2="74" />
+      <rect x="10" y="74" width="60" height="36" rx="6" /><rect x="80" y="74" width="60" height="36" rx="6" /><rect x="150" y="74" width="60" height="36" rx="6" />
+    </g>
+  </svg>
+);
+
+const wireframes = [WireframeVote, WireframeComponents, WireframeDashboard, WireframeSidebar, WireframeCalendar, WireframeEmblem, WireframeEcosystem];
 
 // Pastel range for the stack itself — blues through purples into pinks —
 // applied inline per card (see the Link below) rather than through a CSS
@@ -120,6 +146,8 @@ const featuredProjects = [
  {client:"U.S. Copyright Office",title:"Accounting & Payments",description:"Understanding legacy records, financial rules, and staff workflows before designing what comes next.",category:"Government · UX research",href:"/copyright-accounting",icon:LibraryBig},
  {client:"USDA NASS",title:"Enterprise Application Modernization",description:"A reusable theme connecting accessible patterns, specialized workflows, and engineering.",category:"Government · Design systems",href:"/usda",icon:Grid2X2},
  {client:"Athletico",title:"Patient Onboarding & Scheduling",description:"Clearer entry, appointment access, and responsive care journeys for patients and staff.",category:"Healthcare · Research",href:"/athletico",icon:CirclePlus},
+ {client:"Independent studio work",title:"Wedding Identity & Guest Experience",description:"An original emblem, keepsakes, and décor that carry two heritages into one celebration.",category:"Experience design · Illustration",href:"/wedding-identity",icon:Flower2},
+ {client:"Self-initiated",title:"Portfolio Ecosystem",description:"One designer, three audiences, one system: a portfolio built to read differently for each visitor.",category:"Information architecture · Build",href:"/portfolio-ecosystem",icon:Network},
 ];
 
 // The header/illustration/footer markup shared by both a real, interactive

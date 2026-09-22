@@ -164,4 +164,4 @@
 .observations-notebook .notebook-signup{background:#fffdf4;border:1px solid #17151d22;border-radius:1.25rem;box-shadow:none;transform:none;padding:.85rem clamp(1.25rem,2vw,1.75rem) 1.1rem;isolation:auto}
 .observations-notebook .notebook-signup:hover{transform:none}
 .observations-notebook .notebook-signup::before,.observations-notebook .notebook-signup::after{display:none}
-.observations-notebook .notebook-signup { background:linear-gradient(135deg,#ffffff8c,#f3ecff55 55%,#ffffff45); border:1px solid #ffffffc7; box-shadow:inset 0 1px #fff, 0 8px 20px #4938581a; backdrop-filter:blur(18px) saturate(125%); -webkit-backdrop-filter:blur(18px) saturate(125%); }
+.observations-notebook .notebook-signup { background:linear-gradient(135deg,#ffffff8c,#f3ecff55 55%,#ffffff45); border:1px solid #ffffffc7; box-shadow:inset 0 1px #fff, 0 8px 20px #4938581a; -webkit-backdrop-filter:blur(18px) saturate(125%);backdrop-filter:blur(18px) saturate(125%); }

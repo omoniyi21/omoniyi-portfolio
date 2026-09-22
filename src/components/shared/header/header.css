@@ -12,4 +12,4 @@
 .portfolio-menu-panel .ecosystem-switcher{border-top:1px solid #17151d26;margin-top:.6rem;padding:.8rem .25rem 0;font-size:.8rem}
 @media(max-width:600px){.portfolio-signature{top:1.55rem;left:1.25rem}.portfolio-floating-menu{top:1rem}.portfolio-menu-orb,.portfolio-menu-orb img{width:46px;height:46px}.portfolio-menu-toggle{gap:.25rem}.portfolio-menu-label{font-size:.72rem;padding:.3rem .4rem}.portfolio-signature .ecosystem-signature{gap:.35rem}.portfolio-signature .ecosystem-wordmark{font-size:1.4rem}.portfolio-signature .ecosystem-space{font-size:.7rem}}
 
-.portfolio-menu-blur{position:absolute;inset:-20px;z-index:-1;border-radius:999px;pointer-events:none;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+.portfolio-menu-blur{position:absolute;inset:-20px;z-index:-1;border-radius:999px;pointer-events:none;-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px)}

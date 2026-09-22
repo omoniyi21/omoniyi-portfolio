@@ -11,7 +11,7 @@ export const contact = {
 const independent = {
   company: "Omoniyi Studio & LaunchKit UI",
   role: "Founder & Designer",
-  dates: "2026 – Present",
+  dates: "Aug 2026 – Present",
 };
 
 export const resumes = {
@@ -97,7 +97,7 @@ export const resumes = {
     highlights: [
       { text: "omoniyialimi.com: a portfolio designed and coded as a world, with a notebook visual language, a hero that changes its story for each visitor, and ambient motion.", link: { label: "omoniyialimi.com", to: "/" } },
       { text: "LaunchKit UI: a UI kit I designed and launched, from brand and visual language to components and launch page.", link: { label: "LaunchKit UI", to: "/uikit" } },
-      { text: "Wedding identity case study: creative direction for a wedding celebration, anchored by an original illustrated emblem that joins cowrie shells (Black American heritage) and pomegranates (Armenian heritage), designed to carry across menus, a custom newspaper, and keepsakes." },
+      { link: { label: "Wedding identity case study", to: "/wedding-identity" }, text: "Wedding identity case study: creative direction for a wedding celebration, anchored by an original illustrated emblem that joins cowrie shells (Black American heritage) and pomegranates (Armenian heritage), designed to carry across menus, a custom newspaper, and keepsakes." },
       { text: "U.S. House voting platform: translating the rules and rituals of legislative voting into an interface all of Congress relies on.", link: { label: "U.S. House voting platform", to: "/house" } },
     ],
     experienceTitle: "Experience",
@@ -105,7 +105,7 @@ export const resumes = {
       { ...independent, projects: [{ name: "Independent practice", sub: "Product, brand & interactive work", bullets: [
         { text: "Designed and built omoniyialimi.com as a hand-made world: a field-notebook visual language, a persona-aware hero that rewrites its story for someone hiring vs. someone building, and ambient motion with a visitor-controlled pause.", link: { label: "omoniyialimi.com", to: "/" } },
         { text: "Designed and launched LaunchKit UI, a startup UI kit with a free community edition and a Pro tier, from visual language and components to launch page.", link: { label: "LaunchKit UI", to: "/uikit" } },
-        { text: "Created a wedding-identity case study for a boutique event-design studio, extending the visual world it had established: an original illustrated emblem in four colorways, eight décor and keepsake concepts, and tablescape direction." },
+        { link: { label: "wedding-identity case study", to: "/wedding-identity" }, text: "Created a wedding-identity case study for a boutique event-design studio, extending the visual world it had established: an original illustrated emblem in four colorways, eight décor and keepsake concepts, and tablescape direction." },
         { text: "Launched Omoniyi Studio, a design practice for small businesses, with productized service tiers and a designed intake-to-booking journey.", link: { label: "Omoniyi Studio", to: "/studio" } },
       ] }] },
       { company: "Aretum", role: "UI/UX Designer", dates: "Mar 2024 – Jul 2026", projects: [

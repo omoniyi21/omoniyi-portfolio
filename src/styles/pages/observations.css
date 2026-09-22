@@ -44,7 +44,7 @@
    embed used on the homepage Observations bar, restyled to sit quietly
    inside the post page's own glass-card language rather than repeating
    the homepage's handwritten-note treatment. */
-.observation-post__signup { align-items: center; background: linear-gradient(135deg, rgb(255 255 255 / 70%), rgb(255 247 223 / 38%)); backdrop-filter: blur(14px) saturate(120%); -webkit-backdrop-filter: blur(14px) saturate(120%); border: 1px solid rgb(255 255 255 / 80%); border-radius: 1.5rem; box-shadow: 0 14px 34px rgb(54 39 58 / 8%), inset 0 1px rgb(255 255 255 / 90%); display: flex; flex-wrap: wrap; gap: 1.5rem; justify-content: space-between; margin: 2.5rem auto 0; max-width: 1200px; padding: 1.5rem clamp(1.25rem, 3vw, 2.25rem); position: relative; z-index: 1; }
+.observation-post__signup { align-items: center; background: linear-gradient(135deg, rgb(255 255 255 / 70%), rgb(255 247 223 / 38%)); -webkit-backdrop-filter:blur(14px) saturate(120%);backdrop-filter:blur(14px) saturate(120%); border: 1px solid rgb(255 255 255 / 80%); border-radius: 1.5rem; box-shadow: 0 14px 34px rgb(54 39 58 / 8%), inset 0 1px rgb(255 255 255 / 90%); display: flex; flex-wrap: wrap; gap: 1.5rem; justify-content: space-between; margin: 2.5rem auto 0; max-width: 1200px; padding: 1.5rem clamp(1.25rem, 3vw, 2.25rem); position: relative; z-index: 1; }
 /* Text and email field are grouped tightly on their own so the email box
    sits right next to the heading instead of being pushed to the far edge
    of the card; the frog fills the remaining space on the right. */
