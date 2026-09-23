@@ -1302,3 +1302,59 @@
 .studio-nav{height:auto;min-height:5.25rem;padding-block:.6rem;flex-wrap:wrap;row-gap:.5rem}
 @media(max-width:1050px){.studio-nav__links{display:none}}
 @media(max-width:400px){.studio-nav{column-gap:.5rem;padding-inline:1rem}.studio-nav__cta.button{padding-inline:.65rem;font-size:.7rem}.studio-nav__cta.button svg{display:none}}
+
+/* ==========================================================================
+   Studio motion personality: "typeset"
+   Same shared scale, re-pointed: longer, calm ease-out settles, no bounce,
+   no rotation in motion. Anything local that used productive/expressive
+   tokens now settles like type being set.
+   ========================================================================== */
+.studio-page {
+  --motion-productive-short: 220ms;
+  --motion-productive: 280ms;
+  --motion-productive-long: 360ms;
+  --motion-expressive-short: 480ms;
+  --motion-expressive: 600ms;
+  --motion-expressive-long: 700ms;
+  --ease-productive: var(--ease-typeset);
+  --ease-expressive: var(--ease-typeset);
+  --ease-hand-placed: var(--ease-typeset);
+  /* legacy aliases resolve locally so they pick up the overrides above */
+  --motion-fast: var(--motion-productive-short);
+  --motion-normal: var(--motion-productive-long);
+  --motion-slow: var(--motion-expressive);
+  --ease-standard: var(--ease-typeset);
+  --ease-out: var(--ease-typeset);
+  --ease-in-out: var(--ease-typeset);
+}
+
+/* Client roll: a continuous marquee needs a pause (WCAG 2.2.2). It also
+   stops while a visitor hovers or focuses it to read a name. */
+.studio-client-roll__label { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.studio-client-roll__label p { margin: 0; }
+.studio-client-roll__pause {
+  border: 1px solid var(--studio-border-light);
+  border-radius: 99px;
+  background: none;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  min-height: 32px;
+  padding: 0 .9rem;
+  cursor: pointer;
+  transition: color var(--motion-productive) var(--ease-typeset), border-color var(--motion-productive) var(--ease-typeset);
+}
+.studio-client-roll__pause:hover, .studio-client-roll__pause:focus-visible { color: var(--studio-oxblood); border-color: var(--studio-oxblood); }
+.studio-client-roll__pause:focus-visible { outline: 2px solid var(--studio-oxblood); outline-offset: 3px; }
+.studio-client-roll.is-paused .studio-client-roll__track,
+.studio-client-roll:hover .studio-client-roll__track,
+.studio-client-roll:focus-within .studio-client-roll__track { animation-play-state: paused; }
+
+/* on-site reduce-motion switch mirrors the device setting */
+html[data-motion="reduce"] .studio-client-roll__track { animation: none !important; flex-wrap: wrap; width: 100%; }
+html[data-motion="reduce"] .studio-client-roll__group[aria-hidden="true"] { display: none; }
+html[data-motion="reduce"] .studio-client-roll__pause { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  .studio-client-roll__group[aria-hidden="true"], .studio-client-roll__pause { display: none; }
+}

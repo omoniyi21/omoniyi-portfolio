@@ -243,9 +243,15 @@ function ClientRollGroup({ hidden }) {
 }
 
 function ClientRoll() {
+  const [paused, setPaused] = useState(false);
   return (
-    <section className="studio-client-roll" aria-label="Contracted with">
-      <p className="studio-client-roll__label">Contracted with</p>
+    <section className={`studio-client-roll${paused ? " is-paused" : ""}`} aria-label="Contracted with">
+      <div className="studio-client-roll__label">
+        <p>Contracted with</p>
+        <button type="button" className="studio-client-roll__pause" aria-pressed={paused} onClick={() => setPaused(!paused)}>
+          {paused ? "Play" : "Pause"}
+        </button>
+      </div>
       <div className="studio-client-roll__track">
         <ClientRollGroup />
         <ClientRollGroup hidden />
