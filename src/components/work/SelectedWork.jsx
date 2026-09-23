@@ -11,6 +11,7 @@ import {
   Grid2X2,
   Landmark,
   LibraryBig,
+  Palette,
 } from "lucide-react";
 
 // Small sketched wireframes standing in for a UI thumbnail in the middle of
@@ -134,7 +135,18 @@ const WireframeEcosystem = () => (
   </svg>
 );
 
-const wireframes = [WireframeVote, WireframeComponents, WireframeDashboard, WireframeSidebar, WireframeCalendar, WireframeEmblem, WireframeEcosystem];
+const WireframeGallery = () => (
+  <svg viewBox="0 0 220 120" {...sketchProps}>
+    <g filter="url(#hero-wire-sketch)">
+      <rect x="10" y="14" width="86" height="64" rx="3" /><path d="M16 70 L40 44 L58 60 L72 48 L90 70" /><circle cx="76" cy="30" r="7" />
+      <rect x="108" y="8" width="46" height="60" rx="3" /><path d="M116 30 C 124 20, 138 20, 146 30" /><line x1="116" y1="44" x2="146" y2="44" /><line x1="116" y1="54" x2="138" y2="54" />
+      <rect x="164" y="20" width="46" height="46" rx="23" /><path d="M176 44 C 182 36, 192 36, 198 44" />
+      <line x1="10" y1="100" x2="210" y2="100" />
+    </g>
+  </svg>
+);
+
+const wireframes = [WireframeVote, WireframeComponents, WireframeDashboard, WireframeSidebar, WireframeCalendar, WireframeEmblem, WireframeEcosystem, WireframeGallery];
 
 // Pastel range for the stack itself — blues through purples into pinks —
 // applied inline per card (see the Link below) rather than through a CSS
@@ -143,13 +155,14 @@ const wireframes = [WireframeVote, WireframeComponents, WireframeDashboard, Wire
 const cardTints = ["#e7edfb", "#e9e3fa", "#f6e8f5", "#f0e1f7", "#fbe6ee"];
 
 const featuredProjects = [
- {client:"U.S. House",title:"Committee Voting Platform",description:"Making legislative complexity navigable through referrals, context, and clear voting actions.",category:"Government · Product design",href:"/house",icon:Landmark},
+ {client:"U.S. House",title:"Committee Voting Platform",description:"A 30+ component design system and clear voting workflows for legislative work.",category:"Government · Design systems",href:"/house",icon:Landmark},
  {client:"U.S. Copyright Office",title:"Enterprise UX Architecture",description:"Shared interaction rules for search, navigation, filtering, and administration across products.",category:"Government · Design systems",href:"/library-of-congress",icon:LibraryBig},
  {client:"U.S. Copyright Office",title:"Accounting & Payments",description:"Understanding legacy records, financial rules, and staff workflows before designing what comes next.",category:"Government · UX research",href:"/copyright-accounting",icon:LibraryBig},
  {client:"USDA NASS",title:"Enterprise Application Modernization",description:"A reusable theme connecting accessible patterns, specialized workflows, and engineering.",category:"Government · Design systems",href:"/usda",icon:Grid2X2},
  {client:"Athletico",title:"Patient Onboarding & Scheduling",description:"Clearer entry, appointment access, and responsive care journeys for patients and staff.",category:"Healthcare · Research",href:"/athletico",icon:CirclePlus},
  {client:"Independent studio work",title:"Wedding Identity & Guest Experience",description:"An original emblem, keepsakes, and décor that carry two heritages into one celebration.",category:"Experience design · Illustration",href:"/wedding-identity",icon:Flower2},
  {client:"Self-initiated",title:"Portfolio Ecosystem",description:"One designer, three audiences, one system: a portfolio built to read differently for each visitor.",category:"Information architecture · Build",href:"/portfolio-ecosystem",icon:Network},
+ {client:"OMDesigns archive",title:"Visual & Illustration",description:"Original illustration, hand lettering, and event and brand graphics.",category:"Illustration · Visual design",href:"/visual",icon:Palette},
 ];
 
 // The header/illustration/footer markup shared by both a real, interactive

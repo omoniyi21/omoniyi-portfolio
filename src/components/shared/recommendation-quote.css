@@ -1,0 +1,8 @@
+.rec-quote{border-block:1px solid rgb(23 21 29 / 15%);margin:0;max-width:100%;padding:clamp(1.75rem,4vw,2.75rem) 0;width:100%}
+.rec-quote__kicker{font:700 .68rem var(--font-family-display);letter-spacing:.16em;margin:0 0 1rem;text-transform:uppercase}
+.rec-quote__kicker b{color:var(--color-lavender-500);margin-left:.5rem}
+.rec-quote__text{font:500 clamp(1.25rem,2.4vw,2rem)/1.3 var(--font-family-display);letter-spacing:-.03em;margin:0 0 1.25rem;max-width:44ch;text-wrap:balance}
+.rec-quote__cite{align-items:baseline;display:flex;flex-wrap:wrap;font-size:.85rem;gap:.35rem 1rem}
+.rec-quote__cite span{color:var(--text-secondary)}
+.rec-quote__cite a{align-items:center;display:inline-flex;gap:.2rem;text-decoration:underline;text-underline-offset:3px}
+.rec-quote__cite a:focus-visible{outline:3px solid var(--color-lavender-500);outline-offset:3px}

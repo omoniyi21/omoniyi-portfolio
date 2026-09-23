@@ -9,6 +9,8 @@ import { ArrowRight, ArrowDown, Check } from "lucide-react";
 import Button from "../components/shared/button/Button";
 import "./studio.css";
 
+import { tylerRecommendation } from "../data/recommendations";
+
 const INQUIRE_HREF = "/studio/inquire?service=not-sure";
 
 const NAV_LINKS = [
@@ -305,6 +307,27 @@ function Services() {
           </article>
         ))}
       </div>
+      <div className="studio-team">
+        <article className="studio-team__card">
+          <div>
+            <p className="studio-section__meta">For product teams</p>
+            <h3>Fractional &amp; systems work</h3>
+            <p className="studio-team__availability"><span aria-hidden="true" /> Now booking for October</p>
+            <p className="studio-team__desc">
+              Embed a senior product designer in your team, or bring me in for a design system sprint or an
+              accessibility audit. Built on nine years of enterprise, government and healthcare products.
+            </p>
+          </div>
+          <ul>
+            <li>Fractional Design Lead <span>from $5,000/mo</span></li>
+            <li>Design System Sprint <span>from $12,000</span></li>
+            <li>Accessibility &amp; UX Audit <span>from $4,000</span></li>
+          </ul>
+          <Link to="/studio/inquire?service=team" className="studio-tier__cta">
+            See team offerings <ArrowRight size={15} strokeWidth={1.8} aria-hidden="true" />
+          </Link>
+        </article>
+      </div>
     </section>
   );
 }
@@ -404,10 +427,12 @@ function Testimonial() {
           “
         </p>
         <p className="studio-quote__text">
-          The most helpful healthcare experiences make the next step feel obvious — without making
-          the person taking it feel rushed.
+          {tylerRecommendation.systems} {tylerRecommendation.closing}
         </p>
-        <p className="studio-quote__cite">— Omoniyi Alimi, on redesigning Athletico’s patient onboarding</p>
+        <p className="studio-quote__cite">
+          — {tylerRecommendation.name}, {tylerRecommendation.title} · {tylerRecommendation.relationship} ·{" "}
+          <a href={tylerRecommendation.source} target="_blank" rel="noopener noreferrer">Read on LinkedIn</a>
+        </p>
       </div>
     </section>
   );
@@ -522,9 +547,9 @@ export default function Studio() {
       <Hero />
       <ClientRoll />
       <Services />
+      <Testimonial />
       <Process />
       <SelectedWork />
-      <Testimonial />
       <LaunchKit />
       </main>
       <StudioFooter />

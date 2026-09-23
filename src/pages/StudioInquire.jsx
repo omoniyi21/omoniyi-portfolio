@@ -2,6 +2,7 @@ import BrandSignature from "../components/shared/BrandSignature";
 import SpaceSwitcher from "../components/shared/SpaceSwitcher";
 import { trackEvent } from "../lib/analytics";
 import { useState } from "react";
+import { TEAM_OFFERS, TEAM_OFFER_IDS } from "../data/studioOffers";
 import { Link, useSearchParams } from "react-router-dom";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 
@@ -23,12 +24,19 @@ const TIMELINES = ["As soon as possible", "Within 1 month", "1–3 months", "3+ 
 const BUDGETS = ["$950–$2,500", "$2,500–$5,000", "$5,000–$10,000", "$10,000+", "Not sure yet"];
 
 function normalizeService(value) {
+  if (value === "team") return TEAM_OFFER_IDS[0];
+  if (TEAM_OFFER_IDS.includes(value)) return value;
   return SERVICES.some((option) => option.id === value) ? value : "not-sure";
 }
 
 export default function StudioInquire() {
   const [searchParams] = useSearchParams();
-  const [service, setService] = useState(() => normalizeService(searchParams.get("service")));
+  const requested = searchParams.get("service");
+  // Team mode: fractional, sprint and audit only, shown as a picker beside the form.
+  const teamMode = requested === "team" || TEAM_OFFER_IDS.includes(requested);
+  const [service, setService] = useState(() => normalizeService(requested));
+  const activeOffer = TEAM_OFFERS.find((offer) => offer.id === service);
+  const budgets = teamMode ? activeOffer?.budgets ?? [] : BUDGETS;
   const [status, setStatus] = useState("idle");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -99,7 +107,7 @@ export default function StudioInquire() {
         </Link>
       </nav>
 
-      <section className="studio-section studio-inquire__hero">
+      <section className={`studio-section studio-inquire__hero${teamMode ? " studio-inquire__hero--team" : ""}`}>
         <p className="studio-eyebrow">
           <span>Start a project</span>
           <span className="studio-eyebrow__sub">Usually takes about 5 minutes</span>
@@ -107,7 +115,7 @@ export default function StudioInquire() {
         <h1 className="studio-inquire__title">
           Tell me about
           <br />
-          <em>the work.</em>
+          <em>{teamMode ? "your team." : "the work."}</em>
         </h1>
         <p className="studio-inquire__description">
           A few questions so our call starts with context instead of introductions. Once you submit
@@ -130,8 +138,33 @@ export default function StudioInquire() {
           </div>
         </section>
       ) : (
-        <section className="studio-section studio-inquire__form-section">
+        <section className={`studio-section studio-inquire__form-section${teamMode ? " studio-inquire__form-section--team" : ""}`}>
+          {teamMode && (
+            <div className="studio-inquire__team" role="group" aria-label="Choose an offering">
+              {TEAM_OFFERS.map((offer) => (
+                <button
+                  key={offer.id}
+                  type="button"
+                  className={`studio-inquire__team-offer${service === offer.id ? " is-active" : ""}`}
+                  onClick={() => setService(offer.id)}
+                  aria-pressed={service === offer.id}
+                >
+                  <h2>{offer.name}</h2>
+                  <p><strong>{offer.price}</strong></p>
+                  <p className="terms">{offer.terms}</p>
+                  <p>{offer.description}</p>
+                  <ul>{offer.items.map((item) => <li key={item}>{item}</li>)}</ul>
+                </button>
+              ))}
+            </div>
+          )}
+          {teamMode && !activeOffer ? (
+            <p className="studio-inquire__pick">Choose an offering to start your inquiry.</p>
+          ) : (
           <form data-analytics-form="studio_inquiry" className="studio-inquire__form" onSubmit={handleSubmit}>
+            {teamMode ? (
+              <p className="studio-inquire__chosen">Inquiring about <strong>{activeOffer.name}</strong> · {activeOffer.price}</p>
+            ) : (
             <fieldset className="studio-inquire__services">
               <legend>Interested in</legend>
               <div className="studio-inquire__service-options">
@@ -149,6 +182,7 @@ export default function StudioInquire() {
                 ))}
               </div>
             </fieldset>
+            )}
 
             <div className="studio-inquire__grid">
               <label className="studio-inquire__hp" aria-hidden="true">
@@ -200,10 +234,10 @@ export default function StudioInquire() {
               </label>
             </div>
 
-            <fieldset className="studio-inquire__budget">
+            <fieldset className="studio-inquire__budget" key={service}>
               <legend>Approximate budget</legend>
               <div className="studio-inquire__budget-options">
-                {BUDGETS.map((budget) => (
+                {budgets.map((budget) => (
                   <label key={budget} className="studio-inquire__budget-option">
                     <input type="radio" name="budget" value={budget} required />
                     <span>{budget}</span>
@@ -234,6 +268,7 @@ export default function StudioInquire() {
               </button>
             </div>
           </form>
+          )}
         </section>
       )}
 

@@ -4,6 +4,7 @@ import PersonalEffects from "../components/personal-effects/PersonalEffects";
 import Hero from "../components/hero/Hero";
 import WriteMe from "../components/contact/WriteMe";
 import LaunchKitPopup from "../components/popup/LaunchKitPopup";
+import RecommendationQuote from "../components/shared/RecommendationQuote";
 
 
 function Home() {
@@ -21,6 +22,7 @@ function Home() {
         <Hero />
 
       </div>
+      <RecommendationQuote />
       <PersonalEffects>
       </PersonalEffects>
       <ObservationsNotebook />

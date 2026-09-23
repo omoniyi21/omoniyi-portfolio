@@ -14,7 +14,7 @@ export default function Work() {
       <section className="work-page__header">
         <p>Selected work / 07 <span>✦</span></p>
         <h1>Systems made <em>navigable.</em></h1>
-        <p>I design digital products that make complex work feel clear, useful, and human.</p>
+        <p>I design digital products that make complex work feel clear, useful, and human, and the design systems that keep them consistent.</p>
       </section>
       <section className="work-bento" aria-label="Case studies">
         {portfolioStudies.map((s, i) => (

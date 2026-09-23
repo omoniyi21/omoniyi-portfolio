@@ -21,7 +21,7 @@ export const resumes = {
     title: "Senior Product Designer",
     tagline: "I help people navigate complex systems.",
     summary:
-      "Senior Product Designer with nine years designing and building products for government, healthcare, and enterprise teams. I lead from discovery through delivery: researching how people actually work, turning dense legacy processes into clear workflows, and building the design systems that let engineering teams ship them consistently. Comfortable in code (HTML, CSS, JavaScript, React) and fluent with AI prototyping tools.",
+      "Senior Product Designer with nine years designing and building products for government, healthcare, and enterprise teams. I lead from discovery through delivery: researching how people actually work, turning dense legacy processes into clear workflows, and building the design systems that let engineering teams ship them consistently. Comfortable in code (HTML, CSS, JavaScript, React) and fluent with AI prototyping tools. Available for full-time roles, and for fractional and contract work through Omoniyi Studio.",
     highlightsTitle: "Career Highlights",
     highlights: [
       { text: "Led end-to-end design of a new voting platform used across all of Congress, partnering directly with U.S. House leadership from discovery to implementation-ready specs.", link: { label: "voting platform", to: "/house" } },

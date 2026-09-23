@@ -20,6 +20,9 @@ const SERVICE_LABELS = {
   refine: "Refine — UX Audit & Optimization",
   build: "Build — Website / Product Design",
   transform: "Transform — Experience System & Creative Direction",
+  fractional: "Fractional Design Lead",
+  sprint: "Design System Sprint",
+  "a11y-audit": "Accessibility & UX Audit",
   "not-sure": "Not sure yet",
 };
 
