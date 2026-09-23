@@ -23,6 +23,10 @@ export default function Navigation({ id, open, onNavigate }) {
                 Case Studies
             </Link>
 
+            <Link to="/visual" onClick={onNavigate}>
+                Visual &amp; Illustration
+            </Link>
+
 
 
             <Link to="/resume" onClick={onNavigate}>

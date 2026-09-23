@@ -381,6 +381,9 @@ function SelectedWork() {
           <Link to="/work" className="studio-text-link">
             View Case Studies <ArrowRight size={14} strokeWidth={1.8} aria-hidden="true" />
           </Link>
+          <Link to="/visual" className="studio-text-link">
+            Visual &amp; Illustration <ArrowRight size={14} strokeWidth={1.8} aria-hidden="true" />
+          </Link>
         </div>
 
         <div className="studio-work__grid">

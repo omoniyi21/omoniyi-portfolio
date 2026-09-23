@@ -50,6 +50,11 @@ export default function Work() {
           </Link>
         ))}
       </section>
+      <Link className="work-archive" to="/visual">
+        <span className="work-archive__meta">Also / Visual &amp; illustration <b aria-hidden="true">✦</b></span>
+        <strong>Illustration, lettering, and brand graphics from OMDesigns</strong>
+        <ArrowUpRight aria-hidden="true" />
+      </Link>
     </main>
   );
 }
