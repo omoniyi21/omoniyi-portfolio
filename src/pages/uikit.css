@@ -32,7 +32,7 @@
 .oui-badge--green { background: var(--oui-success); }
 .oui-badge--pink { background: var(--oui-pink); }
 .oui-badge--white { background: var(--oui-surface); }
-.oui-page .oui-button { background: var(--oui-accent); border: 1px solid var(--oui-border); box-shadow: none; color: var(--oui-ink); font-family: inherit; font-size: 16px; font-weight: 500; min-height: 49px; padding: 12px 24px; line-height: 24px; max-width: 100%; white-space: normal; text-align: center; transition: background .15s, transform .15s, box-shadow .15s; }
+.oui-page .oui-button { background: var(--oui-accent); border: 1px solid var(--oui-border); box-shadow: none; color: var(--oui-ink); font-family: inherit; font-size: 16px; font-weight: 500; min-height: 49px; padding: 12px 24px; line-height: 24px; max-width: 100%; white-space: normal; text-align: center; transition: background var(--motion-productive-short), transform var(--motion-productive-short), box-shadow var(--motion-productive-short); }
 .oui-page .oui-button::before, .oui-page .oui-button::after { display: none; }
 .oui-page .oui-button.button--secondary { background: var(--oui-surface); }
 .oui-page .oui-button:hover { background: var(--oui-pink); box-shadow: 0 4px 14px #1717170d; transform: translateY(-2px); filter: none; }
@@ -51,14 +51,14 @@
 .oui-hero > p { max-width: 900px; }
 .oui-actions { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
 .oui-play-section { padding-block: 64px; scroll-margin-top: 24px; }
-.oui-playground { max-width: 1168px; margin-inline: auto; border: 1px solid var(--oui-border); border-radius: 24px; padding: 32px; background: var(--oui-surface); transition: background .25s, color .25s, border-color .25s; }
+.oui-playground { max-width: 1168px; margin-inline: auto; border: 1px solid var(--oui-border); border-radius: 24px; padding: 32px; background: var(--oui-surface); transition: background var(--motion-productive-long), color var(--motion-productive-long), border-color var(--motion-productive-long); }
 .oui-playground[data-theme="dark"] { --oui-ink: #fff; --oui-muted: #d9cdec; --oui-surface: #302a3c; --oui-soft: #241f2e; --oui-accent: #74609e; --oui-pink: #66518c; --oui-border: #665775; --oui-success: #51466a; }
 .oui-demo-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-bottom: 24px; }
 .oui-theme-controls { display: flex; gap: 8px; }
 .oui-theme-controls button, .oui-switch { border: 0; min-height: 44px; border-radius: 999px; padding: 10px 14px; background: var(--oui-soft); color: var(--oui-ink); font-size: 12px; white-space: nowrap; }
 .oui-theme-controls button[aria-pressed="true"], .oui-switch[aria-checked="true"] { background: var(--oui-accent); }
 .oui-demo-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; align-items: start; }
-.oui-demo-card { min-width: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 16px; padding: 24px; background: var(--oui-soft); border-radius: 16px; transition: background .25s; }
+.oui-demo-card { min-width: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 16px; padding: 24px; background: var(--oui-soft); border-radius: 16px; transition: background var(--motion-productive-long); }
 .oui-demo-card h2, .oui-project-demo h3 { font-size: 32px; line-height: 1.18; letter-spacing: -.04em; }
 .oui-button-demo { gap: 20px; }
 .oui-save-message { min-height: 42px; }
@@ -81,7 +81,7 @@
 .oui-feature-lines { list-style: none; counter-reset: kit-feature; padding: 0; display: grid; gap: 12px; font-size: 14px; }
 .oui-feature-lines li { counter-increment: kit-feature; display: flex; gap: 16px; }
 .oui-feature-lines li::before { content: "0" counter(kit-feature); }
-.oui-preview { background: var(--oui-accent); border-radius: 24px; padding: 32px; min-width: 0; transition: transform .15s; }
+.oui-preview { background: var(--oui-accent); border-radius: 24px; padding: 32px; min-width: 0; transition: transform var(--motion-productive-short); }
 @media (hover: hover) { .oui-preview:hover { transform: translateY(-2px); } }
 .oui-app-window { display: grid; grid-template-columns: 136px minmax(0, 1fr); gap: 24px; padding: 24px; background: var(--oui-surface); border-radius: 16px; }
 .oui-app-sidebar { display: flex; flex-direction: column; gap: 24px; font-size: 14px; color: var(--oui-muted); }

@@ -59,7 +59,7 @@
   font-size: 1rem;
   height: 2rem;
   line-height: 1;
-  transition: background .2s ease, border-color .2s ease;
+  transition: background var(--motion-productive) ease, border-color var(--motion-productive) ease;
   width: 2rem;
 }
 

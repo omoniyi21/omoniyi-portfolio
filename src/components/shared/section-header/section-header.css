@@ -152,7 +152,7 @@
 
     border-bottom:1px solid currentColor;
 
-    transition:.3s;
+    transition:var(--motion-expressive-short);
 
 }
 

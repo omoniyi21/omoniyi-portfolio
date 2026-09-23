@@ -1,4 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useRef } from "react";
+import { motionQuery } from "../../lib/motionPreference";
 import { Link, useNavigate } from "react-router-dom";
 import "./space-transition.css";
 
@@ -151,7 +152,7 @@ export function SpaceTransitionProvider({ children }) {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const motion = motionQuery();
     reduceMotionRef.current = motion.matches;
     const onMotionChange = () => {
       reduceMotionRef.current = motion.matches;

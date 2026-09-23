@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { contact, resumes } from "../data/resume";
 import { trackEvent } from "../lib/analytics";
 import "./resume.css";
+import PenMark from "../components/shared/pen-mark/PenMark";
 
 function Linked({ text, link }) {
   if (!link) return text;
@@ -32,7 +33,7 @@ export default function Resume({ variant = "product" }) {
   return (
     <main className="resume-page" aria-labelledby="resume-name">
       <div className="resume-toolbar" role="group" aria-label="Choose a résumé">
-        <span className="resume-toolbar__label">hiring for:</span>
+        <span className="resume-toolbar__label">hiring for:<PenMark variant="circle" color="#80558c" /></span>
         <div className="resume-toolbar__options">
           {Object.entries(resumes).map(([key, value]) => (
             <Link

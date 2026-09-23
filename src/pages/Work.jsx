@@ -1,5 +1,6 @@
 import { ArrowUpRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { morphToCaseStudy } from '../lib/caseStudyTransition';
 import { portfolioStudies } from '../data/caseStudies';
 import { cardTints } from '../data/cardTints';
 import './work.css';
@@ -7,6 +8,7 @@ import './work.css';
 const covers = ['house-dashboard', 'loc-users', 'payments-legacy', 'usda-admin', 'athletico-overview', 'wedding-emblem-cream', 'portfolio-hiring'];
 
 export default function Work() {
+  const navigate = useNavigate();
   return (
     <main className="work-page">
       <section className="work-page__header">
@@ -20,6 +22,7 @@ export default function Work() {
             className={`work-card${i === 0 ? ' work-card--house' : ''}`}
             key={s.slug}
             to={`/${s.slug}`}
+            onClick={event => morphToCaseStudy(event, navigate, `/${s.slug}`)}
             style={{ '--card-tint': cardTints[i % cardTints.length] }}
           >
             <div className="work-card__meta">

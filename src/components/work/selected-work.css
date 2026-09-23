@@ -59,7 +59,7 @@
     font-size: 1rem;
     line-height: 1;
     cursor: pointer;
-    transition: background .2s ease, border-color .2s ease;
+    transition: background var(--motion-productive) ease, border-color var(--motion-productive) ease;
 }
 
 .hero-projects__controls button:hover:not(:disabled) { background: var(--color-white); border-color: rgb(117 105 227 / 45%); }
@@ -130,7 +130,7 @@
 .hero-project__arrow {
     display: inline-flex;
     color: var(--color-lavender-500);
-    transition: transform .25s ease;
+    transition: transform var(--motion-productive-long) ease;
 }
 
 .hero-project__arrow svg { width: 1.1rem; height: 1.1rem; stroke-width: 1.6; }

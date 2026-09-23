@@ -1,6 +1,8 @@
 import "./selected-work.css";
 import { useLayoutEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useMotionReduced from "../../lib/useMotionReduced";
+import { morphToCaseStudy } from "../../lib/caseStudyTransition";
 import {
   ArrowUpRight,
   CirclePlus,
@@ -186,9 +188,8 @@ export default function HeroProjects({ projects = featuredProjects }) {
     const sectionRef = useRef(null);
     const measureRef = useRef(null);
 
-    const reduceMotion =
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const reduceMotion = useMotionReduced();
+    const navigate = useNavigate();
 
     const go = (dir) => {
       setIndex((current) => {
@@ -300,6 +301,7 @@ export default function HeroProjects({ projects = featuredProjects }) {
                                 className="hero-project"
                                 to={project.href}
                                 tabIndex={rel === 0 ? 0 : -1}
+                                onClick={(event) => morphToCaseStudy(event, navigate, project.href)}
                                 style={{ "--card-tint": cardTints[i % cardTints.length] }}
                             >
                                 <ProjectCardBody project={project} index={i} Wireframe={Wireframe} />

@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { motionQuery } from '../../../lib/motionPreference';
 import starSrc from '../../../assets/branding/celestial/celestial-star.png';
 
 const random = (n) => { const v = Math.sin(n * 127.1 + 31.7) * 43758.5453; return v - Math.floor(v); };
@@ -160,7 +161,7 @@ export default function CelestialDust({ paused, mode = 'hiring' }) {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
     const host = canvas.parentElement;
-    const motion = matchMedia('(prefers-reduced-motion: reduce)');
+    const motion = motionQuery();
     let width = 0, height = 0, stars = [], dust = [], sprites = null, frame = 0, last = 0, elapsed = 0, visible = true, strength = 0, ready = false;
     const pointer = { x: 0, y: 0, active: false };
 

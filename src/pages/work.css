@@ -27,7 +27,7 @@
   padding:clamp(1.25rem,2.3vw,2rem);
   position:relative;
   text-decoration:none;
-  transition:box-shadow .25s ease,transform .25s ease;
+  transition:box-shadow var(--motion-productive-long) ease,transform var(--motion-productive-long) ease;
 }
 .work-card:hover{box-shadow:var(--shadow-floating-hover),inset 0 1px rgb(255 255 255 / 65%);transform:translateY(-5px)}
 .work-card:focus-visible{outline:3px solid var(--color-lavender-500);outline-offset:4px}

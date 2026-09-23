@@ -4,6 +4,7 @@ import BackToPreviousPage from "../components/shared/BackToPreviousPage";
 import { portfolioStudies } from "../data/caseStudies";
 import { cardTints } from "../data/cardTints";
 import "./project-case-study.css";
+import PenMark from "../components/shared/pen-mark/PenMark";
 
 const chapters = ["Snapshot", "Problem", "Understanding the System", "What I Learned", "Decisions That Shaped the Product", "The Experience", "The System Behind the Product", "Outcome & Reflection"];
 const imagePath = name => `/case-studies/${name}.webp${name.startsWith("payments-") ? "?redacted=1" : ""}`;
@@ -31,7 +32,8 @@ export default function ProjectCaseStudy({ study }) {
       {i===0 && <><dl className="study-facts">{study.facts.map(([label,value])=><div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl><div className="study-proof">{study.proof.map(([value,label])=><p key={label}><strong>{value}</strong><span>{label}</span></p>)}</div></>}
       {s.items && <div className={`study-items${s.items.some(x=>x.observation)?' study-items--insights':''}`}>{s.items.map(item=><article key={item.title}><h3>{item.title}</h3>{item.observation ? <dl>{[['Observation',item.observation],['Design principle',item.principle],['Product response',item.response]].map(([label,value])=><div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl> : <p>{item.body}</p>}{item.image && <Evidence image={item.image} caption={item.caption} compact/>}</article>)}</div>}
       {s.images && <div className={`study-gallery${s.images.length===1?' study-gallery--single':''}`}>{s.images.map(([image,caption])=><Evidence key={image} image={image} caption={caption}/>)}</div>}
-      {s.quote && <blockquote>{s.quote}</blockquote>}
+      {s.table && <div className="study-table-wrap"><table className="study-table"><caption>{s.table.caption}</caption><thead><tr>{s.table.head.map(h=><th key={h} scope="col">{h}</th>)}</tr></thead><tbody>{s.table.rows.map(r=><tr key={r[0]}>{r.map((c,j)=>j===0?<th key={j} scope="row">{c}</th>:<td key={j}>{c}</td>)}</tr>)}</tbody></table></div>}
+      {s.quote && <blockquote><span className="study-quote-text">{s.quote}<PenMark color="#f0a878" /></span></blockquote>}
     </section>)}
     <nav className="study-next" aria-label="More case studies"><Link to="/work">All {["zero","one","two","three","four","five","six","seven","eight","nine"][portfolioStudies.length] || portfolioStudies.length} case studies</Link><Link to={`/${next.slug}`}><span>Next / {next.client}</span><strong>{next.title} <ArrowRight size={24}/></strong></Link></nav>
   </main>;

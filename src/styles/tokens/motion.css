@@ -1,14 +1,39 @@
 /* ==========================================================================
    MOTION
+   Two tiers, modelled on IBM Carbon's productive / expressive split.
+   Productive: everyday UI feedback — quick, ease-out, never in the way.
+   Expressive: brand moments — slower, a little overshoot, used sparingly.
+   Each space picks its personality from the same scale:
+     Portfolio  "hand-placed"  expressive springs, small tilts, pen marks
+     Studio     "typeset"      ease-out, no overshoot, longer settles
+     LaunchKit  "productive"   productive curves only, no rotation
+   Reduced motion: html[data-motion="reduce"] (device setting or the
+   on-site switch) turns movement into instant changes or plain fades.
    ========================================================================== */
 
-   :root {
-    --motion-fast: 150ms;
-    --motion-normal: 250ms;
-    --motion-slow: 400ms;
-  
-    --ease-standard: ease;
-    --ease-in: ease-in;
-    --ease-out: ease-out;
-    --ease-in-out: ease-in-out;
-  }
+:root {
+  /* durations */
+  --motion-productive-short: 150ms;
+  --motion-productive: 200ms;
+  --motion-productive-long: 240ms;
+  --motion-expressive-short: 320ms;
+  --motion-expressive: 420ms;
+  --motion-expressive-long: 700ms;
+
+  /* easing */
+  --ease-productive: cubic-bezier(0.2, 0, 0.38, 0.9);        /* Carbon productive standard */
+  --ease-productive-exit: cubic-bezier(0.2, 0, 1, 0.9);
+  --ease-expressive: cubic-bezier(0.4, 0.14, 0.3, 1);         /* Carbon expressive standard */
+  --ease-typeset: cubic-bezier(0.16, 1, 0.3, 1);              /* Studio: long, calm settle */
+  --ease-pen: cubic-bezier(0.65, 0, 0.35, 1);                 /* a hand drawing a line */
+  --ease-hand-placed: linear(0, 0.25 8%, 0.72 22%, 1.02 40%, 1.04 52%, 1.005 72%, 1);  /* soft spring, ~4% overshoot */
+
+  /* legacy names, kept so older rules still resolve */
+  --motion-fast: var(--motion-productive-short);
+  --motion-normal: var(--motion-productive-long);
+  --motion-slow: var(--motion-expressive);
+  --ease-standard: var(--ease-productive);
+  --ease-in: var(--ease-productive-exit);
+  --ease-out: var(--ease-productive);
+  --ease-in-out: var(--ease-expressive);
+}

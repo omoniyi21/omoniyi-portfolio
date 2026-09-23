@@ -183,7 +183,7 @@
     font-size: .95rem;
     font-weight: var(--font-semibold);
     cursor: pointer;
-    transition: transform .15s ease, box-shadow .15s ease;
+    transition: transform var(--motion-productive-short) ease, box-shadow var(--motion-productive-short) ease;
 }
 
 .lk-popup__submit:hover:not(:disabled) { box-shadow: 0 6px 16px rgb(117 105 227 / 35%); transform: translateY(-1px); }

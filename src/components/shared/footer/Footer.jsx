@@ -1,6 +1,7 @@
 import "./footer.css";
 import SleepingStardust from "../../../assets/branding/sd-variants/sd-sleeping.png";
 import { GithubIcon, PinterestIcon } from "../icons/BrandIcons";
+import MotionToggle from "../MotionToggle";
 
 const PINTEREST_URL = "https://www.pinterest.com/omoniyi21/product-design-ui-omoniyi/";
 const GITHUB_URL = "https://github.com/omoniyi21";
@@ -18,6 +19,7 @@ export default function Footer() {
           </a>
         </div>
         <p>Issue No. 01<br />Dallas • Texas<br />Designed by Omoniyi</p>
+        <MotionToggle className="site-footer__motion" />
       </div>
       <p>Omoniyi Alimi <span aria-hidden="true">©</span></p>
       <span className="site-footer__trail" aria-hidden="true">✦ · · · ✦</span>

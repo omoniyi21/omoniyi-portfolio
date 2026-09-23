@@ -178,7 +178,7 @@
 
 .stardust--float { animation: stardust-float 5.5s ease-in-out infinite; transform-origin: 50% 85%; }
 @keyframes stardust-float { 0%, 100% { transform: translate3d(0, 0, 0) rotate(-.5deg); } 50% { transform: translate3d(0, -8px, 0) rotate(.8deg); } }
-.effect-paper { color:#28231f; position:absolute; transform:rotate(var(--rotation)); transform-origin:center; transition:transform .25s ease; z-index:3; }
+.effect-paper { color:#28231f; position:absolute; transform:rotate(var(--rotation)); transform-origin:center; transition:transform var(--motion-productive-long) ease; z-index:3; }
 .effect-paper:hover { transform:translateY(-4px) rotate(var(--rotation)); }
 .effect-paper > img { display:block; filter:drop-shadow(7px 11px 8px rgb(61 43 30 / 13%)) drop-shadow(14px 25px 20px rgb(61 43 30 / 11%)); height:auto; width:100%; }
 .effect-paper::after { background:rgb(71 50 34 / 15%); border-radius:50%; content:""; filter:blur(12px); height:9%; left:12%; opacity:.72; position:absolute; top:87%; width:76%; z-index:-1; }

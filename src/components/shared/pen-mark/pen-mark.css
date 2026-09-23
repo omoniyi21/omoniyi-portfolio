@@ -1,0 +1,7 @@
+.pen-mark { position: absolute; left: -4%; width: 108%; pointer-events: none; overflow: visible; }
+.pen-mark--underline { bottom: -.45em; height: .5em; }
+.pen-mark--circle { top: -35%; height: 170%; }
+.pen-mark path { fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; opacity: .75; }
+.pen-mark.is-drawn path { stroke-dashoffset: 0; transition: stroke-dashoffset var(--motion-expressive-long) var(--ease-pen); }
+html[data-motion="reduce"] .pen-mark path { stroke-dashoffset: 0; transition: none; }
+@media print { .pen-mark { display: none; } }

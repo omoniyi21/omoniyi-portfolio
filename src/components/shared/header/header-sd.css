@@ -18,7 +18,7 @@
   right: 1.75rem;
   top: -1.8rem;
   transform: translateY(-4px);
-  transition: opacity .18s ease, transform .18s ease;
+  transition: opacity var(--motion-productive-short) ease, transform var(--motion-productive-short) ease;
   white-space: nowrap;
   z-index: 5;
 }

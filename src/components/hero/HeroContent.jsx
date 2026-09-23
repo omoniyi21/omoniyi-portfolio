@@ -1,6 +1,8 @@
 import { useLayoutEffect, useRef } from "react";
 import Button from "../shared/button/Button";
 import { useSpaceTransition } from "../shared/SpaceTransition";
+import MotionToggle from "../shared/MotionToggle";
+import PenMark from "../shared/pen-mark/PenMark";
 
 const PERSONAS = {
   hiring: {
@@ -74,7 +76,7 @@ export default function HeroContent({ paused, onToggleDust, persona, onPersonaCh
   return (
     <div className="hero__content desk-surface__text" ref={columnRef}>
       <div className="desk-persona" role="group" aria-label="Read this page as">
-        <span className="desk-persona__label">reading this as:</span>
+        <span className="desk-persona__label">reading this as:<PenMark color="#7569e3" /></span>
         <div className="desk-persona__options">
           {Object.entries(PERSONAS).map(([key, value]) => (
             <button
@@ -119,14 +121,17 @@ export default function HeroContent({ paused, onToggleDust, persona, onPersonaCh
         </Button>
       </div>
 
-      <button
-        type="button"
-        className="desk-surface__sky-control"
-        aria-pressed={paused}
-        onClick={onToggleDust}
-      >
-        {paused ? "resume dust" : "pause dust"}
-      </button>
+      <div className="desk-surface__motion-controls">
+        <button
+          type="button"
+          className="desk-surface__sky-control"
+          aria-pressed={paused}
+          onClick={onToggleDust}
+        >
+          {paused ? "resume dust" : "pause dust"}
+        </button>
+        <MotionToggle className="desk-surface__motion-toggle" />
+      </div>
     </div>
   );
 }

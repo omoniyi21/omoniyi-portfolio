@@ -130,7 +130,7 @@
 .notebook-signup { --paper-rest:0deg; --paper-lift:0deg; }
 .notebook-small { --paper-rest:1deg; --paper-lift:-.5deg; }
 .notebook-small:nth-child(2) { --paper-rest:-1.5deg; --paper-lift:0deg; }
-.notebook-cover, .notebook-signup, .notebook-small { transform:rotate(var(--paper-rest)); transition:transform 380ms cubic-bezier(.2,.65,.3,1); }
+.notebook-cover, .notebook-signup, .notebook-small { transform:rotate(var(--paper-rest)); transition:transform var(--motion-expressive) cubic-bezier(.2,.65,.3,1); }
 @media(hover:hover) and (pointer:fine) {
  .notebook-cover:hover, .notebook-signup:hover, .notebook-small:hover { transform:translateY(-5px) rotate(var(--paper-lift)); }
 }

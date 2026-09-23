@@ -156,3 +156,5 @@
   .resume-sheet a { text-decoration: none; }
   .resume-job, .resume-project { break-inside: avoid; }
 }
+
+.resume-toolbar__label { position: relative; padding: 0 .35rem; }

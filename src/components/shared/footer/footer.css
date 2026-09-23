@@ -47,7 +47,7 @@
   align-items: center;
   color: var(--text-secondary);
   display: flex;
-  transition: color .2s ease;
+  transition: color var(--motion-productive) ease;
 }
 
 .site-footer__social a:hover,
@@ -89,3 +89,5 @@
   .site-footer__stardust { bottom: auto; right: 1.25rem; top: .5rem; width: 4rem; }
   .site-footer__trail { right: 4.75rem; top: .75rem; }
 }
+
+.site-footer__motion { margin-top: .4rem; min-height: 32px; font-size: .6rem; }
