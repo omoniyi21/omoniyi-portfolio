@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Link Tagger</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f5f2;--surface:#ffffff;--text:#1b1b1a;--muted:#6b6a66;--border:#e3e1dc;
+  --accent:#2f5d50;--accent-text:#ffffff;--code-bg:#f0efeb;--ok:#2f7d4f;--warn:#9a5b00;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#141413;--surface:#1d1d1b;--text:#ecebe7;--muted:#a09e98;--border:#33322f;
+    --accent:#7fb8a4;--accent-text:#10201b;--code-bg:#262623;--ok:#7fcf9f;--warn:#e0a54a;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#141413;--surface:#1d1d1b;--text:#ecebe7;--muted:#a09e98;--border:#33322f;
+  --accent:#7fb8a4;--accent-text:#10201b;--code-bg:#262623;--ok:#7fcf9f;--warn:#e0a54a;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 Inter,system-ui,sans-serif}
+main{max-width:720px;margin:0 auto;padding:32px 16px 64px}
+h1{font-size:24px;margin:0 0 4px;font-weight:600}
+.sub{color:var(--muted);margin:0 0 24px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:16px}
+.card h2{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0 0 14px;font-weight:600}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:560px){.grid{grid-template-columns:1fr}}
+label{display:block;font-size:13px;font-weight:500;margin-bottom:6px}
+input,select,textarea{width:100%;font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px 12px}
+textarea{font-family:"JetBrains Mono",monospace;font-size:13px;resize:vertical;min-height:70px}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--accent);outline-offset:1px}
+.seg{display:flex;gap:6px;flex-wrap:wrap}
+.seg button{flex:1;min-width:90px;padding:9px 10px;border:1px solid var(--border);background:var(--bg);color:var(--text);border-radius:8px;font:inherit;font-size:14px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-text);border-color:var(--accent)}
+.out{font-family:"JetBrains Mono",monospace;font-size:13px;background:var(--code-bg);border-radius:8px;padding:12px;word-break:break-all;margin:0 0 12px;min-height:44px}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.btn{padding:10px 16px;border:0;border-radius:8px;background:var(--accent);color:var(--accent-text);font:inherit;font-weight:600;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--text);border:1px solid var(--border);font-weight:500}
+.status{font-size:13px;color:var(--ok)}
+.hint{font-size:13px;color:var(--muted);margin:8px 0 0}
+.warn{font-size:13px;color:var(--warn);margin:8px 0 0}
+ul.recent{list-style:none;margin:0;padding:0}
+ul.recent li{display:flex;gap:8px;align-items:center;padding:8px 0;border-top:1px solid var(--border)}
+ul.recent li:first-child{border-top:0}
+ul.recent code{flex:1;font-family:"JetBrains Mono",monospace;font-size:12px;word-break:break-all;color:var(--muted)}
+ul.recent b{color:var(--text);font-weight:500}
+.small{padding:6px 10px;font-size:13px}
+.empty{color:var(--muted);font-size:13px}
+</style>
+</head>
+<body>
+<main>
+  <h1>Link Tagger</h1>
+  <p class="sub">Tracked links to omoniyialimi.com for every application, résumé and outreach note.</p>
+
+  <section class="card">
+    <h2>New link</h2>
+    <div class="grid">
+      <div>
+        <label for="company">Company</label>
+        <input id="company" value="SandboxAQ" autocomplete="off">
+      </div>
+      <div>
+        <label for="page">Page</label>
+        <select id="page">
+          <option value="/">Home</option>
+          <option value="/work">Work</option>
+          <option value="/house">House</option>
+          <option value="/athletico">Athletico</option>
+          <option value="/library-of-congress">Library of Congress</option>
+          <option value="/copyright-accounting">Copyright Accounting</option>
+          <option value="/usda">USDA</option>
+          <option value="/visual">Visual</option>
+          <option value="/studio/inquire?service=team">Studio one-pager</option>
+        </select>
+      </div>
+    </div>
+    <div style="margin-top:14px">
+      <label>Where the link goes</label>
+      <div class="seg" id="medium">
+        <button type="button" data-v="application" aria-pressed="true">Application</button>
+        <button type="button" data-v="resume" aria-pressed="false">Résumé</button>
+        <button type="button" data-v="outreach" aria-pressed="false">Outreach</button>
+      </div>
+    </div>
+    <div style="margin-top:14px">
+      <label for="campaign">Campaign</label>
+      <input id="campaign" value="job-search" autocomplete="off">
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Your link</h2>
+    <p class="out" id="out"></p>
+    <div class="row">
+      <button class="btn" id="copy">Copy link</button>
+      <span class="status" id="status" aria-live="polite"></span>
+    </div>
+    <p class="hint">Paste it on its own. Don't put it inside parentheses or end it with a period, or the page won't load.</p>
+  </section>
+
+  <section class="card">
+    <h2>Retag an existing link</h2>
+    <label for="old">Paste a link (for example, from an old résumé)</label>
+    <textarea id="old" placeholder="https://www.omoniyialimi.com/athletico?utm_source=amperos&utm_medium=resume&utm_campaign=job-search"></textarea>
+    <p class="hint">It keeps the page and swaps in the company, medium and campaign from above.</p>
+    <p class="out" id="retagOut" style="margin-top:12px"></p>
+    <div class="row">
+      <button class="btn ghost" id="copyRetag">Copy retagged link</button>
+      <span class="status" id="status2" aria-live="polite"></span>
+    </div>
+    <p class="warn" id="retagWarn" hidden></p>
+  </section>
+
+  <section class="card">
+    <h2>Recent</h2>
+    <ul class="recent" id="recent"></ul>
+  </section>
+</main>
+
+<script>
+const BASE='https://www.omoniyialimi.com';
+const $=id=>document.getElementById(id);
+let medium='application';
+
+const slug=s=>s.toLowerCase().normalize('NFKD').replace(/[̀-ͯ]/g,'').replace(/&/g,'and').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
+
+function tags(){
+  return {utm_source:slug($('company').value)||'company',utm_medium:medium,utm_campaign:slug($('campaign').value)||'job-search'};
+}
+function withTags(url){
+  const u=new URL(url);
+  ['utm_source','utm_medium','utm_campaign','utm_term','utm_content'].forEach(k=>u.searchParams.delete(k));
+  const t=tags();
+  Object.keys(t).forEach(k=>u.searchParams.set(k,t[k]));
+  return u.toString();
+}
+function build(){
+  const link=withTags(BASE+$('page').value);
+  $('out').textContent=link;
+  retag();
+  return link;
+}
+function cleanPasted(raw){
+  let s=raw.trim().split(/\s+/)[0]||'';
+  s=s.replace(/^[(<\[“"']+/,'').replace(/[)\]>.,;:!?”"']+$/,'');
+  if(s && !/^https?:\/\//i.test(s)) s='https://'+s;
+  return s;
+}
+function retag(){
+  const raw=$('old').value;
+  $('retagWarn').hidden=true;
+  if(!raw.trim()){$('retagOut').textContent='';return '';}
+  const cleaned=cleanPasted(raw);
+  try{
+    const out=withTags(cleaned);
+    $('retagOut').textContent=out;
+    if(cleaned!==raw.trim()){$('retagWarn').textContent='Removed stray punctuation around the link.';$('retagWarn').hidden=false;}
+    return out;
+  }catch(e){
+    $('retagOut').textContent='';
+    $('retagWarn').textContent="That doesn't look like a full link.";
+    $('retagWarn').hidden=false;
+    return '';
+  }
+}
+
+async function copy(text,statusEl){
+  if(!text) return;
+  let ok=false;
+  try{await navigator.clipboard.writeText(text);ok=true;}catch(e){
+    const ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.opacity='0';
+    document.body.appendChild(ta);ta.select();
+    try{ok=document.execCommand('copy');}catch(e2){}
+    ta.remove();
+  }
+  statusEl.textContent=ok?'Copied':'Select the link and copy it';
+  setTimeout(()=>statusEl.textContent='',1800);
+  if(ok) save(text);
+}
+
+const KEY='link-tagger-recent';
+function load(){try{return JSON.parse(localStorage.getItem(KEY)||'[]');}catch(e){return memRecent;}}
+let memRecent=[];
+function save(link){
+  let list=load().filter(x=>x!==link);
+  list.unshift(link);list=list.slice(0,12);
+  memRecent=list;
+  try{localStorage.setItem(KEY,JSON.stringify(list));}catch(e){}
+  renderRecent();
+}
+function renderRecent(){
+  const list=load();
+  const ul=$('recent');ul.innerHTML='';
+  if(!list.length){ul.innerHTML='<li class="empty">Links you copy show up here.</li>';return;}
+  list.forEach(link=>{
+    let label='';
+    try{const u=new URL(link);label=(u.searchParams.get('utm_source')||'')+' · '+(u.searchParams.get('utm_medium')||'')+' · '+(u.pathname==='/'?'home':u.pathname);}catch(e){}
+    const li=document.createElement('li');
+    const c=document.createElement('code');
+    c.innerHTML='<b></b><br>';c.querySelector('b').textContent=label;c.append(link);
+    const b=document.createElement('button');b.className='btn ghost small';b.textContent='Copy';
+    b.onclick=()=>{navigator.clipboard?.writeText(link).then(()=>{b.textContent='Copied';setTimeout(()=>b.textContent='Copy',1500);}).catch(()=>{});};
+    li.append(c,b);ul.append(li);
+  });
+}
+
+document.querySelectorAll('#medium button').forEach(b=>b.onclick=()=>{
+  medium=b.dataset.v;
+  document.querySelectorAll('#medium button').forEach(x=>x.setAttribute('aria-pressed',x===b));
+  build();
+});
+['company','campaign','page'].forEach(id=>$(id).addEventListener('input',build));
+$('old').addEventListener('input',retag);
+$('copy').onclick=()=>copy($('out').textContent,$('status'));
+$('copyRetag').onclick=()=>copy($('retagOut').textContent,$('status2'));
+
+build();renderRecent();
+</script>
+</body>
+</html>
