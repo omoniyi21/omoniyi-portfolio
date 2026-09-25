@@ -1,8 +1,51 @@
 export const MEASUREMENT_ID = "G-703DFRL69Z";
 const LIVE_HOSTS = new Set(["omoniyialimi.com", "www.omoniyialimi.com"]);
 
+const OPT_OUT_KEY = "omoniyi-analytics-opt-out";
+
+// Visit any page with ?internal=1 once per device/browser to stop GA from
+// loading there (works on any network, unlike IP filters). ?internal=0 undoes it.
+function readInternalFlag() {
+  try {
+    const url = new URL(window.location.href);
+    const flag = url.searchParams.get("internal");
+    if (flag === "1" || flag === "0") {
+      if (flag === "1") window.localStorage.setItem(OPT_OUT_KEY, "1");
+      else window.localStorage.removeItem(OPT_OUT_KEY);
+      url.searchParams.delete("internal");
+      window.history.replaceState(window.history.state, "", url.pathname + url.search + url.hash);
+      showInternalNotice(flag === "1");
+    }
+    return window.localStorage.getItem(OPT_OUT_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+
+function showInternalNotice(optedOut) {
+  const note = document.createElement("div");
+  note.textContent = optedOut
+    ? "Analytics off for this browser."
+    : "Analytics back on for this browser.";
+  note.setAttribute("role", "status");
+  note.style.cssText =
+    "position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:99999;" +
+    "padding:10px 16px;border-radius:999px;background:#1f1a24;color:#fff;" +
+    "font:500 14px/1.2 system-ui,sans-serif;box-shadow:0 4px 16px rgba(0,0,0,.2)";
+  const mount = () => {
+    document.body.appendChild(note);
+    setTimeout(() => note.remove(), 4000);
+  };
+  if (document.body) mount();
+  else document.addEventListener("DOMContentLoaded", mount, { once: true });
+}
+
+let internalDevice;
+
 export function analyticsEnabled() {
-  return typeof window !== "undefined" && LIVE_HOSTS.has(window.location.hostname);
+  if (typeof window === "undefined" || !LIVE_HOSTS.has(window.location.hostname)) return false;
+  if (internalDevice === undefined) internalDevice = readInternalFlag();
+  return !internalDevice;
 }
 
 export function trackEvent(name, parameters = {}) {
