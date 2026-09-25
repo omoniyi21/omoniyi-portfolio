@@ -34,7 +34,7 @@ export const resumes = {
     experience: [
       { ...independent, projects: [{ name: "Independent practice", sub: "Product design & front-end build", bullets: [
         { text: "Designed, built, and shipped omoniyialimi.com end-to-end: React front end, prerendered routes for search and link previews, accessible navigation, and GA4 funnel instrumentation.", link: { label: "omoniyialimi.com", to: "/" } },
-        { text: "Designed and launched LaunchKit UI, a startup UI kit with a free community edition and a Pro tier: component architecture, tokens, and documentation.", link: { label: "LaunchKit UI", to: "/uikit" } },
+        { text: "Designed and launched LaunchKit UI, a startup UI kit with a free community edition and a Pro tier: component architecture, Figma variables, tokens, and documentation.", link: { label: "LaunchKit UI", to: "/uikit" } },
         { text: "Launched Omoniyi Studio, a product design practice for small businesses, including service tiers and a qualification-to-booking flow.", link: { label: "Omoniyi Studio", to: "/studio" } },
       ] }] },
       { company: "Aretum", role: "UI/UX Designer", dates: "Mar 2024 – Jul 2026", projects: [
@@ -79,7 +79,7 @@ export const resumes = {
     ],
     skills: [
       ["Product", "Product strategy, UX research, information architecture, interaction design, prototyping, user stories & acceptance criteria"],
-      ["Systems", "Design systems, component libraries, design tokens, USWDS, enterprise platforms, legacy modernization"],
+      ["Systems", "Design systems, component libraries, design tokens, Figma variables, USWDS, enterprise platforms, legacy modernization"],
       ["Accessibility", "WCAG 2.1 AA, Section 508, keyboard & focus design, accessible forms, WAVE, Accessibility Insights, NVDA, JAWS"],
       ["Build & tools", "Figma, FigJam, HTML, CSS, JavaScript, React, Blazor, Claude, OpenAI, GitHub, Netlify, Azure DevOps"],
     ],
