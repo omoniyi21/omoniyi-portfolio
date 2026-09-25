@@ -28,3 +28,9 @@ dist-ssr
 .claude-preview-tmp/
 Claude outputs/
 _to_delete/
+
+# Local env files (secrets)
+.env
+
+# Local build snapshots and drafts
+/work/
