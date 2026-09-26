@@ -1,0 +1,197 @@
+<meta name="robots" content="noindex, nofollow">
+<title>Payday Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FCF6EE;--card:#FFFDF9;--line:#E2DBD4;--ink:#25211B;--ink-2:#5F5A54;--ink-3:#938D86;
+  --brand:#801919;--link:#1B2DA6;--ok-bg:#DBEBDC;--ok:#034D0D;--warn-bg:#FFE991;--warn:#5E4000;--err-bg:#FFE7E1;--err:#A61F00;
+  --field:#F2ECE4;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){color-scheme:dark;
+    --paper:#1C1915;--card:#25211B;--line:#38332E;--ink:#FCF6EE;--ink-2:#CCC6BF;--ink-3:#938D86;
+    --brand:#FEAFB1;--link:#B0C6FF;--ok-bg:#0B2A0F;--ok:#CFE3CE;--warn-bg:#3A2A00;--warn:#F7DC6B;--err-bg:#3A0A00;--err:#FFB19F;--field:#2E2A25;}
+}
+:root[data-theme="dark"]{color-scheme:dark;
+  --paper:#1C1915;--card:#25211B;--line:#38332E;--ink:#FCF6EE;--ink-2:#CCC6BF;--ink-3:#938D86;
+  --brand:#FEAFB1;--link:#B0C6FF;--ok-bg:#0B2A0F;--ok:#CFE3CE;--warn-bg:#3A2A00;--warn:#F7DC6B;--err-bg:#3A0A00;--err:#FFB19F;--field:#2E2A25;}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font:15px/1.55 Figtree,system-ui,sans-serif;padding-inline:16px}
+main{max-width:760px;margin:0 auto;padding-block:40px 64px;display:flex;flex-direction:column;gap:28px}
+h1,h2{font-family:Newsreader,Georgia,serif;font-weight:600;margin:0;text-wrap:balance}
+h1{font-size:40px;line-height:1.1;color:var(--brand)}
+h2{font-size:24px;line-height:1.2}
+p{margin:0}
+.lede{color:var(--ink-2);max-width:62ch}
+.eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+.num{font-variant-numeric:tabular-nums}
+section{display:flex;flex-direction:column;gap:14px}
+.sub{color:var(--ink-2);font-size:14px;max-width:62ch}
+.summary{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.summary div{background:var(--card);padding:14px 16px;display:flex;flex-direction:column;gap:2px}
+.summary b{font-family:Newsreader,Georgia,serif;font-size:28px;font-weight:600;font-variant-numeric:tabular-nums}
+@media (max-width:520px){.summary{grid-template-columns:1fr}}
+.status{padding:12px 14px;border-radius:8px;font-weight:500}
+.status.err{background:var(--err-bg);color:var(--err)}
+.status.warn{background:var(--warn-bg);color:var(--warn)}
+.status.ok{background:var(--ok-bg);color:var(--ok)}
+.ledger{border-top:1px solid var(--line)}
+.row{display:grid;grid-template-columns:28px 1fr 120px;gap:10px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line)}
+.row .n{color:var(--ink-3);font-variant-numeric:tabular-nums;font-size:13px}
+.row small{display:block;color:var(--ink-3);font-size:12.5px}
+.row.total{font-weight:600;border-bottom:2px solid var(--ink)}
+.row.total .v{text-align:right;padding-right:10px}
+.money{display:flex;align-items:center;background:var(--field);border:1px solid transparent;border-radius:6px;padding:0 8px}
+.money:focus-within{border-color:var(--link)}
+.money span{color:var(--ink-3)}
+.money input{width:100%;border:0;background:transparent;color:var(--ink);font:inherit;font-variant-numeric:tabular-nums;text-align:right;padding:7px 0 7px 4px;outline:none}
+.pill{display:inline-block;font-size:12px;font-weight:600;padding:2px 8px;border-radius:99px}
+.pill.hold{background:var(--warn-bg);color:var(--warn)}
+.pill.go{background:var(--ok-bg);color:var(--ok)}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:14px}
+th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--line)}
+th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+td:last-child,th:last-child{text-align:right}
+.tablewrap{overflow-x:auto}
+.caps{display:grid;grid-template-columns:repeat(2,1fr);gap:8px 20px}
+.caps div{display:flex;justify-content:space-between;border-bottom:1px dashed var(--line);padding:6px 0}
+@media (max-width:520px){.caps{grid-template-columns:1fr}}
+.checks label{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--line);cursor:pointer}
+.checks input{margin-top:4px;accent-color:var(--ok)}
+.checks label:has(input:checked) span{color:var(--ink-3);text-decoration:line-through}
+a{color:var(--link)}
+.inline{display:flex;flex-wrap:wrap;gap:10px 20px;align-items:center}
+.inline .money{width:130px}
+.foot{color:var(--ink-3);font-size:13px;border-top:1px solid var(--line);padding-top:14px}
+</style>
+
+<main>
+  <header style="display:flex;flex-direction:column;gap:10px">
+    <span class="eyebrow">Monthly plan</span>
+    <h1>Payday Plan</h1>
+    <p class="lede">Pay the essentials first, keep the advance loop from growing, and switch on the step-down the month contract income covers it. Every amount is editable and saves only in this browser. Nothing you type is sent anywhere.</p>
+  </header>
+
+  <div class="summary" aria-live="polite">
+    <div><span class="eyebrow">Coming in</span><b id="sIn" class="num"></b></div>
+    <div><span class="eyebrow">Essentials</span><b id="sEss" class="num"></b></div>
+    <div><span class="eyebrow">Left each week</span><b id="sWeek" class="num"></b></div>
+  </div>
+  <p id="status" class="status"></p>
+
+  <section>
+    <h2>1. Money in</h2>
+    <p class="sub">Monthly amounts. Contract income is what actually lands after you set aside taxes.</p>
+    <div class="ledger">
+      <div class="row"><span class="n">+</span><span>Unemployment<small>Report any week you do contract work</small></span><label class="money"><span>$</span><input id="inUI" inputmode="decimal" aria-label="Unemployment per month"></label></div>
+      <div class="row"><span class="n">+</span><span>Contract income (after tax set-aside)</span><label class="money"><span>$</span><input id="inContract" inputmode="decimal" aria-label="Contract income per month"></label></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. Pay these first, in this order</h2>
+    <p class="sub">Paid on payday before anything else. Rent is a placeholder from your average housing cost; change it to your exact rent.</p>
+    <div class="ledger" id="ess"></div>
+  </section>
+
+  <section>
+    <h2>3. The advance loop <span id="loopPill" class="pill"></span></h2>
+    <p class="sub">Enter how much you borrow and repay through advance apps each month. Stepping down means borrowing a little less each month, which takes that same amount of spare cash that month.</p>
+    <div class="inline">
+      <label>Borrowed per month now <span class="money"><span>$</span><input id="loop" inputmode="decimal"></span></label>
+      <label>Step down per month <span class="money"><span>$</span><input id="step" inputmode="decimal"></span></label>
+    </div>
+    <p id="loopText" class="sub" style="color:var(--ink)"></p>
+    <div class="tablewrap"><table><thead><tr><th>Month</th><th>Borrow at most</th><th>Extra cash needed</th></tr></thead><tbody id="sched"></tbody></table></div>
+  </section>
+
+  <section>
+    <h2>4. Flexible spending</h2>
+    <p class="sub">Right now dining out, delivery, shopping and extra subscriptions are paused. Once the loop is closed, these are the caps to live by.</p>
+    <div class="caps num" id="caps"></div>
+  </section>
+
+  <section>
+    <h2>5. What closes the gap</h2>
+    <div class="inline">
+      <label>Contract rate <span class="money"><span>$</span><input id="rate" inputmode="decimal"></span></label>
+      <label>Tax set-aside <span class="money"><input id="tax" inputmode="decimal"><span>%</span></span></label>
+    </div>
+    <p id="gapText" style="font-size:17px"></p>
+  </section>
+
+  <section>
+    <h2>This week</h2>
+    <div class="checks" id="checks"></div>
+  </section>
+
+  <p class="foot">A working plan, not financial advice. Help lines: <a href="https://www.211texas.org" target="_blank" rel="noopener">211texas.org</a> (rent and utility help) · <a href="https://www.yourtexasbenefits.com" target="_blank" rel="noopener">yourtexasbenefits.com</a> (SNAP screener).</p>
+</main>
+
+<script>
+const KEY='payday-plan-v1';
+const defaults={
+  ui:0,contract:0,loop:0,step:250,rate:125,tax:30,
+  ess:[
+    {k:'Rent',v:0,note:'Your exact rent'},
+    {k:'Utilities',v:0,note:'Electric, water, internet'},
+    {k:'Phone',v:0,note:'Your monthly bill'},
+    {k:'Groceries',v:0,note:'Cooking instead of ordering'},
+    {k:'Gas and transit',v:0,note:'No rideshare for now'},
+    {k:'Pet',v:0,note:'Food and care'},
+    {k:'Health essentials',v:0,note:'Prescriptions and must-haves only'}
+  ],
+  caps:[['Dining, incl. delivery',450],['Clothes',120],['Other shopping',280],['Subscriptions and services',125],['Entertainment',100],['Travel and rideshare',150]],
+  checks:{}
+};
+let s;
+try{s=Object.assign(structuredClone(defaults),JSON.parse(localStorage.getItem(KEY)||'{}'));}catch(e){s=structuredClone(defaults);}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(s));}catch(e){}};
+const $=id=>document.getElementById(id);
+const f=n=>(n<0?'−':'')+'$'+Math.abs(Math.round(n)).toLocaleString('en-US');
+const num=v=>{const n=parseFloat(String(v).replace(/[^0-9.]/g,''));return isNaN(n)?0:n;};
+const tasks=['Go down to one advance app and don\'t open new ones','Turn off tips and instant-transfer fees in that app','Delete DoorDash and any shopping apps from your phone','Cancel subscriptions you don\'t need right now','Check 211texas.org for rent or utility help','Run the SNAP screener at yourtexasbenefits.com','Turn on tax withholding for unemployment, or set some aside','Open a second account for bills if you don\'t have one'];
+
+function bind(id,key){const el=$(id);el.value=s[key];el.addEventListener('input',()=>{s[key]=num(el.value);save();calc();});}
+[['inUI','ui'],['inContract','contract'],['loop','loop'],['step','step'],['rate','rate'],['tax','tax']].forEach(a=>bind(...a));
+
+const ess=$('ess');
+s.ess.forEach((e,i)=>{
+  const r=document.createElement('div');r.className='row';
+  r.innerHTML=`<span class="n">${i+1}</span><span>${e.k}<small>${e.note}</small></span><label class="money"><span>$</span><input id="ess${i}" inputmode="decimal" aria-label="${e.k}"></label>`;
+  ess.appendChild(r);
+  const inp=r.querySelector('input');inp.value=e.v;inp.addEventListener('input',()=>{s.ess[i].v=num(inp.value);save();calc();});
+});
+const tot=document.createElement('div');tot.className='row total';tot.innerHTML='<span></span><span>Essentials total</span><span class="v num" id="essTot"></span>';ess.appendChild(tot);
+
+$('caps').innerHTML=s.caps.map(c=>`<div><span>${c[0]}</span><span>${f(c[1])}</span></div>`).join('')+`<div><b>Total</b><b>${f(s.caps.reduce((a,c)=>a+c[1],0))}</b></div>`;
+
+const ch=$('checks');
+tasks.forEach((t,i)=>{const l=document.createElement('label');l.innerHTML=`<input type="checkbox" id="task${i}"><span>${t}</span>`;const c=l.querySelector('input');c.checked=!!s.checks[i];c.addEventListener('change',()=>{s.checks[i]=c.checked;save();});ch.appendChild(l);});
+
+function calc(){
+  const income=s.ui+s.contract;
+  const essT=s.ess.reduce((a,e)=>a+e.v,0);
+  const left=income-essT;
+  const canStep=left>=s.step && s.loop>0;
+  const flex=left-(canStep?s.step:0);
+  $('sIn').textContent=f(income);$('sEss').textContent=f(essT);$('essTot').textContent=f(essT);
+  $('sWeek').textContent=flex>0?f(flex/4.33):'$0';
+  const st=$('status');
+  if(left<0){st.className='status err';st.textContent=`Essentials are ${f(-left)} more than what's coming in each month. Hold the loop steady, pause flexible spending, and close the gap with contract income (section 5).`;}
+  else if(!canStep){st.className='status warn';st.textContent=`Essentials are covered with ${f(left)} to spare. Keep the loop steady until you have ${f(s.step)} of spare cash for the first step down.`;}
+  else{st.className='status ok';st.textContent=`You can step down this month: borrow ${f(s.step)} less, and live on ${f(flex/4.33)} a week.`;}
+  const pill=$('loopPill');pill.className='pill '+(canStep?'go':'hold');pill.textContent=canStep?'Stepping down':'Holding steady';
+  const months=s.step>0?Math.ceil(s.loop/s.step):0;
+  $('loopText').textContent=s.loop<=0?'Enter what you borrow each month to see your step-down schedule.':s.step>0?`At ${f(s.step)} a month, the loop is closed in ${months} months once stepping down starts. One ${f(s.loop)} payment from a contract would close it in a single month.`:'Set a step-down amount to see the schedule.';
+  const now=new Date();let rows='';
+  for(let i=0;i<Math.min(months,14);i++){const d=new Date(now.getFullYear(),now.getMonth()+i+1,1);rows+=`<tr><td>${canStep?d.toLocaleString('en-US',{month:'short',year:'numeric'}):'Month '+(i+1)}</td><td>${f(Math.max(0,s.loop-s.step*(i+1)))}</td><td>${f(Math.min(s.step,s.loop-s.step*i))}</td></tr>`;}
+  $('sched').innerHTML=rows;
+  const need=Math.max(0,-left)+(s.loop>0?s.step:0);
+  const net=s.rate*(1-s.tax/100);
+  const hrs=net>0?need/net:0;
+  $('gapText').innerHTML=need<=0?'You\'re covered.':`To cover essentials and start the step-down you need about <b class="num">${f(need)}</b> more a month. At ${f(s.rate)}/hr that's <b class="num">${Math.ceil(hrs)} billable hours a month</b>, about <b class="num">${Math.ceil(hrs/4.33)} a week</b>.`;
+}
+calc();
+</script>
