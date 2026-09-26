@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Tools</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --linen:#F2ECE4;--card:#FCF6EE;--border:#E2DBD4;--text:#25211B;--text-2:#5F5A54;--brand:#801919;
+  --ink:#142483;--ribbon:#801919;--link:#1B2DA6;--focus:#3B5DEE;--tag-bg:#F1FAF0;--tag-fg:#034D0D;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){color-scheme:dark;
+    --linen:#38332E;--card:#25211B;--border:#4B4540;--text:#FCF6EE;--text-2:#CCC6BF;--brand:#FEAFB1;
+    --ink:#B0C6FF;--ribbon:#D9626A;--link:#B0C6FF;--focus:#89A8FF;--tag-bg:#032A06;--tag-fg:#CFE3CE;}
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--linen);color:var(--text);font:16px/1.5 Figtree,system-ui,sans-serif;position:relative}
+.ribbon{position:absolute;top:0;right:48px;width:20px;height:88px;background:var(--ribbon)}
+@media (min-width:800px){.ribbon{right:96px;height:120px}}
+main{max-width:720px;margin:0 auto;padding:72px 16px 64px;display:flex;flex-direction:column;gap:24px}
+.greet{font-family:Caveat,cursive;font-size:24px;line-height:1.25;color:var(--ink);margin:0}
+.overline{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--brand);margin:0 0 8px}
+h1{font-size:36px;line-height:1.25;font-weight:600;letter-spacing:-.4px;margin:0}
+ul{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+a.tool{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 24px;background:var(--card);
+  border:1px solid var(--border);border-radius:16px;color:inherit;text-decoration:none}
+a.tool:hover{border-color:var(--link)}
+a.tool:focus-visible,a.out:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.name{font-size:20px;font-weight:600;margin:0}
+.desc{font-size:14px;color:var(--text-2);margin:2px 0 0}
+.arrow{color:var(--link);font-size:20px}
+.soon{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 24px;border:1px dashed var(--border);border-radius:16px}
+.tag{font-size:12px;font-weight:600;padding:2px 10px;border-radius:999px;background:var(--tag-bg);color:var(--tag-fg);white-space:nowrap}
+.out{align-self:flex-start;font-size:14px;color:var(--link)}
+</style>
+</head>
+<body>
+<div class="ribbon" aria-hidden="true"></div>
+<main>
+  <p class="greet" id="greet">good morning, Omoniyi</p>
+  <div>
+    <p class="overline">Private</p>
+    <h1>Tools</h1>
+  </div>
+  <ul>
+    <li><a class="tool" href="/tools/link-tagger/"><div><p class="name">Link Tagger</p><p class="desc">Tracked links for applications, résumés and outreach.</p></div><span class="arrow" aria-hidden="true">→</span></a></li>
+    <li><a class="tool" href="/tools/payday-plan/"><div><p class="name">Payday Plan</p><p class="desc">What each paycheck covers, essentials first.</p></div><span class="arrow" aria-hidden="true">→</span></a></li>
+    <li><div class="soon"><div><p class="name">Planner</p><p class="desc">Daily pages, goals and the journal.</p></div><span class="tag">In design</span></div></li>
+  </ul>
+  <a class="out" href="/tools/logout">Sign out</a>
+</main>
+<script>
+  var h = new Date().getHours();
+  document.getElementById('greet').textContent = (h < 12 ? 'good morning' : h < 18 ? 'good afternoon' : 'good evening') + ', Omoniyi';
+</script>
+</body>
+</html>
