@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Tools · Sign in</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Values mirror the Slate file: Planner Theme + Color Semantic, Light and Dark. */
+:root{
+  --linen:#F2ECE4;--card:#FCF6EE;--border:#E2DBD4;--field-border:#B1ABA4;--focus:#3B5DEE;
+  --text:#25211B;--text-2:#5F5A54;--disabled:#938D86;--brand:#801919;--ink:#142483;--ribbon:#801919;
+  --primary:#1B2DA6;--primary-hover:#142483;--on-primary:#FCF6EE;--subtle:#F3F7FF;--link:#1B2DA6;
+  --err-bg:#FFF4F1;--err-fg:#A61F00;--err-border:#CB2900;
+  --info-bg:#F3F7FF;--info-fg:#1B2DA6;--info-border:#CEDCFF;
+  --shadow:0 2px 6px rgba(0,0,0,.08);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){color-scheme:dark;
+    --linen:#38332E;--card:#25211B;--border:#4B4540;--field-border:#756F69;--focus:#89A8FF;
+    --text:#FCF6EE;--text-2:#CCC6BF;--disabled:#938D86;--brand:#FEAFB1;--ink:#B0C6FF;--ribbon:#D9626A;
+    --primary:#B0C6FF;--primary-hover:#CEDCFF;--on-primary:#25211B;--subtle:#0A145D;--link:#B0C6FF;
+    --err-bg:#440600;--err-fg:#FFB19F;--err-border:#FF836A;
+    --info-bg:#0A145D;--info-fg:#CEDCFF;--info-border:#2B47CD;
+    --shadow:0 2px 6px rgba(0,0,0,.3);}
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--linen);color:var(--text);font:16px/1.5 Figtree,system-ui,sans-serif;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:48px 16px;position:relative}
+.ribbon{position:absolute;top:0;right:48px;width:20px;height:88px;background:var(--ribbon)}
+@media (min-width:800px){.ribbon{right:96px;height:120px}}
+.greet{font-family:Caveat,cursive;font-size:24px;line-height:1.25;color:var(--ink);margin:0}
+.card{width:100%;max-width:400px;background:var(--card);border:1px solid var(--border);border-radius:16px;
+  box-shadow:var(--shadow);padding:32px 24px;display:flex;flex-direction:column;gap:24px}
+.head{display:flex;flex-direction:column;gap:8px}
+.overline{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--brand);margin:0}
+h1{font-size:36px;line-height:1.25;font-weight:600;letter-spacing:-.4px;margin:0}
+.lede{font-size:14px;color:var(--text-2);margin:0}
+.banner{border-radius:8px;padding:10px 12px;font-size:14px;border:1px solid}
+.banner.error{background:var(--err-bg);color:var(--err-fg);border-color:var(--err-border)}
+.banner.info{background:var(--info-bg);color:var(--info-fg);border-color:var(--info-border)}
+form{display:flex;flex-direction:column;gap:24px}
+label{display:block;font-size:14px;font-weight:600;margin-bottom:6px}
+input[type=email]{width:100%;height:44px;padding:0 12px;font:inherit;color:var(--text);background:var(--card);
+  border:1px solid var(--field-border);border-radius:8px}
+input[type=email]::placeholder{color:var(--disabled)}
+input[type=email]:focus{outline:none;border-color:var(--focus);box-shadow:0 0 0 1px var(--focus)}
+input[aria-invalid=true]{border-color:var(--err-border)}
+.field-error{font-size:12px;color:var(--err-fg);margin:6px 0 0}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+button{height:44px;border:0;border-radius:8px;font:inherit;font-size:14px;font-weight:600;cursor:pointer;width:100%}
+.primary{background:var(--primary);color:var(--on-primary)}
+.primary:hover{background:var(--primary-hover)}
+.subtle{background:var(--subtle);color:var(--link)}
+button:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+button[disabled]{opacity:.6;cursor:progress}
+.foot{font-size:12px;color:var(--text-2);text-align:center;margin:0}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<div class="ribbon" aria-hidden="true"></div>
+<p class="greet" id="greet">good morning, Omoniyi</p>
+<main class="card">
+  <div class="head">
+    <p class="overline">Private</p>
+    <h1>Tools</h1>
+    <p class="lede" id="lede">Enter your email and we’ll send you a sign-in link.</p>
+  </div>
+
+  <div class="banner error" id="expired" role="alert" hidden>That link expired or didn’t check out. Send yourself a new one.</div>
+  <div class="banner info" id="signed-out" role="status" hidden>You’re signed out.</div>
+  <div class="banner info" id="sent" role="status" hidden>If that email has access, a link is on its way. It expires in 15 minutes.</div>
+
+  <form id="form" novalidate>
+    <div>
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" autocomplete="email" placeholder="you@email.com" required aria-describedby="email-error">
+      <p class="field-error" id="email-error" hidden></p>
+    </div>
+    <div class="hp" aria-hidden="true"><label for="website">Website</label><input id="website" name="website" tabindex="-1" autocomplete="off"></div>
+    <button class="primary" type="submit" id="submit">Email me a sign-in link</button>
+  </form>
+
+  <button class="subtle" type="button" id="resend" hidden>Resend link</button>
+
+  <p class="foot">Private · not indexed · one account</p>
+</main>
+
+<script>
+(function () {
+  var params = new URLSearchParams(location.search);
+  var next = params.get('next') || '/tools/';
+  var $ = function (id) { return document.getElementById(id); };
+  var form = $('form'), email = $('email'), submit = $('submit'), resend = $('resend');
+  var fieldError = $('email-error');
+
+  var hour = new Date().getHours();
+  $('greet').textContent = (hour < 12 ? 'good morning' : hour < 18 ? 'good afternoon' : 'good evening') + ', Omoniyi';
+
+  if (params.get('link') === 'expired') $('expired').hidden = false;
+  if (params.get('signed_out')) $('signed-out').hidden = false;
+
+  function showError(message) {
+    fieldError.textContent = message;
+    fieldError.hidden = false;
+    email.setAttribute('aria-invalid', 'true');
+  }
+  function clearError() {
+    fieldError.hidden = true;
+    email.removeAttribute('aria-invalid');
+  }
+
+  async function requestLink(button) {
+    clearError();
+    var value = email.value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) { showError('Please enter a valid email address.'); email.focus(); return; }
+    var label = button.textContent;
+    button.disabled = true;
+    button.textContent = 'Sending…';
+    try {
+      var response = await fetch('/api/tools/request-link', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: value, next: next, website: $('website').value })
+      });
+      var data = await response.json().catch(function () { return {}; });
+      if (response.status === 429) throw new Error('Too many tries. Wait a minute and try again.');
+      if (!response.ok || !data.ok) throw new Error(data.error || 'The link couldn’t be sent. Try again in a minute.');
+      $('expired').hidden = true;
+      $('signed-out').hidden = true;
+      $('sent').hidden = false;
+      $('lede').textContent = 'Check your email for a sign-in link.';
+      form.hidden = true;
+      resend.hidden = false;
+      button.textContent = button === resend ? 'Link sent again' : label;
+      if (button === resend) setTimeout(function () { resend.textContent = 'Resend link'; }, 4000);
+    } catch (error) {
+      if (form.hidden) { form.hidden = false; resend.hidden = true; $('sent').hidden = true; }
+      showError(error.message);
+      button.textContent = label;
+    } finally {
+      button.disabled = false;
+    }
+  }
+
+  form.addEventListener('submit', function (event) { event.preventDefault(); requestLink(submit); });
+  resend.addEventListener('click', function () { requestLink(resend); });
+})();
+</script>
+</body>
+</html>
