@@ -68,9 +68,9 @@ a{color:var(--link)}
 
 <main>
   <header style="display:flex;flex-direction:column;gap:10px">
-    <span class="eyebrow">Monthly plan</span>
+    <span class="eyebrow">Monthly plan · built from Oct 2024 – Jul 2026</span>
     <h1>Payday Plan</h1>
-    <p class="lede">Pay the essentials first, keep the advance loop from growing, and switch on the step-down the month contract income covers it. Every amount is editable and saves only in this browser. Nothing you type is sent anywhere.</p>
+    <p class="lede">Pay the essentials first, keep the advance loop from growing, and switch on the step-down the month contract income covers it. Every amount is editable; it saves in this browser.</p>
   </header>
 
   <div class="summary" aria-live="polite">
@@ -97,7 +97,7 @@ a{color:var(--link)}
 
   <section>
     <h2>3. The advance loop <span id="loopPill" class="pill"></span></h2>
-    <p class="sub">Enter how much you borrow and repay through advance apps each month. Stepping down means borrowing a little less each month, which takes that same amount of spare cash that month.</p>
+    <p class="sub">You've been borrowing and repaying about $2,180 a month. Stepping down means borrowing a little less each month, which takes that same amount of spare cash that month.</p>
     <div class="inline">
       <label>Borrowed per month now <span class="money"><span>$</span><input id="loop" inputmode="decimal"></span></label>
       <label>Step down per month <span class="money"><span>$</span><input id="step" inputmode="decimal"></span></label>
@@ -108,7 +108,7 @@ a{color:var(--link)}
 
   <section>
     <h2>4. Flexible spending</h2>
-    <p class="sub">Right now dining out, delivery, shopping and extra subscriptions are paused. Once the loop is closed, these are the caps to live by.</p>
+    <p class="sub">Right now dining out, delivery, shopping and extra subscriptions are paused. Once the loop is closed, these are the caps to live by instead of the old ~$1,800 a month.</p>
     <div class="caps num" id="caps"></div>
   </section>
 
@@ -132,15 +132,15 @@ a{color:var(--link)}
 <script>
 const KEY='payday-plan-v1';
 const defaults={
-  ui:0,contract:0,loop:0,step:250,rate:125,tax:30,
+  ui:2000,contract:0,loop:2180,step:250,rate:125,tax:30,
   ess:[
-    {k:'Rent',v:0,note:'Your exact rent'},
-    {k:'Utilities',v:0,note:'Electric, water, internet'},
-    {k:'Phone',v:0,note:'Your monthly bill'},
-    {k:'Groceries',v:0,note:'Cooking instead of ordering'},
-    {k:'Gas and transit',v:0,note:'No rideshare for now'},
-    {k:'Pet',v:0,note:'Food and care'},
-    {k:'Health essentials',v:0,note:'Prescriptions and must-haves only'}
+    {k:'Rent',v:1500,note:'Edit to your exact rent'},
+    {k:'Utilities',v:125,note:'Your 22-month average'},
+    {k:'Phone',v:0,note:'Add if it isn\'t in utilities'},
+    {k:'Groceries',v:250,note:'A bit above average, since you\'re cooking instead of ordering'},
+    {k:'Gas and transit',v:150,note:'No rideshare for now'},
+    {k:'Pet',v:45,note:'Your average'},
+    {k:'Health essentials',v:100,note:'Prescriptions and must-haves only'}
   ],
   caps:[['Dining, incl. delivery',450],['Clothes',120],['Other shopping',280],['Subscriptions and services',125],['Entertainment',100],['Travel and rideshare',150]],
   checks:{}
@@ -184,7 +184,7 @@ function calc(){
   else{st.className='status ok';st.textContent=`You can step down this month: borrow ${f(s.step)} less, and live on ${f(flex/4.33)} a week.`;}
   const pill=$('loopPill');pill.className='pill '+(canStep?'go':'hold');pill.textContent=canStep?'Stepping down':'Holding steady';
   const months=s.step>0?Math.ceil(s.loop/s.step):0;
-  $('loopText').textContent=s.loop<=0?'Enter what you borrow each month to see your step-down schedule.':s.step>0?`At ${f(s.step)} a month, the loop is closed in ${months} months once stepping down starts. One ${f(s.loop)} payment from a contract would close it in a single month.`:'Set a step-down amount to see the schedule.';
+  $('loopText').textContent=s.step>0?`At ${f(s.step)} a month, the loop is closed in ${months} months once stepping down starts. One ${f(s.loop)} payment from a contract would close it in a single month.`:'Set a step-down amount to see the schedule.';
   const now=new Date();let rows='';
   for(let i=0;i<Math.min(months,14);i++){const d=new Date(now.getFullYear(),now.getMonth()+i+1,1);rows+=`<tr><td>${canStep?d.toLocaleString('en-US',{month:'short',year:'numeric'}):'Month '+(i+1)}</td><td>${f(Math.max(0,s.loop-s.step*(i+1)))}</td><td>${f(Math.min(s.step,s.loop-s.step*i))}</td></tr>`;}
   $('sched').innerHTML=rows;
