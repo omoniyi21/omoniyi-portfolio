@@ -1,4 +1,5 @@
 .oui-page {
+  --font-family-display: "IBM Plex Sans", sans-serif;
   --oui-page: var(--background-page, #fffad6);
   --oui-ink: var(--text-primary, #171717);
   --oui-muted: #62606b;

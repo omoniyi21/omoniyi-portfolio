@@ -27,13 +27,13 @@ const PARTICLE_COUNT = 190;
 // just names the space you're arriving in, no verb.
 const SPACE_LABELS = { portfolio: "Portfolio", studio: "Studio", ui: "UI Kit" };
 // Each space's own display face, matching its own page headings — Studio
-// runs on Fraunces (its dossier serif) while Portfolio and UI Kit share
-// the site's Space Grotesk. Keeps the curtain's typography an extension
+// uses Fraunces, Portfolio uses Newsreader, and UI Kit uses IBM Plex Sans.
+// Keeps the curtain's typography an extension
 // of the destination, not a generic overlay.
 const SPACE_FONTS = {
-  portfolio: '"Space Grotesk", sans-serif',
+  portfolio: '"Newsreader", Georgia, serif',
   studio: '"Fraunces", "Iowan Old Style", "Georgia", serif',
-  ui: '"Space Grotesk", sans-serif',
+  ui: '"IBM Plex Sans", sans-serif',
 };
 
 const random = (n) => {
