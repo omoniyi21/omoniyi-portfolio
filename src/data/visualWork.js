@@ -18,6 +18,8 @@ export const visualWork = {
           'A flat, front-on interior where hand-drawn woodgrain carries the texture, which lets every object on the shelves stay simple and easy to read.'),
         piece('visual-omdesigns-hallway', 'OMDesigns, coming soon', 'Original illustration', 'Illustration & lettering',
           'The launch announcement for OMDesigns: a hallway of lockers, banners, and a loading screen, with small in-jokes for anyone who looks twice.'),
+        piece('visual-facades', 'Façades', 'Original illustration', 'Illustration',
+          'Three buildings pressed into one frame, each window a glimpse of a different interior: a pendant lamp, a still-life on the wall, a gallery wall through a round window. Watercolor wash keeps the linework soft.'),
       ],
     },
     {
