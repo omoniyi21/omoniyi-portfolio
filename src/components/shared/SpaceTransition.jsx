@@ -1,207 +1,138 @@
-import { createContext, useCallback, useContext, useEffect, useRef } from "react";
-import { motionQuery } from "../../lib/motionPreference";
+import { createContext, useCallback, useContext, useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { isMotionReduced } from "../../lib/motionPreference";
 import "./space-transition.css";
 
-// One shared transition grammar for every jump between the site's three
-// spaces (Portfolio / Studio / UI Kits): a field of stardust gathers and
-// thickens until it covers the viewport, the route swaps underneath it,
-// then it disperses to reveal the destination. Only the tone (color)
-// changes per destination — the motion is always identical, so the
-// pattern reads as one signature move rather than a different effect
-// bolted onto each link.
-const TONES = {
-  portfolio: { dust: "117,105,227", wash: "255,250,214" }, // portfolio lavender, on its own cream
-  studio: { dust: "122,51,60", wash: "255,250,214" }, // studio's oxblood accent, same cream underneath
-  ui: { dust: "142,120,235", wash: "255,250,214" }, // launchkit's lilac accent
-};
+// One transition grammar for every jump between the site's three spaces
+// (Portfolio / Studio / UI Kit): a curtain in the destination's colour rises
+// over the page, the three marks flash through in turn, the sequence lands on
+// the destination's mark, the route swaps underneath, and the curtain lifts.
+//
+// Curtains: Portfolio = ink, Studio = oxblood, UI = lilac→lavender gradient.
+// Marks follow the brand sheet's tile presentation (Stardust file, "03 — The
+// Brand and its arms"): light tiles on the two dark curtains, dark tiles on
+// UI's pale gradient.
+const SPACES = ["portfolio", "studio", "ui"];
 const DEFAULT_TONE = "portfolio";
+const MARK_VARIANT = { portfolio: "light", studio: "light", ui: "dark" };
 
-const COVER_MS = 620;
-const REVEAL_MS = 720;
-// More, smaller particles than a first pass — fine dust/starfield rather
-// than a handful of visible dots.
-const PARTICLE_COUNT = 190;
+const COVER_MS = 560; // curtain rise (matches the CSS transition)
+const FLASH_START_MS = 280; // marks start flashing as the curtain nears the top
+const FLASH_STEPS_MS = [85, 85, 95, 110, 135]; // gaps between six beats; slows into the landing
+const HOLD_MS = 440; // time the landed mark is held before the curtain lifts
+const REVEAL_MS = 620; // curtain lift (matches the CSS transition)
 
-// Editorial-minimal label shown once the dust has mostly gathered —
-// just names the space you're arriving in, no verb.
-const SPACE_LABELS = { portfolio: "Portfolio", studio: "Studio", ui: "UI Kit" };
-// Each space's own display face, matching its own page headings — Studio
-// uses Fraunces, Portfolio uses Newsreader, and UI Kit uses IBM Plex Sans.
-// Keeps the curtain's typography an extension
-// of the destination, not a generic overlay.
-const SPACE_FONTS = {
-  portfolio: '"Newsreader", Georgia, serif',
-  studio: '"Fraunces", "Iowan Old Style", "Georgia", serif',
-  ui: '"IBM Plex Sans", sans-serif',
-};
-
-const random = (n) => {
-  const v = Math.sin(n * 127.1 + 31.7) * 43758.5453;
-  return v - Math.floor(v);
-};
-
-function makeParticles(w, h) {
-  const particles = [];
-  for (let i = 0; i < PARTICLE_COUNT; i++) {
-    particles.push({
-      x: random(i * 3 + 1) * w,
-      y: random(i * 3 + 2) * h,
-      r: 0.5 + random(i * 3 + 3) * 1.4,
-      driftX: (random(i * 5 + 1) - 0.5) * 48,
-      driftY: (random(i * 5 + 2) - 0.5) * 48,
-      delay: random(i * 7 + 1) * 0.35,
-      alpha: 0.35 + random(i * 5 + 3) * 0.5,
-    });
-  }
-  return particles;
+// Six beats = two full passes through the three marks, ending on the target.
+function flashSequence(target) {
+  const start = (SPACES.indexOf(target) + 1) % SPACES.length;
+  return Array.from({ length: 6 }, (_, i) => SPACES[(start + i) % SPACES.length]);
 }
+
+function ProfessionalMark({ variant }) {
+  return (
+    <div className={`space-mark space-mark--pro space-mark--${variant}`}>
+      <span className="space-mark__pro-word">omoniyi.</span>
+      <span className="space-mark__pro-note">
+        alimi
+        <svg viewBox="0 0 44 8" width="44" height="8" aria-hidden="true">
+          <path d="M1.5 6.2C11 2.6 25 1.4 42.5 2.4" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+        </svg>
+      </span>
+    </div>
+  );
+}
+
+function StudioMark({ variant }) {
+  return (
+    <div className={`space-mark space-mark--studio space-mark--${variant}`}>
+      <span className="space-mark__studio-small">studio</span>
+      <span className="space-mark__studio-word">OMONIYI</span>
+    </div>
+  );
+}
+
+function UIMark({ variant }) {
+  return (
+    <div className={`space-mark space-mark--ui space-mark--${variant}`}>
+      <span className="space-mark__ui-word">omoniyi.</span>
+      <span className="space-mark__ui-tag">ui</span>
+    </div>
+  );
+}
+
+const MARKS = { portfolio: ProfessionalMark, studio: StudioMark, ui: UIMark };
 
 const SpaceTransitionContext = createContext(null);
 
 export function SpaceTransitionProvider({ children }) {
   const navigate = useNavigate();
-  const canvasRef = useRef(null);
-  const particlesRef = useRef([]);
-  const sizeRef = useRef({ w: 0, h: 0 });
-  const frameRef = useRef(0);
-  const reduceMotionRef = useRef(false);
-  const state = useRef({
-    active: false,
-    phase: "idle",
-    tone: DEFAULT_TONE,
-    start: 0,
-    navigated: false,
-    pendingPath: null,
-  });
+  const timers = useRef([]);
+  const busy = useRef(false);
+  const [curtain, setCurtain] = useState({ phase: "idle", tone: DEFAULT_TONE, beat: null, landed: false });
 
-  const draw = useCallback(
-    (now) => {
-      const s = state.current;
-      const canvas = canvasRef.current;
-      if (!canvas) return;
-      const ctx = canvas.getContext("2d");
-      const { w, h } = sizeRef.current;
-      if (!s.active) {
-        ctx.clearRect(0, 0, w, h);
+  const clearTimers = () => {
+    timers.current.forEach(clearTimeout);
+    timers.current = [];
+  };
+  const at = (ms, fn) => timers.current.push(setTimeout(fn, ms));
+
+  useEffect(() => clearTimers, []);
+
+  const goTo = useCallback(
+    (path, tone = DEFAULT_TONE) => {
+      if (isMotionReduced()) {
+        navigate(path);
         return;
       }
+      if (busy.current) return;
+      busy.current = true;
+      clearTimers();
 
-      const tone = TONES[s.tone] || TONES[DEFAULT_TONE];
-      let progress = 0;
+      const target = SPACES.includes(tone) ? tone : DEFAULT_TONE;
+      const beats = flashSequence(target);
 
-      if (s.phase === "cover") {
-        progress = Math.min(1, (now - s.start) / COVER_MS);
-        if (progress >= 1 && !s.navigated) {
-          s.navigated = true;
-          navigate(s.pendingPath);
-          s.phase = "reveal";
-          s.start = now;
-        }
-      } else if (s.phase === "reveal") {
-        const revealProgress = Math.min(1, (now - s.start) / REVEAL_MS);
-        progress = 1 - revealProgress;
-        if (revealProgress >= 1) {
-          s.active = false;
-          s.phase = "idle";
-          ctx.clearRect(0, 0, w, h);
-          return;
-        }
-      }
+      setCurtain({ phase: "cover", tone: target, beat: null, landed: false });
 
-      const eased = progress * progress * (3 - 2 * progress); // smoothstep
-      ctx.clearRect(0, 0, w, h);
-      ctx.fillStyle = `rgba(${tone.wash},${(eased * 0.94).toFixed(3)})`;
-      ctx.fillRect(0, 0, w, h);
+      let t = FLASH_START_MS;
+      beats.forEach((beat, i) => {
+        at(t, () => setCurtain((c) => ({ ...c, beat })));
+        if (i < FLASH_STEPS_MS.length) t += FLASH_STEPS_MS[i];
+      });
+      const landAt = t;
+      at(landAt, () => setCurtain((c) => ({ ...c, landed: true })));
 
-      for (const p of particlesRef.current) {
-        const span = 1 - p.delay || 1;
-        const local = Math.max(0, Math.min(1, (eased - p.delay) / span));
-        if (local <= 0) continue;
-        const x = p.x + p.driftX * (1 - local);
-        const y = p.y + p.driftY * (1 - local);
-        ctx.beginPath();
-        ctx.fillStyle = `rgba(${tone.dust},${(p.alpha * local).toFixed(3)})`;
-        ctx.arc(x, y, p.r * (0.6 + local * 0.6), 0, Math.PI * 2);
-        ctx.fill();
-      }
+      // Swap the route once the curtain fully covers the page.
+      at(COVER_MS + 40, () => navigate(path));
 
-      // Label fades in once the field is mostly gathered, and fades back
-      // out with it on reveal — never a hard cut in either direction.
-      const textAlpha = Math.max(0, Math.min(1, (eased - 0.22) / 0.78));
-      if (textAlpha > 0.01) {
-        const label = SPACE_LABELS[s.tone] || SPACE_LABELS[DEFAULT_TONE];
-        const face = SPACE_FONTS[s.tone] || SPACE_FONTS[DEFAULT_TONE];
-        const size = Math.max(28, Math.min(64, Math.min(w, h) * 0.055));
-        const rise = (1 - textAlpha) * 14;
-        ctx.save();
-        ctx.globalAlpha = textAlpha;
-        ctx.fillStyle = "#111111";
-        ctx.font = `500 ${size}px ${face}`;
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
-        ctx.fillText(label, w / 2, h / 2 + rise);
-        ctx.restore();
-      }
-
-      frameRef.current = requestAnimationFrame(draw);
+      const revealAt = Math.max(landAt, COVER_MS + 40) + HOLD_MS;
+      at(revealAt, () => setCurtain((c) => ({ ...c, phase: "reveal" })));
+      at(revealAt + REVEAL_MS, () => {
+        busy.current = false;
+        setCurtain({ phase: "idle", tone: target, beat: null, landed: false });
+      });
     },
     [navigate]
   );
 
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const motion = motionQuery();
-    reduceMotionRef.current = motion.matches;
-    const onMotionChange = () => {
-      reduceMotionRef.current = motion.matches;
-    };
-    motion.addEventListener("change", onMotionChange);
-
-    const resize = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      const w = window.innerWidth;
-      const h = window.innerHeight;
-      canvas.width = Math.round(w * dpr);
-      canvas.height = Math.round(h * dpr);
-      canvas.getContext("2d").setTransform(dpr, 0, 0, dpr, 0, 0);
-      sizeRef.current = { w, h };
-      particlesRef.current = makeParticles(w, h);
-    };
-    resize();
-    window.addEventListener("resize", resize);
-
-    return () => {
-      window.removeEventListener("resize", resize);
-      motion.removeEventListener("change", onMotionChange);
-      cancelAnimationFrame(frameRef.current);
-    };
-  }, []);
-
-  const goTo = useCallback(
-    (path, tone = DEFAULT_TONE) => {
-      if (reduceMotionRef.current) {
-        navigate(path);
-        return;
-      }
-      const s = state.current;
-      s.active = true;
-      s.phase = "cover";
-      s.tone = TONES[tone] ? tone : DEFAULT_TONE;
-      s.start = performance.now();
-      s.navigated = false;
-      s.pendingPath = path;
-      cancelAnimationFrame(frameRef.current);
-      frameRef.current = requestAnimationFrame(draw);
-    },
-    [draw, navigate]
-  );
+  const variant = MARK_VARIANT[curtain.tone];
 
   return (
     <SpaceTransitionContext.Provider value={{ goTo }}>
       {children}
-      <canvas ref={canvasRef} className="space-curtain" aria-hidden="true" />
+      <div className="space-curtain" data-phase={curtain.phase} data-tone={curtain.tone} aria-hidden="true">
+        <div className="space-curtain__panel">
+          <div className={`space-curtain__stage${curtain.landed ? " is-landed" : ""}`}>
+            {SPACES.map((id) => {
+              const Mark = MARKS[id];
+              return (
+                <div key={id} className="space-curtain__slot" data-on={curtain.beat === id ? "true" : undefined}>
+                  <Mark variant={variant} />
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
     </SpaceTransitionContext.Provider>
   );
 }
@@ -214,10 +145,10 @@ export function useSpaceTransition() {
   return ctx;
 }
 
-// Drop-in replacement for react-router's <Link> at the three places the
-// site actually crosses spaces (Portfolio / Studio / UI Kits). Ordinary
-// clicks trigger the dust sweep; modified clicks (new tab, etc.) and
-// right-clicks fall through to normal <Link> behavior untouched.
+// Drop-in replacement for react-router's <Link> at the places the site
+// crosses spaces (Portfolio / Studio / UI Kit). Ordinary clicks run the
+// curtain; modified clicks (new tab, etc.) and right-clicks fall through to
+// normal <Link> behavior untouched.
 export function SpaceLink({ to, tone, onClick, children, ...props }) {
   const { goTo } = useSpaceTransition();
   const handleClick = (event) => {
