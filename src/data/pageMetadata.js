@@ -46,3 +46,11 @@ export function metadataTags(metadata) {
     ['name', 'twitter:image:alt', metadata.imageAlt],
   ];
 }
+
+// Each space gets its own favicon (public/favicons/*.svg), from the Stardust
+// brand sheet: Studio and UI Kit pages use theirs, everything else Portfolio.
+export function faviconFor(pathname = '/') {
+  if (/^\/studio(\/|$)/.test(pathname)) return '/favicons/studio.svg';
+  if (/^\/uikits?(\/|$)/.test(pathname)) return '/favicons/ui.svg';
+  return '/favicons/portfolio.svg';
+}

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { getPageMetadata, metadataTags } from '../../data/pageMetadata.js';
+import { getPageMetadata, metadataTags, faviconFor } from '../../data/pageMetadata.js';
 
 export default function PageMetadata() {
   const { pathname } = useLocation();
@@ -23,6 +23,10 @@ export default function PageMetadata() {
       document.head.appendChild(canonical);
     }
     canonical.href = metadata.canonical;
+    const favicon = faviconFor(pathname);
+    for (const icon of document.head.querySelectorAll('link[rel="icon"], link[rel="apple-touch-icon"]')) {
+      if (icon.getAttribute('href') !== favicon) icon.setAttribute('href', favicon);
+    }
   }, [pathname]);
   return null;
 }
