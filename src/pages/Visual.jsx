@@ -41,7 +41,7 @@ export default function Visual() {
 
       <header className="visual-hero">
         <div className="visual-hero__stack" aria-hidden="true">
-          {["visual-breakfast-lettering", "visual-porch-swing", "visual-traitors-flyer"].map(name => <img key={name} src={src(name)} alt="" decoding="async" />)}
+          {["visual-breakfast-lettering", "visual-facades", "sultry-hero"].map(name => <img key={name} src={src(name)} alt="" decoding="async" />)}
         </div>
         <p className="visual-kicker">Visual &amp; illustration <b aria-hidden="true">✦</b></p>
         <h1>{visualWork.title}</h1>
