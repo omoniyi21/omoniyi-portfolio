@@ -72,6 +72,7 @@ export default function Visual() {
         </h2>
         <div className="visual-outro__links">
           <Link to="/wedding-identity"><span>Case study 06</span><strong>Wedding Identity &amp; Guest Experience <ArrowRight size={20} /></strong></Link>
+          <Link to="/sultry-tips"><span>Case study 08</span><strong>Sultry Tips Brand Identity &amp; Custom Lettering <ArrowRight size={20} /></strong></Link>
           <Link to="/studio"><span>Work with me</span><strong>Omoniyi Studio <ArrowRight size={20} /></strong></Link>
         </div>
       </section>

@@ -5,7 +5,7 @@ export const siteOrigin = 'https://omoniyialimi.com';
 const page = (title, description, image = 'home', imageAlt = 'Omoniyi Alimi portfolio homepage') => ({ title, description, image: `/social/${image}.png`, imageAlt });
 export const pageMetadata = {
   '/': page('Omoniyi Alimi — Senior Product Designer', 'Explore Omoniyi Alimi’s product design portfolio: thoughtful digital experiences, enterprise systems, and human-centered work across government and healthcare.'),
-  '/work': page('Selected Work | Omoniyi Alimi', 'Explore seven design case studies spanning legislative voting, copyright systems, financial workflows, agricultural applications, patient onboarding, a wedding identity, and this portfolio’s own design.'),
+  '/work': page('Selected Work | Omoniyi Alimi', 'Explore eight design case studies spanning legislative voting, copyright systems, financial workflows, agricultural applications, patient onboarding, a wedding identity, a nail-artist brand, and this portfolio’s own design.'),
   '/resume': page('Résumé | Omoniyi Alimi, Senior Product Designer', 'Résumé of Omoniyi Alimi, a senior product designer with nine years designing government, healthcare, and enterprise systems.'),
   '/resume/experience': page('Résumé | Omoniyi Alimi, Product & Experience Designer', 'Résumé of Omoniyi Alimi, a product and experience designer who designs and builds interactive, visual, and systems-driven work.'),
   '/visual': page('Visual & Illustration | Omoniyi Alimi', 'Illustration, hand lettering, and event and brand graphics from Omoniyi Alimi’s OMDesigns practice, the visual roots of Omoniyi Studio.', 'visual', 'Omoniyi Alimi visual and illustration archive'),

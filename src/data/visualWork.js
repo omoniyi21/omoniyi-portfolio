@@ -26,6 +26,8 @@ export const visualWork = {
       pieces: [
         piece('visual-breakfast-lettering', 'The most important part of the day', 'Illustration & hand lettering', 'Illustration & lettering',
           'A social piece for OMDesigns. Four lettering styles share one headline, and the message is hidden in the cereal bowl and the coffee.'),
+        piece('sultry-hero', 'Sultry Tips', 'Logo & custom lettering', 'Logo design & lettering',
+          'A mark for a Carrollton nail artist who ruled out brushes, drills, and paint. Hand-drawn letters inflated in Illustrator read as fresh polish instead. Still her logo two years on.'),
       ],
     },
     {
