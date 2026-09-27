@@ -128,7 +128,7 @@
 
 .favorites-slider__artifact h3 {
   font: 500 clamp(1.15rem, 2.2vw, 1.6rem)/1.05 var(--font-family-display);
-  letter-spacing: -.04em;
+  letter-spacing: -.012em;
   margin: 0 0 .5rem;
 }
 

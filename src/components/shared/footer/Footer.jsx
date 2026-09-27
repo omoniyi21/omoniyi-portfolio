@@ -9,6 +9,7 @@ const GITHUB_URL = "https://github.com/omoniyi21";
 export default function Footer() {
   return (
     <footer className="site-footer">
+      <div className="site-footer__left">
       <div className="site-footer__issue">
         <div className="site-footer__social" aria-label="Social links">
           <a href={PINTEREST_URL} target="_blank" rel="noreferrer" aria-label="Pinterest">
@@ -22,6 +23,7 @@ export default function Footer() {
         <MotionToggle className="site-footer__motion" />
       </div>
       <p>Omoniyi Alimi <span aria-hidden="true">©</span></p>
+      </div>
       <span className="site-footer__trail" aria-hidden="true">✦ · · · ✦</span>
       <img
         className="site-footer__stardust"

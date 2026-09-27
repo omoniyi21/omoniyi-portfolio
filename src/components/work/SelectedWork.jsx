@@ -12,6 +12,7 @@ import {
   Landmark,
   LibraryBig,
   Palette,
+  Sparkles,
 } from "lucide-react";
 
 // Small sketched wireframes standing in for a UI thumbnail in the middle of
@@ -162,7 +163,8 @@ const featuredProjects = [
  {client:"Athletico",title:"Patient Onboarding & Scheduling",description:"Clearer entry, appointment access, and responsive care journeys for patients and staff.",category:"Healthcare · Research",href:"/athletico",icon:CirclePlus},
  {client:"Independent studio work",title:"Wedding Identity & Guest Experience",description:"An original emblem, keepsakes, and décor that carry two heritages into one celebration.",category:"Experience design · Illustration",href:"/wedding-identity",icon:Flower2},
  {client:"Self-initiated",title:"Portfolio Ecosystem",description:"One designer, three audiences, one system: a portfolio built to read differently for each visitor.",category:"Information architecture · Build",href:"/portfolio-ecosystem",icon:Network},
- {client:"OMDesigns archive",title:"Visual & Illustration",description:"Original illustration, hand lettering, and event and brand graphics.",category:"Illustration · Visual design",href:"/visual",icon:Palette},
+ {client:"Sultry Tips",title:"Brand Identity & Custom Lettering",description:"Custom 3D lettering that reads as polish, for a nail artist who ruled out brushes, drills, and paint.",category:"Brand identity · Lettering",href:"/sultry-tips",icon:Sparkles},
+ {client:"OMDesigns archive",title:"Visual & Illustration",description:"Original illustration, custom lettering, and brand identity.",category:"Illustration · Lettering",href:"/visual",icon:Palette},
 ];
 
 // The header/illustration/footer markup shared by both a real, interactive

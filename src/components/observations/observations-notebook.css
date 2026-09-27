@@ -1,5 +1,5 @@
 .observations-notebook { width:100%; padding:3rem 0 4rem; color:var(--text-primary); }
-.notebook-masthead { display:flex; justify-content:space-between; gap:1rem; padding:0 .4rem 1.5rem; font:700 .7rem/1.5 var(--font-family-display); letter-spacing:.16em; text-transform:uppercase; }
+.notebook-masthead { display:flex; justify-content:space-between; gap:1rem; padding:0 .4rem 1.5rem; font:700 .7rem/1.5 var(--font-family-body); letter-spacing:.16em; text-transform:uppercase; }
 .notebook-masthead i { color:var(--color-lavender-500); margin-left:1rem; }
 /* Section index — matches the "02 Personal Effects" / "03 Write me" number
    treatment used further down the home page, so the sequence reads 01, 02,
@@ -10,7 +10,7 @@
 .notebook-page::after { content:""; position:absolute; inset:5px -7px -9px 7px; transform:rotate(-1deg); background:#faf5e5 url('../../assets/textures/paper-grain.svg'); border:1px solid #d8d0c5; z-index:-2; }
 .notebook-heading { position:relative; }
 .notebook-label { font:700 .65rem/1.5 var(--font-family-display); text-transform:uppercase; letter-spacing:.16em; }
-.notebook-heading h2 { font:500 clamp(3rem,4.65vw,5.5rem)/1.1 var(--font-family-display); letter-spacing:-.075em; margin:.6rem 0; }
+.notebook-heading h2 { font:500 clamp(3rem,4.65vw,5.5rem)/1.1 var(--font-family-display); letter-spacing:-.022em; margin:.6rem 0; }
 .notebook-heading > p:last-child { font:400 1.5rem/1.3 var(--font-family-personal); margin:.8rem 0 0; }
 
 /* Heading and the signup note now share one row at the top of the section:
@@ -32,7 +32,7 @@
 .notebook-cover > a { display:flex; flex-direction:column; background:#e8bdad url('../../assets/textures/paper-grain.svg'); color:#34252f; padding:clamp(1.25rem,2.5vw,2.5rem); text-decoration:none; }
 .notebook-cover__meta, .notebook-cover footer { display:flex; justify-content:space-between; gap:1rem; font:700 .62rem/1.5 var(--font-family-display); text-transform:uppercase; letter-spacing:.09em; }
 .notebook-cover__meta { border-bottom:1px solid #34252f44; padding-bottom:1rem; }
-.notebook-cover h3 { font:500 clamp(2.15rem,3.8vw,4.5rem)/1.02 var(--font-family-display); letter-spacing:-.065em; margin:2rem 0 1.5rem; }
+.notebook-cover h3 { font:500 clamp(2.15rem,3.8vw,4.5rem)/1.02 var(--font-family-display); letter-spacing:-.019em; margin:2rem 0 1.5rem; }
 .notebook-cover__excerpt { font:400 1rem/1.5 var(--font-family-body); max-width:42ch; }
 .notebook-cover footer { border-top:1px solid #34252f44; margin-top:2rem; padding-top:1rem; }
 .notebook-cover__image { width:100%; max-height:22rem; object-fit:cover; margin-bottom:1rem; }
@@ -47,7 +47,7 @@
 .notebook-recent { display:grid; grid-template-columns:1fr 1fr; gap:2rem; margin-top:1rem; width:100%; max-width:46rem; }
 .notebook-small { display:block; padding:1.5rem; background:#f9f4e8 url('../../assets/textures/paper-grain.svg'); box-shadow:2px 5px 8px #30213f20; color:inherit; transform:rotate(1deg); text-decoration:none; }
 .notebook-small:nth-child(2) { transform:rotate(-1.5deg); background-color:#e3d8ee; }
-.notebook-small h3 { font:500 1.6rem/1.15 var(--font-family-display); letter-spacing:-.04em; margin:1rem 0; }
+.notebook-small h3 { font:500 1.6rem/1.15 var(--font-family-display); letter-spacing:-.012em; margin:1rem 0; }
 .notebook-small > span:last-child { font-size:.8rem; }
 .notebook-bottom { display:flex; align-items:center; justify-content:space-between; gap:1.5rem; margin-top:3rem; border-top:1px solid #4c365d30; padding-top:1.5rem; }
 .notebook-bottom > span { font:400 1.5rem/1.2 var(--font-family-personal); }
@@ -154,7 +154,7 @@
 }
 
 .notebook-masthead { align-items:center; flex-wrap:wrap; }
-.notebook-masthead__meta { display:flex; align-items:center; gap:.85rem; color:var(--text-secondary); font:700 .75rem/1.5 var(--font-family-display); letter-spacing:.19em; text-transform:uppercase; }
+.notebook-masthead__meta { display:flex; align-items:center; gap:.85rem; color:var(--text-secondary); font:700 .75rem/1.5 var(--font-family-body); letter-spacing:.19em; text-transform:uppercase; }
 .notebook-masthead__meta > span:last-child { color:var(--color-lavender-500); font-size:1rem; letter-spacing:0; }
 @media(max-width:560px) { .notebook-masthead__meta { font-size:.65rem; gap:.65rem; letter-spacing:.12em; } }
 
@@ -165,3 +165,15 @@
 .observations-notebook .notebook-signup:hover{transform:none}
 .observations-notebook .notebook-signup::before,.observations-notebook .notebook-signup::after{display:none}
 .observations-notebook .notebook-signup { background:linear-gradient(135deg,#ffffff8c,#f3ecff55 55%,#ffffff45); border:1px solid #ffffffc7; box-shadow:inset 0 1px #fff, 0 8px 20px #4938581a; -webkit-backdrop-filter:blur(18px) saturate(125%);backdrop-filter:blur(18px) saturate(125%); }
+
+/* Breathing room on the latest-observation card (desktop and tablet). */
+@media(min-width:981px) {
+ .notebook-cover > a { padding:clamp(1.5rem,2.8vw,2.75rem) clamp(1.25rem,2.4vw,2.5rem); }
+ .notebook-cover h3 { margin:2.4rem 0 2.25rem; }
+ .notebook-cover .notebook-cover__excerpt { padding:1.6rem 1.9rem; }
+ .notebook-cover footer { margin-top:2.5rem; }
+}
+@media(min-width:381px) and (max-width:980px) {
+ .notebook-cover > a { padding:1.25rem .9rem; }
+ .notebook-cover h3 { margin:2rem 0 1.75rem; }
+}

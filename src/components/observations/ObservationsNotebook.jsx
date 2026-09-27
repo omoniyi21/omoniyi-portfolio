@@ -32,7 +32,7 @@ function SignupNote() {
 export default function ObservationsNotebook() {
   const [latest, ...recent] = getPublishedObservations().slice(0, 3);
   return <section className="observations-notebook" id="observations" aria-labelledby="notebook-title">
-    <header className="notebook-masthead"><div className="notebook-masthead__meta"><span>02</span><span>From my notebook</span><span aria-hidden="true">✦</span></div><span>Thinking out loud <i aria-hidden="true">✦</i></span></header>
+    <header className="notebook-masthead"><div className="notebook-masthead__meta"><span>02</span><span>From my notebook</span><span aria-hidden="true">✦</span></div></header>
     <div className="notebook-page">
       <div className="notebook-top">
         <header className="notebook-heading"><p className="notebook-label">Notes on design & being a person</p><h2 id="notebook-title">Observations</h2><p>Things I notice. Things I’m still figuring out.</p><Link className="notebook-heading__all" to="/observations">See all Observations <span aria-hidden="true">↗</span></Link></header>

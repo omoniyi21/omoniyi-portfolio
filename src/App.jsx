@@ -51,6 +51,7 @@ export default function App() {
         <Route path="/copyright-accounting" element={<ProjectCaseStudy study={caseStudies.accounting} />} />
         <Route path="/portfolio-ecosystem" element={<ProjectCaseStudy study={caseStudies.portfolio} />} />
         <Route path="/wedding-identity" element={<ProjectCaseStudy study={caseStudies.wedding} />} />
+        <Route path="/sultry-tips" element={<ProjectCaseStudy study={caseStudies.sultry} />} />
         <Route path="/library-of-congress" element={<ProjectCaseStudy study={caseStudies.libraryOfCongress} />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
