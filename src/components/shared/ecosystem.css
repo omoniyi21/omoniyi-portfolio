@@ -1,5 +1,6 @@
-.ecosystem-signature{display:flex;align-items:baseline;gap:.55rem;white-space:nowrap;color:inherit;line-height:1.2}
-.ecosystem-signature .ecosystem-wordmark{color:inherit;font-family:var(--font-family-display);font-size:1.7rem;font-weight:600;letter-spacing:-.08em;text-decoration:none}
+.ecosystem-signature{display:flex;align-items:flex-end;white-space:nowrap;color:inherit;line-height:1;--mark-zoom:.8}
+.ecosystem-signature--ui{--mark-zoom:.7}
+.ecosystem-signature .ecosystem-wordmark{display:inline-block;color:inherit;text-decoration:none;zoom:var(--mark-zoom)}
 .ecosystem-divider{opacity:.4;font-size:1rem}
 .ecosystem-space{font-size:.85rem;font-weight:400;letter-spacing:.01em}
 .ecosystem-signature--studio .ecosystem-space{font-family:var(--studio-serif);font-style:italic;font-size:1rem}
@@ -11,4 +12,4 @@
 .ecosystem-dot{opacity:.4;margin-inline:.4rem}
 .ecosystem-wordmark:focus-visible,.ecosystem-switcher a:focus-visible{outline:2px solid currentColor;outline-offset:4px;border-radius:2px}
 .ecosystem-lockup{display:flex;flex-direction:column;gap:.1rem;flex-shrink:0}
-@media(max-width:400px){.ecosystem-signature{gap:.4rem}.ecosystem-signature .ecosystem-wordmark{font-size:1.5rem}.ecosystem-space{font-size:.78rem}}
+@media(max-width:400px){.ecosystem-signature{--mark-zoom:.68}.ecosystem-signature--ui{--mark-zoom:.6}}
