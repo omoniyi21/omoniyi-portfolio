@@ -19,6 +19,7 @@
 }
 
 .personal-effects__meta {
+  font-family: var(--font-family-body);
   display: flex;
   gap: 1rem;
   color: rgb(66 60 88 / 72%);

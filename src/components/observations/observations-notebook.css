@@ -1,5 +1,5 @@
 .observations-notebook { width:100%; padding:3rem 0 4rem; color:var(--text-primary); }
-.notebook-masthead { display:flex; justify-content:space-between; gap:1rem; padding:0 .4rem 1.5rem; font:700 .7rem/1.5 var(--font-family-display); letter-spacing:.16em; text-transform:uppercase; }
+.notebook-masthead { display:flex; justify-content:space-between; gap:1rem; padding:0 .4rem 1.5rem; font:700 .7rem/1.5 var(--font-family-body); letter-spacing:.16em; text-transform:uppercase; }
 .notebook-masthead i { color:var(--color-lavender-500); margin-left:1rem; }
 /* Section index — matches the "02 Personal Effects" / "03 Write me" number
    treatment used further down the home page, so the sequence reads 01, 02,
@@ -154,7 +154,7 @@
 }
 
 .notebook-masthead { align-items:center; flex-wrap:wrap; }
-.notebook-masthead__meta { display:flex; align-items:center; gap:.85rem; color:var(--text-secondary); font:700 .75rem/1.5 var(--font-family-display); letter-spacing:.19em; text-transform:uppercase; }
+.notebook-masthead__meta { display:flex; align-items:center; gap:.85rem; color:var(--text-secondary); font:700 .75rem/1.5 var(--font-family-body); letter-spacing:.19em; text-transform:uppercase; }
 .notebook-masthead__meta > span:last-child { color:var(--color-lavender-500); font-size:1rem; letter-spacing:0; }
 @media(max-width:560px) { .notebook-masthead__meta { font-size:.65rem; gap:.65rem; letter-spacing:.12em; } }
 

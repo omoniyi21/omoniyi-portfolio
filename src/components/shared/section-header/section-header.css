@@ -72,6 +72,8 @@
 
 .section-header__meta{
 
+    font-family:var(--font-family-body);
+
     display:flex;
 
     align-items:center;
