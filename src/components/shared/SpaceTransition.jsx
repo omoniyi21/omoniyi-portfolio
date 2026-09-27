@@ -2,6 +2,14 @@ import { createContext, useCallback, useContext, useEffect, useRef, useState } f
 import { Link, useNavigate } from "react-router-dom";
 import { isMotionReduced } from "../../lib/motionPreference";
 import "./space-transition.css";
+import wordPro from "../../assets/branding/marks/omoniyi..svg";
+import noteAlimi from "../../assets/branding/marks/alimi.svg";
+import wordStudioSmall from "../../assets/branding/marks/studio.svg";
+import wordStudio from "../../assets/branding/marks/custom-font-frances.svg";
+import wordUiDark from "../../assets/branding/marks/omoniyi-ui.svg";
+import wordUiLight from "../../assets/branding/marks/omoniyi-ui-white.svg";
+import tagUiBlack from "../../assets/branding/marks/omoniyiui-black-square.svg";
+import tagUiLavender from "../../assets/branding/marks/omoniyiui-lav-square.svg";
 
 // One transition grammar for every jump between the site's three spaces
 // (Portfolio / Studio / UI Kit): a curtain in the destination's colour rises
@@ -18,7 +26,7 @@ const MARK_VARIANT = { portfolio: "light", studio: "light", ui: "dark" };
 
 const COVER_MS = 560; // curtain rise (matches the CSS transition)
 const FLASH_START_MS = 280; // marks start flashing as the curtain nears the top
-const FLASH_STEPS_MS = [85, 85, 95, 110, 135]; // gaps between six beats; slows into the landing
+const FLASH_STEPS_MS = [190, 190, 210, 240, 280]; // gaps between six beats; slows into the landing
 const HOLD_MS = 440; // time the landed mark is held before the curtain lifts
 const REVEAL_MS = 620; // curtain lift (matches the CSS transition)
 
@@ -28,16 +36,18 @@ function flashSequence(target) {
   return Array.from({ length: 6 }, (_, i) => SPACES[(start + i) % SPACES.length]);
 }
 
+// Single-colour wordmarks are drawn as CSS masks so each can take the tile's
+// ink colour (light and dark variants from one file). Multi-colour pieces
+// (the lavender "alimi" note, the ui tags) are used as-is.
+function Glyph({ src, w, h, className = "" }) {
+  return <span className={`space-mark__glyph ${className}`} style={{ "--glyph": `url("${src}")`, width: w, height: h }} />;
+}
+
 function ProfessionalMark({ variant }) {
   return (
     <div className={`space-mark space-mark--pro space-mark--${variant}`}>
-      <span className="space-mark__pro-word">omoniyi.</span>
-      <span className="space-mark__pro-note">
-        alimi
-        <svg viewBox="0 0 44 8" width="44" height="8" aria-hidden="true">
-          <path d="M1.5 6.2C11 2.6 25 1.4 42.5 2.4" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-        </svg>
-      </span>
+      <Glyph src={wordPro} w={139} h={36} />
+      <img className="space-mark__pro-note" src={noteAlimi} width="49" height="36" alt="" />
     </div>
   );
 }
@@ -45,17 +55,18 @@ function ProfessionalMark({ variant }) {
 function StudioMark({ variant }) {
   return (
     <div className={`space-mark space-mark--studio space-mark--${variant}`}>
-      <span className="space-mark__studio-small">studio</span>
-      <span className="space-mark__studio-word">OMONIYI</span>
+      <Glyph src={wordStudioSmall} w={53} h={15} className="space-mark__studio-small" />
+      <Glyph src={wordStudio} w={148} h={32} />
     </div>
   );
 }
 
 function UIMark({ variant }) {
+  const light = variant === "light";
   return (
     <div className={`space-mark space-mark--ui space-mark--${variant}`}>
-      <span className="space-mark__ui-word">omoniyi.</span>
-      <span className="space-mark__ui-tag">ui</span>
+      <img src={light ? wordUiDark : wordUiLight} width="170" height="44" alt="" />
+      <img src={light ? tagUiBlack : tagUiLavender} width="55" height="55" alt="" />
     </div>
   );
 }
