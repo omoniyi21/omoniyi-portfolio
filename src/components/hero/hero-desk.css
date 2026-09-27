@@ -95,6 +95,7 @@
    note, clipped to the sheet's own bounds by .desk-surface's
    overflow:hidden above */
 .hero-dust {
+    opacity: .72;
     position: absolute;
     inset: 0;
     width: 100%;

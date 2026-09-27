@@ -86,7 +86,7 @@
   font-family: var(--font-family-display);
   font-size: clamp(3.5rem, 7vw, 6.75rem);
   font-weight: 600;
-  letter-spacing: -.08em;
+  letter-spacing: -.024em;
   line-height: .94;
   margin: 0;
 }

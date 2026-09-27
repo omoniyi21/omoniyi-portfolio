@@ -6,6 +6,8 @@
   min-height: 5.5rem;
   padding: 1.5rem 2rem;
   position: relative;
+  /* Plain paper: covers the page grid behind the footer. */
+  background: var(--background-page);
 }
 
 .site-footer p {
