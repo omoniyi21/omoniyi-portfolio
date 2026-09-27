@@ -1,4 +1,5 @@
 import BrandSignature from "../components/shared/BrandSignature";
+import { BrandMark } from "../components/shared/BrandMarks";
 import SpaceSwitcher from "../components/shared/SpaceSwitcher";
 import { trackEvent } from "../lib/analytics";
 import { useEffect, useRef, useState } from "react";
@@ -141,7 +142,7 @@ export default function UIKit() {
       <section className="oui-faq oui-section"><div className="oui-container oui-faq-grid" data-reveal><h2>A few things<br />you might<br className="oui-desktop-break" /> be wondering.</h2><div>{[["Where do I start?", "Start with LaunchKit Free on Figma Community. Explore the foundations, then adapt them to your next idea."], ["Is LaunchKit Pro available?", "Pro is in the making. Join the release list for an update when it’s ready. The planned founding price is $49."], ["Can I make it feel like my brand?", "That’s the idea. Use the editable components and shared styles as a starting point, then shape the details around your product."]].map(([question, answer]) => <article key={question}><h3>{question}</h3><p>{answer}</p></article>)}</div></div></section>
       <section className="oui-closing oui-section"><div className="oui-container" data-reveal><h2>Make room for your next good idea.</h2><FreeLink /><p className="oui-small">Start small. Make it yours.</p></div></section>
     </main>
-    <footer className="oui-footer oui-container"><Link className="oui-wordmark" to="/uikit">✦ Omoniyi UI</Link><Link to="/">Portfolio ↗</Link><a href={FREE_KIT} target="_blank" rel="noopener noreferrer">Figma Community ↗</a><span>Made with care in Dallas, TX</span></footer>
+    <footer className="oui-footer oui-container"><Link className="oui-wordmark" to="/uikit" aria-label="Omoniyi UI home"><BrandMark space="ui" /></Link><Link to="/">Portfolio ↗</Link><a href={FREE_KIT} target="_blank" rel="noopener noreferrer">Figma Community ↗</a><span>Made with care in Dallas, TX</span></footer>
     {showRelease && <ReleaseDialog onClose={() => setShowRelease(false)} />}
   </div>;
 }

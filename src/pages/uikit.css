@@ -116,6 +116,7 @@
 .oui-edition-note { margin-top: auto; }
 .oui-page .oui-collection-note { margin-top: 32px; }
 .oui-maker { background: #171717; color: #fff; }
+.oui-page .oui-maker h2 { color: #fff; }
 .oui-maker-grid { display: grid; grid-template-columns: 190px minmax(0, 1fr); gap: 64px; }
 .oui-maker-star { color: var(--oui-accent); font-size: 76px; line-height: 1.025; }
 .oui-maker-grid > div { display: flex; flex-direction: column; gap: 24px; }

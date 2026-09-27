@@ -924,6 +924,18 @@ html[data-motion="reduce"] .studio-work__track { transition: none; }
   object-fit: cover;
 }
 
+.studio-work-card__badge:not(.studio-work-card__badge--sultry-tips) { background: #fff; }
+.studio-work-card__badge:not(.studio-work-card__badge--sultry-tips) img { object-fit: contain; }
+.studio-work-card__badge.studio-work-card__badge--house { position: relative; background: #18354b; }
+.studio-work-card__badge--house img {
+  position: absolute;
+  width: 90%;
+  height: auto;
+  left: 5%;
+  top: 35.75%;
+  clip-path: inset(0 0 50% 0);
+}
+
 .studio-work-card__monogram {
   font-family: var(--studio-serif);
   font-size: 0.85rem;

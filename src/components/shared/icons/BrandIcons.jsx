@@ -1,5 +1,5 @@
 // Lucide (this project's icon set) intentionally omits brand/social marks,
-// so GitHub and Pinterest are hand-drawn here as small inline SVGs instead.
+// so social marks are rendered here as small inline SVGs instead.
 
 export function GithubIcon({ size = 18, ...props }) {
   return (
@@ -13,6 +13,14 @@ export function PinterestIcon({ size = 18, ...props }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
       <path d="M12 .5C5.7.5.5 5.6.5 12c0 4.9 3 9.1 7.4 10.8-.1-.9-.2-2.3 0-3.3.2-.9 1.4-5.7 1.4-5.7s-.3-.7-.3-1.7c0-1.6.9-2.8 2.1-2.8 1 0 1.5.7 1.5 1.6 0 1-.6 2.5-1 3.9-.3 1.1.6 2.1 1.7 2.1 2.1 0 3.6-2.7 3.6-5.8 0-2.4-1.6-4.2-4.5-4.2-3.3 0-5.4 2.5-5.4 5.2 0 .9.3 1.6.7 2.1.2.2.2.3.1.6-.1.2-.2.7-.2.9-.1.3-.3.4-.6.3-1.5-.6-2.2-2.3-2.2-4.2 0-3.1 2.6-6.9 7.9-6.9 4.2 0 7 3 7 6.3 0 4.3-2.4 7.6-6 7.6-1.2 0-2.3-.7-2.7-1.4l-.7 2.9c-.2.9-.7 1.9-1.1 2.6.8.2 1.7.4 2.6.4 6.3 0 11.5-5.1 11.5-11.5C23.5 5.6 18.3.5 12 .5Z" />
+    </svg>
+  );
+}
+
+export function LinkedInIcon({ size = 18, ...props }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
+      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.049c.476-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286ZM5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124ZM7.119 20.452H3.555V9h3.564v11.452ZM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003Z" />
     </svg>
   );
 }
