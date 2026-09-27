@@ -5,14 +5,14 @@ import { portfolioStudies } from '../data/caseStudies';
 import { cardTints } from '../data/cardTints';
 import './work.css';
 
-const covers = ['house-dashboard', 'loc-users', 'payments-legacy', 'usda-admin', 'athletico-overview', 'wedding-emblem-cream', 'portfolio-hiring'];
+const covers = ['house-dashboard', 'loc-users', 'payments-legacy', 'usda-admin', 'athletico-overview', 'wedding-emblem-cream', 'portfolio-hiring', 'sultry-hero'];
 
 export default function Work() {
   const navigate = useNavigate();
   return (
     <main className="work-page">
       <section className="work-page__header">
-        <p>Selected work / 07 <span>✦</span></p>
+        <p>Selected work / {String(portfolioStudies.length).padStart(2, '0')} <span>✦</span></p>
         <h1>Systems made <em>navigable.</em></h1>
         <p>I design digital products that make complex work feel clear, useful, and human, and the design systems that keep them consistent.</p>
       </section>
@@ -52,7 +52,7 @@ export default function Work() {
       </section>
       <Link className="work-archive" to="/visual">
         <span className="work-archive__meta">Also / Visual &amp; illustration <b aria-hidden="true">✦</b></span>
-        <strong>Illustration, lettering, and brand graphics from OMDesigns</strong>
+        <strong>Illustration, custom lettering, and brand identity</strong>
         <ArrowUpRight aria-hidden="true" />
       </Link>
     </main>
