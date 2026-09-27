@@ -1,6 +1,7 @@
 import "./footer.css";
 import SleepingStardust from "../../../assets/branding/sd-variants/sd-sleeping.png";
-import { GithubIcon, PinterestIcon } from "../icons/BrandIcons";
+import { GithubIcon, PinterestIcon, LinkedInIcon } from "../icons/BrandIcons";
+import { contact } from "../../../data/resume";
 import MotionToggle from "../MotionToggle";
 
 const PINTEREST_URL = "https://www.pinterest.com/omoniyi21/product-design-ui-omoniyi/";
@@ -12,6 +13,9 @@ export default function Footer() {
       <div className="site-footer__left">
       <div className="site-footer__issue">
         <div className="site-footer__social" aria-label="Social links">
+          <a href={contact.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+            <LinkedInIcon size={15} />
+          </a>
           <a href={PINTEREST_URL} target="_blank" rel="noreferrer" aria-label="Pinterest">
             <PinterestIcon size={15} />
           </a>

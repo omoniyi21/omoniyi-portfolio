@@ -106,6 +106,7 @@ const WORK = [
   },
   {
     id: "athletico",
+    logo: "/studio-logos/athletico.webp",
     label: "Healthcare",
     title: "Patient onboarding, reimagined.",
     outcome: "Clearer onboarding and appointment access for Athletico’s patient portal.",
@@ -397,7 +398,7 @@ function Process() {
 function LogoBadge({ id, logo, monogram }) {
   const [failed, setFailed] = useState(false);
   return (
-    <span className="studio-work-card__badge" aria-hidden="true">
+    <span className={`studio-work-card__badge studio-work-card__badge--${id}`} aria-hidden="true">
       {failed ? (
         <span className="studio-work-card__monogram">{monogram}</span>
       ) : (
