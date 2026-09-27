@@ -83,7 +83,7 @@
 .home-journal .hero-journal::after { left:calc(-3% - .47rem); top:.05rem; }
 .hero-journal .hero__main { min-height:clamp(34rem,40vw,43rem); padding:6rem 0 2.5rem; grid-template-columns:48% 52%; align-items:start; }
 .hero-journal__name { top:-6rem; font-size:.8125rem; letter-spacing:.24em; }
-.hero-journal .hero__eyebrow { font-size:.875rem; letter-spacing:.23em; margin-bottom:1.7rem; }
+.hero-journal .hero__eyebrow { font-family:var(--font-family-body); font-weight:500; font-size:.875rem; letter-spacing:.23em; margin-bottom:1.7rem; }
 .hero-journal .hero__eyebrow-star { display:none; }
 .hero-journal .hero__title { font-family:var(--font-family-display); font-weight:600; font-size:clamp(2.976rem,4.848vw,5.136rem); letter-spacing:-.011em; line-height:.94; }
 .hero-journal .hero__description { font-size:clamp(1.1rem,1.5vw,1.55rem); line-height:1.4; margin-top:1.4rem; max-width:40rem; color:#726b78; }
