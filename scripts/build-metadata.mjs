@@ -1,5 +1,5 @@
 import { readFile, writeFile, mkdir, access } from 'node:fs/promises';
-import { pageMetadata, getPageMetadata, metadataTags } from '../src/data/pageMetadata.js';
+import { pageMetadata, getPageMetadata, metadataTags, faviconFor } from '../src/data/pageMetadata.js';
 
 const escape = value => value.replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
 const template = (await readFile('dist/index.html', 'utf8'))
@@ -13,7 +13,8 @@ for (const route of [...Object.keys(pageMetadata), '/uikits']) {
   const preload = route === '/work' ? '<link rel="preload" as="image" href="/case-studies/house-dashboard.webp" fetchpriority="high" />' : '';
   const directory = `dist${route === '/' ? '' : route}`;
   await mkdir(directory, { recursive: true });
-  await writeFile(`${directory}/index.html`, template.replace('</head>', `${head}\n${preload}\n</head>`));
+  const html = template.replaceAll('/favicons/portfolio.svg', faviconFor(route));
+  await writeFile(`${directory}/index.html`, html.replace('</head>', `${head}\n${preload}\n</head>`));
 }
 console.log(`Generated metadata for ${Object.keys(pageMetadata).length + 1} routes.`);
 

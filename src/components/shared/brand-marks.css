@@ -1,0 +1,57 @@
+/* ---------- Marks (sizes from the Figma brand sheet, at 1x) ---------- */
+.space-mark {
+  box-sizing: border-box;
+  border-radius: 20px;
+  border: 1px solid transparent;
+  box-shadow: 0 6px 9px rgba(17, 17, 17, 0.05), 0 1px 1px rgba(17, 17, 17, 0.04);
+}
+.space-mark img { display: block; }
+
+.space-mark__glyph {
+  display: block;
+  background-color: currentColor;
+  -webkit-mask: var(--glyph) center / contain no-repeat;
+  mask: var(--glyph) center / contain no-repeat;
+}
+
+/* 01 — The Professional: margin note */
+.space-mark--pro {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 20px;
+}
+.space-mark__pro-note { margin-top: 2px; margin-right: -4px; }
+.space-mark--pro.space-mark--light { background: #fffad6; color: #111111; }
+.space-mark--pro.space-mark--dark { background: #111111; color: #fffad6; }
+
+/* 02 — The Engine: studio / OMONIYI */
+.space-mark--studio {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 18px 20px 20px;
+}
+.space-mark--studio.space-mark--light { background: #ffffff; border-color: #f7f4fd; color: #000000; }
+.space-mark--studio.space-mark--dark { background: #801919; border-color: #590000; color: #fcf6ee; }
+
+/* 03 — The Foundations: omoniyi. + ui tag */
+.space-mark--ui {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 20px;
+}
+.space-mark--ui.space-mark--light { background: #d9b8f3; border-color: #f7f4fd; }
+.space-mark--ui.space-mark--dark { background: #111111; }
+
+/* Bare: the untiled lockup for page headers — no tile, inherits ink colour */
+.space-mark--bare {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: none;
+  color: inherit;
+}
