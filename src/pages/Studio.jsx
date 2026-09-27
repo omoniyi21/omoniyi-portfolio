@@ -55,6 +55,7 @@ const TIERS = [
       "Responsive design",
       "Interactive prototype",
       "Mini component system",
+      "Logo & visual identity (add-on)",
     ],
     timeline: "~ 2–4 weeks",
     tone: "tint",
@@ -89,6 +90,15 @@ const PROCESS = [
 
 const WORK = [
   {
+    label: "Brand Identity",
+    title: "A nail brand without the clichés.",
+    outcome: "Custom lettering for a Carrollton nail artist, still her mark two years later.",
+    logoMark: "Sultry Tips",
+    logoSub: "Nail artist · Carrollton, TX",
+    image: "/case-studies/sultry-hero.webp",
+    to: "/sultry-tips",
+  },
+  {
     label: "Healthcare",
     title: "Patient onboarding, reimagined.",
     outcome: "Clearer onboarding and appointment access for Athletico’s patient portal.",
@@ -122,7 +132,7 @@ const LAUNCHKIT_SWATCHES = ["cream", "oxblood", "tint", "ink", "chrome"];
 // The organizations Omoniyi Studio has actually delivered for — the names
 // a prospective client recognizes and cares about, not the staffing
 // vehicles behind the government placements.
-const STUDIO_CLIENTS = ["USDA", "Library of Congress", "Athletico", "Birthright Africa"];
+const STUDIO_CLIENTS = ["USDA", "Library of Congress", "Athletico", "Birthright Africa", "Sultry Tips"];
 
 function StudioNav() {
   return (
@@ -362,7 +372,7 @@ function Process() {
   );
 }
 
-function WorkCard({ label, title, outcome, logoMark, logoSub, frameTone, to }) {
+function WorkCard({ label, title, outcome, logoMark, logoSub, frameTone, image, to }) {
   const [hovered, setHovered] = useState(false);
   const frameClassName =
     frameTone && frameTone !== "light"
@@ -376,10 +386,21 @@ function WorkCard({ label, title, outcome, logoMark, logoSub, frameTone, to }) {
       onMouseLeave={() => setHovered(false)}
     >
       <div className={frameClassName}>
-        <div className="studio-work-card__logo" style={{ transform: hovered ? "scale(1.04)" : "scale(1)" }}>
-          <span className="studio-work-card__logo-mark">{logoMark}</span>
-          <span className="studio-work-card__logo-sub">{logoSub}</span>
-        </div>
+        {image ? (
+          <img
+            className="studio-work-card__image"
+            src={image}
+            alt={`${logoMark}: ${logoSub}`}
+            loading="lazy"
+            decoding="async"
+            style={{ transform: hovered ? "scale(1.04)" : "scale(1)" }}
+          />
+        ) : (
+          <div className="studio-work-card__logo" style={{ transform: hovered ? "scale(1.04)" : "scale(1)" }}>
+            <span className="studio-work-card__logo-mark">{logoMark}</span>
+            <span className="studio-work-card__logo-sub">{logoSub}</span>
+          </div>
+        )}
         <div className="studio-work-card__overlay" data-hovered={hovered}>
           <p>{title}</p>
         </div>
