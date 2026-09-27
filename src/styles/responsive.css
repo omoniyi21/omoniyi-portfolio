@@ -194,9 +194,6 @@
   }
 
   body,
-  .about-page::before,
-  .observations-page::before,
-  .observation-post::before,
   .personal-effects__spread::before,
   .contact-form::before {
     background-size: 1.125rem 1.125rem;
