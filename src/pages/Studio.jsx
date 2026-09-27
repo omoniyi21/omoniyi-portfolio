@@ -2,9 +2,9 @@ import BrandSignature from "../components/shared/BrandSignature";
 import SpaceSwitcher from "../components/shared/SpaceSwitcher";
 import studioHeroWindow from "../assets/images/studio-hero/window-table.jpg";
 import studioHeroCoffee from "../assets/images/studio-hero/coffee.jpg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, ArrowDown, Check } from "lucide-react";
+import { ArrowRight, ArrowLeft, ArrowDown, Check } from "lucide-react";
 
 import Button from "../components/shared/button/Button";
 import "./studio.css";
@@ -55,6 +55,7 @@ const TIERS = [
       "Responsive design",
       "Interactive prototype",
       "Mini component system",
+      "Logo & visual identity (add-on)",
     ],
     timeline: "~ 2–4 weeks",
     tone: "tint",
@@ -87,33 +88,65 @@ const PROCESS = [
   { n: "04", title: "Improve", desc: "We measure, learn and continue to make it better." },
 ];
 
+// Studio's Selected Work slider. `cover` is the case-study screenshot shown
+// in the card; the round badge shows /studio-logos/<id>.png (or `logo`)
+// and falls back to a monogram until that file exists.
 const WORK = [
   {
+    id: "sultry-tips",
+    label: "Brand Identity",
+    title: "A nail brand without the clichés.",
+    outcome: "Custom lettering for a Carrollton nail artist, still her mark two years later.",
+    logoMark: "Sultry Tips",
+    logoSub: "Nail artist · Carrollton, TX",
+    cover: "sultry-hero",
+    logo: "/studio-logos/sultry-tips.webp",
+    monogram: "ST",
+    to: "/sultry-tips",
+  },
+  {
+    id: "athletico",
     label: "Healthcare",
     title: "Patient onboarding, reimagined.",
     outcome: "Clearer onboarding and appointment access for Athletico’s patient portal.",
     logoMark: "Athletico",
     logoSub: "Physical Therapy",
-    frameTone: "light",
+    cover: "athletico-overview",
+    monogram: "A",
     to: "/athletico",
   },
   {
+    id: "library-of-congress",
     label: "Enterprise Systems",
     title: "One shared interaction language.",
     outcome: "A unified UX architecture across the U.S. Copyright Office’s product ecosystem.",
     logoMark: "Library of Congress",
     logoSub: "U.S. Copyright Office",
-    frameTone: "tint",
+    cover: "loc-users",
+    monogram: "LC",
     to: "/library-of-congress",
   },
   {
+    id: "house",
     label: "User Research",
     title: "Complexity made navigable.",
     outcome: "18+ interviews shaped a new committee-voting platform for the U.S. House.",
     logoMark: "U.S. House of Representatives",
     logoSub: "Committee Voting Platform",
-    frameTone: "chrome",
+    cover: "house-dashboard",
+    monogram: "H",
     to: "/house",
+  },
+  {
+    id: "usda",
+    label: "Government",
+    title: "One theme, many applications.",
+    outcome: "A reusable, accessible theme connecting specialized workflows across USDA NASS applications.",
+    logoMark: "USDA",
+    logoSub: "National Agricultural Statistics Service",
+    cover: "usda-admin",
+    monogram: "U",
+    to: "/usda",
   },
 ];
 
@@ -122,7 +155,7 @@ const LAUNCHKIT_SWATCHES = ["cream", "oxblood", "tint", "ink", "chrome"];
 // The organizations Omoniyi Studio has actually delivered for — the names
 // a prospective client recognizes and cares about, not the staffing
 // vehicles behind the government placements.
-const STUDIO_CLIENTS = ["USDA", "Library of Congress", "Athletico", "Birthright Africa"];
+const STUDIO_CLIENTS = ["USDA", "Library of Congress", "Athletico", "Birthright Africa", "Sultry Tips"];
 
 function StudioNav() {
   return (
@@ -199,7 +232,6 @@ function Hero() {
               src={studioHeroWindow}
               alt=""
             />
-            <span className="studio-hero__slide-count">0 / 5</span>
           </div>
 
           <div className="studio-hero__collage-side">
@@ -362,27 +394,49 @@ function Process() {
   );
 }
 
-function WorkCard({ label, title, outcome, logoMark, logoSub, frameTone, to }) {
+function LogoBadge({ id, logo, monogram }) {
+  const [failed, setFailed] = useState(false);
+  return (
+    <span className="studio-work-card__badge" aria-hidden="true">
+      {failed ? (
+        <span className="studio-work-card__monogram">{monogram}</span>
+      ) : (
+        <img src={logo || `/studio-logos/${id}.png`} alt="" onError={() => setFailed(true)} />
+      )}
+    </span>
+  );
+}
+
+function WorkCard({ id, label, title, outcome, logoMark, logoSub, cover, logo, monogram, to, hidden }) {
   const [hovered, setHovered] = useState(false);
-  const frameClassName =
-    frameTone && frameTone !== "light"
-      ? `studio-work-card__frame studio-work-card__frame--${frameTone}`
-      : "studio-work-card__frame";
   return (
     <Link
       to={to}
       className="studio-work-card"
+      aria-hidden={hidden || undefined}
+      tabIndex={hidden ? -1 : undefined}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <div className={frameClassName}>
-        <div className="studio-work-card__logo" style={{ transform: hovered ? "scale(1.04)" : "scale(1)" }}>
-          <span className="studio-work-card__logo-mark">{logoMark}</span>
-          <span className="studio-work-card__logo-sub">{logoSub}</span>
-        </div>
+      <div className="studio-work-card__frame">
+        <img
+          className="studio-work-card__shot"
+          src={`/case-studies/${cover}.webp`}
+          alt=""
+          loading="lazy"
+          decoding="async"
+          style={{ transform: hovered ? "scale(1.03)" : "scale(1)" }}
+        />
         <div className="studio-work-card__overlay" data-hovered={hovered}>
           <p>{title}</p>
         </div>
+      </div>
+      <div className="studio-work-card__brand">
+        <LogoBadge id={id} logo={logo} monogram={monogram} />
+        <span>
+          <span className="studio-work-card__logo-mark">{logoMark}</span>
+          <span className="studio-work-card__logo-sub">{logoSub}</span>
+        </span>
       </div>
       <p className="studio-work-card__label">{label}</p>
       <p className="studio-work-card__outcome">{outcome}</p>
@@ -390,7 +444,26 @@ function WorkCard({ label, title, outcome, logoMark, logoSub, frameTone, to }) {
   );
 }
 
+// Three cards on desktop, one on narrower screens.
+function usePerView() {
+  const query = "(max-width: 980px)";
+  const [perView, setPerView] = useState(() =>
+    typeof window !== "undefined" && window.matchMedia(query).matches ? 1 : 3
+  );
+  useEffect(() => {
+    const mq = window.matchMedia(query);
+    const update = () => setPerView(mq.matches ? 1 : 3);
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+  return perView;
+}
+
 function SelectedWork() {
+  const perView = usePerView();
+  const [index, setIndex] = useState(0);
+  const maxIndex = Math.max(0, WORK.length - perView);
+  const current = Math.min(index, maxIndex);
   return (
     <section className="studio-section" id="work">
       <div className="studio-section__row">
@@ -407,12 +480,22 @@ function SelectedWork() {
           <Link to="/visual" className="studio-text-link">
             Visual &amp; Illustration <ArrowRight size={14} strokeWidth={1.8} aria-hidden="true" />
           </Link>
+          <div className="studio-work__controls">
+            <button type="button" onClick={() => setIndex(current - 1)} disabled={current === 0} aria-label="Previous project">
+              <ArrowLeft size={16} strokeWidth={1.8} aria-hidden="true" />
+            </button>
+            <button type="button" onClick={() => setIndex(current + 1)} disabled={current >= maxIndex} aria-label="Next project">
+              <ArrowRight size={16} strokeWidth={1.8} aria-hidden="true" />
+            </button>
+          </div>
         </div>
 
-        <div className="studio-work__grid">
-          {WORK.map((item) => (
-            <WorkCard key={item.label} {...item} />
-          ))}
+        <div className="studio-work__viewport">
+          <div className="studio-work__track" style={{ "--i": current }}>
+            {WORK.map((item, i) => (
+              <WorkCard key={item.id} {...item} hidden={i < current || i >= current + perView} />
+            ))}
+          </div>
         </div>
       </div>
     </section>
