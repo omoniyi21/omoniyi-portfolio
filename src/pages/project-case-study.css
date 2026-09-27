@@ -38,3 +38,6 @@
 .study-clip__toggle{position:absolute;right:.75rem;bottom:.75rem;min-height:36px;padding:0 .9rem;border-radius:99px;border:1px solid #17151d26;background:#fffdf4e6;font:600 .72rem var(--font-family-display);cursor:pointer}
 .study-clip__toggle:focus-visible{outline:3px solid #80558c;outline-offset:3px}
 .visually-hidden{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* Let the portrait brand sheet remain readable within this case study. */
+.portfolio-study--portfolio-ecosystem .study-evidence img[src*="portfolio-brand-system"] { max-height: 64rem; }

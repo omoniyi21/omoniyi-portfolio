@@ -7,6 +7,7 @@
 .observation-card__topline, .observation-card__footer { align-items: center; display: flex; font: 700 .66rem/1 var(--font-family-display); justify-content: space-between; letter-spacing: .18em; position: relative; text-transform: uppercase; }
 .observation-card__topline { border-bottom: 1px solid rgb(34 30 44 / 15%); color: var(--text-secondary); padding-bottom: 1rem; }
 .observation-card__body { align-self: center; max-width: 58rem; position: relative; }
+.observation-card__body { padding-block: clamp(1.5rem, 3vw, 2.5rem); }
 .observation-card__issue { color: var(--color-pink-500); font: 500 1rem/1.35 var(--font-family-personal); margin: 0 0 1.15rem; max-width: 44ch; }
 .observation-card h2 { font: 700 clamp(2.5rem, 5.6vw, 5.8rem)/.92 var(--font-family-display); letter-spacing: -.022em; margin: 0; max-width: 15ch; }
 .observation-card__excerpt { color: var(--text-secondary); font: 400 clamp(1rem, 1.5vw, 1.25rem)/1.45 var(--font-family-body); margin: 1.5rem 0 0; max-width: 48ch; }
