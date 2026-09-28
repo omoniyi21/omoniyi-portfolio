@@ -65,11 +65,25 @@ const notes = {
 
 // Add posts here and deploy; publishedAt controls ordering. The original date is month-only.
 const padmeParts = padmeSource.trim().split(/\n\s*\n/);
+const padmeMedia = [
+ { anchor: "(I’m late to the party, I know.)", file: "aretha.gif", alt: "Aretha Franklin arriving with her handbag", width: 281, height: 258 },
+ { anchor: "It’s…the headdresses.", file: "headdresses.png", alt: "A collage of Queen Amidala’s elaborate headdresses and ceremonial gowns", width: 675, height: 1200 },
+ { anchor: "There is sensuality.", file: "dress.png", alt: "Padmé in a flowing pastel dress overlooking the lake on Naboo", width: 736, height: 1125 },
+ { anchor: "We meet her saturated in power and we lose her surrounded by softness.", file: "funeral.png", alt: "Padmé in her blue funeral gown surrounded by flowers", width: 468, height: 650 },
+ { anchor: "Pregnancy also changes the way Padmé's wardrobe communicates her sensuality.", before: true, file: "pregnancy.png", alt: "Padmé wearing a full-length green velvet gown with a purple sash", width: 736, height: 1036 },
+];
+const padmeBlocks = padmeParts.slice(2).flatMap(text => {
+ const block = text.startsWith("## ") ? { type: "heading", text: text.slice(3) } : { type: "paragraph", text };
+ const media = padmeMedia.find(item => text.includes(item.anchor));
+ if (!media) return [block];
+ const image = { type: "image", src: `/observations/padme/${media.file}`, alt: media.alt, width: media.width, height: media.height };
+ return media.before ? [image, block] : [block, image];
+});
 export const observations = [{
  slug: "padme-was-a-baddie-in-a-dystopia", number: "002", status: "published",
  publishedAt: "2026-09-27T00:00:00Z", dateLabel: "September 2026", category: "Design / culture",
  title: padmeParts[0].replace(/^# /, ""), excerpt: padmeParts[1],
- blocks: padmeParts.slice(2).map(text => text.startsWith("## ") ? { type: "heading", text: text.slice(3) } : { type: "paragraph", text }),
+ blocks: padmeBlocks,
 }, {
  slug: "remote-life-contract-work", number: "001", status: "published",
  publishedAt: "2026-08-01T00:00:00Z", dateLabel: "August 2026", category: "Work / remote life",
