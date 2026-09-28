@@ -1,3 +1,5 @@
+import { padmeSource } from "./padmeObservation.js";
+
 const paragraphs = [
   "I’ve been working from home for 7.5 years now, and I can say, pretty confidently, that it’s empowered me to live a lifestyle that fits my needs.",
   "There are little things about it that I don’t think I could give up now.",
@@ -62,7 +64,13 @@ const notes = {
 };
 
 // Add posts here and deploy; publishedAt controls ordering. The original date is month-only.
+const padmeParts = padmeSource.trim().split(/\n\s*\n/);
 export const observations = [{
+ slug: "padme-was-a-baddie-in-a-dystopia", number: "002", status: "published",
+ publishedAt: "2026-09-27T00:00:00Z", dateLabel: "September 2026", category: "Design / culture",
+ title: padmeParts[0].replace(/^# /, ""), excerpt: padmeParts[1],
+ blocks: padmeParts.slice(2).map(text => text.startsWith("## ") ? { type: "heading", text: text.slice(3) } : { type: "paragraph", text }),
+}, {
  slug: "remote-life-contract-work", number: "001", status: "published",
  publishedAt: "2026-08-01T00:00:00Z", dateLabel: "August 2026", category: "Work / remote life",
  title: "Working from home gave me the kind of life I love. Contract work made it feel temporary.",

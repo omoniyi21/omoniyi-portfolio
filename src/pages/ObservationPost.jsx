@@ -5,11 +5,18 @@ import BeehiivEmbed from "../components/observations/BeehiivEmbed";
 import Frog from "../assets/images/observations/frog.png";
 import NotFound from "./NotFound";
 
+function InlineLinks({ text }) {
+  return text.split(/(\[[^\]]+\]\(https?:\/\/[^)]+\))/g).map((part, index) => {
+    const match = part.match(/^\[([^\]]+)\]\((https?:\/\/[^)]+)\)$/);
+    return match ? <a key={index} href={match[2]}>{match[1]}</a> : part;
+  });
+}
+
 export default function ObservationPost() {
  const { slug } = useParams();
  const post = getPublishedObservations().find(post => post.slug === slug);
  if (!post) return <NotFound />;
- const { paragraphs, notes = {} } = post;
+ const { paragraphs = [], notes = {} } = post;
   return (
     <main className="observation-post">
       <header className="observation-post__masthead">
@@ -26,7 +33,10 @@ export default function ObservationPost() {
         </header>
 
         <div className="observation-post__rule" aria-hidden="true"><span>✦</span></div>
-        <div className="observation-post__reading">
+        <div className={`observation-post__reading${post.blocks ? ' observation-post__reading--sections' : ''}`}>
+          {post.blocks?.map((block, index) => block.type === "heading"
+            ? <h2 key={index}>{block.text}</h2>
+            : <div className="observation-post__paragraph" key={index}><p><InlineLinks text={block.text} /></p></div>)}
           {paragraphs.map((paragraph, index) => (
             <div className="observation-post__paragraph" key={paragraph}>
               <p>{paragraph}</p>
