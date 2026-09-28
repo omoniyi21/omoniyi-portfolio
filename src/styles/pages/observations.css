@@ -109,3 +109,12 @@
  .observation-card__body { grid-template-columns: minmax(0, 1fr); }
  .observation-card__image { width: min(100% - 1.5rem, 20rem); justify-self: center; }
 }
+
+.observation-post__title-group { display: grid; grid-template-columns: minmax(0, 1fr); }
+.observation-post__header--cover .observation-post__title-group { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: clamp(1.5rem, 3vw, 3rem); align-items: center; }
+.observation-post__header--cover h1 { font-size: clamp(3rem, 5.6vw, 6rem); max-width: none; overflow-wrap: break-word; }
+.observation-post__cover { min-width: 0; }
+@media (max-width: 700px) {
+ .observation-post__header--cover .observation-post__title-group { grid-template-columns: minmax(0, 1fr); }
+ .observation-post__cover { width: min(100% - 1.5rem, 20rem); justify-self: center; }
+}

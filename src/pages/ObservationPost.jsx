@@ -25,9 +25,12 @@ export default function ObservationPost() {
       </header>
 
       <article>
-        <header className="observation-post__header">
+        <header className={`observation-post__header${post.cardImage ? " observation-post__header--cover" : ""}`}>
           <p>OBS. {post.number} · {post.category}</p>
-          <h1>{post.title}</h1>
+          <div className="observation-post__title-group">
+            <h1>{post.title}</h1>
+            {post.cardImage && <figure className="observation-card__image observation-post__cover"><img src={post.cardImage} alt={post.cardImageAlt || ""} fetchPriority="high" /></figure>}
+          </div>
           <p className="observation-post__dek">{post.excerpt}</p>
           <p className="observation-post__byline">Words by Omoniyi Alimi · {post.dateLabel}</p>
         </header>
