@@ -1,14 +1,14 @@
 import { useState } from "react";
 import "./current-favorites-slider.css";
 
-import ReadingPaper from "../../assets/images/personal-effects-refined/reading-paper-v2-trim.png";
-import WatchingPaper from "../../assets/images/personal-effects-refined/watching-paper-v2-trim.png";
-import MovieTicket from "../../assets/images/personal-effects-refined/movie-ticket-v2-trim.png";
-import ScentPaper from "../../assets/images/personal-effects-refined/scent-paper-v3-trim.png";
-import RitualPaper from "../../assets/images/personal-effects-refined/ritual-paper-v3-trim.png";
-import ThoughtPaper from "../../assets/images/personal-effects-refined/thought-paper-v3-trim.png";
-import Podcast from "../../assets/images/personal-effects-refined/podcast-paper-v3-trim.png";
-import Playlist from "../../assets/images/personal-effects-refined/playlist-paper-v3-trim.png";
+import ReadingPaper from "../../assets/images/personal-effects-refined/reading-paper-v2-trim.webp";
+import WatchingPaper from "../../assets/images/personal-effects-refined/watching-paper-v2-trim.webp";
+import MovieTicket from "../../assets/images/personal-effects-refined/movie-ticket-v2-trim.webp";
+import ScentPaper from "../../assets/images/personal-effects-refined/scent-paper-v3-trim.webp";
+import RitualPaper from "../../assets/images/personal-effects-refined/ritual-paper-v3-trim.webp";
+import ThoughtPaper from "../../assets/images/personal-effects-refined/thought-paper-v3-trim.webp";
+import Podcast from "../../assets/images/personal-effects-refined/podcast-paper-v3-trim.webp";
+import Playlist from "../../assets/images/personal-effects-refined/playlist-paper-v3-trim.webp";
 
 // The same photographed desk artifacts used in Personal Effects on the
 // homepage, one at a time — each item's rotation/contentRotation/inset
@@ -60,7 +60,7 @@ export default function CurrentFavoritesSlider() {
           className={`favorites-slider__artifact${item.light ? " is-light" : ""}`}
           style={{ "--rotation": `${item.rotation}deg`, "--content-rotation": `${item.contentRotation}deg`, "--content-inset": item.inset }}
         >
-          <img src={item.src} alt="" />
+          <img loading="lazy" decoding="async" src={item.src} alt="" />
           <figcaption>
             <p className="favorites-slider__eyebrow-tag">{item.eyebrow}</p>
             <h3>{item.title}</h3>

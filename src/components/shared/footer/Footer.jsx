@@ -1,5 +1,5 @@
 import "./footer.css";
-import SleepingStardust from "../../../assets/branding/sd-variants/sd-sleeping.png";
+import SleepingStardust from "../../../assets/branding/sd-variants/sd-sleeping.webp";
 import { GithubIcon, PinterestIcon, LinkedInIcon } from "../icons/BrandIcons";
 import { contact } from "../../../data/resume";
 import MotionToggle from "../MotionToggle";
@@ -29,7 +29,7 @@ export default function Footer() {
       <p>Omoniyi Alimi <span aria-hidden="true">©</span></p>
       </div>
       <span className="site-footer__trail" aria-hidden="true">✦ · · · ✦</span>
-      <img
+      <img loading="lazy" decoding="async"
         className="site-footer__stardust"
         src={SleepingStardust}
         alt="SD sleeping at the end of the page"

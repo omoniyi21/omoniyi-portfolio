@@ -1,19 +1,19 @@
 import "./personal-effects.css";
 import { Link } from "react-router-dom";
 
-import MovieSD from "../../assets/branding/sd-variants/sd-watching-a-movie.png";
-import ReadingPaper from "../../assets/images/personal-effects-refined/reading-paper-v2-trim.png";
-import WatchingPaper from "../../assets/images/personal-effects-refined/watching-paper-v2-trim.png";
-import MovieTicket from "../../assets/images/personal-effects-refined/movie-ticket-v2-trim.png";
-import ScentPaper from "../../assets/images/personal-effects-refined/scent-paper-v3-trim.png";
-import RitualPaper from "../../assets/images/personal-effects-refined/ritual-paper-v3-trim.png";
-import ThoughtPaper from "../../assets/images/personal-effects-refined/thought-paper-v3-trim.png";
-import Podcast from "../../assets/images/personal-effects-refined/podcast-paper-v3-trim.png";
-import Playlist from "../../assets/images/personal-effects-refined/playlist-paper-v3-trim.png";
+import MovieSD from "../../assets/branding/sd-variants/sd-watching-a-movie.webp";
+import ReadingPaper from "../../assets/images/personal-effects-refined/reading-paper-v2-trim.webp";
+import WatchingPaper from "../../assets/images/personal-effects-refined/watching-paper-v2-trim.webp";
+import MovieTicket from "../../assets/images/personal-effects-refined/movie-ticket-v2-trim.webp";
+import ScentPaper from "../../assets/images/personal-effects-refined/scent-paper-v3-trim.webp";
+import RitualPaper from "../../assets/images/personal-effects-refined/ritual-paper-v3-trim.webp";
+import ThoughtPaper from "../../assets/images/personal-effects-refined/thought-paper-v3-trim.webp";
+import Podcast from "../../assets/images/personal-effects-refined/podcast-paper-v3-trim.webp";
+import Playlist from "../../assets/images/personal-effects-refined/playlist-paper-v3-trim.webp";
 import Trail from "../../assets/images/portfolio-personal-effects-assets/png/12-decorative-constellation-trail.png";
 
 function Paper({ className, src, label, children }) {
-  return <article className={`effect-paper ${className}`} aria-label={label}><img src={src} alt="" /><div className="effect-paper__content">{children}</div></article>;
+  return <article className={`effect-paper ${className}`} aria-label={label}><img loading="lazy" decoding="async" src={src} alt="" /><div className="effect-paper__content">{children}</div></article>;
 }
 
 export default function PersonalEffects() {
@@ -23,7 +23,7 @@ export default function PersonalEffects() {
       <h2 id="personal-effects-title">What’s On My Mind?</h2>
       <p>A few things currently shaping how I think :)</p>
       <Link to="/about">design dossier <span aria-hidden="true">↗</span></Link>
-      <img className="personal-effects__stardust stardust--float" src={MovieSD} alt="SD watching a movie" />
+      <img loading="lazy" decoding="async" className="personal-effects__stardust stardust--float" src={MovieSD} alt="SD watching a movie" />
       <p className="personal-effects__coordinates">7.8003° N, 5.3790° E<br />SD archive<br />Observing, always.</p>
     </aside>
     <div className="personal-effects__spread" aria-label="A collection of current interests and creative fuel">
@@ -38,7 +38,7 @@ export default function PersonalEffects() {
         <Paper className="effect-paper--thought" src={ThoughtPaper} label="Current thought: Design should feel inevitable"><p className="paper-eyebrow">Current thought</p><p className="thought-copy">Design should<br />feel inevitable.</p></Paper>
         <Paper className="effect-paper--podcast" src={Podcast} label="Podcast recommendation: Good Noticings with Ashley and Claire"><p className="paper-eyebrow">Podcast rec</p><h3>Good Noticings</h3><p className="podcast-hosts">with Ashley &amp; Claire</p><div className="podcast-wave" aria-hidden="true"><i /><i /><i /><i /><i /><i /><i /><i /><i /></div><small>EP ————— &nbsp; DATE — / —</small></Paper>
         <Paper className="effect-paper--playlist" src={Playlist} label="On repeat: Julia Wolf, Sade, and Asake"><p className="paper-eyebrow">On repeat <span aria-hidden="true">▶</span></p><div className="playlist-track"><b>01</b><p>Julia Wolf<small>In My Room</small></p></div><div className="playlist-track"><b>02</b><p>Sade<small>By Your Side</small></p></div><div className="playlist-track"><b>03</b><p>Asake<small>MBHC</small></p></div></Paper>
-        <img className="personal-effects__trail" src={Trail} alt="" />
+        <img loading="lazy" decoding="async" className="personal-effects__trail" src={Trail} alt="" />
       </div>
     </div>
     <section className="personal-effects__mobile-card" aria-label="Current creative fuel">
