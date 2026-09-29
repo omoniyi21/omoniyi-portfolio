@@ -1,3 +1,5 @@
+import { padmeSource } from "./padmeObservation.js";
+
 const paragraphs = [
   "I’ve been working from home for 7.5 years now, and I can say, pretty confidently, that it’s empowered me to live a lifestyle that fits my needs.",
   "There are little things about it that I don’t think I could give up now.",
@@ -62,11 +64,33 @@ const notes = {
 };
 
 // Add posts here and deploy; publishedAt controls ordering. The original date is month-only.
+const padmeParts = padmeSource.trim().split(/\n\s*\n/);
+const padmeMedia = [
+ { anchor: "(I’m late to the party, I know.)", file: "aretha.gif", alt: "Aretha Franklin arriving with her handbag", width: 281, height: 258 },
+ { anchor: "It’s…the headdresses.", file: "headdresses.png", alt: "A collage of Queen Amidala’s elaborate headdresses and ceremonial gowns", width: 675, height: 1200 },
+ { anchor: "There is sensuality.", file: "dress.png", alt: "Padmé in a flowing pastel dress overlooking the lake on Naboo", width: 736, height: 1125 },
+ { anchor: "We meet her saturated in power and we lose her surrounded by softness.", file: "funeral.png", alt: "Padmé in her blue funeral gown surrounded by flowers", width: 468, height: 650 },
+ { anchor: "Pregnancy also changes the way Padmé's wardrobe communicates her sensuality.", before: true, file: "pregnancy.png", alt: "Padmé wearing a full-length green velvet gown with a purple sash", width: 736, height: 1036 },
+];
+const padmeBlocks = padmeParts.slice(2).flatMap(text => {
+ const block = text.startsWith("## ") ? { type: "heading", text: text.slice(3) } : { type: "paragraph", text };
+ const media = padmeMedia.find(item => text.includes(item.anchor));
+ if (!media) return [block];
+ const image = { type: "image", src: `/observations/padme/${media.file}`, alt: media.alt, width: media.width, height: media.height };
+ return media.before ? [image, block] : [block, image];
+});
 export const observations = [{
+ slug: "padme-was-a-baddie-in-a-dystopia", number: "002", status: "published",
+ publishedAt: "2026-09-27T00:00:00Z", dateLabel: "September 2026", category: "Design / culture",
+ title: padmeParts[0].replace(/^# /, ""), excerpt: padmeParts[1],
+ cardImage: "/observations/covers/padme.png", cardImageAlt: "Padmé wearing a pale blue outfit outside a rounded stone building",
+ blocks: padmeBlocks,
+}, {
  slug: "remote-life-contract-work", number: "001", status: "published",
  publishedAt: "2026-08-01T00:00:00Z", dateLabel: "August 2026", category: "Work / remote life",
  title: "Working from home gave me the kind of life I love. Contract work made it feel temporary.",
  excerpt: "A field note on the freedom of remote work, acclimating quickly, the people we miss between meetings, and what permanence might mean now.",
+ cardImage: "/observations/covers/remote-work.webp", cardImageAlt: "A woman smiling in a sunlit room",
  paragraphs, notes,
 }];
 export function getPublishedObservations(posts = observations, now = Date.now()) {

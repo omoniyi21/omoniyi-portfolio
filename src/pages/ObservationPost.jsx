@@ -5,11 +5,18 @@ import BeehiivEmbed from "../components/observations/BeehiivEmbed";
 import Frog from "../assets/images/observations/frog.png";
 import NotFound from "./NotFound";
 
+function InlineLinks({ text }) {
+  return text.split(/(\[[^\]]+\]\(https?:\/\/[^)]+\))/g).map((part, index) => {
+    const match = part.match(/^\[([^\]]+)\]\((https?:\/\/[^)]+)\)$/);
+    return match ? <a key={index} href={match[2]}>{match[1]}</a> : part;
+  });
+}
+
 export default function ObservationPost() {
  const { slug } = useParams();
  const post = getPublishedObservations().find(post => post.slug === slug);
  if (!post) return <NotFound />;
- const { paragraphs, notes = {} } = post;
+ const { paragraphs = [], notes = {} } = post;
   return (
     <main className="observation-post">
       <header className="observation-post__masthead">
@@ -18,15 +25,23 @@ export default function ObservationPost() {
       </header>
 
       <article>
-        <header className="observation-post__header">
+        <header className={`observation-post__header${post.cardImage ? " observation-post__header--cover" : ""}`}>
           <p>OBS. {post.number} · {post.category}</p>
-          <h1>{post.title}</h1>
+          <div className="observation-post__title-group">
+            <h1>{post.title}</h1>
+            {post.cardImage && <figure className="observation-card__image observation-post__cover"><img src={post.cardImage} alt={post.cardImageAlt || ""} fetchPriority="high" /></figure>}
+          </div>
           <p className="observation-post__dek">{post.excerpt}</p>
           <p className="observation-post__byline">Words by Omoniyi Alimi · {post.dateLabel}</p>
         </header>
 
         <div className="observation-post__rule" aria-hidden="true"><span>✦</span></div>
-        <div className="observation-post__reading">
+        <div className={`observation-post__reading${post.blocks ? ' observation-post__reading--sections' : ''}`}>
+          {post.blocks?.map((block, index) => block.type === "heading"
+            ? <h2 key={index}>{block.text}</h2>
+            : block.type === "image"
+            ? <figure className="observation-post__media" key={index}><img src={block.src} alt={block.alt} width={block.width} height={block.height} loading="lazy" /></figure>
+            : <div className="observation-post__paragraph" key={index}><p><InlineLinks text={block.text} /></p></div>)}
           {paragraphs.map((paragraph, index) => (
             <div className="observation-post__paragraph" key={paragraph}>
               <p>{paragraph}</p>

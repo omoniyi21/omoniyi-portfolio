@@ -26,4 +26,4 @@ const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://w
 await writeFile('dist/sitemap.xml', sitemap);
 console.log(`Generated sitemap.xml with ${sitemapUrls.length} URLs.`);
 // Exact rewrites precede Netlify's SPA fallback, including links without a trailing slash.
-await writeFile('dist/_redirects', [...Object.keys(pageMetadata), '/uikits'].filter(route => route !== '/').flatMap(route => [`${route} ${route}/index.html 200`, `${route}/ ${route}/index.html 200`]).join('\n') + '\n' + await readFile('public/_redirects', 'utf8'));
+await writeFile('dist/_redirects', [...Object.keys(pageMetadata), '/uikits'].filter(route => route !== '/').map(route => `${route} ${route}/index.html 200`).join('\n') + '\n' + await readFile('public/_redirects', 'utf8'));

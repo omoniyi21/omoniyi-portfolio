@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { motionQuery } from '../../../lib/motionPreference';
-import starSrc from '../../../assets/branding/celestial/celestial-star.png';
+import starSrc from '../../../assets/branding/celestial/celestial-star.webp';
 
 const random = (n) => { const v = Math.sin(n * 127.1 + 31.7) * 43758.5453; return v - Math.floor(v); };
 

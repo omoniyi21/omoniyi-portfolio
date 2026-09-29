@@ -7,3 +7,7 @@
   from = "/*"
   to = "/index.html"
   status = 200
+
+# Public canonical URLs omit trailing slashes; the edge function redirects them.
+[build.processing.html]
+  pretty_urls = false

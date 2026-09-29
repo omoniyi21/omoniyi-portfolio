@@ -314,13 +314,13 @@
        stack positioning + shadow), so it's the only element of its type
        under that parent and :nth-of-type could never tell them apart. */
     background-color: var(--card-tint, var(--color-gray-50));
-    background-image: url(../../assets/images/personal-effects-refined/podcast-paper-v3-trim.png);
+    background-image: url(../../assets/images/personal-effects-refined/podcast-paper-v3-trim.webp);
     background-size: 100% 100%;
     background-position: center;
     background-repeat: no-repeat;
     background-blend-mode: multiply;
-    -webkit-mask-image: url(../../assets/images/personal-effects-refined/podcast-paper-v3-trim.png);
-    mask-image: url(../../assets/images/personal-effects-refined/podcast-paper-v3-trim.png);
+    -webkit-mask-image: url(../../assets/images/personal-effects-refined/podcast-paper-v3-trim.webp);
+    mask-image: url(../../assets/images/personal-effects-refined/podcast-paper-v3-trim.webp);
     -webkit-mask-size: 100% 100%;
     mask-size: 100% 100%;
     -webkit-mask-position: center;

@@ -16,7 +16,10 @@ export default function Observations() {
       <p className="observation-index__kicker">Latest field note</p>
       {getPublishedObservations().map(post => <Link key={post.slug} className="observation-card" to={`/observations/${post.slug}`}>
         <div className="observation-card__topline"><span>OBS. {post.number}</span><span>{post.category}</span></div>
-        <div className="observation-card__body"><h2>{post.title}</h2><p className="observation-card__excerpt">{post.excerpt}</p></div>
+        <div className="observation-card__body">
+          <div className="observation-card__copy"><h2>{post.title}</h2><p className="observation-card__excerpt">{post.excerpt}</p></div>
+          {post.cardImage && <figure className="observation-card__image"><img src={post.cardImage} alt={post.cardImageAlt || ""} loading="lazy" /></figure>}
+        </div>
         <div className="observation-card__footer"><span>Read observation</span><span aria-hidden="true">↗</span></div>
       </Link>)}
     </section>

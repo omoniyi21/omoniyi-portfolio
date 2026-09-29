@@ -122,7 +122,7 @@
 }
 
 /* An archive ticket sits on the paper, rather than floating behind its edge. */
-.notebook-latest-label { align-self:flex-start; display:block; padding:1.05rem 1.4rem; margin:0 0 1.2rem -.35rem; color:#34252f; background:url('../../assets/images/personal-effects-refined/movie-ticket-v2-trim.png') center/100% 100% no-repeat; font:700 .7rem/1.5 var(--font-family-display); letter-spacing:.09em; text-transform:uppercase; transform:rotate(1.5deg); filter:drop-shadow(1px 3px 2px #34252f20); }
+.notebook-latest-label { align-self:flex-start; display:block; padding:1.05rem 1.4rem; margin:0 0 1.2rem -.35rem; color:#34252f; background:url('../../assets/images/personal-effects-refined/movie-ticket-v2-trim.webp') center/100% 100% no-repeat; font:700 .7rem/1.5 var(--font-family-display); letter-spacing:.09em; text-transform:uppercase; transform:rotate(1.5deg); filter:drop-shadow(1px 3px 2px #34252f20); }
 .notebook-cover .notebook-cover__excerpt { position:relative; isolation:isolate; max-width:none; margin:.25rem 0 0; padding:1.2rem 1.35rem; color:#34252f; font:400 1rem/1.6 var(--font-family-body); background:#fffaf0; box-shadow:1px 4px 5px #34252f18; transform:rotate(.65deg); }
 .notebook-cover__excerpt::before { content:""; position:absolute; inset:0; z-index:-1; pointer-events:none; background:url('../../assets/images/personal-effects-refined/reading-paper-texture.png') center/145% 180%; opacity:.16; }
 .notebook-cover .notebook-cover__meta, .notebook-cover footer { color:#34252f; }
