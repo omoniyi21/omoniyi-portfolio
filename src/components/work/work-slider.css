@@ -1,8 +1,12 @@
-/* Selected Work on the hero desk sheet: real project images printed as
-   paper photos (same treatment as the Observations cover photos), one card
-   plus a peek of the next. */
+/* Selected Work: a small pile of prints resting on the hero's desk sheet.
+   One print on top, two more just behind it. Everything stays on the
+   sheet. Every print shares one frame (cream border, tape, typed label,
+   margin note); only the paper stock under the work changes per project. */
 
-.work-slider {
+.print-pile {
+    --print-border: #fffdf8;
+    --print-ink: #4a3d7a;
+    --print-ease: cubic-bezier(.22, 1, .36, 1);
     position: relative;
     display: flex;
     flex-direction: column;
@@ -10,14 +14,27 @@
     min-width: 0;
 }
 
-.work-slider__intro {
-    display: flex;
+/* ---------- header: eyebrow, constellation, arrows ---------- */
+.print-pile__head {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
     align-items: center;
-    gap: .85rem;
-    margin-bottom: 1.1rem;
+    gap: 1rem;
+    min-height: 2.5rem;
 }
 
-.work-slider__eyebrow {
+/* keeps the dust from crossing the header text */
+.print-pile__head::before {
+    content: "";
+    position: absolute;
+    inset: -.6rem -1rem;
+    z-index: -1;
+    background: radial-gradient(ellipse at 35% 50%, var(--sheet-color, #fbfaf6) 58%, transparent 78%);
+    pointer-events: none;
+}
+
+.print-pile__eyebrow {
     margin: 0;
     display: inline-flex;
     align-items: center;
@@ -28,25 +45,43 @@
     font-weight: var(--font-medium);
     letter-spacing: .18em;
     text-transform: uppercase;
+    white-space: nowrap;
 }
 
-.work-slider__eyebrow span:last-child { color: var(--color-lavender-500); font-size: .9rem; letter-spacing: 0; }
+.print-pile__eyebrow span:last-child { color: var(--color-lavender-500); font-size: .9rem; letter-spacing: 0; }
 
-.work-slider__count {
-    color: var(--text-tertiary);
-    font-family: var(--font-family-body);
-    font-size: .8rem;
-    font-variant-numeric: tabular-nums;
+.print-pile__stars { position: relative; width: var(--w); height: 2rem; justify-self: start; }
+.print-pile__line { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.print-pile__line polyline { fill: none; stroke: rgb(117 105 227 / 38%); stroke-width: 1; stroke-dasharray: 2 3; }
+
+.print-pile__star {
+    position: absolute;
+    left: var(--x);
+    top: var(--y);
+    width: 1.75rem;
+    height: 1.75rem;
+    margin: -.875rem 0 0 -.875rem;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    cursor: pointer;
 }
 
-.work-slider__controls { display: inline-flex; gap: .4rem; margin-left: auto; }
+.print-pile__star svg { display: block; width: .7rem; height: .7rem; margin: auto; overflow: visible; }
+.print-pile__star path { fill: #b8b0e8; transform-origin: center; transform-box: fill-box; transition: transform var(--motion-expressive) var(--print-ease), fill var(--motion-productive) ease; }
+.print-pile__star:hover path { fill: var(--color-lavender-500); }
+.print-pile__star[aria-current="true"] path { fill: var(--color-lavender-500); transform: scale(1.9); filter: drop-shadow(0 0 4px rgb(117 105 227 / 55%)); }
+.print-pile__star:focus-visible { outline: 2px solid var(--color-lavender-500); outline-offset: 0; }
 
-.work-slider__controls button {
+.print-pile__arrows { display: inline-flex; gap: .4rem; }
+
+.print-pile__arrows button {
     width: 2.25rem;
     height: 2.25rem;
-    border: 1px solid rgb(17 17 17 / 16%);
+    border: 1px solid rgb(17 17 17 / 14%);
     border-radius: 50%;
-    background: rgb(255 255 255 / 55%);
+    background: rgb(255 255 255 / 60%);
     color: var(--text-primary);
     font-size: 1rem;
     line-height: 1;
@@ -54,118 +89,217 @@
     transition: background var(--motion-productive) ease, border-color var(--motion-productive) ease;
 }
 
-.work-slider__controls button:hover:not(:disabled) { background: var(--color-white); border-color: rgb(117 105 227 / 45%); }
-.work-slider__controls button:disabled { opacity: .3; cursor: default; }
-.work-slider__controls button:focus-visible { outline: 2px solid var(--color-lavender-500); outline-offset: 2px; }
+.print-pile__arrows button:hover { background: var(--color-white); border-color: rgb(117 105 227 / 45%); }
+.print-pile__arrows button:focus-visible { outline: 2px solid var(--color-lavender-500); outline-offset: 2px; }
 
-/* Native scroll-snap row. Padding gives the tilted photos and their
-   shadows room so nothing gets clipped at the edges. */
-.work-slider__track {
-    list-style: none;
-    margin: 0 -1rem;
-    padding: .9rem 1rem 1.6rem;
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: 80%;
-    gap: 1.25rem;
-    overflow-x: auto;
-    overscroll-behavior-x: contain;
-    scroll-snap-type: x mandatory;
-    scroll-padding-inline: 1rem;
-    scrollbar-width: none;
+/* ---------- the pile ---------- */
+.print-pile__stack {
+    position: relative;
+    margin-top: 1.9rem;
+    aspect-ratio: 4 / 3;
+    max-width: 100%;
+    perspective: 1200px;
+    touch-action: pan-y;
+    user-select: none;
 }
 
-.work-slider__track::-webkit-scrollbar { display: none; }
-
-.work-slide { scroll-snap-align: start; min-width: 0; }
-
-.work-slide__link {
-    display: flex;
-    flex-direction: column;
-    gap: .3rem;
-    height: 100%;
-    color: var(--text-primary);
-    text-decoration: none;
-    border-radius: .5rem;
+.print {
+    position: absolute;
+    inset: 0;
+    transition: transform var(--motion-expressive) var(--print-ease), opacity var(--motion-expressive) ease;
 }
 
-.work-slide__link:focus-visible { outline: 2px solid var(--color-lavender-500); outline-offset: 6px; }
+.print--depth-0 { z-index: 3; transform: none; }
+.print--depth-1 { z-index: 2; transform: translate(10px, 9px) rotate(1.6deg); }
+.print--depth-2 { z-index: 1; transform: translate(-8px, 15px) rotate(-1.8deg); }
+.print--leaving-next { z-index: 4; transform: translate(-112%, -2%) rotate(-7deg); opacity: 0; pointer-events: none; }
+.print--leaving-prev { z-index: 4; transform: translate(112%, -2%) rotate(7deg); opacity: 0; pointer-events: none; }
 
-.work-slide__photo {
+.print__link {
+    position: relative;
     display: block;
-    margin-bottom: .75rem;
-    transform: rotate(-1.5deg);
-    transition: transform var(--motion-productive-long) cubic-bezier(.22, 1, .36, 1);
+    height: 100%;
+    color: inherit;
+    text-decoration: none;
+    transform-origin: 50% 100%;
+    transition: transform var(--motion-expressive) var(--print-ease);
 }
 
-.work-slide--even .work-slide__photo { transform: rotate(1.5deg); }
+/* one frame for every project */
+.print__paper {
+    position: relative;
+    display: block;
+    height: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    background: var(--print-border);
+    box-shadow: 0 1px 1px rgb(40 30 50 / 8%), 0 14px 28px rgb(49 35 48 / 14%);
+    overflow: hidden;
+    transition: box-shadow var(--motion-expressive) var(--print-ease);
+}
 
-.work-slide__photo img {
+.print--depth-1 .print__paper,
+.print--depth-2 .print__paper { box-shadow: 0 1px 1px rgb(40 30 50 / 8%), 0 6px 12px rgb(49 35 48 / 10%); }
+
+.print__paper img {
     display: block;
     width: 100%;
-    height: auto;
-    aspect-ratio: 4 / 3;
+    height: 100%;
     object-fit: cover;
+    background: var(--stock);
+}
+
+/* the same tape, in the same place, on every print: half on the print,
+   half off its top edge */
+.print__tape {
+    position: absolute;
+    top: -.95rem;
+    left: 50%;
+    width: 7.25rem;
+    height: 1.9rem;
+    object-fit: cover;
+    transform: translateX(-50%) rotate(-2.5deg);
+    opacity: .94;
+    filter: drop-shadow(0 1px 1.5px rgb(40 30 50 / 22%));
+    pointer-events: none;
+}
+
+.print--depth-1 .print__tape,
+.print--depth-2 .print__tape { opacity: 0; }
+
+/* ---------- pick it up: lift + a corner peel on the top print ---------- */
+.print__peel {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    display: grid;
+    place-items: end;
+    padding: 0 .55rem .45rem 0;
     box-sizing: border-box;
-    border: 6px solid #fffdf8;
-    border-radius: .4rem;
-    background: #fffdf8;
-    box-shadow: 0 18px 36px #3123301f;
+    background:
+        linear-gradient(135deg, transparent 49.5%, rgb(40 30 50 / 16%) 50%, transparent 60%),
+        linear-gradient(315deg, var(--stock) 0 50%, transparent 50%);
+    color: var(--print-ink);
+    font-size: .95rem;
+    font-weight: 600;
+    transition: width var(--motion-expressive) var(--print-ease), height var(--motion-expressive) var(--print-ease);
+    overflow: hidden;
 }
 
-.work-slide__link:hover .work-slide__photo,
-.work-slide__link:focus-visible .work-slide__photo { transform: rotate(0deg) translateY(-4px); }
+.print__peel span { opacity: 0; transition: opacity var(--motion-productive) ease; }
 
-.work-slide__client {
-    color: var(--text-secondary);
+.print--depth-0 .print__link:hover,
+.print--depth-0 .print__link:focus-visible { transform: translateY(-6px) rotateX(4deg); }
+
+.print--depth-0 .print__link:hover .print__paper,
+.print--depth-0 .print__link:focus-visible .print__paper { box-shadow: 0 2px 2px rgb(40 30 50 / 8%), 0 28px 44px rgb(49 35 48 / 20%); }
+
+.print--depth-0 .print__link:hover .print__peel,
+.print--depth-0 .print__link:focus-visible .print__peel { width: 4.25rem; height: 4.25rem; }
+
+.print--depth-0 .print__link:hover .print__peel span,
+.print--depth-0 .print__link:focus-visible .print__peel span { opacity: 1; }
+
+.print__link:focus-visible { outline: none; }
+.print__link:focus-visible .print__paper { outline: 2px solid var(--color-lavender-500); outline-offset: 4px; }
+
+/* ---------- margin note on the top print ---------- */
+.print-pile__note {
+    position: absolute;
+    z-index: 5;
+    top: -1.6rem;
+    right: -.4rem;
+    display: flex;
+    align-items: flex-start;
+    gap: .15rem;
+    transform: rotate(-4deg);
+    pointer-events: none;
+    animation: print-note-in var(--motion-expressive) var(--print-ease) both;
+}
+
+.print-pile__note p {
+    margin: 0;
+    max-width: 11.5rem;
+    padding: .3rem .55rem .35rem;
+    background: rgb(255 253 240 / 94%);
+    color: var(--print-ink);
+    font-family: var(--font-family-personal);
+    font-size: 1.3rem;
+    font-weight: 600;
+    line-height: 1.05;
+    box-shadow: 0 2px 6px rgb(40 30 50 / 12%);
+}
+
+.print-pile__note svg { width: 2.4rem; height: 2.4rem; margin-top: 1.3rem; fill: none; stroke: var(--print-ink); stroke-width: 2; stroke-linecap: round; order: -1; transform: scaleX(-1); }
+
+@keyframes print-note-in { from { opacity: 0; transform: rotate(-4deg) translateY(4px); } to { opacity: 1; transform: rotate(-4deg); } }
+
+/* ---------- label + caption under the pile ---------- */
+.print-pile__label { margin-top: 1.6rem; display: flex; flex-direction: column; gap: .35rem; }
+
+.print-pile__meta {
+    margin: 0;
+    color: var(--text-tertiary);
     font-family: var(--font-family-body);
-    font-size: .72rem;
-    font-weight: var(--font-medium);
-    letter-spacing: .14em;
+    font-size: .7rem;
+    font-weight: var(--font-semibold);
+    letter-spacing: .16em;
     text-transform: uppercase;
+    font-variant-numeric: tabular-nums;
 }
 
-.work-slide__caption {
+.print-pile__meta b { color: var(--text-primary); font-weight: var(--font-semibold); }
+
+.print-pile__caption {
+    width: fit-content;
+    color: var(--text-primary);
     font-family: var(--font-family-display);
-    font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+    font-size: clamp(1.15rem, 1.6vw, 1.4rem);
     font-weight: var(--font-medium);
     line-height: 1.25;
+    text-decoration: none;
     text-wrap: balance;
 }
 
-.work-slide__caption span { color: var(--color-lavender-500); font-size: .85em; }
+.print-pile__caption span { color: var(--color-lavender-500); display: inline-block; transition: transform var(--motion-productive-long) ease; }
+.print-pile__caption:hover span { transform: translateX(3px); }
+.print-pile__caption:focus-visible { outline: 2px solid var(--color-lavender-500); outline-offset: 4px; border-radius: 2px; }
 
-/* "See all work" sits with the count, since a loop has no last card */
-.work-slider__all {
-    color: var(--text-primary);
-    font-family: var(--font-family-body);
-    font-size: .8rem;
-    font-weight: var(--font-medium);
+.print-pile__shelf {
+    width: fit-content;
+    margin-top: 1rem;
+    color: #5b4fc9;
+    font-family: var(--font-family-personal);
+    font-size: 1.4rem;
+    font-weight: 600;
     text-decoration: none;
-    border-bottom: 1px solid currentColor;
-    padding-bottom: .05rem;
-}
-.work-slider__all span { color: var(--color-lavender-500); }
-.work-slider__all:hover { color: var(--color-lavender-500); }
-
-/* The row runs on past the paper's torn edge to the edge of the window
-   (--bleed is measured in WorkSlider.jsx). Cards leaving on the left fade
-   out over a short edge instead of being sliced off. */
-.work-slider__track {
-    margin-right: calc(-1 * var(--bleed, 0px) - 1rem);
-    grid-auto-columns: min(28rem, 82%);
-    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 1rem);
-    mask-image: linear-gradient(to right, transparent 0, #000 1rem);
 }
 
-@media (max-width: 980px) {
-    .work-slider__track { grid-auto-columns: min(80%, 26rem); }
-}
+.print-pile__shelf:hover { text-decoration: underline; text-underline-offset: 4px; }
+.print-pile__shelf:focus-visible { outline: 2px solid var(--color-lavender-500); outline-offset: 3px; }
 
 @media (max-width: 600px) {
-    .work-slider__track { grid-auto-columns: 84%; gap: 1rem; margin: 0 -.5rem; padding-inline: .5rem; scroll-padding-inline: .5rem; }
+    .print-pile__head { grid-template-columns: 1fr auto; row-gap: .7rem; }
+    .print-pile__stars { grid-column: 1 / -1; grid-row: 2; }
+    .print-pile__note { right: -.25rem; top: -1.4rem; }
+    .print-pile__note p { font-size: 1.12rem; max-width: 9.5rem; }
 }
 
+/* reduced motion: no sliding, tilting or lifting; the shadow still answers */
 @media (prefers-reduced-motion: reduce) {
-    .work-slide__photo { transition: none; }
+    .print, .print__link, .print__peel, .print-pile__star path { transition: none; }
+    .print--leaving-next, .print--leaving-prev { transform: none; }
+    .print--depth-0 .print__link:hover, .print--depth-0 .print__link:focus-visible { transform: none; }
+    .print-pile__note { animation: none; }
 }
+
+:root[data-motion="reduce"] .print,
+:root[data-motion="reduce"] .print__link,
+:root[data-motion="reduce"] .print__peel { transition: none; }
+:root[data-motion="reduce"] .print--leaving-next,
+:root[data-motion="reduce"] .print--leaving-prev,
+:root[data-motion="reduce"] .print--depth-0 .print__link:hover,
+:root[data-motion="reduce"] .print--depth-0 .print__link:focus-visible { transform: none; }
+:root[data-motion="reduce"] .print-pile__note { animation: none; }
