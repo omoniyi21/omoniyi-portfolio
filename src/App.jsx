@@ -2,7 +2,6 @@ import { lazy, Suspense, useEffect } from "react";
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import PageMetadata from "./components/shared/PageMetadata";
 import Home from "./pages/Home";
-import { caseStudies } from "./data/caseStudies";
 
 import Header from "./components/shared/header/Header";
 import Footer from "./components/shared/footer/Footer";
@@ -10,21 +9,56 @@ import ScrollManager from "./components/shared/ScrollManager";
 import { SpaceTransitionProvider } from "./components/shared/SpaceTransition";
 
 // Everything except the homepage loads on demand, so a first visit only
-// downloads what it shows. The most-visited next stops warm up when idle.
-const loadWork = () => import("./pages/Work");
-const loadHouse = () => import("./pages/HouseCaseStudy");
-const UIKit = lazy(() => import("./pages/UIKit"));
-const Studio = lazy(() => import("./pages/Studio"));
-const StudioInquire = lazy(() => import("./pages/StudioInquire"));
-const About = lazy(() => import("./pages/About"));
-const Observations = lazy(() => import("./pages/Observations"));
-const ObservationPost = lazy(() => import("./pages/ObservationPost"));
+// downloads what it shows. The most-visited next stops warm up when idle,
+// and any page starts loading the moment someone points at or tabs to a
+// link to it, so the click itself feels instant.
+const loaders = {
+  work: () => import("./pages/Work"),
+  house: () => import("./pages/HouseCaseStudy"),
+  study: () => import("./pages/ProjectCaseStudy"),
+  uikit: () => import("./pages/UIKit"),
+  studio: () => import("./pages/Studio"),
+  inquire: () => import("./pages/StudioInquire"),
+  about: () => import("./pages/About"),
+  observations: () => import("./pages/Observations"),
+  post: () => import("./pages/ObservationPost"),
+  resume: () => import("./pages/Resume"),
+  visual: () => import("./pages/Visual"),
+};
+const STUDY_PATHS = new Set(["/usda", "/athletico", "/copyright-accounting", "/portfolio-ecosystem", "/wedding-identity", "/sultry-tips", "/library-of-congress"]);
+const loaderFor = (path) => {
+  const clean = path.replace(/\/+$/, "") || "/";
+  if (STUDY_PATHS.has(clean)) return loaders.study;
+  if (clean === "/house") return loaders.house;
+  if (clean === "/work") return loaders.work;
+  if (clean === "/uikit" || clean === "/uikits") return loaders.uikit;
+  if (clean === "/studio") return loaders.studio;
+  if (clean === "/studio/inquire") return loaders.inquire;
+  if (clean === "/about") return loaders.about;
+  if (clean === "/observations") return loaders.observations;
+  if (clean.startsWith("/observations/")) return loaders.post;
+  if (clean.startsWith("/resume")) return loaders.resume;
+  if (clean === "/visual") return loaders.visual;
+  return null;
+};
+const preloadLink = (event) => {
+  const link = event.target.closest?.("a[href]");
+  if (!link || link.origin !== window.location.origin) return;
+  loaderFor(link.pathname)?.();
+};
+
+const UIKit = lazy(loaders.uikit);
+const Studio = lazy(loaders.studio);
+const StudioInquire = lazy(loaders.inquire);
+const About = lazy(loaders.about);
+const Observations = lazy(loaders.observations);
+const ObservationPost = lazy(loaders.post);
 const NotFound = lazy(() => import("./pages/NotFound"));
-const Work = lazy(loadWork);
-const HouseCaseStudy = lazy(loadHouse);
-const ProjectCaseStudy = lazy(() => import("./pages/ProjectCaseStudy"));
-const Resume = lazy(() => import("./pages/Resume"));
-const Visual = lazy(() => import("./pages/Visual"));
+const Work = lazy(loaders.work);
+const HouseCaseStudy = lazy(loaders.house);
+const ProjectCaseStudy = lazy(loaders.study);
+const Resume = lazy(loaders.resume);
+const Visual = lazy(loaders.visual);
 
 export default function App() {
   const { pathname } = useLocation();
@@ -33,13 +67,22 @@ export default function App() {
   const hideChrome = isKitPage || isStudioPage;
 
   useEffect(() => {
-    const warm = () => { loadWork(); loadHouse(); };
+    const warm = () => { loaders.work(); loaders.house(); loaders.study(); };
     if ("requestIdleCallback" in window) {
       const id = window.requestIdleCallback(warm, { timeout: 4000 });
       return () => window.cancelIdleCallback(id);
     }
     const id = window.setTimeout(warm, 2500);
     return () => window.clearTimeout(id);
+  }, []);
+
+  useEffect(() => {
+    document.addEventListener("pointerover", preloadLink, { passive: true });
+    document.addEventListener("focusin", preloadLink);
+    return () => {
+      document.removeEventListener("pointerover", preloadLink);
+      document.removeEventListener("focusin", preloadLink);
+    };
   }, []);
   return (
     <SpaceTransitionProvider>
@@ -62,13 +105,13 @@ export default function App() {
         <Route path="/resume/experience" element={<Resume variant="experience" />} />
         <Route path="/visual" element={<Visual />} />
         <Route path="/house" element={<HouseCaseStudy />} />
-        <Route path="/usda" element={<ProjectCaseStudy study={caseStudies.usda} />} />
-        <Route path="/athletico" element={<ProjectCaseStudy study={caseStudies.athletico} />} />
-        <Route path="/copyright-accounting" element={<ProjectCaseStudy study={caseStudies.accounting} />} />
-        <Route path="/portfolio-ecosystem" element={<ProjectCaseStudy study={caseStudies.portfolio} />} />
-        <Route path="/wedding-identity" element={<ProjectCaseStudy study={caseStudies.wedding} />} />
-        <Route path="/sultry-tips" element={<ProjectCaseStudy study={caseStudies.sultry} />} />
-        <Route path="/library-of-congress" element={<ProjectCaseStudy study={caseStudies.libraryOfCongress} />} />
+        <Route path="/usda" element={<ProjectCaseStudy studyKey="usda" />} />
+        <Route path="/athletico" element={<ProjectCaseStudy studyKey="athletico" />} />
+        <Route path="/copyright-accounting" element={<ProjectCaseStudy studyKey="accounting" />} />
+        <Route path="/portfolio-ecosystem" element={<ProjectCaseStudy studyKey="portfolio" />} />
+        <Route path="/wedding-identity" element={<ProjectCaseStudy studyKey="wedding" />} />
+        <Route path="/sultry-tips" element={<ProjectCaseStudy studyKey="sultry" />} />
+        <Route path="/library-of-congress" element={<ProjectCaseStudy studyKey="libraryOfCongress" />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       </Suspense>

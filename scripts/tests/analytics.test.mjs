@@ -3,12 +3,12 @@ import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 const source=await readFile(new URL('../../src/lib/analytics.js',import.meta.url),'utf8');
 let run=0;
-async function setup(hostname, stored=null) {
- const nodes=[];const handlers={};
- globalThis.window={location:{hostname,href:`https://${hostname}/work`,origin:`https://${hostname}`,pathname:'/work'},localStorage:{getItem:()=>stored}};
- globalThis.document={getElementById:id=>nodes.find(x=>x.id===id),createElement:()=>({}),head:{appendChild:node=>nodes.push(node)},addEventListener:(type,handler)=>{handlers[type]=handler;}};
+async function setup(hostname, stored=null, readyState='complete') {
+ const nodes=[];const handlers={};const windowHandlers={};
+ globalThis.window={location:{hostname,href:`https://${hostname}/work`,origin:`https://${hostname}`,pathname:'/work'},localStorage:{getItem:()=>stored},requestIdleCallback:fn=>fn(),addEventListener:(type,handler)=>{windowHandlers[type]=handler;}};
+ globalThis.document={readyState,getElementById:id=>nodes.find(x=>x.id===id),createElement:()=>({}),head:{appendChild:node=>nodes.push(node)},addEventListener:(type,handler)=>{handlers[type]=handler;}};
  const analytics=await import(`data:text/javascript;base64,${Buffer.from(source+'\n//'+run++).toString('base64')}`);
- return {analytics,nodes,handlers};
+ return {analytics,nodes,handlers,windowHandlers};
 }
 test('analytics initializes once and leaves pageviews to enhanced measurement',async()=>{
  const {analytics,nodes}=await setup('omoniyialimi.com');analytics.initializeAnalytics();analytics.initializeAnalytics();
@@ -26,4 +26,12 @@ test('important clicks are tracked once without contact data',async()=>{
  for(const [href,name] of [['https://omoniyialimi.com/resume.pdf','resume_click'],['https://omoniyialimi.com/studio/inquire','studio_inquiry_click'],['mailto:contact@omoniyialimi.com','email_click'],['https://cal.com/example','booking_click']]){
  handlers.click({target:{closest:()=>({href})}});const last=window.dataLayer.at(-1);assert.equal(last[1],name);assert.deepEqual(last[2],{page_path:'/work'});
  }
+});
+test('the tag waits for the page to load, while events queue right away',async()=>{
+ const {analytics,nodes,windowHandlers}=await setup('omoniyialimi.com',null,'loading');analytics.initializeAnalytics();
+ assert.equal(nodes.length,0);
+ analytics.trackEvent('resume_click',{page_path:'/work'});
+ assert.equal(window.dataLayer.at(-1)[1],'resume_click');
+ windowHandlers.load();
+ assert.equal(nodes.length,1);
 });

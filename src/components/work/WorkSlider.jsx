@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import "./work-slider.css";
 
@@ -44,33 +44,21 @@ export default function WorkSlider({ persona = "hiring" }) {
   const order = ORDER[persona] || ORDER.hiring;
   const count = order.length;
   const [current, setCurrent] = useState(0);
-  const [leaving, setLeaving] = useState(null); // { key, dir } of the print sliding off
   const swipe = useRef(null);
+  const swiped = useRef(false);
   const [lastPersona, setLastPersona] = useState(persona);
 
   // a new persona starts the pile from its own first print
   if (persona !== lastPersona) {
     setLastPersona(persona);
     setCurrent(0);
-    setLeaving(null);
   }
 
-  const go = useCallback((dir) => {
-    setLeaving({ key: order[current], dir });
-    setCurrent((current + dir + count) % count);
-  }, [order, count, current]);
-
-  const jump = (index) => {
-    if (index === current) return;
-    setLeaving({ key: order[current], dir: index > current ? 1 : -1 });
-    setCurrent(index);
-  };
-
-  useEffect(() => {
-    if (!leaving) return;
-    const t = setTimeout(() => setLeaving(null), 650);
-    return () => clearTimeout(t);
-  }, [leaving]);
+  // Every print always has a destination (on top, behind, or set aside to
+  // the left), and CSS transitions move it there. Clicking quickly just
+  // changes the destination mid-move, so nothing restarts or stutters.
+  const go = useCallback((dir) => setCurrent((i) => (i + dir + count) % count), [count]);
+  const jump = (index) => setCurrent(index);
 
   const onKeyDown = (event) => {
     if (event.target.closest(".print-pile__star")) return;
@@ -78,18 +66,26 @@ export default function WorkSlider({ persona = "hiring" }) {
     if (event.key === "ArrowLeft") { event.preventDefault(); go(-1); }
   };
 
-  const onPointerDown = (event) => { swipe.current = { x: event.clientX, y: event.clientY }; };
+  const onPointerDown = (event) => {
+    swipe.current = { x: event.clientX, y: event.clientY };
+    swiped.current = false;
+  };
   const onPointerUp = (event) => {
     const start = swipe.current;
     swipe.current = null;
     if (!start) return;
     const dx = event.clientX - start.x;
-    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(event.clientY - start.y)) go(dx < 0 ? 1 : -1);
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(event.clientY - start.y)) {
+      swiped.current = true;
+      go(dx < 0 ? 1 : -1);
+    }
   };
   // a swipe should not also count as a click on the print
   const onClickCapture = (event) => {
-    if (event.detail === 0) return;
-    if (leaving) event.preventDefault();
+    if (swiped.current) {
+      event.preventDefault();
+      swiped.current = false;
+    }
   };
 
   const active = WORK[order[current]];
@@ -136,15 +132,15 @@ export default function WorkSlider({ persona = "hiring" }) {
       <div className="print-pile__stack" onPointerDown={onPointerDown} onPointerUp={onPointerUp} onClickCapture={onClickCapture}>
         {order.map((key, i) => {
           const work = WORK[key];
-          const depth = (i - current + count) % count; // 0 = on top
-          const isLeaving = leaving?.key === key;
-          if (depth > 2 && !isLeaving) return null;
-          const state = isLeaving ? `leaving-${leaving.dir > 0 ? "next" : "prev"}` : `depth-${depth}`;
-          const onTop = depth === 0 && !isLeaving;
+          const rel = (i - current + count) % count;
+          // 0 on top, 1 and 2 behind it, the one before set aside to the
+          // left, the rest tucked under the pile out of sight
+          const place = rel <= 2 ? `depth-${rel}` : rel === count - 1 ? "aside" : "under";
+          const onTop = rel === 0;
           return (
             <article
               key={key}
-              className={`print print--${state}`}
+              className={`print print--${place}`}
               aria-roledescription="slide"
               aria-label={`${i + 1} of ${count}: ${work.caption}`}
               aria-hidden={onTop ? undefined : true}
@@ -159,8 +155,8 @@ export default function WorkSlider({ persona = "hiring" }) {
                     width="1200"
                     height="900"
                     alt={work.alt}
-                    loading={depth <= 1 ? "eager" : "lazy"}
-                    fetchPriority={depth === 0 ? "high" : undefined}
+                    loading={rel <= 1 ? "eager" : "lazy"}
+                    fetchPriority={onTop ? "high" : undefined}
                     decoding="async"
                     draggable="false"
                   />

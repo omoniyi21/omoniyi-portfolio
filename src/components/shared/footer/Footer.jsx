@@ -1,7 +1,7 @@
 import "./footer.css";
 import SleepingStardust from "../../../assets/branding/sd-variants/sd-sleeping.webp";
 import { GithubIcon, PinterestIcon, LinkedInIcon } from "../icons/BrandIcons";
-import { contact } from "../../../data/resume";
+import { contact } from "../../../data/contact";
 import MotionToggle from "../MotionToggle";
 
 const PINTEREST_URL = "https://www.pinterest.com/omoniyi21/product-design-ui-omoniyi/";
