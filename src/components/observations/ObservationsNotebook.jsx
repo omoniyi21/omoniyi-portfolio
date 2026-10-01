@@ -58,11 +58,11 @@ export default function ObservationsNotebook() {
               <h3>{latest.title}</h3>
               {latest.image && <img loading="lazy" decoding="async" className="notebook-cover__image" src={latest.image} alt={latest.imageAlt || ""} />}
               <p className="notebook-cover__excerpt">{latest.excerpt}</p>
-              <footer><span>{latest.dateLabel}</span><span>Read Observation ↗</span></footer>
+              <footer><span>{latest.dateLabel}</span><span>Read Observation <Icon name="arrow-right" size={15} strokeWidth={1.5} /></span></footer>
             </Link>
           </article> : <p className="notebook-cover">The next page is still taking shape. Come back soon.</p>}
         </div>
-        {recent.length > 0 && <div className="notebook-recent">{recent.map(post => <Link className="notebook-small" key={post.slug} to={`/observations/${post.slug}`}><img loading="lazy" decoding="async" className="notebook-small__paper" src={ReadingPaper} alt="" /><span className="notebook-label">OBS. {post.number} · {post.dateLabel}</span><h3>{post.title}</h3><span>Read Observation ↗</span></Link>)}</div>}
+        {recent.length > 0 && <div className="notebook-recent">{recent.map(post => <Link className="notebook-small" key={post.slug} to={`/observations/${post.slug}`}><img loading="lazy" decoding="async" className="notebook-small__paper" src={ReadingPaper} alt="" /><span className="notebook-label">OBS. {post.number} · {post.dateLabel}</span><h3>{post.title}</h3><span>Read Observation <Icon name="arrow-right" size={15} strokeWidth={1.5} /></span></Link>)}</div>}
       </div>
     </div>
   </section>;

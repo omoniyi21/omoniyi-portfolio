@@ -26,9 +26,8 @@
 }
 .observation-post > * { position: relative; z-index: 1; }
 .observation-post__masthead { align-items: center; border-top: 1px solid rgb(37 31 42 / 15%); display: flex; font: 700 .68rem/1 var(--font-family-display); justify-content: space-between; letter-spacing: .18em; padding: 1rem .25rem 1.65rem; text-transform: uppercase; }
-.observation-post__masthead a { color: var(--text-secondary); text-decoration: none; }
-.observation-post__masthead a:hover, .observation-post__masthead a:focus-visible { color: var(--text-primary); text-decoration: underline; text-underline-offset: .3rem; }
-.observation-post__masthead span { color: var(--text-secondary); }
+.observation-post__masthead .pen-link { letter-spacing: 0; text-transform: none; font-size: 1.3rem; }
+.observation-post__masthead > span { color: var(--text-secondary); }
 .observation-post article { background: linear-gradient(138deg, rgb(255 255 255 / 66%), rgb(255 247 223 / 35%)); border: 1px solid rgb(255 255 255 / 80%); border-radius: 1.5rem; box-shadow: 0 24px 55px rgb(54 39 58 / 10%), inset 0 1px rgb(255 255 255 / 90%); margin: 0 auto; max-width: 1200px; overflow: hidden; padding: clamp(1.4rem, 4vw, 4.5rem); position: relative; }
 .observation-post article > * { position: relative; z-index: 1; }
 .observation-post__header { border-bottom: 1px solid rgb(34 30 44 / 15%); max-width: 67rem; padding-bottom: clamp(2rem, 5vw, 4rem); }
@@ -44,8 +43,8 @@
 .observation-post__paragraph p { font: 400 1.06rem/1.62 var(--font-family-body); margin: 0; }
 .observation-post__paragraph:nth-child(2) p, .observation-post__paragraph:nth-child(5) p, .observation-post__paragraph:nth-child(15) p, .observation-post__paragraph:nth-child(28) p, .observation-post__paragraph:nth-child(40) p, .observation-post__paragraph:nth-child(47) p { font: 500 1.32rem/1.25 var(--font-family-display); letter-spacing: -.012em; }
 .observation-post__paragraph aside { border-left: 2px solid var(--color-pink-500); color: var(--text-secondary); font: 500 1.05rem/1.2 var(--font-family-personal); margin: 1.25rem -2rem 1.4rem 1rem; padding: .3rem 0 .3rem 1rem; transform: rotate(-2deg); }
-.observation-post__footer { align-items: center; border-top: 1px solid rgb(34 30 44 / 15%); display: flex; font: 700 .64rem/1 var(--font-family-display); justify-content: space-between; letter-spacing: .16em; margin-top: 3.5rem; padding-top: 1.25rem; text-transform: uppercase; }
-.observation-post__footer a { color: var(--text-primary); text-decoration: none; }.observation-post__footer a:hover, .observation-post__footer a:focus-visible { text-decoration: underline; text-underline-offset: .3rem; }
+.observation-post__footer { align-items: center; border-top: 1px solid rgb(34 30 44 / 15%); display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; font: 700 .64rem/1 var(--font-family-display); justify-content: space-between; letter-spacing: .16em; margin-top: 3.5rem; padding-top: 1.25rem; text-transform: uppercase; }
+.observation-post__footer-links { display: flex; flex-wrap: wrap; gap: .25rem 1.5rem; }.observation-post__footer .pen-link { letter-spacing: 0; text-transform: none; font-size: 1.3rem; }.observation-post__header h1:focus { outline: none; }.observation-post__header h1:focus-visible { outline: 2px solid var(--color-lavender-500); outline-offset: 6px; border-radius: 2px; }
 
 /* A compact subscribe prompt at the end of every post — the same Beehiiv
    embed used on the homepage Observations bar, restyled to sit quietly

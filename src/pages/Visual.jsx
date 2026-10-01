@@ -1,8 +1,9 @@
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+
 import { Link } from "react-router-dom";
 import BackToPreviousPage from "../components/shared/BackToPreviousPage";
 import { visualWork } from "../data/visualWork";
 import "./visual.css";
+import { Icon } from "../components/shared/icons/Icon";
 
 const src = name => `/case-studies/${name}.webp`;
 
@@ -18,7 +19,7 @@ function Piece({ piece }) {
         style={{ backgroundImage: `url(/case-studies/previews/${piece.image}.webp)` }}
       >
         <img src={src(piece.image)} alt={`${piece.title}: ${piece.kind.toLowerCase()}`} loading="lazy" decoding="async" />
-        <span>View full size <ArrowUpRight size={14} aria-hidden="true" /></span>
+        <span>View full size <Icon name="arrow-up-right" size={14} strokeWidth={1.5} /></span>
       </a>
       <figcaption>
         <p className="visual-piece__kind">{piece.kind}</p>
@@ -71,9 +72,9 @@ export default function Visual() {
           The same instincts run through the product work: hierarchy, restraint, and one idea you can read at a glance.
         </h2>
         <div className="visual-outro__links">
-          <Link to="/wedding-identity"><span>Case study 06</span><strong>Wedding Identity &amp; Guest Experience <ArrowRight size={20} /></strong></Link>
-          <Link to="/sultry-tips"><span>Case study 08</span><strong>Sultry Tips Brand Identity &amp; Custom Lettering <ArrowRight size={20} /></strong></Link>
-          <Link to="/studio"><span>Work with me</span><strong>Omoniyi Studio <ArrowRight size={20} /></strong></Link>
+          <Link to="/wedding-identity"><span>Case study 06</span><strong>Wedding Identity &amp; Guest Experience <Icon name="arrow-right" size={20} strokeWidth={1.5} /></strong></Link>
+          <Link to="/sultry-tips"><span>Case study 08</span><strong>Sultry Tips Brand Identity &amp; Custom Lettering <Icon name="arrow-right" size={20} strokeWidth={1.5} /></strong></Link>
+          <Link to="/studio"><span>Work with me</span><strong>Omoniyi Studio <Icon name="arrow-right" size={20} strokeWidth={1.5} /></strong></Link>
         </div>
       </section>
     </main>

@@ -1,5 +1,4 @@
-import { ArrowRight, ArrowUpRight } from "lucide-react";
-import { Link } from "react-router-dom";
+
 import BackToPreviousPage from "../components/shared/BackToPreviousPage";
 import { caseStudies, portfolioStudies } from "../data/caseStudies";
 import { cardTints } from "../data/cardTints";
@@ -7,12 +6,15 @@ import "./project-case-study.css";
 import PenMark from "../components/shared/pen-mark/PenMark";
 import PrototypeEmbed from "../components/case-study/PrototypeEmbed";
 import MotionClip from "../components/case-study/MotionClip";
+import { Icon } from "../components/shared/icons/Icon";
+import StampButton from "../components/shared/paper/StampButton";
+import TagButton from "../components/shared/paper/TagButton";
 
 const chapters = ["Snapshot", "Problem", "Understanding the System", "What I Learned", "Decisions That Shaped the Product", "The Experience", "The System Behind the Product", "Outcome & Reflection"];
 const imagePath = name => `/case-studies/${name}.webp${name.startsWith("payments-") ? "?redacted=1" : ""}`;
 function Evidence({ image, caption, compact = false }) {
   return <figure className={`study-evidence${compact ? " study-evidence--compact" : ""}`}>
-    <a href={imagePath(image)} target="_blank" rel="noopener noreferrer" aria-label={`Enlarge: ${caption}`}><img src={imagePath(image)} alt={caption} loading="lazy" decoding="async" /><span>View detail <ArrowUpRight size={14}/></span></a>
+    <a href={imagePath(image)} target="_blank" rel="noopener noreferrer" aria-label={`Enlarge: ${caption}`}><img src={imagePath(image)} alt={caption} loading="lazy" decoding="async" /><span>View detail <Icon name="arrow-up-right" size={14} strokeWidth={1.5} /></span></a>
     <figcaption>{caption}{image.startsWith("payments-") && <strong className="study-redacted"> Data blurred for confidentiality.</strong>}</figcaption>
   </figure>;
 }
@@ -27,7 +29,7 @@ export default function ProjectCaseStudy({ studyKey, study: studyProp }) {
   return <main className={`portfolio-study portfolio-study--${study.slug}`} style={{ "--study-tint": tint }}>
     <div className="study-bar"><BackToPreviousPage/><span>{study.client} / {study.number}</span></div>
     <header className="study-hero">
-      <div className="study-hero__copy"><p className="study-kicker">Case study {study.number} <b aria-hidden="true">✦</b></p><p className="study-client">{study.client}</p><h1>{study.title}</h1><p className="study-summary">{study.summary}</p><ul className="study-tags">{study.tags.map(t=><li key={t}>{t}</li>)}</ul><div className="study-actions"><a href="#snapshot">Explore the story <ArrowRight size={16}/></a>{study.figma && <a href={study.figma} target="_blank" rel="noopener noreferrer">View Figma <ArrowUpRight size={16}/></a>}</div></div>
+      <div className="study-hero__copy"><p className="study-kicker">Case study {study.number} <b aria-hidden="true">✦</b></p><p className="study-client">{study.client}</p><h1>{study.title}</h1><p className="study-summary">{study.summary}</p><ul className="study-tags">{study.tags.map(t=><li key={t}>{t}</li>)}</ul><div className="study-actions"><a href="#snapshot">Explore the story <Icon name="arrow-right" size={16} strokeWidth={1.5} /></a>{study.figma && <a href={study.figma} target="_blank" rel="noopener noreferrer">View Figma <Icon name="arrow-up-right" size={16} strokeWidth={1.5} /></a>}</div></div>
       <div className="study-anatomy"><p className="study-kicker">Anatomy of the project <b aria-hidden="true">✦</b></p>{study.hero.map(([image,caption])=><Evidence key={image} image={image} caption={caption} compact/>)}</div>
     </header>
     <nav className="study-contents" aria-label="Case study sections">{chapterNames.map((c,i)=><a key={c} href={`#${i===0?'snapshot':`chapter-${i+1}`}`}><span>{String(i+1).padStart(2,'0')}</span>{c}</a>)}</nav>
@@ -42,6 +44,12 @@ export default function ProjectCaseStudy({ studyKey, study: studyProp }) {
       {s.table && <div className="study-table-wrap"><table className="study-table"><caption>{s.table.caption}</caption><thead><tr>{s.table.head.map(h=><th key={h} scope="col">{h}</th>)}</tr></thead><tbody>{s.table.rows.map(r=><tr key={r[0]}>{r.map((c,j)=>j===0?<th key={j} scope="row">{c}</th>:<td key={j}>{c}</td>)}</tr>)}</tbody></table></div>}
       {s.quote && <blockquote><span className="study-quote-text">{s.quote}<PenMark color="#f0a878" /></span></blockquote>}
     </section>)}
-    <nav className="study-next" aria-label="More case studies"><Link to="/work">All {["zero","one","two","three","four","five","six","seven","eight","nine"][portfolioStudies.length] || portfolioStudies.length} case studies</Link><Link to={`/${next.slug}`}><span>Next / {next.client}</span><strong>{next.title} <ArrowRight size={24}/></strong></Link></nav>
+    <nav className="study-next" aria-label="More case studies">
+      <TagButton to="/work">All {["zero","one","two","three","four","five","six","seven","eight","nine"][portfolioStudies.length] || portfolioStudies.length} case studies</TagButton>
+      <div className="study-next__up">
+        <p className="study-next__kicker">Next / {next.client}</p>
+        <StampButton className="study-next__stamp" to={`/${next.slug}`}>{next.title}</StampButton>
+      </div>
+    </nav>
   </main>;
 }

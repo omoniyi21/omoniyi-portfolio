@@ -1,4 +1,7 @@
-import { Link, useParams } from "react-router-dom";
+import { useRef } from "react";
+import { useParams } from "react-router-dom";
+import PenLink from "../components/shared/paper/PenLink";
+import { isMotionReduced } from "../lib/motionPreference";
 import { Icon } from "../components/shared/icons/Icon";
 import { topicIcon } from "../components/shared/icons/topics";
 
@@ -17,12 +20,21 @@ function InlineLinks({ text }) {
 export default function ObservationPost() {
  const { slug } = useParams();
  const post = getPublishedObservations().find(post => post.slug === slug);
+ const titleRef = useRef(null);
+
+ // Back to the top of the essay: scroll up (gently, unless motion is
+ // reduced) and move keyboard focus to the title so the next Tab starts
+ // from the top too.
+ const backToTop = () => {
+   window.scrollTo({ top: 0, behavior: isMotionReduced() ? "auto" : "smooth" });
+   titleRef.current?.focus({ preventScroll: true });
+ };
  if (!post) return <NotFound />;
  const { paragraphs = [], notes = {} } = post;
   return (
     <main className="observation-post">
       <header className="observation-post__masthead">
-        <Link to="/observations">← Observations</Link>
+        <PenLink back className="observation-post__back" to="/observations">Observations</PenLink>
         <span>Field notes · vol. 03</span>
       </header>
 
@@ -30,7 +42,7 @@ export default function ObservationPost() {
         <header className={`observation-post__header${post.cardImage ? " observation-post__header--cover" : ""}`}>
           <p className="topic-mark">OBS. {post.number} · {topicIcon(post.category) && <Icon name={topicIcon(post.category)} size={18} />}{post.category}</p>
           <div className="observation-post__title-group">
-            <h1>{post.title}</h1>
+            <h1 ref={titleRef} tabIndex={-1}>{post.title}</h1>
             {post.cardImage && <figure className="observation-card__image observation-post__cover"><img src={post.cardImage} alt={post.cardImageAlt || ""} fetchPriority="high" /></figure>}
           </div>
           <p className="observation-post__dek">{post.excerpt}</p>
@@ -53,7 +65,10 @@ export default function ObservationPost() {
         </div>
         <footer className="observation-post__footer">
           <span>End of observation {post.number}</span>
-          <Link to="/observations">More field notes ↗</Link>
+          <div className="observation-post__footer-links">
+            <PenLink to="/observations">More field notes</PenLink>
+            <PenLink icon="arrow-up" onClick={backToTop}>Back to top</PenLink>
+          </div>
         </footer>
       </article>
 

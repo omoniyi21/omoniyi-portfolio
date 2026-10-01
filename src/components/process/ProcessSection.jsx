@@ -86,7 +86,7 @@ export default function ProcessSection() {
       </header>
       <div className="process-section__sd" tabIndex={0} aria-describedby="process-sd-tooltip">
         <img src={FloatingSD} alt="Stardust floating" />
-        <a href="https://www.figma.com/design/ZdQgGWYa2JVXtn57IIMShQ/Stardust---Dust---Notebook-%E2%80%94-Theme-History---Foundations" target="_blank" rel="noopener noreferrer" className="process-section__figma" aria-describedby="process-sd-tooltip">peek into figma <span aria-hidden="true">↗</span></a>
+        <a href="https://www.figma.com/design/ZdQgGWYa2JVXtn57IIMShQ/Stardust---Dust---Notebook-%E2%80%94-Theme-History---Foundations" target="_blank" rel="noopener noreferrer" className="process-section__figma" aria-describedby="process-sd-tooltip">peek into figma <Icon name="arrow-up-right" size={14} strokeWidth={1.5} /></a>
         <span className="process-section__sd-tooltip" id="process-sd-tooltip" role="tooltip">I'm Stardust or SD, peek into figma to get to know me</span>
       </div>
       </div>
@@ -110,7 +110,7 @@ export default function ProcessSection() {
               <span className="process-card__link">
                 <span className="process-card__client">{step.client}</span>
                 <i className="process-card__note">{step.note}</i>
-                <span className="process-card__cta">{step.cta} <span aria-hidden="true">→</span></span>
+                <span className="process-card__cta">{step.cta} <Icon name="arrow-right" size={16} strokeWidth={1.5} /></span>
               </span>
             </Link>
           </li>

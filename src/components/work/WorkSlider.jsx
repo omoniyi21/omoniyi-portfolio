@@ -16,6 +16,7 @@ import locSearch640 from "../../assets/images/work-slider/loc-search-640.webp";
 import locSearch1200 from "../../assets/images/work-slider/loc-search-1200.webp";
 import visual640 from "../../assets/images/work-slider/visual-640.webp";
 import visual1200 from "../../assets/images/work-slider/visual-1200.webp";
+import { Icon } from "../shared/icons/Icon";
 
 // Selected Work as a small pile of prints on the desk sheet. Every print is
 // the same component (border, tape, label, margin note); only the paper
@@ -125,8 +126,8 @@ export default function WorkSlider({ persona = "hiring" }) {
           </div>
         </div>
         <div className="print-pile__arrows">
-          <button type="button" aria-label="Previous project" onClick={() => go(-1)}>←</button>
-          <button type="button" aria-label="Next project" onClick={() => go(1)}>→</button>
+          <button type="button" aria-label="Previous project" onClick={() => go(-1)}><Icon name="arrow-left" size={18} strokeWidth={1.5} /></button>
+          <button type="button" aria-label="Next project" onClick={() => go(1)}><Icon name="arrow-right" size={18} strokeWidth={1.5} /></button>
         </div>
       </div>
 
@@ -161,7 +162,7 @@ export default function WorkSlider({ persona = "hiring" }) {
                     decoding="async"
                     draggable="false"
                   />
-                  <span className="print__peel" aria-hidden="true"><span>↗</span></span>
+                  <span className="print__peel" aria-hidden="true"><span><Icon name="arrow-right" size={18} strokeWidth={1.5} /></span></span>
                 </span>
                 <img className="print__tape" src={tape} alt="" aria-hidden="true" draggable="false" />
               </Link>
@@ -180,7 +181,7 @@ export default function WorkSlider({ persona = "hiring" }) {
           <b>No. {String(current + 1).padStart(2, "0")}</b> · {active.client} · {active.role}{active.years ? ` · ${active.years}` : ""}
         </p>
         <Link className="print-pile__caption" to={active.to}>
-          {active.caption} <span aria-hidden="true">→</span>
+          {active.caption} <span><Icon name="arrow-right" size={20} strokeWidth={1.5} /></span>
         </Link>
       </div>
 

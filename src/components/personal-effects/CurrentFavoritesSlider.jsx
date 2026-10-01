@@ -9,6 +9,7 @@ import RitualPaper from "../../assets/images/personal-effects-refined/ritual-pap
 import ThoughtPaper from "../../assets/images/personal-effects-refined/thought-paper-v3-trim.webp";
 import Podcast from "../../assets/images/personal-effects-refined/podcast-paper-v3-trim.webp";
 import Playlist from "../../assets/images/personal-effects-refined/playlist-paper-v3-trim.webp";
+import { Icon } from "../shared/icons/Icon";
 
 // The same photographed desk artifacts used in Personal Effects on the
 // homepage, one at a time — each item's rotation/contentRotation/inset
@@ -49,8 +50,8 @@ export default function CurrentFavoritesSlider() {
           {String(index + 1).padStart(2, "0")} / {String(artifacts.length).padStart(2, "0")}
         </span>
         <div className="favorites-slider__controls" aria-label="Browse current favorites">
-          <button type="button" aria-label="Previous favorite" aria-controls="favorites-stage" disabled={index <= 0} onClick={() => go(-1)}>←</button>
-          <button type="button" aria-label="Next favorite" aria-controls="favorites-stage" disabled={index >= artifacts.length - 1} onClick={() => go(1)}>→</button>
+          <button type="button" aria-label="Previous favorite" aria-controls="favorites-stage" disabled={index <= 0} onClick={() => go(-1)}><Icon name="arrow-left" size={18} strokeWidth={1.5} /></button>
+          <button type="button" aria-label="Next favorite" aria-controls="favorites-stage" disabled={index >= artifacts.length - 1} onClick={() => go(1)}><Icon name="arrow-right" size={18} strokeWidth={1.5} /></button>
         </div>
       </div>
 

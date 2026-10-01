@@ -1,14 +1,17 @@
 import clsx from "clsx";
-import { ArrowUpRight } from "lucide-react";
+import { Icon } from "../icons/Icon";
 import { Link } from "react-router-dom";
 import "./button.css";
+
+// The site's one arrow rule: right for pages here, up-right for other sites.
+const arrowFor = (to, href) => (/^https?:/.test(href || to || "") ? "arrow-up-right" : "arrow-right");
 
 export default function Button({
   children,
   variant = "primary",
   type = "button",
   disabled = false,
-  icon = true,
+  icon = true, // true for the default arrow, an icon name, or false
   className,
   to,
   href,
@@ -35,9 +38,10 @@ export default function Button({
         <span className="button__label">{children}</span>
 
         {icon && (
-          <ArrowUpRight
+          <Icon
+            name={typeof icon === "string" ? icon : arrowFor(to, href)}
             size={18}
-            strokeWidth={2}
+            strokeWidth={1.5}
             className="button__icon"
           />
         )}

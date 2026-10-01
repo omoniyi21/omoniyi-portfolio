@@ -4,12 +4,13 @@ import studioHeroWindow from "../assets/images/studio-hero/window-table.jpg";
 import studioHeroCoffee from "../assets/images/studio-hero/coffee.jpg";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, ArrowLeft, ArrowDown, Check } from "lucide-react";
+import { Check } from "lucide-react";
 
 import Button from "../components/shared/button/Button";
 import "./studio.css";
 
 import { tylerRecommendation } from "../data/recommendations";
+import { Icon } from "../components/shared/icons/Icon";
 
 const INQUIRE_HREF = "/studio/inquire?service=not-sure";
 
@@ -213,8 +214,8 @@ function Hero() {
             <Button to={INQUIRE_HREF} variant="primary">
               Start a Project
             </Button>
-            <Button href="#services" variant="secondary" icon={false}>
-              See Packages <ArrowDown size={14} strokeWidth={1.8} />
+            <Button href="#services" variant="secondary" icon="arrow-down">
+              See Packages
             </Button>
           </div>
 
@@ -334,7 +335,7 @@ function Services() {
             <footer className="studio-tier__footer">
               <span>Timeline: <strong>{tier.timeline}</strong></span>
               <Link to={`/studio/inquire?service=${tier.id}`} className="studio-tier__cta">
-                Inquire about this <ArrowRight size={15} strokeWidth={1.8} aria-hidden="true" />
+                Inquire about this <Icon name="arrow-right" size={15} strokeWidth={1.5} />
               </Link>
             </footer>
           </article>
@@ -357,7 +358,7 @@ function Services() {
             <li>Accessibility &amp; UX Audit <span>from $4,000</span></li>
           </ul>
           <Link to="/studio/inquire?service=team" className="studio-tier__cta">
-            See team offerings <ArrowRight size={15} strokeWidth={1.8} aria-hidden="true" />
+            See team offerings <Icon name="arrow-right" size={15} strokeWidth={1.5} />
           </Link>
         </article>
       </div>
@@ -476,17 +477,17 @@ function SelectedWork() {
           <h2>Real businesses.<br />Real results.</h2>
           <p>A few examples of how thoughtful design creates measurable impact.</p>
           <Link to="/work" className="studio-text-link">
-            View Case Studies <ArrowRight size={14} strokeWidth={1.8} aria-hidden="true" />
+            View Case Studies <Icon name="arrow-right" size={14} strokeWidth={1.5} />
           </Link>
           <Link to="/visual" className="studio-text-link">
-            Visual &amp; Illustration <ArrowRight size={14} strokeWidth={1.8} aria-hidden="true" />
+            Visual &amp; Illustration <Icon name="arrow-right" size={14} strokeWidth={1.5} />
           </Link>
           <div className="studio-work__controls">
             <button type="button" onClick={() => setIndex(current - 1)} disabled={current === 0} aria-label="Previous project">
-              <ArrowLeft size={16} strokeWidth={1.8} aria-hidden="true" />
+              <Icon name="arrow-left" size={16} strokeWidth={1.5} />
             </button>
             <button type="button" onClick={() => setIndex(current + 1)} disabled={current >= maxIndex} aria-label="Next project">
-              <ArrowRight size={16} strokeWidth={1.8} aria-hidden="true" />
+              <Icon name="arrow-right" size={16} strokeWidth={1.5} />
             </button>
           </div>
         </div>
@@ -538,7 +539,7 @@ function LaunchKit() {
             high-quality products, faster.
           </p>
           <Link className="studio-text-link" to="/uikit">
-            Explore LaunchKit <ArrowRight size={14} strokeWidth={1.8} aria-hidden="true" />
+            Explore LaunchKit <Icon name="arrow-right" size={14} strokeWidth={1.5} />
           </Link>
         </div>
 
@@ -561,7 +562,7 @@ function LaunchKit() {
             <div className="studio-launchkit__components">
               <div className="studio-launchkit__component studio-launchkit__component--button">
                 <p>Button</p>
-                <span className="studio-launchkit__mock-button">Save changes →</span>
+                <span className="studio-launchkit__mock-button">Save changes <Icon name="arrow-right" size={14} strokeWidth={1.5} /></span>
               </div>
               <div className="studio-launchkit__component studio-launchkit__component--badge">
                 <p>Badge</p>
@@ -605,7 +606,7 @@ function StudioFooter() {
             Start a Project
           </Button>
           <Link className="studio-footer__link" to={INQUIRE_HREF}>
-            Not sure what you need? Let’s talk it through. →
+            Not sure what you need? Let’s talk it through. <Icon name="arrow-right" size={15} strokeWidth={1.5} />
           </Link>
         </div>
       </div>
