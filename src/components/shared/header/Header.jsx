@@ -7,7 +7,7 @@ import "./header.css";
 import BrandSignature from "../BrandSignature";
 
 import Navigation from "./Navigation";
-import logoMark from "../../../assets/branding/logo-mark.svg";
+import alimiMenu from "../../../assets/branding/marks/alimi-menu.png";
 import { X } from "lucide-react";
 
 export default function Header() {
@@ -56,7 +56,7 @@ export default function Header() {
           >
             <span className="portfolio-menu-blur" aria-hidden="true" />
             <span className="portfolio-menu-label">{open ? "Close" : "Menu"}</span>
-            <span className="portfolio-menu-orb">{open ? <X size={22} aria-hidden="true" /> : <img src={logoMark} alt="" aria-hidden="true" />}</span>
+            <span className="portfolio-menu-orb">{open ? <X size={22} aria-hidden="true" /> : <img src={alimiMenu} alt="" aria-hidden="true" />}</span>
           </button>
 
             <Navigation id={menuId} open={open} onNavigate={() => setOpen(false)} />
