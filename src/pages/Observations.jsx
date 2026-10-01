@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import Thinking from "../assets/branding/sd-variants/sd-thinking.png";
+import Thinking from "../assets/branding/sd-variants/sd-thinking.webp";
 
 import { getPublishedObservations } from "../data/observations";
 

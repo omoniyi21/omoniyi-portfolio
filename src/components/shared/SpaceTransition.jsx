@@ -1,6 +1,7 @@
-import { createContext, useCallback, useContext, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { isMotionReduced } from "../../lib/motionPreference";
+import { SpaceTransitionContext, useSpaceTransition } from "./spaceTransitionContext";
 import "./space-transition.css";
 import { ProfessionalMark, StudioMark, UIMark } from "./BrandMarks";
 
@@ -31,7 +32,6 @@ function flashSequence(target) {
 
 const MARKS = { portfolio: ProfessionalMark, studio: StudioMark, ui: UIMark };
 
-const SpaceTransitionContext = createContext(null);
 
 export function SpaceTransitionProvider({ children }) {
   const navigate = useNavigate();
@@ -106,13 +106,6 @@ export function SpaceTransitionProvider({ children }) {
   );
 }
 
-export function useSpaceTransition() {
-  const ctx = useContext(SpaceTransitionContext);
-  if (!ctx) {
-    throw new Error("useSpaceTransition must be used inside SpaceTransitionProvider");
-  }
-  return ctx;
-}
 
 // Drop-in replacement for react-router's <Link> at the places the site
 // crosses spaces (Portfolio / Studio / UI Kit). Ordinary clicks run the

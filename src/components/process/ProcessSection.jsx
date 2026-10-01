@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import "./process-section.css";
-import FloatingSD from "../../assets/branding/celestial/stardust-asteroid.png";
+import FloatingSD from "../../assets/branding/celestial/stardust-asteroid.webp";
 
 // The five words from the hero's old constellation, now written out: how I
 // actually think through each stage, each tied to the real project that

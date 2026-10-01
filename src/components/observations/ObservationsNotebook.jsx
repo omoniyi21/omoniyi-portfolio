@@ -3,9 +3,9 @@ import { getPublishedObservations } from "../../data/observations";
 import BeehiivEmbed from "./BeehiivEmbed";
 import "./observations-notebook.css";
 
-import PinkGrid from "../../assets/images/observations/pink-grid.png";
-import CreamPaper from "../../assets/images/observations/cream-paper.png";
-import Tape from "../../assets/images/observations/gingham-tape.png";
+import PinkGrid from "../../assets/images/observations/pink-grid.webp";
+import CreamPaper from "../../assets/images/observations/cream-paper.webp";
+import Tape from "../../assets/images/observations/gingham-tape.webp";
 import ReadingPaper from "../../assets/images/personal-effects-refined/reading-paper-v2-trim.webp";
 
 // The original PNGs are preserved. SVG viewports omit their transparent margins.
