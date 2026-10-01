@@ -42,7 +42,7 @@ export default function Hero() {
               />
             </div>
             <div className="desk-surface__work desk-surface__work--photos">
-              <WorkSlider />
+              <WorkSlider persona={persona} />
             </div>
           </div>
         </div>

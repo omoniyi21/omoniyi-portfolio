@@ -560,3 +560,15 @@
         border: 1px solid var(--border-default);
     }
 }
+
+/* whiter sheet: same grain, close to white with a hint of warmth */
+.hero-desk { --sheet-color: #fbfaf6; }
+.desk-surface__sheet {
+    background-color: var(--sheet-color);
+    background-image:
+        linear-gradient(rgb(255 255 255 / 52%), rgb(255 255 255 / 52%)),
+        url(../../assets/images/hero/paper-grain-swatch.png);
+}
+@media (max-width: 600px) {
+    .desk-surface__sheet { background-image: none; }
+}

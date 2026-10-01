@@ -1,8 +1,8 @@
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import useMotionReduced from "../../lib/useMotionReduced";
 import "./work-slider.css";
 
+import tape from "../../assets/images/observations/gingham-tape.webp";
 import house640 from "../../assets/images/work-slider/house-640.webp";
 import house1200 from "../../assets/images/work-slider/house-1200.webp";
 import sultry640 from "../../assets/images/work-slider/sultry-640.webp";
@@ -16,153 +16,178 @@ import locSearch1200 from "../../assets/images/work-slider/loc-search-1200.webp"
 import visual640 from "../../assets/images/work-slider/visual-640.webp";
 import visual1200 from "../../assets/images/work-slider/visual-1200.webp";
 
-// Real work, printed and pinned to the desk sheet. House and Sultry Tips
-// open the row on purpose: a government system next to a lacquer logo is
-// the range-and-restraint point in one glance.
-const SLIDES = [
-  { client: "U.S. House", caption: "A 0→1 voting platform for the U.S. House", to: "/house", small: house640, large: house1200, alt: "Committee Activity Portal home screen with referral, vote and roster summaries" },
-  { client: "Sultry Tips", caption: "Two years later, still her mark", to: "/sultry-tips", small: sultry640, large: sultry1200, alt: "Glossy red 3D lettering spelling Sultry Tips" },
-  { client: "Athletico", caption: "Patient onboarding, tested with ~100 people", to: "/athletico", small: athletico640, large: athletico1200, alt: "Athletico medical history step with treatment and test choices" },
-  { client: "Wedding identity", caption: "One emblem, eight keepsakes, one week", to: "/wedding-identity", small: wedding640, large: wedding1200, alt: "A pomegranate emblem shown in four colorways" },
-  { client: "U.S. Copyright Office", caption: "Shared patterns for Copyright Office tools", to: "/library-of-congress", small: locSearch640, large: locSearch1200, alt: "Copyright Office search with the search index menu open" },
-  { client: "Illustration", caption: "Original illustration and lettering", to: "/visual", small: visual640, large: visual1200, alt: "Illustrated room with a window, lamp and clothing rack" },
-];
-
-const COUNT = SLIDES.length;
-// Three copies in a row: the middle one is real, the outer two are
-// stand-ins so the row can keep going in either direction. Whenever the
-// scroll comes to rest inside a stand-in, it hops (invisibly) to the same
-// card in the middle copy, so the loop never runs out.
-const LOOP = [0, 1, 2].flatMap((copy) => SLIDES.map((slide, i) => ({ ...slide, copy, i })));
-
-const leftOf = (track, index) => {
-  const card = track?.children[index];
-  return card ? card.offsetLeft - track.firstElementChild.offsetLeft : 0;
+// Selected Work as a small pile of prints on the desk sheet. Every print is
+// the same component (border, tape, label, margin note); only the paper
+// stock changes with the project, like a palette per environment. The
+// variables change, the identity holds.
+const WORK = {
+  house: { client: "U.S. House", role: "UI/UX Designer", years: "2024–25", caption: "A 0 to 1 voting platform for the U.S. House", note: "paper votes to one digital record", to: "/house", small: house640, large: house1200, stock: "#c3cfdc", alt: "Committee Activity Portal home screen with referral, vote and roster summaries" },
+  sultry: { client: "Sultry Tips", role: "Logo & lettering", years: "2024", caption: "Two years later, still her mark", note: "lacquer, not a nail icon", to: "/sultry-tips", small: sultry640, large: sultry1200, stock: "#f1ece0", alt: "Glossy red 3D lettering spelling Sultry Tips" },
+  athletico: { client: "Athletico", role: "UI developer", years: "2021–23", caption: "Patient onboarding, tested with about 100 people", note: "the first step of care", to: "/athletico", small: athletico640, large: athletico1200, stock: "#c4d8ec", alt: "Athletico medical history step with treatment and test choices" },
+  wedding: { client: "Wedding identity", role: "Creative direction", years: "2026", caption: "One emblem, eight keepsakes, one week", note: "two heritages, one emblem", to: "/wedding-identity", small: wedding640, large: wedding1200, stock: "#f1ece0", alt: "A pomegranate emblem shown in four colorways" },
+  loc: { client: "U.S. Copyright Office", role: "Design system lead", years: "2025–26", caption: "Shared patterns for Copyright Office tools", note: "one way to search, everywhere", to: "/library-of-congress", small: locSearch640, large: locSearch1200, stock: "#c9d0e2", alt: "Copyright Office search with the search index menu open" },
+  visual: { client: "Illustration", role: "OMDesigns archive", years: "", caption: "Original illustration and lettering", note: "where it started", to: "/visual", small: visual640, large: visual1200, stock: "#f1ece0", alt: "Illustrated room with a window, lamp and clothing rack" },
 };
 
-export default function WorkSlider() {
-  const trackRef = useRef(null);
-  const [active, setActive] = useState(0);
-  const reduceMotion = useMotionReduced();
+// The persona toggle in the hero reorders the pile: product work first for
+// someone hiring, brand and illustration first for someone building.
+const ORDER = {
+  hiring: ["house", "sultry", "athletico", "wedding", "loc", "visual"],
+  building: ["sultry", "wedding", "visual", "house", "athletico", "loc"],
+};
 
+// constellation pager: one star per print, on a gentle zigzag
+const STAR_Y = [20, 9, 23, 11, 21, 13];
+const STAR_PATH = "M0 -5 L1.2 -1.2 L5 0 L1.2 1.2 L0 5 L-1.2 1.2 L-5 0 L-1.2 -1.2 Z";
 
-  // Start on the first real card (the middle copy).
-  useLayoutEffect(() => {
-    const track = trackRef.current;
-    if (track) track.scrollLeft = leftOf(track, COUNT);
-  }, []);
+export default function WorkSlider({ persona = "hiring" }) {
+  const order = ORDER[persona] || ORDER.hiring;
+  const count = order.length;
+  const [current, setCurrent] = useState(0);
+  const [leaving, setLeaving] = useState(null); // { key, dir } of the print sliding off
+  const swipe = useRef(null);
+  const [lastPersona, setLastPersona] = useState(persona);
 
-  // Let the row run past the paper's edge to the edge of the window,
-  // instead of stopping at the column.
-  useLayoutEffect(() => {
-    const track = trackRef.current;
-    if (!track) return;
-    const measure = () => {
-      track.style.setProperty("--bleed", "0px");
-      const right = track.getBoundingClientRect().right;
-      const viewport = document.documentElement.clientWidth;
-      track.style.setProperty("--bleed", `${Math.max(0, viewport - right)}px`);
-    };
-    measure();
-    const observer = new ResizeObserver(measure);
-    observer.observe(document.documentElement);
-    return () => observer.disconnect();
-  }, []);
+  // a new persona starts the pile from its own first print
+  if (persona !== lastPersona) {
+    setLastPersona(persona);
+    setCurrent(0);
+    setLeaving(null);
+  }
 
-  useEffect(() => {
-    const track = trackRef.current;
-    if (!track) return;
-    let frame;
-    let settle;
-    const nearest = () => {
-      const left = track.getBoundingClientRect().left;
-      let best = 0;
-      let bestDistance = Infinity;
-      [...track.children].forEach((card, i) => {
-        const distance = Math.abs(card.getBoundingClientRect().left - left - parseFloat(getComputedStyle(track).scrollPaddingLeft || 0));
-        if (distance < bestDistance) { bestDistance = distance; best = i; }
-      });
-      return best;
-    };
-    const onScroll = () => {
-      cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(() => setActive(nearest() % COUNT));
-      clearTimeout(settle);
-      settle = setTimeout(() => {
-        const index = nearest();
-        if (index < COUNT || index >= COUNT * 2) {
-          const twin = COUNT + (index % COUNT);
-          track.style.scrollSnapType = "none";
-          track.scrollLeft += leftOf(track, twin) - leftOf(track, index);
-          requestAnimationFrame(() => { track.style.scrollSnapType = ""; });
-        }
-      }, 140);
-    };
-    track.addEventListener("scroll", onScroll, { passive: true });
-    return () => {
-      cancelAnimationFrame(frame);
-      clearTimeout(settle);
-      track.removeEventListener("scroll", onScroll);
-    };
-  }, []);
+  const go = useCallback((dir) => {
+    setLeaving({ key: order[current], dir });
+    setCurrent((current + dir + count) % count);
+  }, [order, count, current]);
 
-  const step = useCallback((dir) => {
-    const track = trackRef.current;
-    if (!track) return;
-    const card = track.children[COUNT + active];
-    const next = track.children[COUNT + active + dir];
-    if (!card || !next) return;
-    track.scrollBy({ left: next.offsetLeft - card.offsetLeft, behavior: reduceMotion ? "auto" : "smooth" });
-  }, [active, reduceMotion]);
-
-  const onKeyDown = (event) => {
-    if (event.key === "ArrowRight") { event.preventDefault(); step(1); }
-    if (event.key === "ArrowLeft") { event.preventDefault(); step(-1); }
+  const jump = (index) => {
+    if (index === current) return;
+    setLeaving({ key: order[current], dir: index > current ? 1 : -1 });
+    setCurrent(index);
   };
 
+  useEffect(() => {
+    if (!leaving) return;
+    const t = setTimeout(() => setLeaving(null), 650);
+    return () => clearTimeout(t);
+  }, [leaving]);
+
+  const onKeyDown = (event) => {
+    if (event.target.closest(".print-pile__star")) return;
+    if (event.key === "ArrowRight") { event.preventDefault(); go(1); }
+    if (event.key === "ArrowLeft") { event.preventDefault(); go(-1); }
+  };
+
+  const onPointerDown = (event) => { swipe.current = { x: event.clientX, y: event.clientY }; };
+  const onPointerUp = (event) => {
+    const start = swipe.current;
+    swipe.current = null;
+    if (!start) return;
+    const dx = event.clientX - start.x;
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(event.clientY - start.y)) go(dx < 0 ? 1 : -1);
+  };
+  // a swipe should not also count as a click on the print
+  const onClickCapture = (event) => {
+    if (event.detail === 0) return;
+    if (leaving) event.preventDefault();
+  };
+
+  const active = WORK[order[current]];
+  const starX = order.map((_, i) => 8 + i * 36);
+
   return (
-    <section className="work-slider" aria-labelledby="work-slider-title">
-      <div className="work-slider__intro">
-        <p id="work-slider-title" className="work-slider__eyebrow">
+    <section
+      className="print-pile"
+      aria-roledescription="carousel"
+      aria-labelledby="print-pile-title"
+      onKeyDown={onKeyDown}
+    >
+      <div className="print-pile__head">
+        <p id="print-pile-title" className="print-pile__eyebrow">
           <span>Selected Work</span>
           <span aria-hidden="true">✦</span>
         </p>
-        <span className="work-slider__count" aria-live="polite">
-          {active + 1} / {COUNT}
-        </span>
-        <Link className="work-slider__all" to="/work">See all work <span aria-hidden="true">→</span></Link>
-        <div className="work-slider__controls">
-          <button type="button" aria-label="Previous project" aria-controls="work-slider-track" onClick={() => step(-1)}>←</button>
-          <button type="button" aria-label="Next project" aria-controls="work-slider-track" onClick={() => step(1)}>→</button>
+        <div className="print-pile__stars" style={{ "--w": `${starX[count - 1] + 8}px` }}>
+          <svg className="print-pile__line" viewBox={`0 0 ${starX[count - 1] + 8} 32`} aria-hidden="true" focusable="false">
+            <polyline points={starX.map((x, i) => `${x},${STAR_Y[i]}`).join(" ")} />
+          </svg>
+          <div role="group" aria-label="Choose a project">
+            {order.map((key, i) => (
+              <button
+                key={key}
+                type="button"
+                className="print-pile__star"
+                style={{ "--x": `${starX[i]}px`, "--y": `${STAR_Y[i]}px` }}
+                aria-label={`Project ${i + 1} of ${count}: ${WORK[key].client}`}
+                aria-current={i === current ? "true" : undefined}
+                onClick={() => jump(i)}
+              >
+                <svg viewBox="-6 -6 12 12" aria-hidden="true" focusable="false"><path d={STAR_PATH} /></svg>
+              </button>
+            ))}
+          </div>
+        </div>
+        <div className="print-pile__arrows">
+          <button type="button" aria-label="Previous project" onClick={() => go(-1)}>←</button>
+          <button type="button" aria-label="Next project" onClick={() => go(1)}>→</button>
         </div>
       </div>
 
-      <ul className="work-slider__track" id="work-slider-track" ref={trackRef} onKeyDown={onKeyDown} aria-label="Selected projects. Use the arrow keys or swipe to browse.">
-        {LOOP.map((slide) => {
-          const real = slide.copy === 1;
+      <div className="print-pile__stack" onPointerDown={onPointerDown} onPointerUp={onPointerUp} onClickCapture={onClickCapture}>
+        {order.map((key, i) => {
+          const work = WORK[key];
+          const depth = (i - current + count) % count; // 0 = on top
+          const isLeaving = leaving?.key === key;
+          if (depth > 2 && !isLeaving) return null;
+          const state = isLeaving ? `leaving-${leaving.dir > 0 ? "next" : "prev"}` : `depth-${depth}`;
+          const onTop = depth === 0 && !isLeaving;
           return (
-            <li className={`work-slide work-slide--${slide.i % 2 ? "even" : "odd"}`} key={`${slide.copy}-${slide.to}`} aria-hidden={real ? undefined : true}>
-              <Link className="work-slide__link" to={slide.to} tabIndex={real ? undefined : -1}>
-                <span className="work-slide__photo">
+            <article
+              key={key}
+              className={`print print--${state}`}
+              aria-roledescription="slide"
+              aria-label={`${i + 1} of ${count}: ${work.caption}`}
+              aria-hidden={onTop ? undefined : true}
+              style={{ "--stock": work.stock }}
+            >
+              <Link className="print__link" to={work.to} tabIndex={onTop ? undefined : -1} draggable="false">
+                <span className="print__paper">
                   <img
-                    src={slide.small}
-                    srcSet={`${slide.small} 640w, ${slide.large} 1200w`}
-                    sizes="(max-width: 980px) 82vw, 34vw"
+                    src={work.small}
+                    srcSet={`${work.small} 640w, ${work.large} 1200w`}
+                    sizes="(max-width: 980px) 90vw, 42vw"
                     width="1200"
                     height="900"
-                    alt={real ? slide.alt : ""}
-                    loading={real && slide.i < 2 ? "eager" : "lazy"}
-                    fetchPriority={real && slide.i === 0 ? "high" : undefined}
+                    alt={work.alt}
+                    loading={depth <= 1 ? "eager" : "lazy"}
+                    fetchPriority={depth === 0 ? "high" : undefined}
                     decoding="async"
+                    draggable="false"
                   />
+                  <span className="print__peel" aria-hidden="true"><span>↗</span></span>
                 </span>
-                <span className="work-slide__client">{slide.client}</span>
-                <span className="work-slide__caption">{slide.caption} <span aria-hidden="true">↗</span></span>
+                <img className="print__tape" src={tape} alt="" aria-hidden="true" draggable="false" />
               </Link>
-            </li>
+            </article>
           );
         })}
-      </ul>
+
+        <div className="print-pile__note" key={`note-${order[current]}`} aria-hidden="true">
+          <p>{active.note}</p>
+          <svg viewBox="0 0 40 40"><path d="M4 6 C 14 8, 24 16, 30 30" /><path d="M22 28 L 30 31 L 32 22" /></svg>
+        </div>
+      </div>
+
+      <div className="print-pile__label" aria-live="polite">
+        <p className="print-pile__meta">
+          <b>No. {String(current + 1).padStart(2, "0")}</b> · {active.client} · {active.role}{active.years ? ` · ${active.years}` : ""}
+        </p>
+        <Link className="print-pile__caption" to={active.to}>
+          {active.caption} <span aria-hidden="true">→</span>
+        </Link>
+      </div>
+
+      <Link className="print-pile__shelf" to="/work">the full shelf <span aria-hidden="true">→</span></Link>
     </section>
   );
 }
