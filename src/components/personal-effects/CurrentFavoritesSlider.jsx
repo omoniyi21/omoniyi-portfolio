@@ -19,7 +19,7 @@ import { Icon } from "../shared/icons/Icon";
 const artifacts = [
   { key: "reading", src: ReadingPaper, rotation: -3, contentRotation: 3, inset: "29% 14% 14% 18%", eyebrow: "Currently reading", title: "The Artist’s Way", detail: "Julia Cameron" },
   { key: "watching", src: WatchingPaper, rotation: 0, contentRotation: 0, inset: "18% 9% 10% 9%", eyebrow: "Currently watching", title: "FROM + Furious", detail: "On MGM+ and Hulu" },
-  { key: "movie", src: MovieTicket, rotation: 4, contentRotation: 0, inset: "20% 16% 17% 14%", eyebrow: "Current movie obsession", title: "I Love Boosters", detail: "The movie that lives in my head rent free." },
+  { key: "movie", src: MovieTicket, rotation: 4, contentRotation: 0, inset: "20% 16% 17% 14%", eyebrow: "Current movie obsession", title: "If I Go Will They Miss Me", detail: "The movie that lives in my head rent free." },
   { key: "scent", src: ScentPaper, rotation: -1, contentRotation: 1, inset: "17% 29% 16% 16%", eyebrow: "Current scent", title: "Ode to Dullness", detail: "Juliette Has a Gun · woody, musky, warm" },
   { key: "ritual", src: RitualPaper, rotation: 0, contentRotation: 0, inset: "17% 15% 12% 15%", eyebrow: "Current ritual", title: "Coffee with honey, a little salt", detail: "Then walking the dogs.", light: true },
   { key: "thought", src: ThoughtPaper, rotation: -2, contentRotation: 2, inset: "25% 15% 18% 15%", eyebrow: "Current thought", title: "Design should feel inevitable.", detail: "" },
