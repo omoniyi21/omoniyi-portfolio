@@ -1,5 +1,5 @@
-import { ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import PenLink from "./paper/PenLink";
 
 export default function BackToPreviousPage() {
   const navigate = useNavigate();
@@ -15,5 +15,5 @@ export default function BackToPreviousPage() {
     navigate("/work");
   };
 
-  return <a href="/work" onClick={returnToPreviousPage}><ArrowLeft size={16} /> Back to previous page</a>;
+  return <PenLink back className="study-back" href="/work" onClick={returnToPreviousPage}>Back to previous page</PenLink>;
 }

@@ -1,9 +1,9 @@
-import { ArrowUpRight } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { morphToCaseStudy } from '../lib/caseStudyTransition';
 import { portfolioStudies } from '../data/caseStudies';
 import { cardTints } from '../data/cardTints';
 import './work.css';
+import { Icon } from "../components/shared/icons/Icon";
 
 const covers = ['house-dashboard', 'loc-users', 'payments-legacy', 'usda-admin', 'athletico-overview', 'wedding-emblem-cream', 'portfolio-hiring', 'sultry-hero'];
 
@@ -45,7 +45,7 @@ export default function Work() {
               <ul className="work-card__tags">
                 {s.tags.slice(0, 2).map(t => <li key={t}>{t}</li>)}
               </ul>
-              <ArrowUpRight aria-hidden="true" />
+              <Icon name="arrow-right" strokeWidth={1.5} />
             </footer>
           </Link>
         ))}
@@ -53,7 +53,7 @@ export default function Work() {
       <Link className="work-archive" to="/visual">
         <span className="work-archive__meta">Also / Visual &amp; illustration <b aria-hidden="true">✦</b></span>
         <strong>Illustration, custom lettering, and brand identity</strong>
-        <ArrowUpRight aria-hidden="true" />
+        <Icon name="arrow-right" strokeWidth={1.5} />
       </Link>
     </main>
   );

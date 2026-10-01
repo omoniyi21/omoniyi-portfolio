@@ -23,8 +23,7 @@
 
 .resume-toolbar__options { display: flex; flex-wrap: wrap; gap: .5rem; }
 
-.resume-toolbar__pill,
-.resume-toolbar__print {
+.resume-toolbar__pill {
   background: rgb(255 255 255 / 62%);
   border: 1px solid var(--resume-line);
   border-radius: 99px;
@@ -48,7 +47,6 @@
 .resume-toolbar__print { margin-left: auto; }
 
 .resume-toolbar__pill:focus-visible,
-.resume-toolbar__print:focus-visible,
 .resume-sheet a:focus-visible {
   outline: 3px solid var(--resume-accent);
   outline-offset: 3px;

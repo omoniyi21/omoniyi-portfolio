@@ -2,6 +2,7 @@ import portrait from "../assets/images/portfolio-personal-effects-assets/png/can
 import filmStrip from "../assets/images/about/film-strip.webp";
 import CurrentFavoritesForm from "../components/contact/CurrentFavoritesForm";
 import CurrentFavoritesSlider from "../components/personal-effects/CurrentFavoritesSlider";
+import { Icon } from "../components/shared/icons/Icon";
 
 export default function About() {
   return (
@@ -40,7 +41,7 @@ export default function About() {
           <div className="about-dossier__favorites-slider"><CurrentFavoritesSlider /></div>
           <div className="about-dossier__favorites-form"><CurrentFavoritesForm /></div>
         </section>
-        <footer className="about-dossier__footer"><span>Words + design by Omoniyi Alimi</span><span>Next: How I work ↗</span></footer>
+        <footer className="about-dossier__footer"><span>Words + design by Omoniyi Alimi</span><span>Next: How I work <Icon name="arrow-right" size={14} strokeWidth={1.5} /></span></footer>
       </article>
     </main>
   );

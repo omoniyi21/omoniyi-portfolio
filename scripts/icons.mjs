@@ -19,6 +19,7 @@ const LINE = {
   mail: 'mail', close: 'remove-x-cross', play: 'play', star: 'star',
   // the set names its arrows from the arrowhead's side; these are checked by eye
   'arrow-up-right': 'up-right-arrow', 'arrow-left': 'right-arrow', 'arrow-right': 'left-arrow',
+  'arrow-up': 'up-arrow', 'arrow-down': 'down-arrow',
 };
 const BRAND = { linkedin: 'linkedin-icon', pinterest: 'pinterest', github: 'github-icon' };
 

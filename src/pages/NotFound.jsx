@@ -1,6 +1,7 @@
-import { Link } from "react-router-dom";
 import confusedStardust from "../assets/branding/stardust-creature-kit/png/1024/lost-confused.webp";
 import "./not-found.css";
+import TagButton from "../components/shared/paper/TagButton";
+import StampButton from "../components/shared/paper/StampButton";
 
 export default function NotFound() {
   return (
@@ -20,12 +21,8 @@ export default function NotFound() {
           <p>Let’s find the way together.</p>
         </div>
         <div className="not-found__actions" aria-label="Choose where to go next">
-          <Link className="not-found__action not-found__action--primary" to="/#contact">
-            Message me <span aria-hidden="true">↗</span>
-          </Link>
-          <Link className="not-found__action not-found__action--secondary" to="/">
-            Go home <span aria-hidden="true">←</span>
-          </Link>
+          <StampButton to="/#contact">Message me</StampButton>
+          <TagButton to="/">Go home</TagButton>
         </div>
         <p className="not-found__note">SD’s trail got a little tangled. It happens.</p>
       </section>

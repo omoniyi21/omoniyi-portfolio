@@ -22,7 +22,7 @@ export default function Observations() {
           <div className="observation-card__copy"><h2>{post.title}</h2><p className="observation-card__excerpt">{post.excerpt}</p></div>
           {post.cardImage && <figure className="observation-card__image"><img src={post.cardImage} alt={post.cardImageAlt || ""} loading="lazy" /></figure>}
         </div>
-        <div className="observation-card__footer"><span>Read observation</span><span aria-hidden="true">↗</span></div>
+        <div className="observation-card__footer"><span>Read observation</span><Icon name="arrow-right" size={16} strokeWidth={1.5} /></div>
       </Link>)}
     </section>
   </main>;

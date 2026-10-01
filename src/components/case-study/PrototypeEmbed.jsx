@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { ArrowUpRight, Play } from "lucide-react";
+import { Play } from "lucide-react";
+import PenLink from "../shared/paper/PenLink";
 
 // Converts a Figma prototype share link into its embed URL.
 function toEmbed(url) {
@@ -35,7 +36,7 @@ export default function PrototypeEmbed({ url, poster, title, caption }) {
       </div>
       <figcaption>
         {caption}{" "}
-        <a href={url} target="_blank" rel="noopener noreferrer">Open in Figma <ArrowUpRight size={13} aria-hidden="true" /></a>
+        <PenLink className="study-prototype__open" href={url}>Open in Figma</PenLink>
       </figcaption>
     </figure>
   );

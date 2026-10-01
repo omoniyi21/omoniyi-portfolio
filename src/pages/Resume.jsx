@@ -4,6 +4,7 @@ import { contact, resumes } from "../data/resume";
 import { trackEvent } from "../lib/analytics";
 import "./resume.css";
 import PenMark from "../components/shared/pen-mark/PenMark";
+import StampButton from "../components/shared/paper/StampButton";
 
 function Linked({ text, link }) {
   if (!link) return text;
@@ -46,9 +47,9 @@ export default function Resume({ variant = "product" }) {
             </Link>
           ))}
         </div>
-        <button type="button" className="resume-toolbar__print" onClick={print}>
+        <StampButton className="resume-toolbar__print" icon="professional" onClick={print}>
           Save as PDF
-        </button>
+        </StampButton>
       </div>
 
       <article className="resume-sheet">

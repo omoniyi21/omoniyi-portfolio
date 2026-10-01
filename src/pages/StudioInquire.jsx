@@ -4,10 +4,10 @@ import { trackEvent } from "../lib/analytics";
 import { useState } from "react";
 import { TEAM_OFFERS, TEAM_OFFER_IDS } from "../data/studioOffers";
 import { Link, useSearchParams } from "react-router-dom";
-import { ArrowLeft, ArrowUpRight } from "lucide-react";
 
 import "./studio.css";
 import "./studio-inquire.css";
+import { Icon } from "../components/shared/icons/Icon";
 
 const CONTACT = "contact@omoniyialimi.com";
 const CAL_LINK = "https://cal.com/omoniyi-studio/intake";
@@ -103,7 +103,7 @@ export default function StudioInquire() {
       <nav className="studio-nav" aria-label="Inquiry navigation">
         <div className="ecosystem-lockup"><BrandSignature space="studio" /><SpaceSwitcher space="studio" /></div>
         <Link to="/studio" className="studio-inquire__back">
-          <ArrowLeft size={14} strokeWidth={1.8} aria-hidden="true" /> Back to Studio
+          <Icon name="arrow-left" size={14} strokeWidth={1.5} /> Back to Studio
         </Link>
       </nav>
 
@@ -264,7 +264,7 @@ export default function StudioInquire() {
               </p>
               <button type="submit" className="studio-inquire__submit" disabled={status === "sending"}>
                 {status === "sending" ? "Sending…" : "Send inquiry"}{" "}
-                <ArrowUpRight size={17} strokeWidth={1.8} aria-hidden="true" />
+                <Icon name="deliver" size={17} strokeWidth={1.5} />
               </button>
             </div>
           </form>

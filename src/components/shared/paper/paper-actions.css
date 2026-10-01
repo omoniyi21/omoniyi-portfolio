@@ -197,10 +197,12 @@
 .pen-link:hover .pen-link__ink,
 .pen-link:focus-visible .pen-link__ink { stroke-dashoffset: 0; }
 
-.pen-link__icon { flex: none; transition: transform 150ms ease-out; }
+.pen-link__icon { flex: none; margin-bottom: .3rem; transition: transform 150ms ease-out; }
 .pen-link:hover .pen-link__icon { transform: translateX(3px); }
 .pen-link[target] .pen-link__icon { transform: none; }
 .pen-link[target]:hover .pen-link__icon { transform: translate(2px, -2px); }
+.pen-link--back:hover .pen-link__icon { transform: translateX(-3px); }
+.pen-link:hover .icon--arrow-up { transform: translateY(-3px); }
 
 /* ---------- phones ---------- */
 /* Flat and straight on small screens: no tilt, no swing. */

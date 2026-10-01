@@ -1,6 +1,7 @@
 import { trackEvent } from "../../lib/analytics";
 import { useEffect, useRef, useState } from "react";
 import "./launchkit-popup.css";
+import { Icon } from "../shared/icons/Icon";
 
 const STORAGE_KEY = "lk-popup-last-seen";
 const COOLDOWN_DAYS = 14;
@@ -137,7 +138,7 @@ export default function LaunchKitPopup() {
               <h2 id="lk-popup-title">You’re on the list.</h2>
               <p>I’ll email you when there’s something new to try. In the meantime, explore what’s already live.</p>
               <a className="lk-popup__link" href="/uikit">
-                Browse LaunchKit UI ↗
+                Browse LaunchKit UI <Icon name="arrow-right" size={16} strokeWidth={1.5} />
               </a>
             </div>
           ) : (
@@ -163,7 +164,7 @@ export default function LaunchKitPopup() {
                 </p>
               )}
               <button type="submit" className="lk-popup__submit" disabled={status === "sending"}>
-                {status === "sending" ? "Reserving your seat…" : "Reserve my seat →"}
+                {status === "sending" ? "Reserving your seat…" : "Reserve my seat"} {status !== "sending" && <Icon name="arrow-right" size={16} strokeWidth={1.5} />}
               </button>
               <p className="lk-popup__fine">One note when it matters. Unsubscribe anytime.</p>
             </form>

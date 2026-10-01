@@ -60,6 +60,10 @@
     display: inline-flex;
   }
   
+  /* arrows nudge the way they point */
+  .button:hover .button__icon.icon--arrow-up-right { transform: translate(2px, -2px); }
+  .button:hover .button__icon.icon--arrow-down { transform: translateY(2px); }
+
   .button__icon {
     flex-shrink: 0;
   
@@ -99,7 +103,7 @@
 }
   
   .button--primary:hover .button__icon {
-    transform: translate(2px,-2px);
+    transform: translateX(3px);
   }
   
   .button--primary:active {
@@ -132,7 +136,7 @@
   }
   
   .button--secondary:hover .button__icon {
-    transform: translate(2px,-2px);
+    transform: translateX(3px);
   }
 
   /*ghost*/
@@ -148,5 +152,5 @@
   }
   
   .button--ghost:hover .button__icon {
-    transform: translate(2px,-2px);
+    transform: translateX(3px);
   }
