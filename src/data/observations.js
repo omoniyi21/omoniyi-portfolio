@@ -67,10 +67,10 @@ const notes = {
 const padmeParts = padmeSource.trim().split(/\n\s*\n/);
 const padmeMedia = [
  { anchor: "(I’m late to the party, I know.)", file: "aretha.gif", alt: "Aretha Franklin arriving with her handbag", width: 281, height: 258 },
- { anchor: "It’s…the headdresses.", file: "headdresses.png", alt: "A collage of Queen Amidala’s elaborate headdresses and ceremonial gowns", width: 675, height: 1200 },
- { anchor: "There is sensuality.", file: "dress.png", alt: "Padmé in a flowing pastel dress overlooking the lake on Naboo", width: 736, height: 1125 },
- { anchor: "We meet her saturated in power and we lose her surrounded by softness.", file: "funeral.png", alt: "Padmé in her blue funeral gown surrounded by flowers", width: 468, height: 650 },
- { anchor: "Pregnancy also changes the way Padmé's wardrobe communicates her sensuality.", before: true, file: "pregnancy.png", alt: "Padmé wearing a full-length green velvet gown with a purple sash", width: 736, height: 1036 },
+ { anchor: "It’s…the headdresses.", file: "headdresses.webp", alt: "A collage of Queen Amidala’s elaborate headdresses and ceremonial gowns", width: 675, height: 1200 },
+ { anchor: "There is sensuality.", file: "dress.webp", alt: "Padmé in a flowing pastel dress overlooking the lake on Naboo", width: 736, height: 1125 },
+ { anchor: "We meet her saturated in power and we lose her surrounded by softness.", file: "funeral.webp", alt: "Padmé in her blue funeral gown surrounded by flowers", width: 468, height: 650 },
+ { anchor: "Pregnancy also changes the way Padmé's wardrobe communicates her sensuality.", before: true, file: "pregnancy.webp", alt: "Padmé wearing a full-length green velvet gown with a purple sash", width: 736, height: 1036 },
 ];
 const padmeBlocks = padmeParts.slice(2).flatMap(text => {
  const block = text.startsWith("## ") ? { type: "heading", text: text.slice(3) } : { type: "paragraph", text };
