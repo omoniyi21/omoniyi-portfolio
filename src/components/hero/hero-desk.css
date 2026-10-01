@@ -572,3 +572,48 @@
 @media (max-width: 600px) {
     .desk-surface__sheet { background-image: none; }
 }
+
+/* ---------- a desk: one sheet of writing, the work beside it ----------
+   The torn sheet now sits behind the writing only. The prints rest on the
+   graph paper next to it, separated by two grid squares (the page grid is
+   18px). The sheet's foot is a margin band that holds Scorpius. */
+.desk-surface { padding: 0; }
+
+.desk-surface__grid { gap: 36px; align-items: start; }
+
+.desk-surface__paper {
+    position: relative;
+    isolation: isolate;
+    box-sizing: border-box;
+    padding:
+        clamp(2.5rem, 4.5vw, 4rem)
+        clamp(2rem, 4vw, 3.5rem)
+        calc(clamp(2rem, 3.5vw, 3rem) + clamp(9.5rem, 15vw, 12.5rem));
+}
+
+.desk-surface__paper > .desk-surface__shadow { z-index: -1; }
+.desk-surface__paper > .hero__content { position: relative; z-index: 1; }
+
+.desk-surface__work--photos { padding-top: clamp(2.5rem, 4.5vw, 4rem); }
+
+/* tablet: the work moves below the sheet, still on the desk */
+@media (max-width: 980px) {
+    .desk-surface__work--photos { margin-top: 0; padding-top: 2.5rem; }
+}
+
+/* phones: unchanged reading view. One flat card holds everything, no paper
+   texture, no constellations. */
+@media (max-width: 600px) {
+    .desk-surface {
+        padding: 2.25rem 1.5rem;
+        background: var(--color-gray-50);
+        border: 1px solid var(--border-default);
+        border-radius: var(--radius-xl);
+    }
+    .desk-surface__paper { padding: 0; }
+    .desk-surface__paper > .desk-surface__shadow { display: none; }
+    .desk-surface__work--photos { padding-top: 1.5rem; }
+}
+
+/* the desk shows through when someone scrolls past the edge of the page */
+html { background-color: var(--background-page); }

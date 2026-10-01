@@ -31,7 +31,7 @@ const PERSONAS = {
   },
 };
 
-export default function HeroContent({ paused, onToggleDust, persona, onPersonaChange }) {
+export default function HeroContent({ persona, onPersonaChange }) {
   const copy = PERSONAS[persona];
   const columnRef = useRef(null);
   const actionsRef = useRef(null);
@@ -122,14 +122,6 @@ export default function HeroContent({ paused, onToggleDust, persona, onPersonaCh
       </div>
 
       <div className="desk-surface__motion-controls">
-        <button
-          type="button"
-          className="desk-surface__sky-control"
-          aria-pressed={paused}
-          onClick={onToggleDust}
-        >
-          {paused ? "resume dust" : "pause dust"}
-        </button>
         <MotionToggle className="desk-surface__motion-toggle" />
       </div>
     </div>
