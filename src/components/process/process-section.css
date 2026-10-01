@@ -266,3 +266,43 @@
 .process-section__head { margin-bottom: 1.25rem; }
 .process-card--laptop .process-card__mockup,
 .process-card--laptop .process-card__mockup img { width: min(12.5rem, 105%); }
+
+/* ---------- whole card is the link ---------- */
+.process-card__card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex: 1;
+    width: 100%;
+    color: inherit;
+    text-decoration: none;
+    border-radius: inherit;
+}
+
+.process-card__card:focus-visible { outline: 2px solid var(--color-lavender-500); outline-offset: 4px; }
+
+.process-card__cta {
+    margin-top: .55rem;
+    color: #5b4fc9; /* darker than lavender-500 so small text passes 4.5:1 */
+    font-family: var(--font-family-body);
+    font-size: .78rem;
+    font-weight: var(--font-semibold);
+}
+
+.process-card__cta span[aria-hidden],
+.process-card__link .process-card__cta span[aria-hidden] {
+    position: static;
+    display: inline-block;
+    color: inherit;
+    transition: transform var(--motion-productive-long) ease;
+}
+
+.process-card:hover .process-card__cta span[aria-hidden],
+.process-card:focus-within .process-card__cta span[aria-hidden] { transform: translateX(3px); }
+
+.process-card { cursor: pointer; }
+
+/* touch screens have no hover, so the preview is simply always up */
+@media (hover: none) {
+    .process-card__mockup { transform: translate(-50%, calc(-100% + .25rem)); opacity: 1; }
+}

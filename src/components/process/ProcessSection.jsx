@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import "./process-section.css";
 import FloatingSD from "../../assets/branding/celestial/stardust-asteroid.webp";
@@ -19,6 +18,7 @@ const STEPS = [
     client: "U.S. House",
     note: "Moving committee votes from paper to one digital record",
     to: "/house",
+    cta: "See the House work",
     mockup: houseMockup,
     shape: "phone",
   },
@@ -28,6 +28,7 @@ const STEPS = [
     client: "U.S. Copyright Office",
     note: "One way to search, filter and navigate across a federal product family",
     to: "/library-of-congress",
+    cta: "See the Copyright Office work",
     mockup: locMockup,
     shape: "laptop",
   },
@@ -37,6 +38,7 @@ const STEPS = [
     client: "USDA NASS",
     note: "One accessible theme for a family of agency tools",
     to: "/usda",
+    cta: "See the USDA work",
     mockup: usdaMockup,
     shape: "phone",
   },
@@ -46,6 +48,7 @@ const STEPS = [
     client: "LaunchKit UI",
     note: "My own product, shipped",
     to: "/uikit",
+    cta: "See LaunchKit UI",
     mockup: launchkitMockup,
     shape: "laptop",
   },
@@ -55,16 +58,13 @@ const STEPS = [
     client: "Athletico",
     note: "Making the first step of care easier to take",
     to: "/athletico",
+    cta: "See the Athletico work",
     mockup: athleticoMockup,
     shape: "phone",
   },
 ];
 
 export default function ProcessSection() {
-  // Touch screens have no hover, so a tap on the card (outside its link)
-  // opens that card's mockup. One open at a time.
-  const [open, setOpen] = useState(null);
-
   return (
     <section className="process-section" aria-labelledby="process-title">
       <div className="process-section__opening">
@@ -87,24 +87,22 @@ export default function ProcessSection() {
 
       <ol className="process-section__grid">
         {STEPS.map((step, index) => (
-          <li
-            className={`process-card process-card--${step.shape}${open === index ? " is-open" : ""}`}
-            key={step.word}
-            onClick={(event) => {
-              if (event.target.closest("a")) return;
-              setOpen((current) => (current === index ? null : index));
-            }}
-          >
+          // The whole card is one link, same as the work slider. The mockup
+          // is a preview of where it goes: it rises on hover or keyboard
+          // focus, and on touch screens it is simply always up.
+          <li className={`process-card process-card--${step.shape}`} key={step.word}>
             <span className="process-card__mockup" aria-hidden="true">
               <img src={step.mockup} alt="" loading="lazy" decoding="async" />
             </span>
-            <span className="process-card__number">{String(index + 1).padStart(2, "0")}</span>
-            <h3 className="process-card__word">{step.word}</h3>
-            <p className="process-card__body">{step.body}</p>
-            <Link className="process-card__link" to={step.to}>
-              <span className="process-card__client">{step.client}</span>
-              <i className="process-card__note">{step.note}</i>
-              <span aria-hidden="true">↗</span>
+            <Link className="process-card__card" to={step.to}>
+              <span className="process-card__number">{String(index + 1).padStart(2, "0")}</span>
+              <h3 className="process-card__word">{step.word}</h3>
+              <p className="process-card__body">{step.body}</p>
+              <span className="process-card__link">
+                <span className="process-card__client">{step.client}</span>
+                <i className="process-card__note">{step.note}</i>
+                <span className="process-card__cta">{step.cta} <span aria-hidden="true">→</span></span>
+              </span>
             </Link>
           </li>
         ))}
