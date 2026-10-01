@@ -6,7 +6,7 @@ import "./observations-notebook.css";
 import PinkGrid from "../../assets/images/observations/pink-grid.png";
 import CreamPaper from "../../assets/images/observations/cream-paper.png";
 import Tape from "../../assets/images/observations/gingham-tape.png";
-import ReadingPaper from "../../assets/images/personal-effects-refined/reading-paper-v2-trim.png";
+import ReadingPaper from "../../assets/images/personal-effects-refined/reading-paper-v2-trim.webp";
 
 // The original PNGs are preserved. SVG viewports omit their transparent margins.
 function Artifact({ src, box, className }) {
@@ -53,13 +53,13 @@ export default function ObservationsNotebook() {
               <span className="notebook-latest-label">Latest Observation</span>
               <div className="notebook-cover__meta"><span>OBS. {latest.number}</span><span>{latest.category}</span></div>
               <h3>{latest.title}</h3>
-              {latest.image && <img className="notebook-cover__image" src={latest.image} alt={latest.imageAlt || ""} />}
+              {latest.image && <img loading="lazy" decoding="async" className="notebook-cover__image" src={latest.image} alt={latest.imageAlt || ""} />}
               <p className="notebook-cover__excerpt">{latest.excerpt}</p>
               <footer><span>{latest.dateLabel}</span><span>Read Observation ↗</span></footer>
             </Link>
           </article> : <p className="notebook-cover">The next page is still taking shape. Come back soon.</p>}
         </div>
-        {recent.length > 0 && <div className="notebook-recent">{recent.map(post => <Link className="notebook-small" key={post.slug} to={`/observations/${post.slug}`}><img className="notebook-small__paper" src={ReadingPaper} alt="" /><span className="notebook-label">OBS. {post.number} · {post.dateLabel}</span><h3>{post.title}</h3><span>Read Observation ↗</span></Link>)}</div>}
+        {recent.length > 0 && <div className="notebook-recent">{recent.map(post => <Link className="notebook-small" key={post.slug} to={`/observations/${post.slug}`}><img loading="lazy" decoding="async" className="notebook-small__paper" src={ReadingPaper} alt="" /><span className="notebook-label">OBS. {post.number} · {post.dateLabel}</span><h3>{post.title}</h3><span>Read Observation ↗</span></Link>)}</div>}
       </div>
     </div>
   </section>;

@@ -1,7 +1,7 @@
 import { ArrowUpRight, Link, Mail } from "lucide-react";
 
 import RecommendationForm from "./RecommendationForm";
-import ThinkingSD from "../../assets/branding/sd-variants/sd-thinking.png";
+import ThinkingSD from "../../assets/branding/sd-variants/sd-thinking.webp";
 import "./contact.css";
 
 const LINKEDIN_URL = "https://www.linkedin.com/in/omoniyi-alimi-08428782";
@@ -19,7 +19,7 @@ export default function WriteMe() {
           <h2 id="write-me-title">Let’s chat!</h2>
           <div className="write-me__stardust-side">
             <span className="write-me__stardust-trail" aria-hidden="true">✦ · · ✦</span>
-            <img
+            <img loading="lazy" decoding="async"
               className="write-me__stardust"
               src={ThinkingSD}
               alt="Stardust thinking"
