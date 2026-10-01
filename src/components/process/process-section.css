@@ -170,3 +170,99 @@
   .process-section__sd-tooltip { right:50%; transform:translateX(50%); }
 }
 @media (prefers-reduced-motion:reduce) { .process-section__sd img { animation:none; } .process-section__sd-tooltip { transition:none; } }
+
+/* ---------- mockup reveal ----------
+   Each card's device mockup waits behind the card face and slides up out
+   of it on hover, keyboard focus or tap, like a photo pulled from a
+   sleeve. The face is painted by ::before so the mockup can sit between
+   the card's own layer and its content. */
+.process-section__grid { padding-top: 6.5rem; }
+.process-section__head { margin-bottom: 1rem; }
+
+.process-card {
+    isolation: isolate;
+    background: transparent;
+    border-color: transparent;
+    cursor: default;
+}
+
+.process-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    border: 1px solid rgb(17 17 17 / 10%);
+    border-radius: inherit;
+    background: var(--surface-secondary);
+    transition: border-color var(--motion-productive-long) ease;
+}
+
+.process-card:hover::before,
+.process-card:focus-within::before,
+.process-card.is-open::before { border-color: rgb(117 105 227 / 35%); }
+
+.process-card > :not(.process-card__mockup) { position: relative; z-index: 1; }
+
+.process-card__mockup {
+    position: absolute;
+    z-index: -1;
+    left: 50%;
+    top: 1.25rem;
+    transform: translate(-50%, 0);
+    pointer-events: none;
+    transition: transform var(--motion-expressive) cubic-bezier(.22, 1, .36, 1);
+}
+
+.process-card__mockup img {
+    display: block;
+    height: auto;
+    filter: drop-shadow(0 14px 18px rgb(49 35 48 / 18%));
+}
+
+.process-card--phone .process-card__mockup img { width: auto; height: 9.5rem; }
+.process-card--laptop .process-card__mockup img { width: min(15rem, 112%); }
+.process-card--laptop .process-card__mockup { width: min(15rem, 112%); }
+
+.process-card:hover,
+.process-card:focus-within,
+.process-card.is-open { z-index: 2; }
+
+.process-card:hover .process-card__mockup,
+.process-card:focus-within .process-card__mockup,
+.process-card.is-open .process-card__mockup { transform: translate(-50%, calc(-100% + .25rem)); }
+
+/* touch screens: the tap is the hover */
+@media (hover: none) { .process-card { cursor: pointer; } }
+
+/* reduced motion: no sliding, the mockup simply fades in where it lands */
+@media (prefers-reduced-motion: reduce) {
+    .process-card__mockup {
+        transform: translate(-50%, calc(-100% + .25rem));
+        opacity: 0;
+        transition: opacity var(--motion-productive) ease;
+    }
+    .process-card:hover .process-card__mockup,
+    .process-card:focus-within .process-card__mockup,
+    .process-card.is-open .process-card__mockup { opacity: 1; }
+}
+:root[data-motion="reduce"] .process-card__mockup {
+    transform: translate(-50%, calc(-100% + .25rem));
+    opacity: 0;
+    transition: opacity var(--motion-productive) ease;
+}
+:root[data-motion="reduce"] .process-card:hover .process-card__mockup,
+:root[data-motion="reduce"] .process-card:focus-within .process-card__mockup,
+:root[data-motion="reduce"] .process-card.is-open .process-card__mockup { opacity: 1; }
+
+/* the link stays in normal flow so its arrow anchors to the card's
+   top-right corner (as before), not to the link box */
+.process-card > .process-card__link { position: static; }
+.process-card__link > span,
+.process-card__link > i { position: relative; z-index: 1; }
+.process-card__link span[aria-hidden] { z-index: 1; }
+
+/* leave clear room above the cards for the tallest mockup */
+.process-section__grid { padding-top: 7.75rem; }
+.process-section__head { margin-bottom: 1.25rem; }
+.process-card--laptop .process-card__mockup,
+.process-card--laptop .process-card__mockup img { width: min(12.5rem, 105%); }

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import HeroContent from "./HeroContent";
-import HeroProjects from "../work/SelectedWork";
+import WorkSlider from "../work/WorkSlider";
 import ProcessSection from "../process/ProcessSection";
 import CelestialDust from "./constellation/CelestialDust";
 import "./hero.css";
@@ -34,8 +34,8 @@ export default function Hero() {
                 onPersonaChange={setPersona}
               />
             </div>
-            <div className="desk-surface__work">
-              <HeroProjects />
+            <div className="desk-surface__work desk-surface__work--photos">
+              <WorkSlider />
             </div>
           </div>
         </div>
