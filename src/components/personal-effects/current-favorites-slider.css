@@ -8,10 +8,15 @@
 
 .favorites-slider {
   width: 100%;
+  /* one steady size: the section fills its space and the stage keeps the
+     same height for every item, so nothing jumps as you click through */
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .favorites-slider__intro {
-  align-items: baseline;
+  align-items: center;
   display: flex;
   flex-wrap: wrap;
   gap: .85rem;
@@ -52,16 +57,25 @@
 }
 
 .favorites-slider__controls button {
+  /* a full 44px target, with the arrow centred in it */
+  display: grid;
+  place-items: center;
+  padding: 0;
   background: rgb(255 255 255 / 55%);
   border: 1px solid rgb(44 37 48 / 22%);
   border-radius: 50%;
   color: inherit;
   cursor: pointer;
-  font-size: 1rem;
-  height: 2rem;
-  line-height: 1;
+  height: 2.75rem;
   transition: background var(--motion-productive) ease, border-color var(--motion-productive) ease;
-  width: 2rem;
+  width: 2.75rem;
+}
+
+.favorites-slider__controls button svg { display: block; }
+
+.favorites-slider__controls button:focus-visible {
+  outline: 2px solid var(--color-lavender-500);
+  outline-offset: 2px;
 }
 
 .favorites-slider__controls button:hover:not(:disabled) {
@@ -77,8 +91,9 @@
 .favorites-slider__stage {
   align-items: center;
   display: flex;
+  flex: 1;
   justify-content: center;
-  min-height: 26rem;
+  min-height: 30rem;
   padding: 1rem 0;
   position: relative;
 }

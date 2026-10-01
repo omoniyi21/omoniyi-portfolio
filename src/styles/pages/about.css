@@ -212,7 +212,7 @@
 }
 
 .about-dossier__favorites-slider {
-  align-self: center;
+  align-self: stretch;
 }
 
 @media (max-width: 1050px) {
