@@ -98,7 +98,7 @@
     transition: transform var(--motion-productive-long) cubic-bezier(.22, 1, .36, 1);
 }
 
-.work-slide:nth-child(even) .work-slide__photo { transform: rotate(1.5deg); }
+.work-slide--even .work-slide__photo { transform: rotate(1.5deg); }
 
 .work-slide__photo img {
     display: block;
@@ -135,35 +135,28 @@
 
 .work-slide__caption span { color: var(--color-lavender-500); font-size: .85em; }
 
-/* the last card points to everything else */
-.work-slide__all {
-    justify-content: center;
-    align-items: flex-start;
-    gap: .6rem;
-    padding: 1.5rem;
-    aspect-ratio: 4 / 3;
-    height: auto;
-    box-sizing: border-box;
-    border: 1.5px dashed rgb(117 105 227 / 45%);
-    border-radius: .6rem;
-    background: rgb(255 253 248 / 70%);
-}
-
-.work-slide__all-note {
-    color: var(--text-secondary);
-    font-family: var(--font-family-personal);
-    font-size: 1.35rem;
-    line-height: 1.1;
-}
-
-.work-slide__all-label {
-    font-family: var(--font-family-display);
-    font-size: clamp(1.4rem, 2vw, 1.8rem);
+/* "See all work" sits with the count, since a loop has no last card */
+.work-slider__all {
+    color: var(--text-primary);
+    font-family: var(--font-family-body);
+    font-size: .8rem;
     font-weight: var(--font-medium);
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: .05rem;
 }
+.work-slider__all span { color: var(--color-lavender-500); }
+.work-slider__all:hover { color: var(--color-lavender-500); }
 
-.work-slide__all-label span { color: var(--color-lavender-500); }
-.work-slide__all:hover { background: var(--color-white); border-style: solid; }
+/* The row runs on past the paper's torn edge to the edge of the window
+   (--bleed is measured in WorkSlider.jsx). Cards leaving on the left fade
+   out over a short edge instead of being sliced off. */
+.work-slider__track {
+    margin-right: calc(-1 * var(--bleed, 0px) - 1rem);
+    grid-auto-columns: min(28rem, 82%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 1rem);
+    mask-image: linear-gradient(to right, transparent 0, #000 1rem);
+}
 
 @media (max-width: 980px) {
     .work-slider__track { grid-auto-columns: min(80%, 26rem); }
