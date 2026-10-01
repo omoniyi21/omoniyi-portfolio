@@ -28,10 +28,9 @@
     /* Page */
 
     --background-page: #FFFAD6;
-    /* the page as a desk under a lamp: a warm pool of light behind the
-       hero, then the yellow settles into a softer cream as you read down */
-    --background-page-lamp: rgb(255 254 244 / 88%);
-    --background-page-rest: #FBF6E2;
+    /* the yellow stays the page colour; the edges of the screen deepen a
+       touch toward butter, like paper under warm light */
+    --background-page-edge: rgb(242 222 146 / 42%);
     --background-page-alt: #F7F4FD;
 
     /* Surfaces */

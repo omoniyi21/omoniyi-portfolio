@@ -24,8 +24,19 @@
 
    html {
     /* Paint the canvas itself, so overscrolling past the top or bottom of
-       the page shows the page colour, not a white strip. */
+       the page shows the page colour, not a white strip. The whole page
+       surface lives here: the yellow, the quiet grid, a fine paper noise,
+       and a wash that deepens the edges of the screen toward butter. */
     background-color: var(--background-page);
+    background-image:
+      linear-gradient(to right, rgb(117 105 227 / 3.8%) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(117 105 227 / 3.8%) 1px, transparent 1px),
+      url('../../assets/textures/noise.svg'),
+      radial-gradient(ellipse 80% 85% at 50% 42%, transparent 48%, var(--background-page-edge) 100%);
+    background-size: 18px 18px, 18px 18px, 230px, 100% 100%;
+    background-repeat: repeat, repeat, repeat, no-repeat;
+    /* the edge wash belongs to the screen, not the page, so it stays put */
+    background-attachment: scroll, scroll, scroll, fixed;
     font-size: 100%;
     scroll-behavior: smooth;
   
@@ -40,33 +51,8 @@
   
     overflow-x: hidden;
   
-    /* The page grid is deliberately quiet: it gives the paper field the
-       same measured editorial texture as the approved homepage mockup
-       without competing with the constellation or the content. */
-    background-color: var(--background-page);
-    background-image:
-      linear-gradient(
-        to right,
-        rgb(117 105 227 / 3.8%) 1px,
-        transparent 1px
-      ),
-      linear-gradient(
-        to bottom,
-        rgb(117 105 227 / 3.8%) 1px,
-        transparent 1px
-      ),
-      radial-gradient(
-        ellipse min(70rem, 85vw) 52rem at 50% 22rem,
-        var(--background-page-lamp),
-        transparent 72%
-      ),
-      linear-gradient(
-        var(--background-page) 0,
-        var(--background-page) 28rem,
-        var(--background-page-rest) 90rem
-      );
-    background-size: 18px 18px, 18px 18px, 100% 100%, 100% 100%;
-    background-repeat: repeat, repeat, no-repeat, no-repeat;
+    /* the page surface lives on html (see above) so every part of the
+       page, footer included, sits on one continuous sheet */
     color: var(--text-primary);
   
     font-family: var(--font-family-body);

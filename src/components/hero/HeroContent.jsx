@@ -17,7 +17,7 @@ const PERSONAS = {
     ctaTo: "/work",
     secondaryLabel: "Read the résumé",
     secondaryTo: "/resume",
-    ps: "I create spaces in products, relationships, homes, ideas and communities where people feel more deeply human.",
+    ps: "I shape products, homes, ideas, relationships, and communities around one purpose: helping people feel more deeply human.",
   },
   building: {
     tabLabel: "someone building",

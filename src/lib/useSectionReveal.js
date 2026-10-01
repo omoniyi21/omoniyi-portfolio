@@ -1,10 +1,23 @@
 import { useEffect } from "react";
 import { isMotionReduced, onMotionPreferenceChange } from "./motionPreference";
 
-const SECTIONS = ".process-section, .rec-quote, .personal-effects, .observations-notebook, .write-me";
+// Below the hero, each section's pieces arrive in reading order as it
+// scrolls into view: heading first, then what follows, each rising a few
+// pixels and fading in, 80ms apart. It happens once per section, and
+// the hero and anything already on screen never animate.
+//
+// The CSS (see reveal.css) does the motion with transitions, so a section
+// that is scrolled past quickly simply finishes; nothing restarts.
+// Content is fully visible without JS, with reduced motion, and the
+// moment keyboard focus lands inside a section.
+const SECTIONS = {
+  ".rec-quote": ":scope > *",
+  ".process-section": ".process-section__opening, .process-section__grid > li",
+  ".personal-effects": ":scope > *",
+  ".observations-notebook": ":scope > *",
+  ".write-me": ":scope > *",
+};
 
-// Content stays visible without this enhancement. One observer, no scroll
-// handlers or React updates; each section is released after its first reveal.
 export default function useSectionReveal(rootRef) {
   useEffect(() => {
     const root = rootRef.current;
@@ -12,50 +25,59 @@ export default function useSectionReveal(rootRef) {
 
     const systemMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const reduced = () => systemMotion.matches || isMotionReduced();
-    const animations = new Map();
+    if (reduced()) return;
+
+    const prepared = [];
+    // Read all geometry first, then write classes, so layout is read once.
+    const candidates = Object.entries(SECTIONS).flatMap(([selector, items]) =>
+      [...root.querySelectorAll(selector)].map((section) => ({ section, items })),
+    );
+    const below = candidates.filter(({ section }) => section.getBoundingClientRect().top > window.innerHeight);
+
+    for (const { section, items } of below) {
+      section.querySelectorAll(items).forEach((item, index) => {
+        item.classList.add("reveal-item");
+        item.style.setProperty("--reveal-i", Math.min(index, 5));
+      });
+      section.classList.add("reveal");
+      prepared.push(section);
+    }
+
+    const show = (section) => section.classList.add("is-revealed");
     const observer = new IntersectionObserver((entries) => {
       for (const entry of entries) {
         if (!entry.isIntersecting) continue;
         observer.unobserve(entry.target);
-        if (reduced() || entry.target.contains(document.activeElement)) continue;
-        if (typeof entry.target.animate !== "function") continue;
-        const animation = entry.target.animate(
-          [{ opacity: 0, translate: "0 12px" }, { opacity: 1, translate: "0 0" }],
-          { duration: 320, easing: "cubic-bezier(.2,.65,.3,1)" },
-        );
-        animations.set(entry.target, animation);
-        animation.onfinish = () => animations.delete(entry.target);
+        show(entry.target);
       }
-    }, { rootMargin: "0px 0px 48px 0px", threshold: 0 });
+    }, { rootMargin: "0px 0px -12% 0px", threshold: 0 });
+    prepared.forEach((section) => observer.observe(section));
 
-    // Read geometry before observing. Never animate the initial viewport or
-    // content above it, including when returning to a saved scroll position.
-    const sections = [...root.querySelectorAll(SECTIONS)];
-    const belowFold = sections.filter(section => section.getBoundingClientRect().top >= window.innerHeight + 48);
-    if (!reduced()) belowFold.forEach(section => observer.observe(section));
-
-    const stopMotion = () => {
-      if (!reduced()) return;
+    const showAll = () => {
       observer.disconnect();
-      animations.forEach(animation => animation.cancel());
-      animations.clear();
+      prepared.forEach(show);
     };
-    const revealFocused = (event) => {
-      const section = event.target.closest(SECTIONS);
-      if (!section) return;
-      observer.unobserve(section);
-      animations.get(section)?.cancel();
-      animations.delete(section);
+    const onMotionChange = () => { if (reduced()) showAll(); };
+    const onFocus = (event) => {
+      const section = event.target.closest(".reveal");
+      if (section) show(section);
     };
-    const unsubscribe = onMotionPreferenceChange(stopMotion);
-    systemMotion.addEventListener("change", stopMotion);
-    root.addEventListener("focusin", revealFocused);
+
+    const unsubscribe = onMotionPreferenceChange(onMotionChange);
+    systemMotion.addEventListener("change", onMotionChange);
+    root.addEventListener("focusin", onFocus);
     return () => {
       observer.disconnect();
-      animations.forEach(animation => animation.cancel());
       unsubscribe();
-      systemMotion.removeEventListener("change", stopMotion);
-      root.removeEventListener("focusin", revealFocused);
+      systemMotion.removeEventListener("change", onMotionChange);
+      root.removeEventListener("focusin", onFocus);
+      prepared.forEach((section) => {
+        section.classList.remove("reveal", "is-revealed");
+        section.querySelectorAll(".reveal-item").forEach((item) => {
+          item.classList.remove("reveal-item");
+          item.style.removeProperty("--reveal-i");
+        });
+      });
     };
   }, [rootRef]);
 }
