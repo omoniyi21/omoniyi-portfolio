@@ -1,3 +1,5 @@
+import { useRef } from "react";
+import useSectionReveal from "../lib/useSectionReveal";
 
 import ObservationsNotebook from "../components/observations/ObservationsNotebook";
 import PersonalEffects from "../components/personal-effects/PersonalEffects";
@@ -8,8 +10,10 @@ import RecommendationQuote from "../components/shared/RecommendationQuote";
 
 
 function Home() {
+  const homeRef = useRef(null);
+  useSectionReveal(homeRef);
   return (
-    <main className="section home-journal">
+    <main ref={homeRef} className="section home-journal">
       <div
         className="container stack"
         style={{
