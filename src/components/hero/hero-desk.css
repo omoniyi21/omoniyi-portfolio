@@ -683,3 +683,44 @@
 }
 
 .desk-ps__sign::before { content: "\2013\00a0"; }
+
+/* ---------- letter layout ----------
+   The torn sheet covers only the letter column now. The desk itself is the
+   graph paper, so the outer box loses its padding and the prints sit
+   straight on the page beside the letter. */
+.desk-surface--letter {
+    padding: 0 clamp(1rem, 3vw, 2.5rem);
+}
+
+.desk-surface--letter .desk-surface__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, .92fr);
+    gap: clamp(2.5rem, 5vw, 4.5rem);
+    align-items: center;
+}
+
+.desk-surface--letter .desk-surface__paper {
+    isolation: isolate;
+    padding: clamp(2.5rem, 4vw, 3.5rem) clamp(2rem, 3.5vw, 3rem) clamp(2rem, 3vw, 2.75rem);
+}
+
+/* the header's dust shield was a patch of sheet colour; on graph paper
+   there is no dust to hide, so it goes */
+.desk-surface--letter .print-pile__head::before { display: none; }
+
+@media (max-width: 980px) {
+    .desk-surface--letter .desk-surface__grid { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* Phones: the whole hero is one flat reading card again, letter and
+   prints together, exactly as before. */
+@media (max-width: 600px) {
+    .desk-surface--letter {
+        padding: 2.25rem 1.5rem;
+        background: var(--sheet-color, #fbfaf6);
+        border: 1px solid var(--border-default);
+        border-radius: var(--radius-xl);
+    }
+
+    .desk-surface--letter .desk-surface__paper { padding: 0; }
+    .desk-surface--letter .desk-surface__shadow { display: none; }
+}
