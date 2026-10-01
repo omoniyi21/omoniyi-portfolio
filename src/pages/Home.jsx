@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import useSectionReveal from "../lib/useSectionReveal";
+import "../lib/reveal.css";
 
 import ObservationsNotebook from "../components/observations/ObservationsNotebook";
 import PersonalEffects from "../components/personal-effects/PersonalEffects";
