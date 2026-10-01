@@ -306,3 +306,7 @@
 @media (hover: none) {
     .process-card__mockup { transform: translate(-50%, calc(-100% + .25rem)); opacity: 1; }
 }
+
+/* step icon: Guidance line icon in ink, sitting with the step number */
+.process-card__number { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+.process-card__icon { color: var(--text-primary); opacity: .78; flex: none; }

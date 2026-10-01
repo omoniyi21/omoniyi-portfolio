@@ -1,5 +1,5 @@
 import "./personal-effects.css";
-import { Link } from "react-router-dom";
+import PenLink from "../shared/paper/PenLink";
 
 import MovieSD from "../../assets/branding/sd-variants/sd-watching-a-movie.webp";
 import ReadingPaper from "../../assets/images/personal-effects-refined/reading-paper-v2-trim.webp";
@@ -22,7 +22,7 @@ export default function PersonalEffects() {
       <div className="personal-effects__meta"><span>01</span><span>Personal Effects</span><span className="personal-effects__glyph">✦</span></div>
       <h2 id="personal-effects-title">What’s On My Mind?</h2>
       <p>A few things currently shaping how I think :)</p>
-      <Link to="/about">design dossier <span aria-hidden="true">↗</span></Link>
+      <PenLink className="personal-effects__dossier" to="/about">design dossier</PenLink>
       <img loading="lazy" decoding="async" className="personal-effects__stardust stardust--float" src={MovieSD} alt="SD watching a movie" />
       <p className="personal-effects__coordinates">7.8003° N, 5.3790° E<br />SD archive<br />Observing, always.</p>
     </aside>

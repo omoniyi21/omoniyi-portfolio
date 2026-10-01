@@ -54,7 +54,8 @@ export function trackEvent(name, parameters = {}) {
 }
 
 export function initializeAnalytics() {
-  if (!analyticsEnabled() || document.getElementById("omoniyi-google-tag")) return;
+  if (!analyticsEnabled() || window.__omoniyiAnalytics) return;
+  window.__omoniyiAnalytics = true;
   window.dataLayer = window.dataLayer || [];
   window.gtag = function () { window.dataLayer.push(arguments); };
   window.gtag("js", new Date());
@@ -64,11 +65,20 @@ export function initializeAnalytics() {
     allow_google_signals: false,
     allow_ad_personalization_signals: false,
   });
-  const script = document.createElement("script");
-  script.id = "omoniyi-google-tag";
-  script.async = true;
-  script.src = `https://www.googletagmanager.com/gtag/js?id=${MEASUREMENT_ID}`;
-  document.head.appendChild(script);
+  // The queue above is live right away, so nothing is lost; the tag itself
+  // downloads once the page has loaded and the browser is idle, so it never
+  // competes with the hero for bandwidth. It reads the queue when it arrives.
+  const inject = () => {
+    if (document.getElementById("omoniyi-google-tag")) return;
+    const script = document.createElement("script");
+    script.id = "omoniyi-google-tag";
+    script.async = true;
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${MEASUREMENT_ID}`;
+    document.head.appendChild(script);
+  };
+  const whenIdle = () => ("requestIdleCallback" in window ? window.requestIdleCallback(inject, { timeout: 3000 }) : setTimeout(inject, 1500));
+  if (document.readyState === "complete") whenIdle();
+  else window.addEventListener("load", whenIdle, { once: true });
 
   document.addEventListener("click", (event) => {
     const link = event.target.closest?.("a[href]");

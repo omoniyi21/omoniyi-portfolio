@@ -1,5 +1,7 @@
 import { useLayoutEffect, useRef } from "react";
-import Button from "../shared/button/Button";
+import { createPortal } from "react-dom";
+import StampButton from "../shared/paper/StampButton";
+import TagButton from "../shared/paper/TagButton";
 import { useSpaceTransition } from "../shared/spaceTransitionContext";
 import MotionToggle from "../shared/MotionToggle";
 import PenMark from "../shared/pen-mark/PenMark";
@@ -30,6 +32,28 @@ const PERSONAS = {
     secondaryTone: "ui",
   },
 };
+
+// "reading this as:" — the reading-mode toggle for the homepage
+function PersonaToggle({ persona, onPersonaChange, className }) {
+  return (
+    <div className={`desk-persona ${className}`} role="group" aria-label="Read this page as">
+      <span className="desk-persona__label">reading this as:<PenMark color="#7569e3" /></span>
+      <div className="desk-persona__options">
+        {Object.entries(PERSONAS).map(([key, value]) => (
+          <button
+            key={key}
+            type="button"
+            className={`desk-persona__pill${persona === key ? " is-active" : ""}`}
+            aria-pressed={persona === key}
+            onClick={() => onPersonaChange(key)}
+          >
+            {value.tabLabel}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export default function HeroContent({ paused, onToggleDust, persona, onPersonaChange }) {
   const copy = PERSONAS[persona];
@@ -75,22 +99,17 @@ export default function HeroContent({ paused, onToggleDust, persona, onPersonaCh
 
   return (
     <div className="hero__content desk-surface__text" ref={columnRef}>
-      <div className="desk-persona" role="group" aria-label="Read this page as">
-        <span className="desk-persona__label">reading this as:<PenMark color="#7569e3" /></span>
-        <div className="desk-persona__options">
-          {Object.entries(PERSONAS).map(([key, value]) => (
-            <button
-              key={key}
-              type="button"
-              className={`desk-persona__pill${persona === key ? " is-active" : ""}`}
-              aria-pressed={persona === key}
-              onClick={() => onPersonaChange(key)}
-            >
-              {value.tabLabel}
-            </button>
-          ))}
-        </div>
-      </div>
+      {/* Phones and tablets: the toggle stays at the top of the reading card. */}
+      <PersonaToggle persona={persona} onPersonaChange={onPersonaChange} className="desk-persona--inline" />
+      {/* Desktop: the same toggle sits in the header, between the logo and
+          the Menu button. Homepage only, since it only changes this page.
+          CSS shows exactly one of the two, and display:none keeps the
+          hidden one out of the accessibility tree. */}
+      {typeof document !== "undefined" &&
+        createPortal(
+          <PersonaToggle persona={persona} onPersonaChange={onPersonaChange} className="desk-persona--header" />,
+          document.body,
+        )}
 
       <p className="hero__eyebrow">
         <span>{copy.eyebrow}</span>
@@ -106,19 +125,12 @@ export default function HeroContent({ paused, onToggleDust, persona, onPersonaCh
       <p className="hero__description">{copy.description}</p>
 
       <div className="desk-surface__actions" ref={actionsRef}>
-        <Button to={copy.ctaTo} onClick={(event) => handleSpaceClick(event, copy.ctaTo, copy.ctaTone)}>
+        <StampButton to={copy.ctaTo} onClick={(event) => handleSpaceClick(event, copy.ctaTo, copy.ctaTone)}>
           {copy.ctaLabel}
-        </Button>
-        <Button
-          variant="secondary"
-          to={copy.secondaryTo}
-          href={copy.secondaryHref}
-          target={copy.secondaryHref ? "_blank" : undefined}
-          rel={copy.secondaryHref ? "noreferrer" : undefined}
-          onClick={(event) => handleSpaceClick(event, copy.secondaryTo, copy.secondaryTone)}
-        >
+        </StampButton>
+        <TagButton to={copy.secondaryTo} onClick={(event) => handleSpaceClick(event, copy.secondaryTo, copy.secondaryTone)}>
           {copy.secondaryLabel}
-        </Button>
+        </TagButton>
       </div>
 
       <div className="desk-surface__motion-controls">

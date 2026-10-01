@@ -1,7 +1,7 @@
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import BackToPreviousPage from "../components/shared/BackToPreviousPage";
-import { portfolioStudies } from "../data/caseStudies";
+import { caseStudies, portfolioStudies } from "../data/caseStudies";
 import { cardTints } from "../data/cardTints";
 import "./project-case-study.css";
 import PenMark from "../components/shared/pen-mark/PenMark";
@@ -16,7 +16,10 @@ function Evidence({ image, caption, compact = false }) {
     <figcaption>{caption}{image.startsWith("payments-") && <strong className="study-redacted"> Data blurred for confidentiality.</strong>}</figcaption>
   </figure>;
 }
-export default function ProjectCaseStudy({ study }) {
+// Routes pass a key rather than the study itself, so the case-study text
+// loads with this page instead of in the main bundle.
+export default function ProjectCaseStudy({ studyKey, study: studyProp }) {
+  const study = studyProp ?? caseStudies[studyKey];
   const index = portfolioStudies.findIndex(s => s.slug === study.slug);
   const next = portfolioStudies[(index + 1) % portfolioStudies.length];
   const tint = cardTints[index % cardTints.length];

@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { Icon } from "../shared/icons/Icon";
 import "./process-section.css";
 import FloatingSD from "../../assets/branding/celestial/stardust-asteroid.webp";
 import houseMockup from "../../assets/images/how-i-think/house.webp";
@@ -14,6 +15,7 @@ import athleticoMockup from "../../assets/images/how-i-think/athletico.webp";
 const STEPS = [
   {
     word: "Discover",
+    icon: "discover",
     body: "Before I open Figma, I want to know who this is for, what's actually broken, and which rules I can't bend. On the House project that meant 18 interviews and sitting with leadership three times a week.",
     client: "U.S. House",
     note: "Moving committee votes from paper to one digital record",
@@ -24,6 +26,7 @@ const STEPS = [
   },
   {
     word: "Define",
+    icon: "define",
     body: "Then I give everyone the same language. Research turns into patterns a whole team can build from, so search works one way across every product instead of eight different ways.",
     client: "U.S. Copyright Office",
     note: "One way to search, filter and navigate across a federal product family",
@@ -34,6 +37,7 @@ const STEPS = [
   },
   {
     word: "Design",
+    icon: "design",
     body: "I design for the messy cases, not the happy path. Long names, empty states, someone checking it on their phone. If it only works in the demo, it doesn't work.",
     client: "USDA NASS",
     note: "One accessible theme for a family of agency tools",
@@ -44,6 +48,7 @@ const STEPS = [
   },
   {
     word: "Develop",
+    icon: "develop",
     body: "I stay close to the code. Sometimes that means working side by side with engineers, and sometimes it means building it myself. LaunchKit is the proof. I designed it and I shipped it.",
     client: "LaunchKit UI",
     note: "My own product, shipped",
@@ -54,6 +59,7 @@ const STEPS = [
   },
   {
     word: "Deliver",
+    icon: "deliver",
     body: "The real test is the moment someone uses it. Is it clear? Does it feel made for them? For Athletico, that was patients filling out their medical history before a first visit, tested with about 100 people.",
     client: "Athletico",
     note: "Making the first step of care easier to take",
@@ -95,7 +101,10 @@ export default function ProcessSection() {
               <img src={step.mockup} alt="" loading="lazy" decoding="async" />
             </span>
             <Link className="process-card__card" to={step.to}>
-              <span className="process-card__number">{String(index + 1).padStart(2, "0")}</span>
+              <span className="process-card__number">
+                {String(index + 1).padStart(2, "0")}
+                <Icon name={step.icon} size={22} className="process-card__icon" />
+              </span>
               <h3 className="process-card__word">{step.word}</h3>
               <p className="process-card__body">{step.body}</p>
               <span className="process-card__link">

@@ -1,8 +1,8 @@
 import { trackEvent } from "../../lib/analytics";
-import { Send } from "lucide-react";
 import { useState } from "react";
 
 import "./contact.css";
+import StampButton from "../shared/paper/StampButton";
 
 export default function RecommendationForm() {
   const [status, setStatus] = useState("idle");
@@ -74,9 +74,9 @@ export default function RecommendationForm() {
         <p className={status === "error" ? "contact-form__status contact-form__status--error" : "contact-form__status"} aria-live="polite">
           {message || "I usually reply within 2–3 business days."}
         </p>
-        <button type="submit" disabled={status === "sending"}>
-          {status === "sending" ? "Sending…" : "Send a note"} <Send aria-hidden="true" size={17} strokeWidth={1.8} />
-        </button>
+        <StampButton type="submit" icon="deliver" disabled={status === "sending"}>
+          {status === "sending" ? "Sending…" : "Send a note"}
+        </StampButton>
       </div>
     </form>
   );

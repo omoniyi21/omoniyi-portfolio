@@ -1,4 +1,6 @@
 import { Link, useParams } from "react-router-dom";
+import { Icon } from "../components/shared/icons/Icon";
+import { topicIcon } from "../components/shared/icons/topics";
 
 import { getPublishedObservations } from "../data/observations";
 import BeehiivEmbed from "../components/observations/BeehiivEmbed";
@@ -26,7 +28,7 @@ export default function ObservationPost() {
 
       <article>
         <header className={`observation-post__header${post.cardImage ? " observation-post__header--cover" : ""}`}>
-          <p>OBS. {post.number} · {post.category}</p>
+          <p className="topic-mark">OBS. {post.number} · {topicIcon(post.category) && <Icon name={topicIcon(post.category)} size={18} />}{post.category}</p>
           <div className="observation-post__title-group">
             <h1>{post.title}</h1>
             {post.cardImage && <figure className="observation-card__image observation-post__cover"><img src={post.cardImage} alt={post.cardImageAlt || ""} fetchPriority="high" /></figure>}

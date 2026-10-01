@@ -1,7 +1,7 @@
-import { Send } from "lucide-react";
 import { useState } from "react";
 
 import "./contact.css";
+import StampButton from "../shared/paper/StampButton";
 
 const FIELDS = [
   { name: "reading", label: "Reading", placeholder: "What are you reading right now?" },
@@ -92,9 +92,9 @@ export default function CurrentFavoritesForm() {
         <p className={status === "error" ? "contact-form__status contact-form__status--error" : "contact-form__status"} aria-live="polite">
           {message || "Share as much or as little as you'd like."}
         </p>
-        <button type="submit" disabled={status === "sending"}>
-          {status === "sending" ? "Sending…" : "Send it over"} <Send aria-hidden="true" size={17} strokeWidth={1.8} />
-        </button>
+        <StampButton type="submit" icon="deliver" disabled={status === "sending"}>
+          {status === "sending" ? "Sending…" : "Send it over"}
+        </StampButton>
       </div>
     </form>
   );

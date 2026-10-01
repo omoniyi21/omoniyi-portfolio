@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+import { Icon } from "../components/shared/icons/Icon";
+import { topicIcon } from "../components/shared/icons/topics";
 import Thinking from "../assets/branding/sd-variants/sd-thinking.webp";
 
 import { getPublishedObservations } from "../data/observations";
@@ -15,7 +17,7 @@ export default function Observations() {
     <section className="observation-index" aria-label="Published observations">
       <p className="observation-index__kicker">Latest field note</p>
       {getPublishedObservations().map(post => <Link key={post.slug} className="observation-card" to={`/observations/${post.slug}`}>
-        <div className="observation-card__topline"><span>OBS. {post.number}</span><span>{post.category}</span></div>
+        <div className="observation-card__topline"><span>OBS. {post.number}</span><span className="topic-mark">{topicIcon(post.category) && <Icon name={topicIcon(post.category)} size={18} />}{post.category}</span></div>
         <div className="observation-card__body">
           <div className="observation-card__copy"><h2>{post.title}</h2><p className="observation-card__excerpt">{post.excerpt}</p></div>
           {post.cardImage && <figure className="observation-card__image"><img src={post.cardImage} alt={post.cardImageAlt || ""} loading="lazy" /></figure>}

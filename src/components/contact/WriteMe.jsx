@@ -1,4 +1,4 @@
-import { ArrowUpRight, Link, Mail } from "lucide-react";
+import { BrandIcon, Icon } from "../shared/icons/Icon";
 
 import RecommendationForm from "./RecommendationForm";
 import ThinkingSD from "../../assets/branding/sd-variants/sd-thinking.webp";
@@ -35,14 +35,14 @@ export default function WriteMe() {
 
         <div className="write-me__links" aria-label="Contact links">
           <a href={LINKEDIN_URL} target="_blank" rel="noreferrer">
-            <Link aria-hidden="true" size={18} strokeWidth={1.8} />
+            <BrandIcon name="linkedin" size={18} />
             <span>LinkedIn</span>
-            <ArrowUpRight aria-hidden="true" size={15} strokeWidth={1.8} />
+            <Icon name="arrow-up-right" size={14} strokeWidth={1.5} />
           </a>
           <a href="mailto:contact@omoniyialimi.com">
-            <Mail aria-hidden="true" size={18} strokeWidth={1.8} />
+            <Icon name="mail" size={19} />
             <span>contact@omoniyialimi.com</span>
-            <ArrowUpRight aria-hidden="true" size={15} strokeWidth={1.8} />
+            <Icon name="arrow-up-right" size={14} strokeWidth={1.5} />
           </a>
         </div>
       </div>

@@ -1,4 +1,7 @@
 import { Link } from "react-router-dom";
+import { Icon } from "../shared/icons/Icon";
+import PenLink from "../shared/paper/PenLink";
+import { topicIcon } from "../shared/icons/topics";
 import { getPublishedObservations } from "../../data/observations";
 import BeehiivEmbed from "./BeehiivEmbed";
 import "./observations-notebook.css";
@@ -35,7 +38,7 @@ export default function ObservationsNotebook() {
     <header className="notebook-masthead"><div className="notebook-masthead__meta"><span>02</span><span>From my notebook</span><span aria-hidden="true">✦</span></div></header>
     <div className="notebook-page">
       <div className="notebook-top">
-        <header className="notebook-heading"><p className="notebook-label">Notes on design & being a person</p><h2 id="notebook-title">Observations</h2><p>Things I notice. Things I’m still figuring out.</p><Link className="notebook-heading__all" to="/observations">See all Observations <span aria-hidden="true">↗</span></Link></header>
+        <header className="notebook-heading"><p className="notebook-label">Notes on design & being a person</p><h2 id="notebook-title">Observations</h2><p>Things I notice. Things I’m still figuring out.</p><PenLink className="notebook-heading__all" to="/observations">See all Observations</PenLink></header>
         <SignupNote />
       </div>
       <div className="notebook-composition">
@@ -51,7 +54,7 @@ export default function ObservationsNotebook() {
             <Artifact src={Tape} box="80 138 640 243" className="notebook-tape" />
             <Link to={`/observations/${latest.slug}`}>
               <span className="notebook-latest-label">Latest Observation</span>
-              <div className="notebook-cover__meta"><span>OBS. {latest.number}</span><span>{latest.category}</span></div>
+              <div className="notebook-cover__meta"><span>OBS. {latest.number}</span><span className="topic-mark">{topicIcon(latest.category) && <Icon name={topicIcon(latest.category)} size={17} />}{latest.category}</span></div>
               <h3>{latest.title}</h3>
               {latest.image && <img loading="lazy" decoding="async" className="notebook-cover__image" src={latest.image} alt={latest.imageAlt || ""} />}
               <p className="notebook-cover__excerpt">{latest.excerpt}</p>

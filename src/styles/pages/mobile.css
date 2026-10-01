@@ -59,7 +59,7 @@
   .personal-effects__rail { min-height:0; padding:0; }
   .personal-effects__rail h2 { font-size:clamp(3.35rem, 16vw, 4.6rem); margin-top:1.7rem; max-width:8ch; }
   .personal-effects__rail > p:not(.personal-effects__coordinates) { font-size:1rem; margin-top:1.35rem; max-width:28ch; }
-  .personal-effects__rail a { margin-top:1.5rem; }
+  .personal-effects__rail .personal-effects__dossier { margin-top:1.25rem; }
   .personal-effects__stardust, .personal-effects__coordinates { display:none; }
   .personal-effects__spread { display:none; }
   .personal-effects__mobile-card {

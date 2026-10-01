@@ -117,7 +117,7 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 1.35rem;
+    gap: 1rem 1.75rem;
     margin-top: 1.7rem;
 }
 
@@ -464,24 +464,6 @@
         box-shadow: 0 1px 3px rgba(17, 17, 17, .12);
     }
 
-    .hero-desk .desk-surface__actions .button {
-        box-shadow: 0 1px 3px rgba(17, 17, 17, .08);
-    }
-
-    .hero-desk .desk-surface__actions .button--primary {
-        box-shadow: 0 1px 4px rgba(121, 63, 247, .22);
-    }
-
-    /* the glow/inset-highlight material layers read as "floating," not
-       flat — drop them here so the border + faint shadow above are the
-       whole story on mobile */
-    .hero-desk .desk-surface__actions .button.surface--stroke::before,
-    .hero-desk .desk-surface__actions .button.surface--stroke::after,
-    .hero-desk .desk-surface__actions .button.surface--celestial::before,
-    .hero-desk .desk-surface__actions .button.surface--celestial::after {
-        display: none;
-    }
-
     /* the celestial-dust swirl reads as clutter, not charm, once it's
        squeezed into a narrow stacked column — and with the dust gone,
        its own pause toggle has nothing left to control. */
@@ -571,4 +553,32 @@
 }
 @media (max-width: 600px) {
     .desk-surface__sheet { background-image: none; }
+}
+
+/* ---------- reading-mode toggle placement ----------
+   Desktop: centred in the header row, between the logo and the Menu
+   button, on the graph paper above the sheet. It scrolls away with the
+   logo rather than following the page. Below 981px it stays at the top
+   of the reading card, as before. */
+.desk-persona--header {
+    position: absolute;
+    top: 2.15rem;
+    left: 50%;
+    z-index: 30;
+    transform: translateX(-50%);
+    flex-wrap: nowrap;
+    white-space: nowrap;
+}
+
+.desk-persona--header .desk-persona__options {
+    background: rgb(255 255 255 / 78%);
+    box-shadow: 0 1px 2px rgb(23 23 23 / 6%), 0 6px 18px rgb(76 58 92 / 10%);
+}
+
+@media (min-width: 981px) {
+    .desk-persona--inline { display: none; }
+}
+
+@media (max-width: 980px) {
+    .desk-persona--header { display: none; }
 }

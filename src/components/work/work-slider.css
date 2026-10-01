@@ -77,6 +77,9 @@
 .print-pile__arrows { display: inline-flex; gap: .4rem; }
 
 .print-pile__arrows button {
+    display: grid;
+    place-items: center;
+    padding: 0 0 2px;
     width: 2.25rem;
     height: 2.25rem;
     border: 1px solid rgb(17 17 17 / 14%);
@@ -109,11 +112,14 @@
     transition: transform var(--motion-expressive) var(--print-ease), opacity var(--motion-expressive) ease;
 }
 
-.print--depth-0 { z-index: 3; transform: none; }
-.print--depth-1 { z-index: 2; transform: translate(10px, 9px) rotate(1.6deg); }
-.print--depth-2 { z-index: 1; transform: translate(-8px, 15px) rotate(-1.8deg); }
-.print--leaving-next { z-index: 4; transform: translate(-112%, -2%) rotate(-7deg); opacity: 0; pointer-events: none; }
-.print--leaving-prev { z-index: 4; transform: translate(112%, -2%) rotate(7deg); opacity: 0; pointer-events: none; }
+/* Every print always has a place, and transitions carry it there, so a
+   quick second click changes the destination mid-move instead of
+   restarting the animation (interruptible, not keyframed). */
+.print--depth-0 { z-index: 4; transform: none; }
+.print--depth-1 { z-index: 3; transform: translate(10px, 9px) rotate(1.6deg); }
+.print--depth-2 { z-index: 2; transform: translate(-8px, 15px) rotate(-1.8deg); }
+.print--under { z-index: 1; transform: translate(-8px, 15px) rotate(-1.8deg); opacity: 0; pointer-events: none; }
+.print--aside { z-index: 5; transform: translate(-112%, -2%) rotate(-7deg); opacity: 0; pointer-events: none; }
 
 .print__link {
     position: relative;
@@ -122,7 +128,7 @@
     color: inherit;
     text-decoration: none;
     transform-origin: 50% 100%;
-    transition: transform var(--motion-expressive) var(--print-ease);
+    transition: transform 150ms ease-out;
 }
 
 /* one frame for every project */
@@ -135,11 +141,12 @@
     background: var(--print-border);
     box-shadow: 0 1px 1px rgb(40 30 50 / 8%), 0 14px 28px rgb(49 35 48 / 14%);
     overflow: hidden;
-    transition: box-shadow var(--motion-expressive) var(--print-ease);
+    transition: box-shadow 150ms ease-out;
 }
 
 .print--depth-1 .print__paper,
-.print--depth-2 .print__paper { box-shadow: 0 1px 1px rgb(40 30 50 / 8%), 0 6px 12px rgb(49 35 48 / 10%); }
+.print--depth-2 .print__paper,
+.print--under .print__paper { box-shadow: 0 1px 1px rgb(40 30 50 / 8%), 0 6px 12px rgb(49 35 48 / 10%); }
 
 .print__paper img {
     display: block;
@@ -147,6 +154,9 @@
     height: 100%;
     object-fit: cover;
     background: var(--stock);
+    /* a faint inner edge so light screenshots never melt into the border */
+    outline: 1px solid rgb(40 30 50 / 10%);
+    outline-offset: -1px;
 }
 
 /* the same tape, in the same place, on every print: half on the print,
@@ -165,7 +175,8 @@
 }
 
 .print--depth-1 .print__tape,
-.print--depth-2 .print__tape { opacity: 0; }
+.print--depth-2 .print__tape,
+.print--under .print__tape { opacity: 0; }
 
 /* ---------- pick it up: lift + a corner peel on the top print ---------- */
 .print__peel {
@@ -184,7 +195,7 @@
     color: var(--print-ink);
     font-size: .95rem;
     font-weight: 600;
-    transition: width var(--motion-expressive) var(--print-ease), height var(--motion-expressive) var(--print-ease);
+    transition: width 300ms var(--print-ease), height 300ms var(--print-ease);
     overflow: hidden;
 }
 
@@ -267,18 +278,7 @@
 .print-pile__caption:hover span { transform: translateX(3px); }
 .print-pile__caption:focus-visible { outline: 2px solid var(--color-lavender-500); outline-offset: 4px; border-radius: 2px; }
 
-.print-pile__shelf {
-    width: fit-content;
-    margin-top: 1rem;
-    color: #5b4fc9;
-    font-family: var(--font-family-personal);
-    font-size: 1.4rem;
-    font-weight: 600;
-    text-decoration: none;
-}
-
-.print-pile__shelf:hover { text-decoration: underline; text-underline-offset: 4px; }
-.print-pile__shelf:focus-visible { outline: 2px solid var(--color-lavender-500); outline-offset: 3px; }
+.print-pile__shelf { width: fit-content; margin-top: .6rem; }
 
 @media (max-width: 600px) {
     .print-pile__head { grid-template-columns: 1fr auto; row-gap: .7rem; }
@@ -290,7 +290,7 @@
 /* reduced motion: no sliding, tilting or lifting; the shadow still answers */
 @media (prefers-reduced-motion: reduce) {
     .print, .print__link, .print__peel, .print-pile__star path { transition: none; }
-    .print--leaving-next, .print--leaving-prev { transform: none; }
+    .print--aside { transform: none; }
     .print--depth-0 .print__link:hover, .print--depth-0 .print__link:focus-visible { transform: none; }
     .print-pile__note { animation: none; }
 }
@@ -298,8 +298,7 @@
 :root[data-motion="reduce"] .print,
 :root[data-motion="reduce"] .print__link,
 :root[data-motion="reduce"] .print__peel { transition: none; }
-:root[data-motion="reduce"] .print--leaving-next,
-:root[data-motion="reduce"] .print--leaving-prev,
+:root[data-motion="reduce"] .print--aside,
 :root[data-motion="reduce"] .print--depth-0 .print__link:hover,
 :root[data-motion="reduce"] .print--depth-0 .print__link:focus-visible { transform: none; }
 :root[data-motion="reduce"] .print-pile__note { animation: none; }

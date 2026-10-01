@@ -1,12 +1,9 @@
 // One set of facts, two framings. Every claim here should be defensible in an
 // interview: scale and scope, not unsourced outcome percentages.
 
-export const contact = {
-  location: "Dallas, TX · Open to remote",
-  email: "contact@omoniyialimi.com",
-  site: "omoniyialimi.com",
-  linkedin: "https://www.linkedin.com/in/omoniyi-alimi-08428782",
-};
+import { contact } from "./contact.js";
+
+export { contact };
 
 const independent = {
   company: "Omoniyi Studio & LaunchKit UI",

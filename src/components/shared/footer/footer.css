@@ -52,10 +52,14 @@
   transition: color var(--motion-productive) ease;
 }
 
+/* brand marks keep their own colours; hover lifts them instead */
+.site-footer__social a { border-radius: 4px; transition: transform 150ms ease-out; }
 .site-footer__social a:hover,
-.site-footer__social a:focus-visible {
-  color: var(--color-lavender-500);
-}
+.site-footer__social a:focus-visible { transform: translateY(-1px); }
+.site-footer__social a:focus-visible { outline: 2px solid var(--color-lavender-500); outline-offset: 3px; }
+
+.site-footer .site-footer__issue p.site-footer__credit { color: var(--text-secondary); font-family: var(--font-family-body); font-size: .68rem; font-weight: 400; letter-spacing: 0; line-height: 1.4; margin-top: .45rem; text-transform: none; }
+.site-footer__credit a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
 
 /* The sleeping illustration mirrors the location info, but on the right. */
 .site-footer__stardust {
