@@ -117,7 +117,7 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 1.35rem;
+    gap: 1rem 1.75rem;
     margin-top: 1.7rem;
 }
 
@@ -462,24 +462,6 @@
 
     .desk-persona__pill.is-active {
         box-shadow: 0 1px 3px rgba(17, 17, 17, .12);
-    }
-
-    .hero-desk .desk-surface__actions .button {
-        box-shadow: 0 1px 3px rgba(17, 17, 17, .08);
-    }
-
-    .hero-desk .desk-surface__actions .button--primary {
-        box-shadow: 0 1px 4px rgba(121, 63, 247, .22);
-    }
-
-    /* the glow/inset-highlight material layers read as "floating," not
-       flat — drop them here so the border + faint shadow above are the
-       whole story on mobile */
-    .hero-desk .desk-surface__actions .button.surface--stroke::before,
-    .hero-desk .desk-surface__actions .button.surface--stroke::after,
-    .hero-desk .desk-surface__actions .button.surface--celestial::before,
-    .hero-desk .desk-surface__actions .button.surface--celestial::after {
-        display: none;
     }
 
     /* the celestial-dust swirl reads as clutter, not charm, once it's

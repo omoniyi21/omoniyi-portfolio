@@ -278,18 +278,7 @@
 .print-pile__caption:hover span { transform: translateX(3px); }
 .print-pile__caption:focus-visible { outline: 2px solid var(--color-lavender-500); outline-offset: 4px; border-radius: 2px; }
 
-.print-pile__shelf {
-    width: fit-content;
-    margin-top: 1rem;
-    color: #5b4fc9;
-    font-family: var(--font-family-personal);
-    font-size: 1.4rem;
-    font-weight: 600;
-    text-decoration: none;
-}
-
-.print-pile__shelf:hover { text-decoration: underline; text-underline-offset: 4px; }
-.print-pile__shelf:focus-visible { outline: 2px solid var(--color-lavender-500); outline-offset: 3px; }
+.print-pile__shelf { width: fit-content; margin-top: .6rem; }
 
 @media (max-width: 600px) {
     .print-pile__head { grid-template-columns: 1fr auto; row-gap: .7rem; }

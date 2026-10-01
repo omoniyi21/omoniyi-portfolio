@@ -50,17 +50,10 @@
   max-width: 18ch;
 }
 
-.personal-effects__rail a {
+.personal-effects__rail .personal-effects__dossier {
   width: max-content;
-  border-bottom: 1px solid currentColor;
-  color: var(--text-primary);
-  font-family: var(--font-family-personal);
-  font-size: 1rem;
-  margin-top: 2.65rem;
-  padding-bottom: .2rem;
+  margin-top: 2.25rem;
 }
-
-.personal-effects__rail a span { margin-left: .35rem; }
 .personal-effects__stardust { position: absolute; right: .35rem; top: 13.25rem; width: 6.875rem; }
 .personal-effects__coordinates { color: rgb(34 30 44 / 55%); font-size: .56rem; font-weight: 700; letter-spacing: .12em; line-height: 1.7; position: absolute; right: .35rem; text-align: right; text-transform: uppercase; top: 18.1rem; }
 
@@ -201,7 +194,7 @@
   .personal-effects__spread { width: 100%; }
   .personal-effects__rail h2 { margin-top: 2rem; max-width: 8ch; }
   .personal-effects__rail > p:not(.personal-effects__coordinates) { margin-top: 1.25rem; max-width: 30ch; }
-  .personal-effects__rail a { margin-top: 1.5rem; }
+  .personal-effects__rail .personal-effects__dossier { margin-top: 1.25rem; }
   .personal-effects__stardust { bottom: auto; left: auto; right: .55rem; top: 7.6rem; width: 5.225rem; }
   .personal-effects__coordinates { right: .7rem; top: 13.4rem; }
 }
