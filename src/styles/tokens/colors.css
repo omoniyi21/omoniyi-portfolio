@@ -28,6 +28,10 @@
     /* Page */
 
     --background-page: #FFFAD6;
+    /* the page as a desk under a lamp: a warm pool of light behind the
+       hero, then the yellow settles into a softer cream as you read down */
+    --background-page-lamp: rgb(255 254 244 / 88%);
+    --background-page-rest: #FBF6E2;
     --background-page-alt: #F7F4FD;
 
     /* Surfaces */
