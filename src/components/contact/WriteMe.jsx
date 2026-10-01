@@ -27,6 +27,11 @@ export default function WriteMe() {
           </div>
         </div>
         <p>Tell me what you’re inspired by or building. I love hearing what people are excited about.</p>
+        <p className="write-me__availability">
+          <span className="write-me__availability-dot" aria-hidden="true" />
+          Open to senior product design roles, and to fractional or contract work through{" "}
+          <a href="/studio">Omoniyi Studio</a>.
+        </p>
 
         <div className="write-me__links" aria-label="Contact links">
           <a href={LINKEDIN_URL} target="_blank" rel="noreferrer">

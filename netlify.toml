@@ -3,10 +3,8 @@
   publish = "dist"
   functions = "netlify/functions"
 
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+# The SPA fallback lives in public/_redirects (merged with the exact page
+# rewrites at build time). Unknown URLs get the app shell with a 404 status.
 
 # Public canonical URLs omit trailing slashes; the edge function redirects them.
 [build.processing.html]
