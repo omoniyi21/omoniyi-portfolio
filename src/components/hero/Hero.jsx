@@ -28,6 +28,10 @@ export default function Hero() {
               layer, so the work slider can sit on top of the sheet and run
               past its edge instead of being cropped by it. */}
           <div className="desk-surface__shadow" aria-hidden="true">
+            {/* two more sheets underneath, slightly askew: the hero is the
+                top letter of a small stack (desktop only) */}
+            <div className="desk-surface__under desk-surface__under--two" />
+            <div className="desk-surface__under desk-surface__under--one" />
             <div className="desk-surface__sheet">
               <CelestialDust paused={dustPaused} mode={persona} />
             </div>

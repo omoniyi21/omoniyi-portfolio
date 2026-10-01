@@ -17,6 +17,7 @@ const PERSONAS = {
     ctaTo: "/work",
     secondaryLabel: "Read the résumé",
     secondaryTo: "/resume",
+    ps: "I create spaces in products, relationships, homes, ideas and communities where people feel more deeply human.",
   },
   building: {
     tabLabel: "someone building",
@@ -30,8 +31,32 @@ const PERSONAS = {
     secondaryLabel: "Browse LaunchKit UI",
     secondaryTo: "/uikit",
     secondaryTone: "ui",
+    ps: "My greatest talent is world building.",
   },
 };
+
+// A faint ink postmark that lands on the stamp's corner, dated the day you
+// visit, as if the stamp was franked when the page was sent to you.
+const TODAY = new Date();
+const POSTMARK_DAY = new Intl.DateTimeFormat("en-US", { month: "short", day: "2-digit" }).format(TODAY).toUpperCase();
+const POSTMARK_YEAR = TODAY.getFullYear();
+
+function Postmark() {
+  return (
+    <svg className="desk-postmark" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+      <defs>
+        <path id="postmark-arc" d="M50 50 m-36 0 a36 36 0 1 1 72 0 a36 36 0 1 1 -72 0" />
+      </defs>
+      <circle cx="50" cy="50" r="46" />
+      <circle cx="50" cy="50" r="27" />
+      <text className="desk-postmark__ring">
+        <textPath href="#postmark-arc" startOffset="0" textLength="224" lengthAdjust="spacing">DALLAS TX ✦ OMONIYI ALIMI ✦</textPath>
+      </text>
+      <text className="desk-postmark__date" x="50" y="49" textAnchor="middle">{POSTMARK_DAY}</text>
+      <text className="desk-postmark__date" x="50" y="61" textAnchor="middle">{POSTMARK_YEAR}</text>
+    </svg>
+  );
+}
 
 // "reading this as:" — the reading-mode toggle for the homepage
 function PersonaToggle({ persona, onPersonaChange, className }) {
@@ -111,6 +136,8 @@ export default function HeroContent({ paused, onToggleDust, persona, onPersonaCh
           document.body,
         )}
 
+      <p className="desk-letterhead">From the desk of Omoniyi</p>
+
       <p className="hero__eyebrow">
         <span>{copy.eyebrow}</span>
         <span className="hero__eyebrow-star" aria-hidden="true">✦</span>
@@ -125,13 +152,21 @@ export default function HeroContent({ paused, onToggleDust, persona, onPersonaCh
       <p className="hero__description">{copy.description}</p>
 
       <div className="desk-surface__actions" ref={actionsRef}>
-        <StampButton to={copy.ctaTo} onClick={(event) => handleSpaceClick(event, copy.ctaTo, copy.ctaTone)}>
-          {copy.ctaLabel}
-        </StampButton>
+        <span className="desk-stamp">
+          <StampButton to={copy.ctaTo} onClick={(event) => handleSpaceClick(event, copy.ctaTo, copy.ctaTone)}>
+            {copy.ctaLabel}
+          </StampButton>
+          <Postmark />
+        </span>
         <TagButton to={copy.secondaryTo} onClick={(event) => handleSpaceClick(event, copy.secondaryTo, copy.secondaryTone)}>
           {copy.secondaryLabel}
         </TagButton>
       </div>
+
+      <p className="desk-ps">
+        <span className="desk-ps__mark">P.S.</span> {copy.ps}
+        <span className="desk-ps__sign">Omoniyi</span>
+      </p>
 
       <div className="desk-surface__motion-controls">
         <button
