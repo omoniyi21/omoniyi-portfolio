@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import confusedStardust from "../assets/branding/stardust-creature-kit/png/1024/lost-confused.png";
+import confusedStardust from "../assets/branding/stardust-creature-kit/png/1024/lost-confused.webp";
 import "./not-found.css";
 
 export default function NotFound() {

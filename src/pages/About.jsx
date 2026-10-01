@@ -1,5 +1,5 @@
-import portrait from "../assets/images/portfolio-personal-effects-assets/png/candid-pic-me.png";
-import filmStrip from "../assets/images/about/film-strip.png";
+import portrait from "../assets/images/portfolio-personal-effects-assets/png/candid-pic-me.webp";
+import filmStrip from "../assets/images/about/film-strip.webp";
 import CurrentFavoritesForm from "../components/contact/CurrentFavoritesForm";
 import CurrentFavoritesSlider from "../components/personal-effects/CurrentFavoritesSlider";
 

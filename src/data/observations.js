@@ -83,7 +83,7 @@ export const observations = [{
  slug: "padme-was-a-baddie-in-a-dystopia", number: "002", status: "published",
  publishedAt: "2026-09-27T00:00:00Z", dateLabel: "September 2026", category: "Design / culture",
  title: padmeParts[0].replace(/^# /, ""), excerpt: padmeParts[1],
- cardImage: "/observations/covers/padme.png", cardImageAlt: "Padmé wearing a pale blue outfit outside a rounded stone building",
+ cardImage: "/observations/covers/padme.webp", cardImageAlt: "Padmé wearing a pale blue outfit outside a rounded stone building",
  blocks: padmeBlocks,
 }, {
  slug: "remote-life-contract-work", number: "001", status: "published",
