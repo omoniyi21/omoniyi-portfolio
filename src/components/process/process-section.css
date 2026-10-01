@@ -253,3 +253,16 @@
 :root[data-motion="reduce"] .process-card:hover .process-card__mockup,
 :root[data-motion="reduce"] .process-card:focus-within .process-card__mockup,
 :root[data-motion="reduce"] .process-card.is-open .process-card__mockup { opacity: 1; }
+
+/* the link stays in normal flow so its arrow anchors to the card's
+   top-right corner (as before), not to the link box */
+.process-card > .process-card__link { position: static; }
+.process-card__link > span,
+.process-card__link > i { position: relative; z-index: 1; }
+.process-card__link span[aria-hidden] { z-index: 1; }
+
+/* leave clear room above the cards for the tallest mockup */
+.process-section__grid { padding-top: 7.75rem; }
+.process-section__head { margin-bottom: 1.25rem; }
+.process-card--laptop .process-card__mockup,
+.process-card--laptop .process-card__mockup img { width: min(12.5rem, 105%); }
