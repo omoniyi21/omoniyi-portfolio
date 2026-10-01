@@ -17,6 +17,7 @@ const PERSONAS = {
     ctaTo: "/work",
     secondaryLabel: "Read the résumé",
     secondaryTo: "/resume",
+    ps: "I create spaces in products, relationships, homes, ideas and communities where people feel more deeply human.",
   },
   building: {
     tabLabel: "someone building",
@@ -30,6 +31,7 @@ const PERSONAS = {
     secondaryLabel: "Browse LaunchKit UI",
     secondaryTo: "/uikit",
     secondaryTone: "ui",
+    ps: "My greatest talent is world building.",
   },
 };
 
@@ -55,7 +57,7 @@ function PersonaToggle({ persona, onPersonaChange, className }) {
   );
 }
 
-export default function HeroContent({ paused, onToggleDust, persona, onPersonaChange }) {
+export default function HeroContent({ persona, onPersonaChange }) {
   const copy = PERSONAS[persona];
   const columnRef = useRef(null);
   const actionsRef = useRef(null);
@@ -111,6 +113,8 @@ export default function HeroContent({ paused, onToggleDust, persona, onPersonaCh
           document.body,
         )}
 
+      <p className="desk-letterhead">From the desk of Omoniyi</p>
+
       <p className="hero__eyebrow">
         <span>{copy.eyebrow}</span>
         <span className="hero__eyebrow-star" aria-hidden="true">✦</span>
@@ -133,15 +137,12 @@ export default function HeroContent({ paused, onToggleDust, persona, onPersonaCh
         </TagButton>
       </div>
 
+      <p className="desk-ps">
+        <span className="desk-ps__mark">P.S.</span> {copy.ps}
+        <span className="desk-ps__sign">Omoniyi</span>
+      </p>
+
       <div className="desk-surface__motion-controls">
-        <button
-          type="button"
-          className="desk-surface__sky-control"
-          aria-pressed={paused}
-          onClick={onToggleDust}
-        >
-          {paused ? "resume dust" : "pause dust"}
-        </button>
         <MotionToggle className="desk-surface__motion-toggle" />
       </div>
     </div>

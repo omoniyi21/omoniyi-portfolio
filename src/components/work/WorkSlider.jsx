@@ -91,7 +91,8 @@ export default function WorkSlider({ persona = "hiring" }) {
   };
 
   const active = WORK[order[current]];
-  const starX = order.map((_, i) => 8 + i * 36);
+  // 44px apart so every star gets a full 44px tap target
+  const starX = order.map((_, i) => 22 + i * 44);
 
   return (
     <section
@@ -105,8 +106,8 @@ export default function WorkSlider({ persona = "hiring" }) {
           <span>Selected Work</span>
           <span aria-hidden="true">✦</span>
         </p>
-        <div className="print-pile__stars" style={{ "--w": `${starX[count - 1] + 8}px` }}>
-          <svg className="print-pile__line" viewBox={`0 0 ${starX[count - 1] + 8} 32`} aria-hidden="true" focusable="false">
+        <div className="print-pile__stars" style={{ "--w": `${starX[count - 1] + 22}px` }}>
+          <svg className="print-pile__line" viewBox={`0 0 ${starX[count - 1] + 22} 32`} aria-hidden="true" focusable="false">
             <polyline points={starX.map((x, i) => `${x},${STAR_Y[i]}`).join(" ")} />
           </svg>
           <div role="group" aria-label="Choose a project">

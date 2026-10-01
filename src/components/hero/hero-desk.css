@@ -17,50 +17,14 @@
     height: auto;
     min-height: 0;
     padding: clamp(3.5rem, 6vw, 5rem) 0 2.5rem;
-    /* Elevation shadow lives here, not on .desk-surface itself — that box
-       has overflow:hidden (to keep the celestial dust clipped to the torn
-       silhouette), and a filter on the same element that clips its own
-       overflow gets its shadow clipped away too. Up here it renders freely
-       and still traces the jagged silhouette, since drop-shadow follows
-       the child's actual rendered alpha shape, not a bounding box. */
-    filter:
-        drop-shadow(0 3px 6px rgb(23 23 23 / 16%))
-        drop-shadow(0 26px 40px rgb(76 58 92 / 26%));
 }
 
-/* ---------- outer layout: paper card | work card, side by side ---------- */
+/* ---------- outer layout: the postcard, with the prints on top of it ---------- */
 .desk-surface {
     position: relative;
     isolation: isolate;
-    overflow: hidden;
     box-sizing: border-box;
     width: 100%;
-    padding: clamp(2.5rem, 4.5vw, 4rem) clamp(2rem, 4vw, 3.5rem);
-    /* A flat, hand-torn sheet: a cream fill clipped to an irregular
-       deckled-edge silhouette (uneven notches along the top and bottom,
-       straighter left/right sides) rather than a clean rounded rectangle.
-       A cropped, edge-free patch of the real paper photo's grain is
-       layered on top and multiplied into the fill, so the interior reads
-       as genuine paper fiber instead of a flat solid color — while the
-       torn silhouette itself stays crisp CSS, not a photographed edge. */
-    background-color: var(--color-gray-50);
-    background-image:
-        linear-gradient(rgb(255 255 255 / 30%), rgb(255 255 255 / 30%)),
-        url(../../assets/images/hero/paper-grain-swatch.png);
-    background-size: cover, cover;
-    background-position: center, center;
-    background-repeat: no-repeat, no-repeat;
-    background-blend-mode: normal, multiply;
-    clip-path: polygon(
-        0% 1.2%, 4% 0%, 9% 1.8%, 15% 0.4%, 22% 1.6%, 30% 0%, 38% 1.2%,
-        47% 0.3%, 55% 1.8%, 63% 0.2%, 71% 1.4%, 80% 0%, 88% 1.6%, 95% 0.4%,
-        100% 1.1%,
-        99.4% 30%, 100% 55%, 99.3% 75%,
-        100% 98.8%, 94% 100%, 87% 98.3%, 79% 99.6%, 71% 98.4%, 62% 100%,
-        54% 98.7%, 46% 99.7%, 37% 98.2%, 29% 100%, 20% 98.5%, 12% 99.6%,
-        5% 98.1%, 0% 99%,
-        0.6% 70%, 0% 45%, 0.7% 25%
-    );
 }
 
 .desk-surface__grid {
@@ -81,27 +45,13 @@
     min-width: 0;
 }
 
-/* ---------- the paper sheet: headline + persona toggle live here, and the
-   celestial dust is clipped to exactly this box at every breakpoint ---------- */
+/* ---------- the words: letterhead, headline, actions and P.S. ---------- */
 .desk-surface__paper {
     position: relative;
     z-index: 1;
     display: flex;
     flex-direction: column;
     min-width: 0;
-}
-
-/* stardust sits directly on the full paper sheet, under the text and the
-   note, clipped to the sheet's own bounds by .desk-surface's
-   overflow:hidden above */
-.hero-dust {
-    opacity: .72;
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    pointer-events: none;
 }
 
 .desk-surface__text {
@@ -167,31 +117,6 @@
     background: var(--color-lavender-500);
     color: var(--color-white);
     box-shadow: 0 3px 9px rgb(117 105 227 / 35%);
-}
-
-.desk-surface__sky-control {
-    position: relative;
-    z-index: 1;
-    align-self: flex-start;
-    margin-top: 1.15rem;
-    border: 0;
-    background: none;
-    padding: 0;
-    font-family: var(--font-family-body);
-    font-size: .68rem;
-    font-weight: var(--font-medium);
-    letter-spacing: .07em;
-    text-transform: uppercase;
-    color: var(--text-tertiary);
-    cursor: pointer;
-    opacity: .55;
-    transition: opacity var(--motion-productive) ease;
-}
-
-.desk-surface__sky-control:hover,
-.desk-surface__sky-control:focus-visible {
-    opacity: 1;
-    color: var(--color-lavender-500);
 }
 
 /* ---------- work column: the case-study card, floating free on the page ---------- */
@@ -434,48 +359,14 @@
     .hero-desk .desk-surface__work .hero-project { padding: 1.8rem 1.4rem 1.6rem; gap: 1.1rem; }
 }
 
-@media (prefers-reduced-motion: reduce) {
-    .desk-surface__sky-control { transition: none; }
-}
-
-/* ---------- mobile: flatten the paper card ----------
-   Below 600px the torn-paper grain, grid pattern and heavy ambient
-   drop-shadow read as clutter once the persona toggle, headline, copy
-   and both CTAs are stacked in one narrow column. Flatten the sheet to
-   a plain surface and drop the elevation shadow, but keep light,
-   simplified shadows on the interactive pieces (buttons, persona pill)
-   so they still read as tappable against the now-flat background.
-   The work-card slider (.desk-surface__work / .hero-project) keeps its
-   own paper look untouched — this only targets the outer sheet. */
 @media (max-width: 600px) {
-    .hero-desk.hero-journal .hero__main {
-        filter: none;
-    }
-
-    .desk-surface {
-        background-image: none;
-        background-color: var(--color-gray-50);
-        clip-path: none;
-        border-radius: var(--radius-xl);
-        border: 1px solid var(--border-default);
-    }
-
     .desk-persona__pill.is-active {
         box-shadow: 0 1px 3px rgba(17, 17, 17, .12);
     }
-
-    /* the celestial-dust swirl reads as clutter, not charm, once it's
-       squeezed into a narrow stacked column — and with the dust gone,
-       its own pause toggle has nothing left to control. */
-    .hero-dust,
-    .desk-surface__sky-control {
-        display: none;
-    }
 }
 
-/* dust + motion switches sit together under the CTAs */
+/* the motion switch sits under the P.S. */
 .desk-surface__motion-controls { position: relative; z-index: 1; display: flex; align-items: center; gap: 1.25rem; margin-top: 1.15rem; }
-.desk-surface__motion-controls .desk-surface__sky-control { margin-top: 0; }
 .desk-surface__motion-toggle { color: var(--text-tertiary); font-family: var(--font-family-body); font-weight: var(--font-medium); font-size: .68rem; letter-spacing: .07em; opacity: .55; }
 @media (max-width: 600px) { .desk-surface__motion-toggle { display: none; } }
 .desk-surface__motion-controls > button { margin: 0; padding: .9rem 0; min-height: 0; line-height: 1; align-self: center; }
@@ -483,77 +374,6 @@
 /* The photo slider sizes itself from its images, so the work column no
    longer stretches to match the text column's height. */
 .desk-surface__work--photos { height: auto; }
-
-/* ---------- paper as a layer ----------
-   The torn sheet used to be .desk-surface itself, which cropped everything
-   inside it. The fill, grain, torn clip-path and the dust now live on
-   .desk-surface__sheet behind the content; its elevation shadow lives on
-   the wrapper (a filter and a clip-path on one box clip each other). The
-   content box no longer clips, so the work slider can run past the edge. */
-.hero-desk.hero-journal .hero__main { filter: none; }
-
-.desk-surface {
-    background: none;
-    clip-path: none;
-    overflow: visible;
-}
-
-.desk-surface__shadow {
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
-    filter:
-        drop-shadow(0 3px 6px rgb(23 23 23 / 16%))
-        drop-shadow(0 26px 40px rgb(76 58 92 / 26%));
-}
-
-.desk-surface__sheet {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-    background-color: var(--color-gray-50);
-    background-image:
-        linear-gradient(rgb(255 255 255 / 30%), rgb(255 255 255 / 30%)),
-        url(../../assets/images/hero/paper-grain-swatch.png);
-    background-size: cover, cover;
-    background-position: center, center;
-    background-repeat: no-repeat, no-repeat;
-    background-blend-mode: normal, multiply;
-    clip-path: polygon(
-        0% 1.2%, 4% 0%, 9% 1.8%, 15% 0.4%, 22% 1.6%, 30% 0%, 38% 1.2%,
-        47% 0.3%, 55% 1.8%, 63% 0.2%, 71% 1.4%, 80% 0%, 88% 1.6%, 95% 0.4%,
-        100% 1.1%,
-        99.4% 30%, 100% 55%, 99.3% 75%,
-        100% 98.8%, 94% 100%, 87% 98.3%, 79% 99.6%, 71% 98.4%, 62% 100%,
-        54% 98.7%, 46% 99.7%, 37% 98.2%, 29% 100%, 20% 98.5%, 12% 99.6%,
-        5% 98.1%, 0% 99%,
-        0.6% 70%, 0% 45%, 0.7% 25%
-    );
-}
-
-@media (max-width: 600px) {
-    .desk-surface { border: 0; border-radius: 0; }
-    .desk-surface__shadow { filter: none; }
-    .desk-surface__sheet {
-        background-image: none;
-        clip-path: none;
-        border-radius: var(--radius-xl);
-        border: 1px solid var(--border-default);
-    }
-}
-
-/* whiter sheet: same grain, close to white with a hint of warmth */
-.hero-desk { --sheet-color: #fbfaf6; }
-.desk-surface__sheet {
-    background-color: var(--sheet-color);
-    background-image:
-        linear-gradient(rgb(255 255 255 / 52%), rgb(255 255 255 / 52%)),
-        url(../../assets/images/hero/paper-grain-swatch.png);
-}
-@media (max-width: 600px) {
-    .desk-surface__sheet { background-image: none; }
-}
 
 /* ---------- reading-mode toggle placement ----------
    Desktop: centred in the header row, between the logo and the Menu
@@ -581,4 +401,160 @@
 
 @media (max-width: 980px) {
     .desk-persona--header { display: none; }
+}
+
+/* ---------- the hero as a postcard ---------- */
+
+/* letterhead, typed at the top of the sheet */
+.desk-letterhead {
+    align-self: stretch;
+    margin: 0 0 2rem;
+    padding-bottom: .75rem;
+    border-bottom: 1px solid rgb(40 30 50 / 12%);
+    color: var(--text-tertiary);
+    font-family: var(--font-family-body);
+    font-size: .68rem;
+    font-weight: var(--font-medium);
+    letter-spacing: .22em;
+    text-transform: uppercase;
+}
+
+/* the P.S., in her hand, signed */
+.desk-ps {
+    position: relative;
+    max-width: 34rem;
+    margin: 2.1rem 0 0;
+    padding-top: 1.15rem;
+    border-top: 1px dashed rgb(74 61 122 / 22%);
+    color: #4a3d7a;
+    font-family: var(--font-family-personal);
+    font-size: 1.45rem;
+    font-weight: 500;
+    line-height: 1.2;
+    text-wrap: pretty;
+}
+
+.desk-ps__mark { font-weight: 700; color: var(--color-lavender-500); }
+
+.desk-ps__sign {
+    display: block;
+    margin-top: .35rem;
+    color: var(--color-lavender-500);
+    font-size: 1.25rem;
+}
+
+.desk-ps__sign::before { content: "\2013\00a0"; }
+
+/* ---------- the postcard ----------
+   A landscape postcard is the bottom of the pile. The words sit on its
+   left; the work prints are laid on its right side and run a little past
+   its edge. Two more sheets peek out under it: the other spaces. The
+   card stock uses the same grain as the Observations notebook so the
+   paper on the page is one family. */
+.desk-surface--postcard {
+    --postcard-paper: #fbf8ef;
+    --postcard-radius: 14px;
+    --postcard-ink: rgb(74 61 122 / 14%);
+    padding: clamp(2.5rem, 4vw, 3.5rem) 0 clamp(2.25rem, 3.2vw, 3rem) clamp(2rem, 3.5vw, 3.25rem);
+}
+
+.postcard {
+    position: absolute;
+    z-index: 0;
+    inset: 0 7% 0 0;
+    pointer-events: none;
+}
+
+.postcard__card,
+.postcard__under {
+    position: absolute;
+    inset: 0;
+    border-radius: var(--postcard-radius);
+}
+
+.postcard__card {
+    background:
+        url(../../assets/textures/paper-grain.svg),
+        linear-gradient(160deg, rgb(255 255 255 / 55%), transparent 55%),
+        var(--postcard-paper);
+    box-shadow:
+        0 1px 2px rgb(40 30 50 / 7%),
+        0 18px 40px -12px rgb(76 58 92 / 18%),
+        0 40px 80px -30px rgb(76 58 92 / 16%);
+}
+
+/* the printed frame a few millimetres in from the edge */
+.postcard__card::after {
+    content: "";
+    position: absolute;
+    inset: 12px;
+    border: 1px solid var(--postcard-ink);
+    border-radius: calc(var(--postcard-radius) - 6px);
+}
+
+.postcard__under {
+    background: url(../../assets/textures/paper-grain.svg), #f4f0e6;
+    box-shadow: 0 1px 2px rgb(40 30 50 / 7%), 0 10px 22px -10px rgb(76 58 92 / 16%);
+}
+
+.postcard__under--one { transform: translate(12px, 12px) rotate(.6deg); background-color: #f5f1e7; }
+.postcard__under--two { transform: translate(-9px, 20px) rotate(-.55deg); background-color: #eeeadf; }
+
+/* a thin postmark in the top-right corner; the prints sit low enough
+   to leave it in full view */
+.postcard__postmark {
+    position: absolute;
+    top: 1.6rem;
+    right: 1.9rem;
+    width: 5.6rem;
+    height: 5.6rem;
+    transform: rotate(-12deg);
+    overflow: visible;
+    color: rgb(74 61 122 / 40%);
+}
+
+.postmark circle { fill: none; stroke: currentColor; stroke-width: 1.2; }
+.postmark text { fill: currentColor; font-family: var(--font-family-body); font-weight: 700; }
+.postmark__ring { font-size: 8.5px; }
+.postmark__date { font-size: 11px; letter-spacing: .04em; }
+
+/* the words and the prints share the card */
+.desk-surface--postcard .desk-surface__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, .95fr);
+    gap: clamp(2rem, 4vw, 4rem);
+}
+
+.desk-surface--postcard .desk-surface__work {
+    padding-top: 7.5rem;
+}
+
+/* the header's dust shield was a patch of sheet colour; nothing to hide now */
+.desk-surface--postcard .print-pile__head::before { display: none; }
+
+/* tablets: one column, the postcard behind everything, no stack or postmark */
+@media (max-width: 980px) {
+    .desk-surface--postcard {
+        padding-right: clamp(2rem, 3.5vw, 3.25rem);
+    }
+
+    .postcard { inset: 0; }
+    .postcard__under,
+    .postcard__postmark { display: none; }
+
+    .desk-surface--postcard .desk-surface__grid { grid-template-columns: minmax(0, 1fr); }
+    .desk-surface--postcard .desk-surface__work { padding-top: 1.5rem; }
+}
+
+/* phones: the flat reading card, plain paper with no grain behind text */
+@media (max-width: 600px) {
+    .desk-surface--postcard { padding: 2.25rem 1.5rem; }
+
+    .postcard__card {
+        background: var(--postcard-paper);
+        border: 1px solid var(--border-default);
+        border-radius: var(--radius-xl);
+        box-shadow: none;
+    }
+
+    .postcard__card::after { display: none; }
 }

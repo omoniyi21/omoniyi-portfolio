@@ -54,8 +54,19 @@
         to bottom,
         rgb(117 105 227 / 3.8%) 1px,
         transparent 1px
+      ),
+      radial-gradient(
+        ellipse min(70rem, 85vw) 52rem at 50% 22rem,
+        var(--background-page-lamp),
+        transparent 72%
+      ),
+      linear-gradient(
+        var(--background-page) 0,
+        var(--background-page) 28rem,
+        var(--background-page-rest) 90rem
       );
-    background-size: 18px 18px;
+    background-size: 18px 18px, 18px 18px, 100% 100%, 100% 100%;
+    background-repeat: repeat, repeat, no-repeat, no-repeat;
     color: var(--text-primary);
   
     font-family: var(--font-family-body);
