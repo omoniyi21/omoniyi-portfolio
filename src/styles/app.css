@@ -24,3 +24,6 @@
 
 
 
+
+/* Holds space while an on-demand page loads, so the footer does not jump. */
+.route-loading { min-height: 100svh; }

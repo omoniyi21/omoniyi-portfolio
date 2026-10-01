@@ -1,6 +1,6 @@
 import { useLayoutEffect, useRef } from "react";
 import Button from "../shared/button/Button";
-import { useSpaceTransition } from "../shared/SpaceTransition";
+import { useSpaceTransition } from "../shared/spaceTransitionContext";
 import MotionToggle from "../shared/MotionToggle";
 import PenMark from "../shared/pen-mark/PenMark";
 
