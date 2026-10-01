@@ -16,7 +16,7 @@ export const pageMetadata = {
   '/uikit': page('Omoniyi UI — Thoughtful Figma UI Kits', 'Reusable Figma UI kits for getting version one out the door. Explore the component playground and start with LaunchKit Free.', 'uikit', 'Omoniyi UI homepage featuring LaunchKit Figma UI kits'),
 };
 for (const study of portfolioStudies) {
-  pageMetadata[`/${study.slug}`] = page(`${study.client} ${study.title} | Omoniyi Alimi`, study.summary, study.slug, `${study.client}: ${study.title} case study`);
+  pageMetadata[`/${study.slug}`] = page(`${study.client}: ${study.title} | Omoniyi Alimi`, study.summary, study.slug, `${study.client}: ${study.title} case study`);
 }
 for (const post of getPublishedObservations()) {
   pageMetadata[`/observations/${post.slug}`] = { ...page(`${post.title} | Omoniyi Alimi`, post.excerpt), type: 'article' };

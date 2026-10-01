@@ -5,7 +5,7 @@ const insight = (title, observation, principle, response) => ({title,observation
 const section = (title, body, extra = {}) => ({title,body,...extra});
 export const caseStudies = {
  house: {
-  number:'01',slug:'house',client:'U.S. House',title:'Committee Voting Platform',summary:'Designing a new digital experience for complex legislative workflows—from finding a referral to recording a committee vote—and the 30+ component USWDS design system behind it, with tokens, states, and documentation.',tags:['Design systems','Product design','Research','Accessibility'],figma:'https://www.figma.com/design/0W25IhXkLWlhytPD2Gl22g/Omoniyi-Portfolio?node-id=1-136107',
+  number:'01',slug:'house',client:'U.S. House',title:'Moving committee votes from paper to one digital record',summary:'Designing a new digital experience for complex legislative workflows—from finding a referral to recording a committee vote—and the 30+ component USWDS design system behind it, with tokens, states, and documentation.',tags:['Design systems','Product design','Research','Accessibility'],figma:'https://www.figma.com/design/0W25IhXkLWlhytPD2Gl22g/Omoniyi-Portfolio?node-id=1-136107',
   hero:[['house-filters','Find the work / Committee and date filters narrow the referral list.'],['house-context','Understand the context / A Referral Brief stays beside the work.'],['house-controls','Act with confidence / Explicit Yea, Nay, and Present choices.']],
   facts:[['Client','U.S. House of Representatives'],['Product','Committee Voting Platform'],['Role','UI/UX Designer'],['Timeline','2024–2025'],['Team','Product manager, engineers, QA, House leadership, SMEs'],['Platform','Responsive web application'],['Tools','Figma, Azure DevOps, USWDS'],['My ownership','Research, workflows, prototypes, design system, specifications, user stories and acceptance criteria']],
   proof:[['0 → 1','New digital product'],['3× / week','Working sessions with House leadership'],['30+','Reusable USWDS-based components']],
@@ -21,7 +21,7 @@ export const caseStudies = {
   ]
  },
  libraryOfCongress:{
-  number:'02',slug:'library-of-congress',client:'U.S. Copyright Office',title:'Enterprise UX Architecture',summary:'Creating a shared interaction framework for search, filtering, navigation, and administration across an interconnected federal product ecosystem.',tags:['Design systems','Enterprise UX','Accessibility','Information architecture'],
+  number:'02',slug:'library-of-congress',client:'U.S. Copyright Office',title:'One way to search, filter and navigate across a federal product family',summary:'Creating a shared interaction framework for search, filtering, navigation, and administration across an interconnected federal product ecosystem.',tags:['Design systems','Enterprise UX','Accessibility','Information architecture'],
   hero:[['loc-user-search','Administration / A shared hierarchy for search, filters, and actions.'],['loc-advanced','Expert search / Structured criteria appear when the task needs precision.'],['loc-filter','Applications / Status and user filters refine an existing dataset.']],
   facts:[['Client','U.S. Copyright Office / Library of Congress'],['Product','Enterprise Copyright System ecosystem'],['Role','Design System Lead UX Designer'],['Timeline','March 2025 – July 2026'],['Team','Product, engineering, QA, accessibility partners, SMEs'],['Platform','Enterprise web applications'],['Tools','Figma, FigJam, Azure DevOps, Angular libraries'],['My ownership','Design audits, shared patterns, information architecture, search and filtering, components, accessibility specifications']],
   proof:[['16 months','Across the modernization ecosystem'],['Shared patterns','Search, navigation, feedback, and data'],['Multiple products','Administrative and remitter experiences']],
@@ -37,7 +37,7 @@ export const caseStudies = {
   ]
  },
  accounting:{
-  number:'03',slug:'copyright-accounting',client:'U.S. Copyright Office',title:'Accounting & Payments Modernization',summary:'Translating financial rules, staff workflows, and legacy-system behavior into a clearer product model for Copyright Office accounting operations.',tags:['UX research','Workflow design','Legacy modernization','Financial systems'],
+  number:'03',slug:'copyright-accounting',client:'U.S. Copyright Office',title:'Understanding the accounting rules before redesigning them',summary:'Translating financial rules, staff workflows, and legacy-system behavior into a clearer product model for Copyright Office accounting operations.',tags:['UX research','Workflow design','Legacy modernization','Financial systems'],
   hero:[['payments-legacy','The starting point / Legacy account, transaction, and allocation views.'],['payments-exception','The operational detail / Status and comments carry exception context.']],
   facts:[['Client','U.S. Copyright Office / Library of Congress'],['Domain','Registration accounting and payments'],['Role','UX Designer — Accounting Discovery'],['Timeline','March 2025 – July 2026'],['Team','Product, accounting SMEs, engineering, QA'],['Platform','Enterprise financial workspace'],['Tools','Figma, FigJam, Azure DevOps, legacy Siebel'],['My ownership','SME research, legacy analysis, workflow mapping, requirements translation, product modeling']],
   proof:[['Legacy → model','Understand before simplifying'],['Cross-team','Records, payments, and handoffs'],['Discovery','Requirements and proposed direction']],
@@ -53,7 +53,7 @@ export const caseStudies = {
   ]
  },
  usda:{
-  number:'04',slug:'usda',client:'USDA NASS',title:'Enterprise Application Modernization',summary:'Creating a reusable enterprise theme that connects user needs, accessible patterns, and implementation across internal agency applications.',tags:['Design systems','Research','Accessibility','Design to development'],figma:'https://www.figma.com/design/nHavJOvyWwlFQPdd3JBtRV/Web-Templates?m=auto&t=87B6SHcw49GcS0JP-6',
+  number:'04',slug:'usda',client:'USDA NASS',title:'One accessible theme for a family of agency tools',summary:'Creating a reusable enterprise theme that connects user needs, accessible patterns, and implementation across internal agency applications.',tags:['Design systems','Research','Accessibility','Design to development'],figma:'https://www.figma.com/design/nHavJOvyWwlFQPdd3JBtRV/Web-Templates?m=auto&t=87B6SHcw49GcS0JP-6',
   hero:[['usda-navigation','Shared shell / Agency identity and application navigation.'],['usda-query','Data discovery / Structured criteria before results.'],['usda-alert','Feedback / A repeatable status pattern within the template.']],
   facts:[['Client','USDA National Agricultural Statistics Service'],['Product','Enterprise application theme and internal tools'],['Role','Sole UI/UX Designer'],['Timeline','December 2022 – August 2023'],['Team','Developers, product owner, SMEs, lead front-end developer'],['Platform','Responsive enterprise web applications'],['Tools','Figma, USWDS, Blazor, CSS, PostCSS, Bootstrap'],['My ownership','Surveys, personas, workflows, theme and components, prototypes, implementation collaboration, accessibility checks']],
   proof:[['6 months','To deploy the dynamic theme'],['Shared theme','Reusable across agency tools'],['Cross-device','Layouts and accessibility checks']],
@@ -69,7 +69,7 @@ export const caseStudies = {
   ]
  },
  athletico:{
-  number:'05',slug:'athletico',client:'Athletico',title:'Patient Onboarding & Appointment Scheduling',summary:'Making the start of care more approachable through clearer onboarding, appointment access, and responsive patient-portal interactions.',tags:['Healthcare','User research','Responsive design','UI development'],figma:'https://www.figma.com/design/0W25IhXkLWlhytPD2Gl22g/Omoniyi-Portfolio?node-id=4-119566',
+  number:'05',slug:'athletico',client:'Athletico',title:'Making the first step of care easier to take',summary:'Making the start of care more approachable through clearer onboarding, appointment access, and responsive patient-portal interactions.',tags:['Healthcare','User research','Responsive design','UI development'],figma:'https://www.figma.com/design/0W25IhXkLWlhytPD2Gl22g/Omoniyi-Portfolio?node-id=4-119566',
   hero:[['athletico-entry','Enter the portal / A focused welcome and sign-in area.'],['athletico-tasks','Find the next step / Care records and appointments have clear destinations.'],['athletico-appointments','Manage care / Appointment information on a narrow screen.']],
   facts:[['Client','Athletico Physical Therapy'],['Product','Patient onboarding and appointment experience'],['Role','UI Developer / design collaboration'],['Timeline','October 2021 – January 2023'],['Team','Product manager, UI/UX designer, developers'],['Platform','Responsive patient portal'],['Tools','Figma, HTML, JavaScript, CSS, Azure DevOps, PowerBuilder'],['My ownership','Wireframes and mockups with the designer, custom components, prototype refinement, accessibility testing']],
   proof:[['≈100','Participants in usability testing'],['Desktop + mobile','Responsive patient journeys'],['Design → build','Custom UI components']],
@@ -85,7 +85,7 @@ export const caseStudies = {
   ]
  }
  ,wedding:{
-  number:'06',slug:'wedding-identity',client:'Independent studio work',title:'Wedding Identity & Guest Experience',summary:'Extending an established visual world into an original emblem, keepsakes, and décor for a wedding weekend that brings together Black American and Armenian heritage.',tags:['Creative direction','Illustration','Experience design','Visual systems'],
+  number:'06',slug:'wedding-identity',client:'Independent studio work',title:'From one emblem to a whole wedding weekend',summary:'Extending an established visual world into an original emblem, keepsakes, and décor for a wedding weekend that brings together Black American and Armenian heritage.',tags:['Creative direction','Illustration','Experience design','Visual systems'],
   chapters:['Snapshot','The Brief','Reading the Couple','The Emblem','Carrying the World','Outcome & Reflection'],
   hero:[['wedding-emblem-cream','The mark / Cowrie shells and pomegranates woven into one emblem.'],['wedding-emblem-blue','The palette / Steel blue carries the linework in cream.']],
   facts:[['Client','Boutique event-design studio (anonymized)'],['Project','Wedding identity & guest experience'],['Role','Creative direction & illustration'],['Timeline','September 2026 · one week'],['Format','Solo design trial'],['Setting','Spring wedding at a Northern California vineyard inn'],['Deliverables','Emblem in four colorways, eight décor concepts, tablescape direction'],['My ownership','Concept, illustration, décor and keepsake direction, tablescape curation']],
@@ -118,7 +118,7 @@ export const caseStudies = {
   ]
  }
  ,sultry:{
-  number:'08',slug:'sultry-tips',client:'Sultry Tips',title:'Brand Identity & Custom Lettering',summary:'Custom lettering for a licensed nail artist in Carrollton, Texas: a mark that reads as nails through material, not through brushes, drills, or paint.',tags:['Brand identity','Custom lettering','3D type','Illustrator'],
+  number:'08',slug:'sultry-tips',client:'Sultry Tips',title:'A mark that says “nails” without drawing one',summary:'Custom lettering for a licensed nail artist in Carrollton, Texas: a mark that reads as nails through material, not through brushes, drills, or paint.',tags:['Brand identity','Custom lettering','3D type','Illustrator'],
   chapters:['Snapshot','The Brief','The Old Mark','Direction','The Mark','Outcome & Reflection'],
   hero:[['sultry-hero','The mark / Custom letterforms inflated to read like fresh gloss.'],['sultry-live','In use / Still her profile mark and every highlight cover.']],
   facts:[['Client','Sultry Tips, licensed nail artist'],['Location','Carrollton, Texas'],['Project','Logo redesign'],['Role','Logo design & custom lettering'],['Timeline','2024'],['Tools','Adobe Illustrator (custom type, 3D & Materials)'],['Deliverables','Primary 3D mark, flat secondary, one-color alternate, profile and highlight applications'],['My ownership','Mood board, lettering, 3D treatment, presentation']],

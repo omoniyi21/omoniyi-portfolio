@@ -1,0 +1,178 @@
+/* Selected Work on the hero desk sheet: real project images printed as
+   paper photos (same treatment as the Observations cover photos), one card
+   plus a peek of the next. */
+
+.work-slider {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-width: 0;
+}
+
+.work-slider__intro {
+    display: flex;
+    align-items: center;
+    gap: .85rem;
+    margin-bottom: 1.1rem;
+}
+
+.work-slider__eyebrow {
+    margin: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    color: var(--text-secondary);
+    font-family: var(--font-family-body);
+    font-size: .78rem;
+    font-weight: var(--font-medium);
+    letter-spacing: .18em;
+    text-transform: uppercase;
+}
+
+.work-slider__eyebrow span:last-child { color: var(--color-lavender-500); font-size: .9rem; letter-spacing: 0; }
+
+.work-slider__count {
+    color: var(--text-tertiary);
+    font-family: var(--font-family-body);
+    font-size: .8rem;
+    font-variant-numeric: tabular-nums;
+}
+
+.work-slider__controls { display: inline-flex; gap: .4rem; margin-left: auto; }
+
+.work-slider__controls button {
+    width: 2.25rem;
+    height: 2.25rem;
+    border: 1px solid rgb(17 17 17 / 16%);
+    border-radius: 50%;
+    background: rgb(255 255 255 / 55%);
+    color: var(--text-primary);
+    font-size: 1rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: background var(--motion-productive) ease, border-color var(--motion-productive) ease;
+}
+
+.work-slider__controls button:hover:not(:disabled) { background: var(--color-white); border-color: rgb(117 105 227 / 45%); }
+.work-slider__controls button:disabled { opacity: .3; cursor: default; }
+.work-slider__controls button:focus-visible { outline: 2px solid var(--color-lavender-500); outline-offset: 2px; }
+
+/* Native scroll-snap row. Padding gives the tilted photos and their
+   shadows room so nothing gets clipped at the edges. */
+.work-slider__track {
+    list-style: none;
+    margin: 0 -1rem;
+    padding: .9rem 1rem 1.6rem;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 80%;
+    gap: 1.25rem;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 1rem;
+    scrollbar-width: none;
+}
+
+.work-slider__track::-webkit-scrollbar { display: none; }
+
+.work-slide { scroll-snap-align: start; min-width: 0; }
+
+.work-slide__link {
+    display: flex;
+    flex-direction: column;
+    gap: .3rem;
+    height: 100%;
+    color: var(--text-primary);
+    text-decoration: none;
+    border-radius: .5rem;
+}
+
+.work-slide__link:focus-visible { outline: 2px solid var(--color-lavender-500); outline-offset: 6px; }
+
+.work-slide__photo {
+    display: block;
+    margin-bottom: .75rem;
+    transform: rotate(-1.5deg);
+    transition: transform var(--motion-productive-long) cubic-bezier(.22, 1, .36, 1);
+}
+
+.work-slide:nth-child(even) .work-slide__photo { transform: rotate(1.5deg); }
+
+.work-slide__photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    box-sizing: border-box;
+    border: 6px solid #fffdf8;
+    border-radius: .4rem;
+    background: #fffdf8;
+    box-shadow: 0 18px 36px #3123301f;
+}
+
+.work-slide__link:hover .work-slide__photo,
+.work-slide__link:focus-visible .work-slide__photo { transform: rotate(0deg) translateY(-4px); }
+
+.work-slide__client {
+    color: var(--text-secondary);
+    font-family: var(--font-family-body);
+    font-size: .72rem;
+    font-weight: var(--font-medium);
+    letter-spacing: .14em;
+    text-transform: uppercase;
+}
+
+.work-slide__caption {
+    font-family: var(--font-family-display);
+    font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+    font-weight: var(--font-medium);
+    line-height: 1.25;
+    text-wrap: balance;
+}
+
+.work-slide__caption span { color: var(--color-lavender-500); font-size: .85em; }
+
+/* the last card points to everything else */
+.work-slide__all {
+    justify-content: center;
+    align-items: flex-start;
+    gap: .6rem;
+    padding: 1.5rem;
+    aspect-ratio: 4 / 3;
+    height: auto;
+    box-sizing: border-box;
+    border: 1.5px dashed rgb(117 105 227 / 45%);
+    border-radius: .6rem;
+    background: rgb(255 253 248 / 70%);
+}
+
+.work-slide__all-note {
+    color: var(--text-secondary);
+    font-family: var(--font-family-personal);
+    font-size: 1.35rem;
+    line-height: 1.1;
+}
+
+.work-slide__all-label {
+    font-family: var(--font-family-display);
+    font-size: clamp(1.4rem, 2vw, 1.8rem);
+    font-weight: var(--font-medium);
+}
+
+.work-slide__all-label span { color: var(--color-lavender-500); }
+.work-slide__all:hover { background: var(--color-white); border-style: solid; }
+
+@media (max-width: 980px) {
+    .work-slider__track { grid-auto-columns: min(80%, 26rem); }
+}
+
+@media (max-width: 600px) {
+    .work-slider__track { grid-auto-columns: 84%; gap: 1rem; margin: 0 -.5rem; padding-inline: .5rem; scroll-padding-inline: .5rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .work-slide__photo { transition: none; }
+}

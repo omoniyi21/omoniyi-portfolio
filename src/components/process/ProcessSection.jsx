@@ -1,49 +1,70 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import "./process-section.css";
 import FloatingSD from "../../assets/branding/celestial/stardust-asteroid.webp";
+import houseMockup from "../../assets/images/how-i-think/house.webp";
+import locMockup from "../../assets/images/how-i-think/loc-search.webp";
+import usdaMockup from "../../assets/images/how-i-think/usda.webp";
+import launchkitMockup from "../../assets/images/how-i-think/launchkit.webp";
+import athleticoMockup from "../../assets/images/how-i-think/athletico.webp";
 
 // The five words from the hero's old constellation, now written out: how I
 // actually think through each stage, each tied to the real project that
-// shows it best.
+// shows it best. Hovering, focusing or tapping a card slides that project's
+// device mockup up out from behind it, like a photo pulled from a sleeve.
 const STEPS = [
   {
     word: "Discover",
-    body: "I start by mapping the mess — who's affected, what's actually broken, and where the real constraints live before I touch a screen.",
+    body: "Before I open Figma, I want to know who this is for, what's actually broken, and which rules I can't bend. On the House project that meant 18 interviews and sitting with leadership three times a week.",
     client: "U.S. House",
-    note: "Committee Voting Platform",
+    note: "Moving committee votes from paper to one digital record",
     to: "/house",
+    mockup: houseMockup,
+    shape: "phone",
   },
   {
     word: "Define",
-    body: "Then I turn research into a shared framework: the rules, patterns, and language a whole team can build from.",
+    body: "Then I give everyone the same language. Research turns into patterns a whole team can build from, so search works one way across every product instead of eight different ways.",
     client: "U.S. Copyright Office",
-    note: "Enterprise UX Architecture",
+    note: "One way to search, filter and navigate across a federal product family",
     to: "/library-of-congress",
+    mockup: locMockup,
+    shape: "laptop",
   },
   {
     word: "Design",
-    body: "I prototype in context, testing against real edge cases and real users — not just the happy path.",
+    body: "I design for the messy cases, not the happy path. Long names, empty states, someone checking it on their phone. If it only works in the demo, it doesn't work.",
     client: "USDA NASS",
-    note: "Enterprise Application Modernization",
+    note: "One accessible theme for a family of agency tools",
     to: "/usda",
+    mockup: usdaMockup,
+    shape: "phone",
   },
   {
     word: "Develop",
-    body: "I stay close to engineering so what ships matches what was designed — sometimes I build the system myself.",
+    body: "I stay close to the code. Sometimes that means working side by side with engineers, and sometimes it means building it myself. LaunchKit is the proof. I designed it and I shipped it.",
     client: "LaunchKit UI",
     note: "My own product, shipped",
     to: "/uikit",
+    mockup: launchkitMockup,
+    shape: "laptop",
   },
   {
     word: "Deliver",
-    body: "I care about the moment someone actually uses it: is it clear, is it fast, does it feel like it was made for them?",
+    body: "The real test is the moment someone uses it. Is it clear? Does it feel made for them? For Athletico, that was patients filling out their medical history before a first visit, tested with about 100 people.",
     client: "Athletico",
-    note: "Patient Onboarding & Scheduling",
+    note: "Making the first step of care easier to take",
     to: "/athletico",
+    mockup: athleticoMockup,
+    shape: "phone",
   },
 ];
 
 export default function ProcessSection() {
+  // Touch screens have no hover, so a tap on the card (outside its link)
+  // opens that card's mockup. One open at a time.
+  const [open, setOpen] = useState(null);
+
   return (
     <section className="process-section" aria-labelledby="process-title">
       <div className="process-section__opening">
@@ -54,7 +75,7 @@ export default function ProcessSection() {
         </p>
         <h2 id="process-title">Five steps, one way of thinking.</h2>
         <p className="process-section__intro">
-          The same arc shows up in every project I take on — just aimed at a different problem each time.
+          The problem changes every time. How I work through it doesn’t.
         </p>
       </header>
       <div className="process-section__sd" tabIndex={0} aria-describedby="process-sd-tooltip">
@@ -66,7 +87,17 @@ export default function ProcessSection() {
 
       <ol className="process-section__grid">
         {STEPS.map((step, index) => (
-          <li className="process-card" key={step.word}>
+          <li
+            className={`process-card process-card--${step.shape}${open === index ? " is-open" : ""}`}
+            key={step.word}
+            onClick={(event) => {
+              if (event.target.closest("a")) return;
+              setOpen((current) => (current === index ? null : index));
+            }}
+          >
+            <span className="process-card__mockup" aria-hidden="true">
+              <img src={step.mockup} alt="" loading="lazy" decoding="async" />
+            </span>
             <span className="process-card__number">{String(index + 1).padStart(2, "0")}</span>
             <h3 className="process-card__word">{step.word}</h3>
             <p className="process-card__body">{step.body}</p>
