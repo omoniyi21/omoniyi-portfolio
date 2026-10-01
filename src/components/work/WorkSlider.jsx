@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import useMotionReduced from "../../lib/useMotionReduced";
 import "./work-slider.css";
@@ -28,54 +28,96 @@ const SLIDES = [
   { client: "Illustration", caption: "Original illustration and lettering", to: "/visual", small: visual640, large: visual1200, alt: "Illustrated room with a window, lamp and clothing rack" },
 ];
 
-const TOTAL = SLIDES.length + 1; // + the "see all work" card
+const COUNT = SLIDES.length;
+// Three copies in a row: the middle one is real, the outer two are
+// stand-ins so the row can keep going in either direction. Whenever the
+// scroll comes to rest inside a stand-in, it hops (invisibly) to the same
+// card in the middle copy, so the loop never runs out.
+const LOOP = [0, 1, 2].flatMap((copy) => SLIDES.map((slide, i) => ({ ...slide, copy, i })));
+
+const leftOf = (track, index) => {
+  const card = track?.children[index];
+  return card ? card.offsetLeft - track.firstElementChild.offsetLeft : 0;
+};
 
 export default function WorkSlider() {
   const trackRef = useRef(null);
   const [active, setActive] = useState(0);
   const reduceMotion = useMotionReduced();
 
-  // The track is a native scroll-snap row, so swiping, trackpads and
-  // keyboard scrolling all just work. The count follows whichever card is
-  // closest to the left edge.
+
+  // Start on the first real card (the middle copy).
+  useLayoutEffect(() => {
+    const track = trackRef.current;
+    if (track) track.scrollLeft = leftOf(track, COUNT);
+  }, []);
+
+  // Let the row run past the paper's edge to the edge of the window,
+  // instead of stopping at the column.
+  useLayoutEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+    const measure = () => {
+      track.style.setProperty("--bleed", "0px");
+      const right = track.getBoundingClientRect().right;
+      const viewport = document.documentElement.clientWidth;
+      track.style.setProperty("--bleed", `${Math.max(0, viewport - right)}px`);
+    };
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(document.documentElement);
+    return () => observer.disconnect();
+  }, []);
+
   useEffect(() => {
     const track = trackRef.current;
     if (!track) return;
     let frame;
-    const update = () => {
-      cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(() => {
-        const cards = [...track.children];
-        const left = track.getBoundingClientRect().left;
-        let best = 0;
-        let bestDistance = Infinity;
-        cards.forEach((card, i) => {
-          const distance = Math.abs(card.getBoundingClientRect().left - left);
-          if (distance < bestDistance) { bestDistance = distance; best = i; }
-        });
-        setActive(best);
+    let settle;
+    const nearest = () => {
+      const left = track.getBoundingClientRect().left;
+      let best = 0;
+      let bestDistance = Infinity;
+      [...track.children].forEach((card, i) => {
+        const distance = Math.abs(card.getBoundingClientRect().left - left - parseFloat(getComputedStyle(track).scrollPaddingLeft || 0));
+        if (distance < bestDistance) { bestDistance = distance; best = i; }
       });
+      return best;
     };
-    update();
-    track.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update);
+    const onScroll = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => setActive(nearest() % COUNT));
+      clearTimeout(settle);
+      settle = setTimeout(() => {
+        const index = nearest();
+        if (index < COUNT || index >= COUNT * 2) {
+          const twin = COUNT + (index % COUNT);
+          track.style.scrollSnapType = "none";
+          track.scrollLeft += leftOf(track, twin) - leftOf(track, index);
+          requestAnimationFrame(() => { track.style.scrollSnapType = ""; });
+        }
+      }, 140);
+    };
+    track.addEventListener("scroll", onScroll, { passive: true });
     return () => {
       cancelAnimationFrame(frame);
-      track.removeEventListener("scroll", update);
-      window.removeEventListener("resize", update);
+      clearTimeout(settle);
+      track.removeEventListener("scroll", onScroll);
     };
   }, []);
 
-  const goTo = useCallback((index) => {
+  const step = useCallback((dir) => {
     const track = trackRef.current;
-    const card = track?.children[Math.max(0, Math.min(index, TOTAL - 1))];
-    if (!card) return;
-    track.scrollTo({ left: card.offsetLeft - track.firstElementChild.offsetLeft, behavior: reduceMotion ? "auto" : "smooth" });
-  }, [reduceMotion]);
+    if (!track) return;
+    const card = track.children[COUNT + active];
+    const next = track.children[COUNT + active + dir];
+    if (!card || !next) return;
+    track.scrollBy({ left: next.offsetLeft - card.offsetLeft, behavior: reduceMotion ? "auto" : "smooth" });
+  }, [active, reduceMotion]);
 
   const onKeyDown = (event) => {
-    if (event.key === "ArrowRight") { event.preventDefault(); goTo(active + 1); }
-    if (event.key === "ArrowLeft") { event.preventDefault(); goTo(active - 1); }
+    if (event.key === "ArrowRight") { event.preventDefault(); step(1); }
+    if (event.key === "ArrowLeft") { event.preventDefault(); step(-1); }
   };
 
   return (
@@ -86,42 +128,40 @@ export default function WorkSlider() {
           <span aria-hidden="true">✦</span>
         </p>
         <span className="work-slider__count" aria-live="polite">
-          {active + 1} / {TOTAL}
+          {active + 1} / {COUNT}
         </span>
+        <Link className="work-slider__all" to="/work">See all work <span aria-hidden="true">→</span></Link>
         <div className="work-slider__controls">
-          <button type="button" aria-label="Previous project" aria-controls="work-slider-track" disabled={active === 0} onClick={() => goTo(active - 1)}>←</button>
-          <button type="button" aria-label="Next project" aria-controls="work-slider-track" disabled={active >= TOTAL - 1} onClick={() => goTo(active + 1)}>→</button>
+          <button type="button" aria-label="Previous project" aria-controls="work-slider-track" onClick={() => step(-1)}>←</button>
+          <button type="button" aria-label="Next project" aria-controls="work-slider-track" onClick={() => step(1)}>→</button>
         </div>
       </div>
 
       <ul className="work-slider__track" id="work-slider-track" ref={trackRef} onKeyDown={onKeyDown} aria-label="Selected projects. Use the arrow keys or swipe to browse.">
-        {SLIDES.map((slide, i) => (
-          <li className="work-slide" key={slide.to}>
-            <Link className="work-slide__link" to={slide.to}>
-              <span className="work-slide__photo">
-                <img
-                  src={slide.small}
-                  srcSet={`${slide.small} 640w, ${slide.large} 1200w`}
-                  sizes="(max-width: 980px) 82vw, 34vw"
-                  width="1200"
-                  height="900"
-                  alt={slide.alt}
-                  loading={i < 2 ? "eager" : "lazy"}
-                  fetchPriority={i === 0 ? "high" : undefined}
-                  decoding="async"
-                />
-              </span>
-              <span className="work-slide__client">{slide.client}</span>
-              <span className="work-slide__caption">{slide.caption} <span aria-hidden="true">↗</span></span>
-            </Link>
-          </li>
-        ))}
-        <li className="work-slide work-slide--end">
-          <Link className="work-slide__link work-slide__all" to="/work">
-            <span className="work-slide__all-note">there’s more where these came from</span>
-            <span className="work-slide__all-label">See all work <span aria-hidden="true">→</span></span>
-          </Link>
-        </li>
+        {LOOP.map((slide) => {
+          const real = slide.copy === 1;
+          return (
+            <li className={`work-slide work-slide--${slide.i % 2 ? "even" : "odd"}`} key={`${slide.copy}-${slide.to}`} aria-hidden={real ? undefined : true}>
+              <Link className="work-slide__link" to={slide.to} tabIndex={real ? undefined : -1}>
+                <span className="work-slide__photo">
+                  <img
+                    src={slide.small}
+                    srcSet={`${slide.small} 640w, ${slide.large} 1200w`}
+                    sizes="(max-width: 980px) 82vw, 34vw"
+                    width="1200"
+                    height="900"
+                    alt={real ? slide.alt : ""}
+                    loading={real && slide.i < 2 ? "eager" : "lazy"}
+                    fetchPriority={real && slide.i === 0 ? "high" : undefined}
+                    decoding="async"
+                  />
+                </span>
+                <span className="work-slide__client">{slide.client}</span>
+                <span className="work-slide__caption">{slide.caption} <span aria-hidden="true">↗</span></span>
+              </Link>
+            </li>
+          );
+        })}
       </ul>
     </section>
   );

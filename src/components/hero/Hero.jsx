@@ -24,7 +24,14 @@ export default function Hero() {
             case-study note both sit on one torn sheet instead of a clean
             rounded rectangle. */}
         <div className="desk-surface">
-          <CelestialDust paused={dustPaused} mode={persona} />
+          {/* The torn paper (and the dust that lives on it) is its own
+              layer, so the work slider can sit on top of the sheet and run
+              past its edge instead of being cropped by it. */}
+          <div className="desk-surface__shadow" aria-hidden="true">
+            <div className="desk-surface__sheet">
+              <CelestialDust paused={dustPaused} mode={persona} />
+            </div>
+          </div>
           <div className="desk-surface__grid">
             <div className="desk-surface__paper">
               <HeroContent

@@ -501,3 +501,62 @@
 /* The photo slider sizes itself from its images, so the work column no
    longer stretches to match the text column's height. */
 .desk-surface__work--photos { height: auto; }
+
+/* ---------- paper as a layer ----------
+   The torn sheet used to be .desk-surface itself, which cropped everything
+   inside it. The fill, grain, torn clip-path and the dust now live on
+   .desk-surface__sheet behind the content; its elevation shadow lives on
+   the wrapper (a filter and a clip-path on one box clip each other). The
+   content box no longer clips, so the work slider can run past the edge. */
+.hero-desk.hero-journal .hero__main { filter: none; }
+
+.desk-surface {
+    background: none;
+    clip-path: none;
+    overflow: visible;
+}
+
+.desk-surface__shadow {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    filter:
+        drop-shadow(0 3px 6px rgb(23 23 23 / 16%))
+        drop-shadow(0 26px 40px rgb(76 58 92 / 26%));
+}
+
+.desk-surface__sheet {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    background-color: var(--color-gray-50);
+    background-image:
+        linear-gradient(rgb(255 255 255 / 30%), rgb(255 255 255 / 30%)),
+        url(../../assets/images/hero/paper-grain-swatch.png);
+    background-size: cover, cover;
+    background-position: center, center;
+    background-repeat: no-repeat, no-repeat;
+    background-blend-mode: normal, multiply;
+    clip-path: polygon(
+        0% 1.2%, 4% 0%, 9% 1.8%, 15% 0.4%, 22% 1.6%, 30% 0%, 38% 1.2%,
+        47% 0.3%, 55% 1.8%, 63% 0.2%, 71% 1.4%, 80% 0%, 88% 1.6%, 95% 0.4%,
+        100% 1.1%,
+        99.4% 30%, 100% 55%, 99.3% 75%,
+        100% 98.8%, 94% 100%, 87% 98.3%, 79% 99.6%, 71% 98.4%, 62% 100%,
+        54% 98.7%, 46% 99.7%, 37% 98.2%, 29% 100%, 20% 98.5%, 12% 99.6%,
+        5% 98.1%, 0% 99%,
+        0.6% 70%, 0% 45%, 0.7% 25%
+    );
+}
+
+@media (max-width: 600px) {
+    .desk-surface { border: 0; border-radius: 0; }
+    .desk-surface__shadow { filter: none; }
+    .desk-surface__sheet {
+        background-image: none;
+        clip-path: none;
+        border-radius: var(--radius-xl);
+        border: 1px solid var(--border-default);
+    }
+}
