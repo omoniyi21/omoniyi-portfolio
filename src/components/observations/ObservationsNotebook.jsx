@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+import { Icon } from "../shared/icons/Icon";
+import { topicIcon } from "../shared/icons/topics";
 import { getPublishedObservations } from "../../data/observations";
 import BeehiivEmbed from "./BeehiivEmbed";
 import "./observations-notebook.css";
@@ -51,7 +53,7 @@ export default function ObservationsNotebook() {
             <Artifact src={Tape} box="80 138 640 243" className="notebook-tape" />
             <Link to={`/observations/${latest.slug}`}>
               <span className="notebook-latest-label">Latest Observation</span>
-              <div className="notebook-cover__meta"><span>OBS. {latest.number}</span><span>{latest.category}</span></div>
+              <div className="notebook-cover__meta"><span>OBS. {latest.number}</span><span className="topic-mark">{topicIcon(latest.category) && <Icon name={topicIcon(latest.category)} size={17} />}{latest.category}</span></div>
               <h3>{latest.title}</h3>
               {latest.image && <img loading="lazy" decoding="async" className="notebook-cover__image" src={latest.image} alt={latest.imageAlt || ""} />}
               <p className="notebook-cover__excerpt">{latest.excerpt}</p>

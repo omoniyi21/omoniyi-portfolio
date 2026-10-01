@@ -118,3 +118,7 @@
  .observation-post__header--cover .observation-post__title-group { grid-template-columns: minmax(0, 1fr); }
  .observation-post__cover { width: min(100% - 1.5rem, 20rem); justify-self: center; }
 }
+
+/* topic marks: one Guidance icon per kind of post, set with the category */
+.topic-mark { display: inline-flex; align-items: center; gap: .4rem; }
+.topic-mark .icon { flex: none; opacity: .8; transform: translateY(-1px); }
