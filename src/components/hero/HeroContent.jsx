@@ -1,6 +1,7 @@
 import { useLayoutEffect, useRef } from "react";
 import { createPortal } from "react-dom";
-import Button from "../shared/button/Button";
+import StampButton from "../shared/paper/StampButton";
+import TagButton from "../shared/paper/TagButton";
 import { useSpaceTransition } from "../shared/spaceTransitionContext";
 import MotionToggle from "../shared/MotionToggle";
 import PenMark from "../shared/pen-mark/PenMark";
@@ -124,19 +125,12 @@ export default function HeroContent({ paused, onToggleDust, persona, onPersonaCh
       <p className="hero__description">{copy.description}</p>
 
       <div className="desk-surface__actions" ref={actionsRef}>
-        <Button to={copy.ctaTo} onClick={(event) => handleSpaceClick(event, copy.ctaTo, copy.ctaTone)}>
+        <StampButton to={copy.ctaTo} onClick={(event) => handleSpaceClick(event, copy.ctaTo, copy.ctaTone)}>
           {copy.ctaLabel}
-        </Button>
-        <Button
-          variant="secondary"
-          to={copy.secondaryTo}
-          href={copy.secondaryHref}
-          target={copy.secondaryHref ? "_blank" : undefined}
-          rel={copy.secondaryHref ? "noreferrer" : undefined}
-          onClick={(event) => handleSpaceClick(event, copy.secondaryTo, copy.secondaryTone)}
-        >
+        </StampButton>
+        <TagButton to={copy.secondaryTo} onClick={(event) => handleSpaceClick(event, copy.secondaryTo, copy.secondaryTone)}>
           {copy.secondaryLabel}
-        </Button>
+        </TagButton>
       </div>
 
       <div className="desk-surface__motion-controls">

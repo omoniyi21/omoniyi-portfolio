@@ -1,5 +1,6 @@
 import { useCallback, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import PenLink from "../shared/paper/PenLink";
 import "./work-slider.css";
 
 import tape from "../../assets/images/observations/gingham-tape.webp";
@@ -183,7 +184,7 @@ export default function WorkSlider({ persona = "hiring" }) {
         </Link>
       </div>
 
-      <Link className="print-pile__shelf" to="/work">the full shelf <span aria-hidden="true">→</span></Link>
+      <PenLink className="print-pile__shelf" to="/work">the full shelf</PenLink>
     </section>
   );
 }

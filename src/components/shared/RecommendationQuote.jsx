@@ -1,4 +1,4 @@
-import { ArrowUpRight } from "lucide-react";
+import PenLink from "./paper/PenLink";
 import { tylerRecommendation as rec } from "../../data/recommendations";
 import "./recommendation-quote.css";
 
@@ -10,9 +10,7 @@ export default function RecommendationQuote() {
       <figcaption className="rec-quote__cite">
         <strong>{rec.name}</strong>
         <span>{rec.title} · {rec.relationship}</span>
-        <a href={rec.source} target="_blank" rel="noopener noreferrer">
-          Read on LinkedIn <ArrowUpRight size={13} aria-hidden="true" />
-        </a>
+        <PenLink className="rec-quote__link" href={rec.source}>Read on LinkedIn</PenLink>
       </figcaption>
     </figure>
   );
