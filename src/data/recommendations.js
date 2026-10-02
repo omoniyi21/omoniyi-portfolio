@@ -5,6 +5,7 @@ export const LINKEDIN_RECOMMENDATIONS_URL =
 
 export const tylerRecommendation = {
   name: "Tyler Winzenried",
+  kicker: "From a manager",
   title: "Engineering Lead, Government Contracting",
   relationship: "Managed Omoniyi directly",
   systems:
@@ -12,3 +13,17 @@ export const tylerRecommendation = {
   closing: "Omoniyi is a true gem, I recommend her highly.",
   source: LINKEDIN_RECOMMENDATIONS_URL,
 };
+
+export const stephenRecommendation = {
+  name: "Stephen Schneider",
+  kicker: "From a design lead",
+  title: "Design Lead, U.S. Copyright Office",
+  relationship: "Senior colleague",
+  systems:
+    "When we audited the search component, she ran the facilitation: she organized the sessions, kept a complex set of stakeholder opinions focused, and turned the findings into a clear redesign.",
+  closing: "Any team building complex, high-stakes products would be lucky to have her.",
+  source: LINKEDIN_RECOMMENDATIONS_URL,
+};
+
+// Order shown in the carousels on Home and Studio.
+export const recommendations = [tylerRecommendation, stephenRecommendation];
