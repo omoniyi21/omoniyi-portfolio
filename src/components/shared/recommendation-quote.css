@@ -5,3 +5,13 @@
 .rec-quote__cite{align-items:baseline;display:flex;flex-wrap:wrap;font-size:.85rem;gap:.35rem 1rem}
 .rec-quote__cite>span{color:var(--text-secondary)}
 .rec-quote__cite .rec-quote__link{font-size:1.25rem;margin-top:.15rem}
+.rec-quote__top{align-items:center;display:flex;gap:1rem;justify-content:space-between;margin:0 0 1rem}
+.rec-quote__top .rec-quote__kicker{margin:0}
+.rec-quote__arrows{align-items:center;display:inline-flex;gap:.4rem}
+.rec-quote__arrows button{background:rgb(255 255 255 / 60%);border:1px solid rgb(17 17 17 / 14%);border-radius:50%;color:var(--text-primary);cursor:pointer;display:grid;height:2.25rem;padding:0 0 2px;place-items:center;transition:background var(--motion-productive) ease,border-color var(--motion-productive) ease;width:2.25rem}
+.rec-quote__arrows button:hover{background:var(--color-white);border-color:rgb(117 105 227 / 45%)}
+.rec-quote__arrows button:focus-visible{outline:2px solid var(--color-lavender-500);outline-offset:2px}
+.rec-quote__count{color:var(--text-secondary);font:600 .7rem var(--font-family-body);letter-spacing:.12em;min-width:3ch;text-align:center}
+.rec-quote__slide{animation:rec-quote-in var(--motion-productive,.24s) ease both}
+@keyframes rec-quote-in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.rec-quote__slide{animation:none}}

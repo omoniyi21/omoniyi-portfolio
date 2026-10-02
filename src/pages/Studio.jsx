@@ -9,7 +9,7 @@ import { Check } from "lucide-react";
 import Button from "../components/shared/button/Button";
 import "./studio.css";
 
-import { tylerRecommendation } from "../data/recommendations";
+import { recommendations } from "../data/recommendations";
 import { Icon } from "../components/shared/icons/Icon";
 
 const INQUIRE_HREF = "/studio/inquire?service=not-sure";
@@ -505,19 +505,38 @@ function SelectedWork() {
 }
 
 function Testimonial() {
+  const [index, setIndex] = useState(0);
+  const total = recommendations.length;
+  const rec = recommendations[index];
+  const go = (step) => setIndex((i) => (i + step + total) % total);
+
   return (
-    <section className="studio-quote">
+    <section className="studio-quote" aria-roledescription="carousel" aria-label="Recommendations">
       <div className="studio-quote__inner">
-        <p className="studio-quote__mark" aria-hidden="true">
-          “
-        </p>
-        <p className="studio-quote__text">
-          {tylerRecommendation.systems} {tylerRecommendation.closing}
-        </p>
-        <p className="studio-quote__cite">
-          — {tylerRecommendation.name}, {tylerRecommendation.title} · {tylerRecommendation.relationship} ·{" "}
-          <a href={tylerRecommendation.source} target="_blank" rel="noopener noreferrer">Read on LinkedIn</a>
-        </p>
+        <div className="studio-quote__top">
+          <p className="studio-quote__mark" aria-hidden="true">
+            “
+          </p>
+          {total > 1 && (
+            <div className="studio-quote__controls">
+              <button type="button" onClick={() => go(-1)} aria-label="Previous recommendation">
+                <Icon name="arrow-left" size={16} strokeWidth={1.5} />
+              </button>
+              <button type="button" onClick={() => go(1)} aria-label="Next recommendation">
+                <Icon name="arrow-right" size={16} strokeWidth={1.5} />
+              </button>
+            </div>
+          )}
+        </div>
+        <div key={rec.name} className="studio-quote__slide" aria-live="polite">
+          <p className="studio-quote__text">
+            {rec.systems} {rec.closing}
+          </p>
+          <p className="studio-quote__cite">
+            — {rec.name}, {rec.title} · {rec.relationship} ·{" "}
+            <a href={rec.source} target="_blank" rel="noopener noreferrer">Read on LinkedIn</a>
+          </p>
+        </div>
       </div>
     </section>
   );
