@@ -253,7 +253,7 @@ function Practice() {
             what to do next.
           </p>
           <Link to="/studio/about" className="studio-text-link">
-            Read the manifesto <Icon name="arrow-right" size={14} strokeWidth={1.5} />
+            Get to know the Studio <Icon name="arrow-right" size={14} strokeWidth={1.5} />
           </Link>
         </div>
         <ul className="studio-practice__list">
