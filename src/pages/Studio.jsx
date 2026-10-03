@@ -782,8 +782,8 @@ export default function Studio() {
       <StudioNav />
       <main id="studio-main">
       <Hero />
-      <ClientRoll />
       <Practice />
+      <ClientRoll />
       <Testimonial />
       <Process />
       <WhatICheck />

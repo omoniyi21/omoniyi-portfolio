@@ -1861,3 +1861,9 @@ html[data-motion="reduce"] .studio-client-roll__pause { display: none; }
 .studio-team__card li + li {
   margin-top: 0;
 }
+
+/* The client roll now follows The Practice, so it needs the gap a section
+   would have before it. */
+.studio-section + .studio-client-roll {
+  margin-top: clamp(3.5rem, 7vw, 5rem);
+}
