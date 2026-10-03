@@ -27,10 +27,26 @@
   --studio-mono: var(--font-family-display);
 
   display: block;
-  background: var(--studio-cream);
+  position: relative;
+  isolation: isolate;
+  /* Same paper as the portfolio homepage (globals.css, html): fine noise on
+     the page, and an edge wash pinned to the screen (::before) that deepens
+     the edges toward butter. The lavender grid stays a portfolio-only mark. */
+  background-color: var(--studio-cream);
+  background-image: url("../assets/textures/noise.svg");
+  background-size: 230px;
   color: var(--studio-ink);
   font-family: var(--font-family-body);
   font-weight: 300;
+}
+
+.studio-page::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(ellipse 80% 85% at 50% 42%, transparent 48%, var(--background-page-edge, rgb(242 222 146 / 42%)) 100%);
 }
 
 /* The global typography stylesheet sets color directly on every h1–h6 and p
@@ -87,18 +103,35 @@
   padding: 0.75rem 1.375rem;
   border-radius: var(--radius-sm);
   font-size: 0.8rem;
+  /* Craft, Hover Restraint: hover fires constantly, so state changes are
+     instant. No fades, no lift, no arrow nudge. */
+  transition: none;
+}
+.studio-page .button .button__icon { transition: none; }
+.studio-page .button:hover .button__icon { transform: none; }
+
+/* The portfolio's lavender glow layers (materials/stroke.css) don't belong
+   on Studio buttons. */
+.studio-page .button::before,
+.studio-page .button::after { display: none; }
+
+.studio-page .button:focus-visible {
+  outline: 2px solid var(--studio-oxblood-light);
+  outline-offset: 2px;
 }
 
+/* Primary on cream and parchment: oxblood, pressing down to oxblood-deep. */
 .studio-page .button--primary {
   background: var(--studio-oxblood);
   border: 1px solid var(--studio-oxblood);
-  color: #fdf6ec;
+  color: var(--studio-cream);
   box-shadow: none;
 }
-
-.studio-page .button--primary:hover {
-  background: var(--studio-ink);
-  border-color: var(--studio-ink);
+.studio-page .button--primary:hover,
+.studio-page .button--primary:active {
+  background: var(--studio-oxblood-deep);
+  border-color: var(--studio-oxblood-deep);
+  color: var(--studio-cream);
   filter: none;
   box-shadow: none;
   transform: none;
@@ -109,13 +142,22 @@
   border-color: var(--studio-border);
   color: var(--studio-muted);
 }
-
-.studio-page .button--secondary:hover {
+.studio-page .button--secondary:hover,
+.studio-page .button--secondary:active {
   background: rgba(59, 16, 22, 0.05);
   border-color: var(--studio-oxblood);
   color: var(--studio-ink);
   transform: none;
 }
+
+/* Primary on the ink footer: oxblood lightens instead, so the change reads
+   against the dark ground. */
+.studio-footer .button--primary:hover,
+.studio-footer .button--primary:active {
+  background: var(--studio-oxblood-light);
+  border-color: var(--studio-oxblood-light);
+}
+.studio-footer .button:focus-visible { outline-color: var(--studio-cream); }
 
 .studio-footer .button--secondary,
 .studio-nav__cta.button--primary {
@@ -1372,6 +1414,10 @@ html[data-motion="reduce"] .studio-work__track { transition: none; }
 }
 
 .studio-footer__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  white-space: nowrap;
   font-size: 0.72rem;
   font-weight: 300;
   color: rgba(253, 246, 236, 0.6);
@@ -1547,20 +1593,277 @@ html[data-motion="reduce"] .studio-client-roll__pause { display: none; }
 .studio-quote__cite a{color:inherit;text-decoration:underline;text-underline-offset:3px}
 @media(max-width:900px){.studio-team__card{grid-template-columns:minmax(0,1fr)}}
 
-/* Inquire: team offerings (cards left, form right) --------------------- */
-.studio-inquire__form-section--team{align-items:start;display:grid;gap:clamp(1.5rem,4vw,3.5rem);grid-template-columns:minmax(0,24rem) minmax(0,1fr)}
-.studio-inquire__team{display:grid;gap:1rem;position:sticky;top:6rem}
-.studio-inquire__team-offer{background:transparent;border:1px solid rgba(23,21,29,.16);border-radius:1rem;color:inherit;cursor:pointer;display:flex;flex-direction:column;font:inherit;gap:.5rem;padding:1.25rem;text-align:left}
-.studio-inquire__team-offer.is-active{border-color:currentColor;box-shadow:inset 0 0 0 1px currentColor}
-.studio-inquire__team-offer:focus-visible{outline:3px solid currentColor;outline-offset:3px}
-.studio-inquire__team-offer h2{font-size:1.1rem;margin:0}
-.studio-inquire__team-offer p{margin:0}
-.studio-inquire__team-offer .terms{font-family:var(--studio-mono);font-size:.68rem;letter-spacing:.08em;opacity:.7;text-transform:uppercase}
-.studio-inquire__team-offer ul{display:grid;gap:.3rem;margin:0;padding-left:1.1rem}
-.studio-inquire__pick{border:1px dashed rgba(23,21,29,.25);border-radius:1rem;margin:0;opacity:.75;padding:2rem}
+/* Inquire ----------------------------------------------------------- */
 .studio-inquire__chosen{margin:0 0 1.5rem}
-@media(max-width:900px){.studio-inquire__form-section--team{grid-template-columns:minmax(0,1fr)}.studio-inquire__team{position:static}}
 .studio-inquire__hero.studio-inquire__hero--team{max-width:80rem}
 .studio-inquire__hero.studio-inquire__hero--team>*{max-width:40rem}
 .studio-team__availability{align-items:center;display:flex;font-family:var(--studio-mono);font-size:.7rem;gap:.5rem;letter-spacing:.08em;margin:0 0 .75rem;text-transform:uppercase}
 .studio-team__availability span{background:#3f8f5b;border-radius:50%;height:.5rem;width:.5rem}
+
+/* ==========================================================================
+   Offer flow (Oct 2026): practice, what I check, production, house notes,
+   elsewhere and questions. Built from the Studio design system: square
+   corners, hairline rules instead of shadows, oxblood for the identity
+   moment (the Admission stub), tint only for evidence.
+   ========================================================================== */
+
+.studio-section h2 em { font-style: italic; font-weight: 400; }
+
+/* 01 / The Practice */
+.studio-practice {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: clamp(2.5rem, 6vw, 5rem);
+  align-items: start;
+}
+.studio-practice__intro h2,
+.studio-check__intro h2,
+.studio-production__head h2,
+.studio-faq h2 {
+  font-family: var(--studio-serif);
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0 0 var(--space-5);
+}
+.studio-practice__intro p,
+.studio-check__intro p,
+.studio-production__head p {
+  max-width: 34rem;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin: 0 0 var(--space-5);
+}
+.studio-practice__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--studio-border);
+}
+.studio-practice__list li {
+  display: grid;
+  grid-template-columns: 9rem 1fr;
+  gap: var(--space-5);
+  padding: var(--space-5) 0;
+  border-bottom: 1px solid var(--studio-border);
+}
+.studio-practice__list h3 {
+  font-family: var(--studio-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin: 0.2rem 0 0;
+}
+.studio-practice__list p { margin: 0; line-height: 1.55; }
+
+/* 03 / What I Check */
+.studio-check {
+  display: grid;
+  grid-template-columns: 22rem 1fr;
+  gap: clamp(2.5rem, 5vw, 5rem);
+  align-items: start;
+}
+.studio-check__grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid var(--studio-border);
+  border-left: 1px solid var(--studio-border);
+}
+.studio-check__grid li {
+  padding: var(--space-5);
+  border-right: 1px solid var(--studio-border);
+  border-bottom: 1px solid var(--studio-border);
+}
+.studio-check__grid li:last-child { background: var(--studio-tint); }
+.studio-check__n {
+  display: block;
+  font-family: var(--studio-mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--studio-muted);
+  margin-bottom: var(--space-3);
+}
+.studio-check__n em { font-style: normal; font-weight: 500; }
+.studio-check__grid h3 {
+  font-family: var(--studio-serif);
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin: 0 0 var(--space-2);
+}
+.studio-check__grid p { margin: 0; font-size: 0.92rem; line-height: 1.5; }
+
+/* 05 / For Product Teams: the card sits right under the section row */
+#product-teams .studio-team { margin-top: 0; }
+.studio-team__includes {
+  margin: var(--space-4) 0 0;
+  font-family: var(--studio-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--studio-muted);
+  line-height: 1.7;
+}
+.studio-team__card li.studio-team__terms {
+  border-bottom: 0;
+  font-size: 0.85rem;
+  color: var(--studio-muted);
+}
+
+/* 06 / How a Production Runs */
+.studio-production__head { max-width: 46rem; margin-bottom: clamp(2rem, 4vw, 3rem); }
+
+.studio-admission {
+  display: grid;
+  grid-template-columns: 13rem 1fr;
+  border: 1px solid var(--studio-oxblood);
+  background: var(--studio-parchment);
+}
+.studio-admission__stub {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  padding: var(--space-6);
+  background: var(--studio-oxblood);
+  color: var(--studio-cream);
+  border-right: 2px dashed rgba(255, 250, 214, 0.45);
+}
+.studio-admission__stub span {
+  font-family: var(--studio-mono);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--studio-chrome);
+}
+.studio-admission__body { padding: clamp(1.75rem, 3vw, 2.25rem); }
+.studio-admission__lead {
+  font-family: var(--studio-mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--studio-oxblood-light);
+  margin: 0 0 var(--space-3);
+}
+.studio-admission__body .studio-tier__heading h3 { color: var(--studio-oxblood); }
+.studio-admission__desc { max-width: 46rem; line-height: 1.6; margin: var(--space-4) 0 var(--space-5); }
+
+.studio-production__then {
+  font-family: var(--studio-serif);
+  font-style: italic;
+  font-size: 1.35rem;
+  margin: clamp(2rem, 4vw, 2.75rem) 0 var(--space-5);
+}
+.studio-production__note {
+  font-size: 0.85rem;
+  color: var(--studio-muted);
+  margin: var(--space-4) 0 0;
+}
+.studio-production__team {
+  margin: clamp(2rem, 4vw, 2.5rem) 0 0;
+  padding: var(--space-5) 0;
+  border-top: 1px solid var(--studio-border);
+  border-bottom: 1px solid var(--studio-border);
+  line-height: 1.6;
+}
+.studio-production__team a { color: var(--studio-oxblood-light); text-underline-offset: 3px; }
+
+.studio-house {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.5rem, 4vw, 3rem);
+  margin-top: clamp(2rem, 4vw, 2.5rem);
+}
+.studio-house h3 {
+  font-family: var(--studio-serif);
+  font-size: 1.35rem;
+  font-weight: 500;
+  margin: 0 0 var(--space-2);
+}
+.studio-house p { margin: 0; line-height: 1.6; max-width: 34rem; }
+.studio-production__cta { margin-top: clamp(2rem, 4vw, 2.75rem); }
+
+/* Elsewhere in the Studio */
+.studio-elsewhere__label {
+  font-family: var(--studio-mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--studio-muted);
+  margin: 0 0 var(--space-4);
+}
+/* Questions */
+.studio-faq {
+  display: grid;
+  grid-template-columns: 17.5rem 1fr;
+  gap: clamp(2.5rem, 5vw, 5rem);
+  align-items: start;
+}
+.studio-faq__list { border-top: 1px solid var(--studio-border); }
+.studio-faq details { border-bottom: 1px solid var(--studio-border); }
+.studio-faq summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-5) 0;
+  font-family: var(--studio-serif);
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+.studio-faq summary::-webkit-details-marker { display: none; }
+.studio-faq summary::after { content: "+"; font-weight: 300; }
+.studio-faq details[open] summary::after { content: "\2212"; }
+.studio-faq summary:focus-visible {
+  outline: 2px solid var(--studio-oxblood-light);
+  outline-offset: 2px;
+}
+.studio-faq details p { margin: 0 0 var(--space-5); max-width: 44rem; line-height: 1.6; }
+
+.studio-footer__eye { color: var(--studio-cream); margin-bottom: var(--space-3); }
+
+@media (max-width: 980px) {
+  .studio-practice,
+  .studio-check,
+  .studio-faq { grid-template-columns: 1fr; }
+  .studio-check__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 720px) {
+  .studio-check__grid,
+  .studio-house { grid-template-columns: 1fr; }
+  .studio-practice__list li { grid-template-columns: 1fr; gap: var(--space-2); }
+  .studio-admission { grid-template-columns: 1fr; }
+  .studio-admission__stub {
+    flex-direction: row;
+    justify-content: flex-start;
+    border-right: 0;
+    border-bottom: 2px dashed rgba(255, 250, 214, 0.45);
+  }
+}
+
+/* The global typography sheet spaces list items (li + li). These lists are
+   grids and ruled rows that set their own spacing, so reset it. */
+.studio-check__grid li + li,
+.studio-practice__list li + li,
+.admission-areas li + li,
+.admission-lists li + li,
+.studio-team__card li + li {
+  margin-top: 0;
+}
+
+/* The client roll now follows The Practice, so it needs the gap a section
+   would have before it. */
+.studio-section + .studio-client-roll {
+  margin-top: clamp(3.5rem, 7vw, 5rem);
+}

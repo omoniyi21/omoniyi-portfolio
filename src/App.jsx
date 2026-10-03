@@ -19,6 +19,8 @@ const loaders = {
   uikit: () => import("./pages/UIKit"),
   studio: () => import("./pages/Studio"),
   inquire: () => import("./pages/StudioInquire"),
+  admission: () => import("./pages/StudioAdmission"),
+  studioAbout: () => import("./pages/StudioAbout"),
   about: () => import("./pages/About"),
   observations: () => import("./pages/Observations"),
   post: () => import("./pages/ObservationPost"),
@@ -34,6 +36,8 @@ const loaderFor = (path) => {
   if (clean === "/uikit" || clean === "/uikits") return loaders.uikit;
   if (clean === "/studio") return loaders.studio;
   if (clean === "/studio/inquire") return loaders.inquire;
+  if (clean === "/studio/admission") return loaders.admission;
+  if (clean === "/studio/about") return loaders.studioAbout;
   if (clean === "/about") return loaders.about;
   if (clean === "/observations") return loaders.observations;
   if (clean.startsWith("/observations/")) return loaders.post;
@@ -50,6 +54,8 @@ const preloadLink = (event) => {
 const UIKit = lazy(loaders.uikit);
 const Studio = lazy(loaders.studio);
 const StudioInquire = lazy(loaders.inquire);
+const StudioAdmission = lazy(loaders.admission);
+const StudioAbout = lazy(loaders.studioAbout);
 const About = lazy(loaders.about);
 const Observations = lazy(loaders.observations);
 const ObservationPost = lazy(loaders.post);
@@ -63,7 +69,7 @@ const Visual = lazy(loaders.visual);
 export default function App() {
   const { pathname } = useLocation();
   const isKitPage = /^\/uikits?\/?$/.test(pathname);
-  const isStudioPage = /^\/studio(\/inquire)?\/?$/.test(pathname);
+  const isStudioPage = /^\/studio(\/inquire|\/admission|\/about)?\/?$/.test(pathname);
   const hideChrome = isKitPage || isStudioPage;
 
   useEffect(() => {
@@ -95,6 +101,8 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/studio" element={<Studio />} />
         <Route path="/studio/inquire" element={<StudioInquire />} />
+        <Route path="/studio/admission" element={<StudioAdmission />} />
+        <Route path="/studio/about" element={<StudioAbout />} />
         <Route path="/uikit" element={<UIKit />} />
         <Route path="/uikits" element={<Navigate to="/uikit" replace />} />
         <Route path="/about" element={<About />} />

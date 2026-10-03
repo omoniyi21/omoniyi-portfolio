@@ -1,5 +1,3 @@
-import BrandSignature from "../components/shared/BrandSignature";
-import SpaceSwitcher from "../components/shared/SpaceSwitcher";
 import studioHeroWindow from "../assets/images/studio-hero/window-table.jpg";
 import studioHeroCoffee from "../assets/images/studio-hero/coffee.jpg";
 import { useEffect, useState } from "react";
@@ -10,83 +8,50 @@ import Button from "../components/shared/button/Button";
 import "./studio.css";
 
 import { recommendations } from "../data/recommendations";
+import { ADMISSION, CHECK_AREAS, FRACTIONAL, STAGES } from "../data/studioOffers";
 import { Icon } from "../components/shared/icons/Icon";
+import StudioEye from "../components/shared/StudioEye";
+import StudioNav from "../components/studio/StudioNav";
 
-const INQUIRE_HREF = "/studio/inquire?service=not-sure";
-
-const NAV_LINKS = [
-  { label: "Work", to: "/work" },
-  { label: "Studio", to: "/studio", active: true },
-  { label: "LaunchKit", href: "#launchkit" },
-  { label: "Blog", to: "/observations" },
-  { label: "About", to: "/about" },
-];
-
-const TIERS = [
-  {
-    id: "refine",
-    annotation: "Solve what’s\nnot working.",
-    number: "01",
-    name: "Refine",
-    sub: "UX Audit & Optimization",
-    price: "$950",
-    description:
-      "A focused engagement to fix a specific problem, improve conversion or upgrade a key page or flow.",
-    items: [
-      "UX audit & recommendations",
-      "High-fidelity redesign (responsive)",
-      "UX / copy suggestions",
-      "Developer-ready handoff",
-    ],
-    timeline: "~ 1 week",
-    tone: "light",
-  },
-  {
-    id: "build",
-    annotation: "Build for\ngrowth.",
-    number: "02",
-    name: "Build",
-    sub: "Website / Product Design",
-    price: "$3,500",
-    description:
-      "A complete website or core product experience designed to convert, communicate and scale with your business.",
-    items: [
-      "Strategy & UX",
-      "UI design (4–6 pages or core flow)",
-      "Responsive design",
-      "Interactive prototype",
-      "Mini component system",
-      "Logo & visual identity (add-on)",
-    ],
-    timeline: "~ 2–4 weeks",
-    tone: "tint",
-  },
-  {
-    id: "transform",
-    annotation: "A system for\nwhat’s next.",
-    number: "03",
-    name: "Transform",
-    sub: "Experience System & Creative Direction",
-    price: "$6,500+",
-    description:
-      "For businesses that need a larger, more strategic solution — with a reusable design system and a long-term foundation.",
-    items: [
-      "Experience architecture",
-      "Multiple workflows",
-      "Design system (components + variables)",
-      "Accessibility & responsive patterns",
-      "Developer handoff + documentation",
-    ],
-    timeline: "~ 4–8 weeks",
-    tone: "dark",
-  },
-];
+const INQUIRE_HREF = "/studio/inquire";
+const FRACTIONAL_HREF = "/studio/inquire?service=fractional";
+const ADMISSION_PAGE = "/studio/admission";
+const CTA = "Tell me what isn’t working";
 
 const PROCESS = [
-  { n: "01", title: "Diagnose", desc: "We define the problem, goals and opportunities." },
-  { n: "02", title: "Design", desc: "We explore, design and refine the solution." },
-  { n: "03", title: "Build / Handoff", desc: "You get polished, responsive designs ready for development." },
-  { n: "04", title: "Improve", desc: "We measure, learn and continue to make it better." },
+  { n: "01", title: "Tell me what isn’t working", desc: "A short inquiry form, then a free 20-minute fit call." },
+  { n: "02", title: "Admission", desc: "A $500 diagnosis: what’s in the way, what to fix first, and a fixed quote." },
+  { n: "03", title: "The work", desc: "The stage the diagnosis calls for, at the price it named." },
+  { n: "04", title: "Handoff", desc: "What changed, why, what was left alone, and what to watch next." },
+];
+
+const PRINCIPLES = [
+  { title: "Evidence", desc: "Every finding comes with proof: a screenshot, a number, or the exact step where it breaks. I’ll tell you the truth about your site, even the parts that are hard to hear." },
+  { title: "Independence", desc: "You get steps you or your web person can take without me, and the diagnosis is written so you can act on it." },
+  { title: "Hospitality", desc: "No pressure and no jargon. The diagnosis is yours whether we keep working together or not." },
+];
+
+const FAQ = [
+  {
+    q: "Why does every project start with a paid diagnosis?",
+    a: "Because design work before we know what’s wrong is guessing. Admission finds what’s getting in the way and what to fix first. If you book the work within 30 days, the full $500 goes toward it.",
+  },
+  {
+    q: "Why is there a price range?",
+    a: "You get one fixed price after the diagnosis. The range only reflects how different the same symptom can turn out to be.",
+  },
+  {
+    q: "What if I don’t continue after the diagnosis?",
+    a: "You keep it. It’s written so you or your team can act on it.",
+  },
+  {
+    q: "Can we keep measuring after launch?",
+    a: "Yes. Every production ends with what to watch, and ongoing monitoring is available for past clients.",
+  },
+  {
+    q: "I lead a product team. Do we need Admission too?",
+    a: "No. Fractional Residency starts directly from a fit call, and the first two weeks act as the diagnosis.",
+  },
 ];
 
 // Studio's Selected Work slider. `cover` is the case-study screenshot shown
@@ -159,32 +124,6 @@ const LAUNCHKIT_SWATCHES = ["cream", "oxblood", "tint", "ink", "chrome"];
 // vehicles behind the government placements.
 const STUDIO_CLIENTS = ["USDA", "Library of Congress", "Athletico", "Birthright Africa", "Sultry Tips"];
 
-function StudioNav() {
-  return (
-    <nav className="studio-nav" aria-label="Studio navigation">
-      <div className="ecosystem-lockup"><BrandSignature space="studio" /><SpaceSwitcher space="studio" /></div>
-
-      <div className="studio-nav__links">
-        {NAV_LINKS.map(({ label, to, href, active }) =>
-          to ? (
-            <Link key={label} to={to} className={active ? "is-active" : ""}>
-              {label}
-            </Link>
-          ) : (
-            <a key={label} href={href} className={active ? "is-active" : ""}>
-              {label}
-            </a>
-          )
-        )}
-      </div>
-
-      <Button to={INQUIRE_HREF} variant="primary" className="studio-nav__cta">
-        Start a Project
-      </Button>
-    </nav>
-  );
-}
-
 function Hero() {
   return (
     <section className="studio-hero">
@@ -206,16 +145,17 @@ function Hero() {
           </h1>
 
           <p className="studio-hero__description">
-            We design websites, products and systems for businesses ready to
-            look, work and communicate at the level they’ve grown into.
+            I diagnose what isn’t working before I design anything, then design
+            websites, products and systems for businesses ready to look, work
+            and communicate at the level they’ve grown into.
           </p>
 
           <div className="studio-hero__actions">
             <Button to={INQUIRE_HREF} variant="primary">
-              Start a Project
+              {CTA}
             </Button>
-            <Button href="#services" variant="secondary" icon="arrow-down">
-              See Packages
+            <Button href="#production" variant="secondary" icon="arrow-down">
+              How it works
             </Button>
           </div>
 
@@ -238,10 +178,10 @@ function Hero() {
 
           <div className="studio-hero__collage-side">
             <div className="studio-hero__note studio-hero__note--parchment">
-              <p>Good<br />design<br />builds<br />stronger<br />businesses.</p>
+              <p>Good<br />design<br />is good<br />hospitality.</p>
             </div>
             <div className="studio-hero__note studio-hero__note--tint">
-              <p>Beautiful<br />systems<br />for real<br />business<br />outcomes.</p>
+              <p>Diagnose<br />first.<br />Then<br />design.</p>
             </div>
             <div className="studio-hero__collage-thumb">
               <img
@@ -296,35 +236,163 @@ function ClientRoll() {
   );
 }
 
-function Services() {
+function Practice() {
   return (
-    <section className="studio-section" id="services">
+    <section className="studio-section" id="practice">
       <div className="studio-section__row">
-        <p className="studio-section__meta">01 / Services</p>
-        <p className="studio-section__meta studio-section__meta--right">
-          Focused Packages. Measurable Impact.
+        <p className="studio-section__meta">01 / The Practice</p>
+        <p className="studio-section__meta studio-section__meta--right">Diagnose first. Then design what the evidence justifies.</p>
+      </div>
+
+      <div className="studio-practice">
+        <div className="studio-practice__intro">
+          <h2>Good design is<br /><em>good hospitality.</em></h2>
+          <p>
+            I find out what’s really getting in the way before any design work starts, and I leave
+            you more capable than I found you. You’ll understand what changed, why it changed, and
+            what to do next.
+          </p>
+          <Link to="/studio/about" className="studio-text-link">
+            Read the manifesto <Icon name="arrow-right" size={14} strokeWidth={1.5} />
+          </Link>
+        </div>
+        <ul className="studio-practice__list">
+          {PRINCIPLES.map((item) => (
+            <li key={item.title}>
+              <h3>{item.title}</h3>
+              <p>{item.desc}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
+function WhatICheck() {
+  return (
+    <section className="studio-section" id="what-i-check">
+      <div className="studio-section__row">
+        <p className="studio-section__meta">03 / What I Check</p>
+        <p className="studio-section__meta studio-section__meta--right">Every Admission, with proof</p>
+      </div>
+
+      <div className="studio-check">
+        <div className="studio-check__intro">
+          <h2>Before we fix anything, let’s find out <em>what’s actually wrong.</em></h2>
+          <p>
+            Eight things a customer feels, plus a ninth once I have your numbers. I use the same free
+            tools the professionals use, then go through your site by hand, because tools alone miss
+            a lot.
+          </p>
+          <Link to={ADMISSION_PAGE} className="studio-text-link">
+            What Admission includes <Icon name="arrow-right" size={14} strokeWidth={1.5} />
+          </Link>
+        </div>
+        <ol className="studio-check__grid">
+          {CHECK_AREAS.map((item) => (
+            <li key={item.n}>
+              <span className="studio-check__n">{item.n}{item.note && <em> · {item.note}</em>}</span>
+              <h3>{item.area}</h3>
+              <p>{item.question}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  );
+}
+
+function ProductTeams() {
+  return (
+    <section className="studio-section" id="product-teams">
+      <div className="studio-section__row">
+        <p className="studio-section__meta">05 / For Product Teams</p>
+      </div>
+      <div className="studio-team">
+        <article className="studio-team__card">
+          <div>
+            <p className="studio-section__meta">{FRACTIONAL.sub}</p>
+            <h3>{FRACTIONAL.name}</h3>
+            <p className="studio-team__availability"><span aria-hidden="true" /> Now booking for October</p>
+            <p className="studio-team__desc">{FRACTIONAL.description}</p>
+            <p className="studio-team__includes">{FRACTIONAL.items.join(" · ")}</p>
+          </div>
+          <ul>
+            {FRACTIONAL.plans.map((plan) => (
+              <li key={plan.label}>{plan.label} <span>{plan.price}</span></li>
+            ))}
+            <li className="studio-team__terms">{FRACTIONAL.terms}</li>
+          </ul>
+          <Link to={FRACTIONAL_HREF} className="studio-tier__cta">
+            Let’s talk about it <Icon name="arrow-right" size={15} strokeWidth={1.5} />
+          </Link>
+        </article>
+      </div>
+    </section>
+  );
+}
+
+function Production() {
+  return (
+    <section className="studio-section" id="production">
+      <div className="studio-section__row">
+        <p className="studio-section__meta">06 / How a Production Runs</p>
+        <p className="studio-section__meta studio-section__meta--right">One fixed quote, after the diagnosis</p>
+      </div>
+
+      <div className="studio-production__head">
+        <h2>Every show has to<br /><em>start somewhere.</em></h2>
+        <p>
+          Ours starts with a diagnosis. Before any design work, I find out what’s really getting in
+          the way. What comes next depends on what we find.
         </p>
       </div>
 
-      <div className="studio-tiers">
-        {TIERS.map((tier) => (
-          <article key={tier.id} className={`studio-tier studio-tier--${tier.tone}`}>
-            <p className="studio-tier__annotation">{tier.annotation}</p>
+      <article className="studio-admission" aria-labelledby="admission-title">
+        <div className="studio-admission__stub" aria-hidden="true">
+          <StudioEye size={72} />
+          <span>Admit one</span>
+        </div>
+        <div className="studio-admission__body">
+          <p className="studio-admission__lead">It starts here</p>
+          <div className="studio-tier__heading">
+            <h3 id="admission-title">{ADMISSION.name}</h3>
+            <div className="studio-tier__price">
+              <span>Fixed</span>
+              <strong>{ADMISSION.price}</strong>
+            </div>
+          </div>
+          <p className="studio-tier__sub">{ADMISSION.sub}</p>
+          <p className="studio-admission__desc">{ADMISSION.description}</p>
+          <footer className="studio-tier__footer">
+            <span>Delivered: <strong>{ADMISSION.timeline.toLowerCase()}</strong></span>
+            <Link to={ADMISSION_PAGE} className="studio-tier__cta">
+              What I check <Icon name="arrow-right" size={15} strokeWidth={1.5} />
+            </Link>
+          </footer>
+        </div>
+      </article>
 
+      <p className="studio-production__then">Then, depending on what we find:</p>
+
+      <div className="studio-tiers">
+        {STAGES.map((stage) => (
+          <article key={stage.id} className={`studio-tier studio-tier--${stage.tone}`}>
             <div className="studio-tier__heading">
-              <h3>{tier.name}</h3>
+              <h3>{stage.name}</h3>
               <div className="studio-tier__price">
-                <span>Starting at</span>
-                <strong>{tier.price}</strong>
+                <span>{stage.id === "feature" ? "Total" : "Quoted fixed"}</span>
+                <strong>{stage.price}</strong>
               </div>
             </div>
 
-            <p className="studio-tier__sub">{tier.sub}</p>
+            <p className="studio-tier__sub">{stage.sub}</p>
             <hr />
-            <p className="studio-tier__description">{tier.description}</p>
+            <p className="studio-tier__description">{stage.description}</p>
 
             <ul className="studio-tier__features">
-              {tier.items.map((item) => (
+              {stage.items.map((item) => (
                 <li key={item}>
                   <Check size={13} strokeWidth={2.2} aria-hidden="true" />
                   <span>{item}</span>
@@ -333,34 +401,41 @@ function Services() {
             </ul>
 
             <footer className="studio-tier__footer">
-              <span>Timeline: <strong>{tier.timeline}</strong></span>
-              <Link to={`/studio/inquire?service=${tier.id}`} className="studio-tier__cta">
-                Inquire about this <Icon name="arrow-right" size={15} strokeWidth={1.5} />
-              </Link>
+              <span>Timeline: <strong>{stage.timeline}</strong></span>
             </footer>
           </article>
         ))}
       </div>
-      <div className="studio-team">
-        <article className="studio-team__card">
-          <div>
-            <p className="studio-section__meta">For product teams</p>
-            <h3>Fractional &amp; systems work</h3>
-            <p className="studio-team__availability"><span aria-hidden="true" /> Now booking for October</p>
-            <p className="studio-team__desc">
-              Embed a senior product designer in your team, or bring me in for a design system sprint or an
-              accessibility audit. Built on nine years of enterprise, government and healthcare products.
-            </p>
-          </div>
-          <ul>
-            <li>Fractional Design Lead <span>from $5,000/mo</span></li>
-            <li>Design System Sprint <span>from $12,000</span></li>
-            <li>Accessibility &amp; UX Audit <span>from $4,000</span></li>
-          </ul>
-          <Link to="/studio/inquire?service=team" className="studio-tier__cta">
-            See team offerings <Icon name="arrow-right" size={15} strokeWidth={1.5} />
-          </Link>
-        </article>
+
+      <p className="studio-production__note">
+        Prices include the $500 Admission credit. A client who books The Feature pays $500, then $1,000.
+      </p>
+
+      <p className="studio-production__team">
+        <strong>Working with a product team?</strong> Fractional design is available at 10 or 20 hours a
+        week. <Link to={FRACTIONAL_HREF}>Let’s talk about it.</Link>
+      </p>
+
+      <div className="studio-house">
+        <div>
+          <h3>The House Promise</h3>
+          <p>
+            You’ll understand what changed, why it changed, and what to do next. I promise a clear
+            process, not invented results: every finding comes with proof, and the price is fixed
+            before the work starts.
+          </p>
+        </div>
+        <div>
+          <h3>Limited Seating</h3>
+          <p>
+            I take on a small number of productions at a time, so each one gets my full attention.
+            Now booking for October.
+          </p>
+        </div>
+      </div>
+
+      <div className="studio-production__cta">
+        <Button to={INQUIRE_HREF} variant="primary">{CTA}</Button>
       </div>
     </section>
   );
@@ -370,12 +445,12 @@ function Process() {
   return (
     <section className="studio-section" id="process">
       <div className="studio-section__row">
-        <p className="studio-section__meta">02 / Our Process</p>
+        <p className="studio-section__meta">02 / The Process</p>
       </div>
 
       <div className="studio-process">
         <div className="studio-process__intro">
-          <h2>A simple,<br />focused<br />process.</h2>
+          <h2>Diagnose<br />first.<br />Then design.</h2>
           <span className="studio-hand">Strategy meets taste</span>
         </div>
 
@@ -469,7 +544,7 @@ function SelectedWork() {
   return (
     <section className="studio-section" id="work">
       <div className="studio-section__row">
-        <p className="studio-section__meta">03 / Selected Work</p>
+        <p className="studio-section__meta">04 / Selected Work</p>
       </div>
 
       <div className="studio-work">
@@ -542,20 +617,21 @@ function Testimonial() {
   );
 }
 
-function LaunchKit() {
+function Elsewhere() {
   return (
     <section className="studio-section studio-launchkit" id="launchkit">
       <div className="studio-section__row">
-        <p className="studio-section__meta">04 / LaunchKit</p>
+        <p className="studio-section__meta">Elsewhere in the Studio</p>
       </div>
 
       <div className="studio-launchkit__grid">
         <div className="studio-launchkit__copy">
-          <h2>I don’t just design<br />systems for clients.<br />I build them.</h2>
+          <p className="studio-elsewhere__label">Box Office · Tools you can use today</p>
+          <h2>Not ready to hire<br />a studio? Start<br />with LaunchKit.</h2>
           <p>
             LaunchKit is my growing library of UI components, templates and
-            resources for designers and builders who want to ship
-            high-quality products, faster.
+            resources for founders and designers who want to ship
+            high-quality products, faster. It’s free.
           </p>
           <Link className="studio-text-link" to="/uikit">
             Explore LaunchKit <Icon name="arrow-right" size={14} strokeWidth={1.5} />
@@ -606,11 +682,33 @@ function LaunchKit() {
   );
 }
 
+function Questions() {
+  return (
+    <section className="studio-section" id="questions">
+      <div className="studio-section__row">
+        <p className="studio-section__meta">Questions</p>
+      </div>
+      <div className="studio-faq">
+        <h2>Before you <em>ask.</em></h2>
+        <div className="studio-faq__list">
+          {FAQ.map((item) => (
+            <details key={item.q}>
+              <summary>{item.q}</summary>
+              <p>{item.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function StudioFooter() {
   return (
     <footer className="studio-footer" id="contact">
       <div className="studio-footer__main">
         <div className="studio-footer__meta">
+          <StudioEye size={40} className="studio-footer__eye" />
           <p className="studio-footer__wordmark">Omoniyi Studio</p>
           <p>Dallas, TX → Worldwide</p>
         </div>
@@ -621,11 +719,12 @@ function StudioFooter() {
         </div>
 
         <div className="studio-footer__actions">
+          {/* The headline above already says the CTA, so the button names the step. */}
           <Button to={INQUIRE_HREF} variant="primary">
-            Start a Project
+            Start your inquiry
           </Button>
-          <Link className="studio-footer__link" to={INQUIRE_HREF}>
-            Not sure what you need? Let’s talk it through. <Icon name="arrow-right" size={15} strokeWidth={1.5} />
+          <Link className="studio-footer__link" to={ADMISSION_PAGE}>
+            See what a diagnosis covers <Icon name="arrow-right" size={15} strokeWidth={1.5} />
           </Link>
         </div>
       </div>
@@ -634,9 +733,10 @@ function StudioFooter() {
         <span>© 2026 Omoniyi Alimi / Omoniyi Studio</span>
         <div className="studio-footer__links">
           <Link to="/work">Work</Link>
+          <Link to={ADMISSION_PAGE}>Admission</Link>
           <a href="#launchkit">LaunchKit</a>
           <Link to="/observations">Blog</Link>
-          <Link to="/about">About</Link>
+          <Link to="/studio/about">About</Link>
         </div>
       </div>
     </footer>
@@ -646,15 +746,19 @@ function StudioFooter() {
 export default function Studio() {
   return (
     <div className="studio-page">
-      <StudioNav />
+      <StudioNav current="studio" />
       <main id="studio-main">
       <Hero />
+      <Practice />
       <ClientRoll />
-      <Services />
       <Testimonial />
       <Process />
+      <WhatICheck />
       <SelectedWork />
-      <LaunchKit />
+      <ProductTeams />
+      <Production />
+      <Elsewhere />
+      <Questions />
       </main>
       <StudioFooter />
     </div>

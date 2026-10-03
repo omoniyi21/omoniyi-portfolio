@@ -1,0 +1,166 @@
+/* Studio About: the manifesto. A cream opening with the header photo, then
+   a full-bleed oxblood "curtain" section (the design system's identity
+   ground) holding the eye mark and the beliefs. */
+
+.studio-about .visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.about-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: end;
+  padding-bottom: clamp(3.5rem, 7vw, 5rem);
+}
+.about-hero h1 {
+  font-family: var(--studio-serif);
+  font-size: clamp(2.6rem, 5.5vw, 4.6rem);
+  font-weight: 500;
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  margin: var(--space-5) 0 var(--space-6);
+}
+.about-hero h1 em { font-weight: 400; }
+.about-hero__sub {
+  max-width: 32rem;
+  font-family: var(--studio-serif);
+  font-size: clamp(1.2rem, 1.8vw, 1.45rem);
+  line-height: 1.4;
+  margin: 0;
+}
+.about-hero__photo {
+  margin: 0;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  position: relative;
+}
+.about-hero__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+/* Craft, Image Outlines: a faint inner edge so the photo sits on the paper */
+.about-hero__photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 0 0 1px rgba(24, 20, 15, 0.1);
+  pointer-events: none;
+}
+
+/* The curtain */
+.about-curtain {
+  background: var(--studio-oxblood);
+  color: var(--studio-cream);
+}
+.about-curtain__inner {
+  max-width: 56rem;
+  margin-inline: auto;
+  padding: clamp(4rem, 9vw, 7rem) clamp(1.25rem, 4vw, 2.5rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.about-curtain__mark {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--studio-cream);
+  margin-bottom: clamp(3rem, 6vw, 4.5rem);
+}
+.about-curtain__name {
+  margin-top: var(--space-5);
+  font-family: var(--studio-serif);
+  font-size: 2.2rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.about-curtain__label {
+  margin-top: var(--space-2);
+  font-family: var(--studio-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--studio-chrome);
+}
+
+.about-beliefs {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  border-top: 1px solid rgba(201, 208, 210, 0.35);
+}
+.about-beliefs li {
+  margin: 0;
+  padding: clamp(1.25rem, 2.5vw, 1.75rem) 0;
+  border-bottom: 1px solid rgba(201, 208, 210, 0.35);
+  font-family: var(--studio-serif);
+  font-size: clamp(1.25rem, 2.2vw, 1.7rem);
+  font-weight: 400;
+  line-height: 1.35;
+  text-wrap: balance;
+}
+.about-beliefs li + li { margin-top: 0; }
+
+.about-goal {
+  margin: clamp(3rem, 6vw, 4.5rem) 0 0;
+  font-family: var(--studio-serif);
+  font-size: clamp(1.8rem, 3.6vw, 2.9rem);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+.about-goal em { font-weight: 400; }
+
+.about-curtain__cta {
+  margin-top: clamp(2.5rem, 5vw, 3.5rem);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-5);
+}
+/* Inverted primary on oxblood, as on the Admission price block */
+.studio-page .about-curtain .button--primary {
+  background: var(--studio-cream);
+  border-color: var(--studio-cream);
+  color: var(--studio-oxblood);
+}
+.studio-page .about-curtain .button--primary:hover,
+.studio-page .about-curtain .button--primary:active {
+  background: var(--studio-parchment-deep);
+  border-color: var(--studio-parchment-deep);
+  color: var(--studio-oxblood);
+}
+.studio-page .about-curtain .button:focus-visible { outline-color: var(--studio-cream); }
+.about-curtain__link {
+  color: var(--studio-cream);
+  font-size: 0.85rem;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-color: rgba(255, 250, 214, 0.45);
+}
+.about-curtain__link:hover { text-decoration-color: var(--studio-cream); }
+.about-curtain__link:focus-visible { outline: 2px solid var(--studio-cream); outline-offset: 3px; }
+
+.about-escape { border-top: 0; }
+
+@media (max-width: 860px) {
+  .about-hero { grid-template-columns: 1fr; }
+  .about-hero__photo { aspect-ratio: 3 / 2; }
+}

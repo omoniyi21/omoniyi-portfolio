@@ -1,0 +1,32 @@
+.studio-eye {
+  display: block;
+  flex: none;
+  overflow: visible;
+}
+
+.studio-eye__sketch {
+  opacity: 0.55;
+}
+
+/* Lid and brow sit in the drowsy position until the eye is awake. The lid
+   (with its pupil) drops 18 units to y=128, the brow drops 8. The pupil is
+   clipped to the eye by nothing more than geometry: at y=128 it still sits
+   inside the circle. */
+.studio-eye__lid,
+.studio-eye__brow {
+  transform-box: view-box;
+  transition: transform 520ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.studio-eye__lid { transform: translateY(18px); }
+.studio-eye__brow { transform: translateY(8px); transition-delay: 90ms; }
+
+.studio-eye.is-awake .studio-eye__lid,
+.studio-eye.is-awake .studio-eye__brow {
+  transform: none;
+}
+
+:root[data-motion="reduce"] .studio-eye__lid,
+:root[data-motion="reduce"] .studio-eye__brow {
+  transition: none;
+}
