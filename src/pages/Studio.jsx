@@ -18,9 +18,6 @@ const INQUIRE_HREF = "/studio/inquire";
 const FRACTIONAL_HREF = "/studio/inquire?service=fractional";
 const ADMISSION_PAGE = "/studio/admission";
 const CTA = "Tell me what isn’t working";
-// Set this once OUTLOUD has a public page; until then the House Production
-// block shows without a link.
-const OUTLOUD_HREF = null;
 
 const NAV_LINKS = [
   { label: "Work", to: "/work" },
@@ -672,20 +669,6 @@ function Elsewhere() {
           <Link className="studio-text-link" to="/uikit">
             Explore LaunchKit <Icon name="arrow-right" size={14} strokeWidth={1.5} />
           </Link>
-
-          <div className="studio-elsewhere__house">
-            <p className="studio-elsewhere__label">House Production · Studio-originated work</p>
-            <h3>Machines With Manners</h3>
-            <p>
-              My design worldview, technology with restraint, worked out in public through
-              prototypes. OUTLOUD is the first experiment.
-            </p>
-            {OUTLOUD_HREF && (
-              <a className="studio-text-link" href={OUTLOUD_HREF}>
-                See OUTLOUD <Icon name="arrow-right" size={14} strokeWidth={1.5} />
-              </a>
-            )}
-          </div>
         </div>
 
         <div className="studio-launchkit__preview">
