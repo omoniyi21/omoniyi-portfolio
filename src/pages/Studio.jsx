@@ -36,7 +36,7 @@ const PROCESS = [
 ];
 
 const PRINCIPLES = [
-  { title: "Evidence", desc: "Every finding comes with proof: a screenshot, a number, or the exact step where it breaks. If I’m guessing, I’ll tell you." },
+  { title: "Evidence", desc: "Every finding comes with proof: a screenshot, a number, or the exact step where it breaks. I’ll tell you the truth about your site, even the parts that are hard to hear." },
   { title: "Independence", desc: "You get steps you or your web person can take without me, and the diagnosis is written so you can act on it." },
   { title: "Hospitality", desc: "No pressure and no jargon. The diagnosis is yours whether we keep working together or not." },
 ];

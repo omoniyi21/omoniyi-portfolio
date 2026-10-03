@@ -92,7 +92,7 @@ export default function StudioAdmission() {
             </p>
             <p>
               Every finding comes with proof: a screenshot, a number, or the exact step where it
-              breaks. If I’m guessing, I’ll tell you I’m guessing.
+              breaks. I’ll tell you the truth about your site, even the parts that are hard to hear.
             </p>
           </div>
         </section>
