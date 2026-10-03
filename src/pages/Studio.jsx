@@ -752,8 +752,9 @@ function StudioFooter() {
         </div>
 
         <div className="studio-footer__actions">
+          {/* The headline above already says the CTA, so the button names the step. */}
           <Button to={INQUIRE_HREF} variant="primary">
-            {CTA}
+            Start your inquiry
           </Button>
           <Link className="studio-footer__link" to={ADMISSION_PAGE}>
             See what a diagnosis covers <Icon name="arrow-right" size={15} strokeWidth={1.5} />

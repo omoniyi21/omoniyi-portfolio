@@ -1372,6 +1372,10 @@ html[data-motion="reduce"] .studio-work__track { transition: none; }
 }
 
 .studio-footer__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  white-space: nowrap;
   font-size: 0.72rem;
   font-weight: 300;
   color: rgba(253, 246, 236, 0.6);
