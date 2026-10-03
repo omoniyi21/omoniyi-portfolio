@@ -1,5 +1,3 @@
-import BrandSignature from "../components/shared/BrandSignature";
-import SpaceSwitcher from "../components/shared/SpaceSwitcher";
 import studioHeroWindow from "../assets/images/studio-hero/window-table.jpg";
 import studioHeroCoffee from "../assets/images/studio-hero/coffee.jpg";
 import { useEffect, useState } from "react";
@@ -13,20 +11,12 @@ import { recommendations } from "../data/recommendations";
 import { ADMISSION, CHECK_AREAS, FRACTIONAL, STAGES } from "../data/studioOffers";
 import { Icon } from "../components/shared/icons/Icon";
 import StudioEye from "../components/shared/StudioEye";
+import StudioNav from "../components/studio/StudioNav";
 
 const INQUIRE_HREF = "/studio/inquire";
 const FRACTIONAL_HREF = "/studio/inquire?service=fractional";
 const ADMISSION_PAGE = "/studio/admission";
 const CTA = "Tell me what isn’t working";
-
-const NAV_LINKS = [
-  { label: "Work", to: "/work" },
-  { label: "Studio", to: "/studio", active: true },
-  { label: "Admission", to: ADMISSION_PAGE },
-  { label: "LaunchKit", href: "#launchkit" },
-  { label: "Blog", to: "/observations" },
-  { label: "About", to: "/about" },
-];
 
 const PROCESS = [
   { n: "01", title: "Tell me what isn’t working", desc: "A short inquiry form, then a free 20-minute fit call." },
@@ -133,32 +123,6 @@ const LAUNCHKIT_SWATCHES = ["cream", "oxblood", "tint", "ink", "chrome"];
 // a prospective client recognizes and cares about, not the staffing
 // vehicles behind the government placements.
 const STUDIO_CLIENTS = ["USDA", "Library of Congress", "Athletico", "Birthright Africa", "Sultry Tips"];
-
-function StudioNav() {
-  return (
-    <nav className="studio-nav" aria-label="Studio navigation">
-      <div className="ecosystem-lockup"><BrandSignature space="studio" /><SpaceSwitcher space="studio" /></div>
-
-      <div className="studio-nav__links">
-        {NAV_LINKS.map(({ label, to, href, active }) =>
-          to ? (
-            <Link key={label} to={to} className={active ? "is-active" : ""}>
-              {label}
-            </Link>
-          ) : (
-            <a key={label} href={href} className={active ? "is-active" : ""}>
-              {label}
-            </a>
-          )
-        )}
-      </div>
-
-      <Button to={INQUIRE_HREF} variant="primary" className="studio-nav__cta">
-        {CTA}
-      </Button>
-    </nav>
-  );
-}
 
 function Hero() {
   return (
@@ -288,6 +252,9 @@ function Practice() {
             you more capable than I found you. You’ll understand what changed, why it changed, and
             what to do next.
           </p>
+          <Link to="/studio/about" className="studio-text-link">
+            Read the manifesto <Icon name="arrow-right" size={14} strokeWidth={1.5} />
+          </Link>
         </div>
         <ul className="studio-practice__list">
           {PRINCIPLES.map((item) => (
@@ -769,7 +736,7 @@ function StudioFooter() {
           <Link to={ADMISSION_PAGE}>Admission</Link>
           <a href="#launchkit">LaunchKit</a>
           <Link to="/observations">Blog</Link>
-          <Link to="/about">About</Link>
+          <Link to="/studio/about">About</Link>
         </div>
       </div>
     </footer>
@@ -779,7 +746,7 @@ function StudioFooter() {
 export default function Studio() {
   return (
     <div className="studio-page">
-      <StudioNav />
+      <StudioNav current="studio" />
       <main id="studio-main">
       <Hero />
       <Practice />
