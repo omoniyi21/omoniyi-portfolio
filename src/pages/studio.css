@@ -27,10 +27,26 @@
   --studio-mono: var(--font-family-display);
 
   display: block;
-  background: var(--studio-cream);
+  position: relative;
+  isolation: isolate;
+  /* Same paper as the portfolio homepage (globals.css, html): fine noise on
+     the page, and an edge wash pinned to the screen (::before) that deepens
+     the edges toward butter. The lavender grid stays a portfolio-only mark. */
+  background-color: var(--studio-cream);
+  background-image: url("../assets/textures/noise.svg");
+  background-size: 230px;
   color: var(--studio-ink);
   font-family: var(--font-family-body);
   font-weight: 300;
+}
+
+.studio-page::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(ellipse 80% 85% at 50% 42%, transparent 48%, var(--background-page-edge, rgb(242 222 146 / 42%)) 100%);
 }
 
 /* The global typography stylesheet sets color directly on every h1–h6 and p
