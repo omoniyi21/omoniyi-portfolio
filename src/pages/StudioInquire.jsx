@@ -2,7 +2,7 @@ import BrandSignature from "../components/shared/BrandSignature";
 import SpaceSwitcher from "../components/shared/SpaceSwitcher";
 import { trackEvent } from "../lib/analytics";
 import { useState } from "react";
-import { TEAM_OFFERS, TEAM_OFFER_IDS } from "../data/studioOffers";
+import { FRACTIONAL, INVEST_BANDS } from "../data/studioOffers";
 import { Link, useSearchParams } from "react-router-dom";
 
 import "./studio.css";
@@ -12,31 +12,20 @@ import { Icon } from "../components/shared/icons/Icon";
 const CONTACT = "contact@omoniyialimi.com";
 const CAL_LINK = "https://cal.com/omoniyi-studio/intake";
 
-const SERVICES = [
-  { id: "refine", label: "Refine", sub: "UX Audit & Optimization" },
-  { id: "build", label: "Build", sub: "Website / Product Design" },
-  { id: "transform", label: "Transform", sub: "Experience System & Creative Direction" },
-  { id: "not-sure", label: "Not sure yet", sub: "Let’s figure it out together" },
-];
-
 const TIMELINES = ["As soon as possible", "Within 1 month", "1–3 months", "3+ months", "Not sure yet"];
 
-const BUDGETS = ["$950–$2,500", "$2,500–$5,000", "$5,000–$10,000", "$10,000+", "Not sure yet"];
-
+// Every inquiry is for Admission (the $500 diagnosis) unless it comes from
+// the product-team link, which goes straight to Fractional Residency. Older
+// links (?service=refine, build, transform, team, not-sure…) land on
+// Admission or Fractional so nothing breaks.
 function normalizeService(value) {
-  if (value === "team") return TEAM_OFFER_IDS[0];
-  if (TEAM_OFFER_IDS.includes(value)) return value;
-  return SERVICES.some((option) => option.id === value) ? value : "not-sure";
+  return value === "fractional" || value === "team" ? "fractional" : "admission";
 }
 
 export default function StudioInquire() {
   const [searchParams] = useSearchParams();
-  const requested = searchParams.get("service");
-  // Team mode: fractional, sprint and audit only, shown as a picker beside the form.
-  const teamMode = requested === "team" || TEAM_OFFER_IDS.includes(requested);
-  const [service, setService] = useState(() => normalizeService(requested));
-  const activeOffer = TEAM_OFFERS.find((offer) => offer.id === service);
-  const budgets = teamMode ? activeOffer?.budgets ?? [] : BUDGETS;
+  const service = normalizeService(searchParams.get("service"));
+  const teamMode = service === "fractional";
   const [status, setStatus] = useState("idle");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -47,12 +36,6 @@ export default function StudioInquire() {
 
     setStatus("sending");
     setErrorMessage("");
-
-    if (!service) {
-      setStatus("error");
-      setErrorMessage("Please choose which service you’re interested in.");
-      return;
-    }
 
     try {
       const response = await fetch("/.netlify/functions/studio-inquiry", {
@@ -109,7 +92,7 @@ export default function StudioInquire() {
 
       <section className={`studio-section studio-inquire__hero${teamMode ? " studio-inquire__hero--team" : ""}`}>
         <p className="studio-eyebrow">
-          <span>Start a project</span>
+          <span>Tell me what isn’t working</span>
           <span className="studio-eyebrow__sub">Usually takes about 5 minutes</span>
         </p>
         <h1 className="studio-inquire__title">
@@ -119,7 +102,7 @@ export default function StudioInquire() {
         </h1>
         <p className="studio-inquire__description">
           A few questions so our call starts with context instead of introductions. Once you submit
-          this, you’ll be able to grab 20–30 minutes on my calendar.
+          this, you can book a free 20-minute fit call on my calendar.
         </p>
       </section>
 
@@ -128,60 +111,22 @@ export default function StudioInquire() {
           <p className="studio-eyebrow">
             <span>Thank you</span>
           </p>
-          <h2>Got it — let’s find some time to talk.</h2>
+          <h2>Got it. Let’s find some time to talk.</h2>
           <p>
-            Thanks for the context. Grab 20–30 minutes below and I’ll come prepared to talk through
-            what you shared.
+            Thanks for the context. Book a free 20-minute fit call below and I’ll come prepared to talk
+            through what you shared.
           </p>
           <div className="studio-inquire__cal">
             <iframe src={CAL_LINK} title="Schedule an intro call" loading="lazy" />
           </div>
         </section>
       ) : (
-        <section className={`studio-section studio-inquire__form-section${teamMode ? " studio-inquire__form-section--team" : ""}`}>
-          {teamMode && (
-            <div className="studio-inquire__team" role="group" aria-label="Choose an offering">
-              {TEAM_OFFERS.map((offer) => (
-                <button
-                  key={offer.id}
-                  type="button"
-                  className={`studio-inquire__team-offer${service === offer.id ? " is-active" : ""}`}
-                  onClick={() => setService(offer.id)}
-                  aria-pressed={service === offer.id}
-                >
-                  <h2>{offer.name}</h2>
-                  <p><strong>{offer.price}</strong></p>
-                  <p className="terms">{offer.terms}</p>
-                  <p>{offer.description}</p>
-                  <ul>{offer.items.map((item) => <li key={item}>{item}</li>)}</ul>
-                </button>
-              ))}
-            </div>
-          )}
-          {teamMode && !activeOffer ? (
-            <p className="studio-inquire__pick">Choose an offering to start your inquiry.</p>
-          ) : (
+        <section className="studio-section studio-inquire__form-section">
           <form data-analytics-form="studio_inquiry" className="studio-inquire__form" onSubmit={handleSubmit}>
-            {teamMode ? (
-              <p className="studio-inquire__chosen">Inquiring about <strong>{activeOffer.name}</strong> · {activeOffer.price}</p>
-            ) : (
-            <fieldset className="studio-inquire__services">
-              <legend>Interested in</legend>
-              <div className="studio-inquire__service-options">
-                {SERVICES.map((option) => (
-                  <button
-                    type="button"
-                    key={option.id}
-                    className={`studio-inquire__service-pill${service === option.id ? " is-active" : ""}`}
-                    onClick={() => setService(option.id)}
-                    aria-pressed={service === option.id}
-                  >
-                    <span>{option.label}</span>
-                    <span className="studio-inquire__service-sub">{option.sub}</span>
-                  </button>
-                ))}
-              </div>
-            </fieldset>
+            {teamMode && (
+              <p className="studio-inquire__chosen">
+                Inquiring about <strong>{FRACTIONAL.name}</strong> · {FRACTIONAL.plans.map((plan) => plan.price).join(" or ")}, 3-month minimum
+              </p>
             )}
 
             <div className="studio-inquire__grid">
@@ -213,6 +158,22 @@ export default function StudioInquire() {
               <textarea name="notWorking" rows="3" />
             </label>
 
+            <fieldset className="studio-inquire__budget" aria-describedby="invest-help">
+              <legend>What are you thinking of investing?</legend>
+              <p id="invest-help" className="studio-inquire__help">
+                Every project starts with a $500 diagnosis, credited toward the work. This just helps me
+                come to the call prepared.
+              </p>
+              <div className="studio-inquire__budget-options">
+                {INVEST_BANDS.map((band) => (
+                  <label key={band} className="studio-inquire__budget-option">
+                    <input type="radio" name="budget" value={band} required />
+                    <span>{band}</span>
+                  </label>
+                ))}
+              </div>
+            </fieldset>
+
             <label className="studio-inquire__textarea">
               <span>What would a successful outcome look like?</span>
               <textarea name="successLooksLike" rows="3" />
@@ -233,18 +194,6 @@ export default function StudioInquire() {
                 </select>
               </label>
             </div>
-
-            <fieldset className="studio-inquire__budget" key={service}>
-              <legend>Approximate budget</legend>
-              <div className="studio-inquire__budget-options">
-                {budgets.map((budget) => (
-                  <label key={budget} className="studio-inquire__budget-option">
-                    <input type="radio" name="budget" value={budget} required />
-                    <span>{budget}</span>
-                  </label>
-                ))}
-              </div>
-            </fieldset>
 
             <label className="studio-inquire__textarea">
               <span>Anything else I should know?</span>
@@ -268,7 +217,6 @@ export default function StudioInquire() {
               </button>
             </div>
           </form>
-          )}
         </section>
       )}
 

@@ -17,10 +17,13 @@ const ALLOWED_ORIGINS = [
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const SERVICE_LABELS = {
+  admission: "Admission — the $500 diagnosis",
+  fractional: "Fractional Residency",
+  // Older labels, kept so links shared before the October 2026 offer flow
+  // still read correctly in the notification email.
   refine: "Refine — UX Audit & Optimization",
   build: "Build — Website / Product Design",
   transform: "Transform — Experience System & Creative Direction",
-  fractional: "Fractional Design Lead",
   sprint: "Design System Sprint",
   "a11y-audit": "Accessibility & UX Audit",
   "not-sure": "Not sure yet",
@@ -87,7 +90,7 @@ export const handler = async (event) => {
     return json(422, { ok: false, error: "Please use a valid email address." });
   }
   if (budget.length < 1) {
-    return json(422, { ok: false, error: "Please select an approximate budget." });
+    return json(422, { ok: false, error: "Please choose what you’re thinking of investing." });
   }
 
   const longFields = { company, website, notWorking, successLooksLike, timeline, anythingElse };
@@ -106,7 +109,7 @@ export const handler = async (event) => {
     `Website / product URL: ${website || "—"}`,
     `Interested in: ${serviceLabel}`,
     `Desired timeline: ${timeline || "—"}`,
-    `Approximate budget: ${budget}`,
+    `Thinking of investing: ${budget}`,
     "",
     "What isn't working right now?",
     notWorking || "—",

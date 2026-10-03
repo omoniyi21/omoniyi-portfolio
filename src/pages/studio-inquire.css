@@ -410,3 +410,11 @@
     height: 52rem;
   }
 }
+
+.studio-inquire__help {
+  margin: 0.25rem 0 0.9rem;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--studio-muted);
+  max-width: 40rem;
+}

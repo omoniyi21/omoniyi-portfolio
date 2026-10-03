@@ -9,6 +9,8 @@ import { ProfessionalMark, StudioMark, UIMark } from "./BrandMarks";
 // (Portfolio / Studio / UI Kit): a curtain in the destination's colour rises
 // over the page, the three marks flash through in turn, the sequence lands on
 // the destination's mark, the route swaps underneath, and the curtain lifts.
+// The Studio mark's eye stays drowsy while the marks flash and opens only
+// once the sequence lands on Studio, like being let in.
 //
 // Curtains: Portfolio = ink, Studio = oxblood, UI = lilac→lavender gradient.
 // Marks follow the brand sheet's tile presentation (Stardust file, "03 — The
@@ -22,6 +24,9 @@ const COVER_MS = 560; // curtain rise (matches the CSS transition)
 const FLASH_START_MS = 280; // marks start flashing as the curtain nears the top
 const FLASH_STEPS_MS = [190, 190, 210, 240, 280]; // gaps between six beats; slows into the landing
 const HOLD_MS = 440; // time the landed mark is held before the curtain lifts
+// Studio holds longer: its eye lands drowsy, then the lid lifts to "Knowing"
+// and the brow follows (studio-eye.css), and that has to finish on screen.
+const HOLD_MS_BY_TONE = { studio: 760 };
 const REVEAL_MS = 620; // curtain lift (matches the CSS transition)
 
 // Six beats = two full passes through the three marks, ending on the target.
@@ -73,7 +78,7 @@ export function SpaceTransitionProvider({ children }) {
       // Swap the route once the curtain fully covers the page.
       at(COVER_MS + 40, () => navigate(path));
 
-      const revealAt = Math.max(landAt, COVER_MS + 40) + HOLD_MS;
+      const revealAt = Math.max(landAt, COVER_MS + 40) + (HOLD_MS_BY_TONE[target] ?? HOLD_MS);
       at(revealAt, () => setCurtain((c) => ({ ...c, phase: "reveal" })));
       at(revealAt + REVEAL_MS, () => {
         busy.current = false;
@@ -95,7 +100,7 @@ export function SpaceTransitionProvider({ children }) {
               const Mark = MARKS[id];
               return (
                 <div key={id} className="space-curtain__slot" data-on={curtain.beat === id ? "true" : undefined}>
-                  <Mark variant={variant} />
+                  <Mark variant={variant} awake={curtain.landed && curtain.beat === id} />
                 </div>
               );
             })}

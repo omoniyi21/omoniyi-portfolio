@@ -1,12 +1,11 @@
 import "./brand-marks.css";
 import wordPro from "../../assets/branding/marks/omoniyi..svg";
 import noteAlimi from "../../assets/branding/marks/alimi.svg";
-import wordStudioSmall from "../../assets/branding/marks/studio.svg";
-import wordStudio from "../../assets/branding/marks/custom-font-frances.svg";
 import wordUiDark from "../../assets/branding/marks/omoniyi-ui.svg";
 import wordUiLight from "../../assets/branding/marks/omoniyi-ui-white.svg";
 import tagUiBlack from "../../assets/branding/marks/omoniyiui-black-square.svg";
 import tagUiLavender from "../../assets/branding/marks/omoniyiui-lav-square.svg";
+import StudioEye from "./StudioEye";
 
 // The three practice marks from the Stardust brand sheet. variant:
 // "light" / "dark" = the tiled versions (curtain, brand sheet), "bare" = the
@@ -28,11 +27,17 @@ export function ProfessionalMark({ variant }) {
   );
 }
 
-export function StudioMark({ variant }) {
+// Lockup B from the Studio Eye Mark canvas: the eye beside "Omoniyi" in
+// Fraunces over a tracked STUDIO label. `awake` lets the curtain hold the
+// eye drowsy while marks flash and lift it on arrival.
+export function StudioMark({ variant, awake = true }) {
   return (
     <div className={`space-mark space-mark--studio space-mark--${variant}`}>
-      <Glyph src={wordStudioSmall} w={53} h={15} className="space-mark__studio-small" />
-      <Glyph src={wordStudio} w={148} h={32} />
+      <StudioEye size={44} awake={awake} />
+      <span className="space-mark__studio-words">
+        <span className="space-mark__studio-name">Omoniyi</span>
+        <span className="space-mark__studio-label">Studio</span>
+      </span>
     </div>
   );
 }
