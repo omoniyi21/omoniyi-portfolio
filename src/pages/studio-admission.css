@@ -120,12 +120,20 @@
   line-height: 1;
   margin-bottom: var(--space-3) !important;
 }
-.admission-price .button--primary {
+/* Inverted on oxblood: cream button, oxblood label. Hover drops to
+   parchment so the label stays oxblood on a light ground. */
+.studio-page .admission-price .button--primary {
   background: var(--studio-cream);
-  color: var(--studio-oxblood);
   border-color: var(--studio-cream);
+  color: var(--studio-oxblood);
 }
-.admission-price .button--primary:focus-visible { outline: 2px solid var(--studio-cream); outline-offset: 2px; }
+.studio-page .admission-price .button--primary:hover,
+.studio-page .admission-price .button--primary:active {
+  background: var(--studio-parchment-deep);
+  border-color: var(--studio-parchment-deep);
+  color: var(--studio-oxblood);
+}
+.studio-page .admission-price .button:focus-visible { outline-color: var(--studio-cream); }
 
 @media (max-width: 980px) {
   .admission-hero,

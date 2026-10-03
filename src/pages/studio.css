@@ -103,18 +103,35 @@
   padding: 0.75rem 1.375rem;
   border-radius: var(--radius-sm);
   font-size: 0.8rem;
+  /* Craft, Hover Restraint: hover fires constantly, so state changes are
+     instant. No fades, no lift, no arrow nudge. */
+  transition: none;
+}
+.studio-page .button .button__icon { transition: none; }
+.studio-page .button:hover .button__icon { transform: none; }
+
+/* The portfolio's lavender glow layers (materials/stroke.css) don't belong
+   on Studio buttons. */
+.studio-page .button::before,
+.studio-page .button::after { display: none; }
+
+.studio-page .button:focus-visible {
+  outline: 2px solid var(--studio-oxblood-light);
+  outline-offset: 2px;
 }
 
+/* Primary on cream and parchment: oxblood, pressing down to oxblood-deep. */
 .studio-page .button--primary {
   background: var(--studio-oxblood);
   border: 1px solid var(--studio-oxblood);
-  color: #fdf6ec;
+  color: var(--studio-cream);
   box-shadow: none;
 }
-
-.studio-page .button--primary:hover {
-  background: var(--studio-ink);
-  border-color: var(--studio-ink);
+.studio-page .button--primary:hover,
+.studio-page .button--primary:active {
+  background: var(--studio-oxblood-deep);
+  border-color: var(--studio-oxblood-deep);
+  color: var(--studio-cream);
   filter: none;
   box-shadow: none;
   transform: none;
@@ -125,13 +142,22 @@
   border-color: var(--studio-border);
   color: var(--studio-muted);
 }
-
-.studio-page .button--secondary:hover {
+.studio-page .button--secondary:hover,
+.studio-page .button--secondary:active {
   background: rgba(59, 16, 22, 0.05);
   border-color: var(--studio-oxblood);
   color: var(--studio-ink);
   transform: none;
 }
+
+/* Primary on the ink footer: oxblood lightens instead, so the change reads
+   against the dark ground. */
+.studio-footer .button--primary:hover,
+.studio-footer .button--primary:active {
+  background: var(--studio-oxblood-light);
+  border-color: var(--studio-oxblood-light);
+}
+.studio-footer .button:focus-visible { outline-color: var(--studio-cream); }
 
 .studio-footer .button--secondary,
 .studio-nav__cta.button--primary {
