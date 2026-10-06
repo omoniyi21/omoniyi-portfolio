@@ -1,4 +1,4 @@
-// Visual & illustration archive. Earlier OMDesigns-era pieces, shown as supporting
+// Visual & illustration archive. Illustration and promotional pieces, shown as supporting
 // range for the studio rather than as full case studies.
 const piece = (image, title, kind, role, body, extra = {}) => ({ image, title, kind, role, body, ...extra });
 
@@ -8,6 +8,18 @@ export const visualWork = {
   summary:
     'Before product design had a name on my résumé, it was OMDesigns: illustration, hand lettering, and graphics for events and brands. That practice grew into Omoniyi Studio. These pieces show the visual side of the same designer: building a scene, setting type, and making a layout carry a mood.',
   groups: [
+    {
+      label: 'Marketing & event graphics',
+      note: 'Product stories and event details, shaped for a clear next step.',
+      pieces: [
+        piece('visual-shes-royal', 'She’s Royal Beauty Collection', 'Product promotional graphic', 'Graphic design',
+          'A vitamin C crème spotlight that brings the product, ingredients, and benefit messaging into one illustrated layout. A mint and peach palette gives each section its place while keeping the product at the center.'),
+        piece('visual-acs-2025', 'ACS: 2025 All Surgeon’s Day', 'Event promotional flyer', 'Graphic design & layout',
+          'A conference flyer for the American College of Surgeons, Metropolitan Washington DC Chapter. The layout balances a surgical image with the keynote, schedule, speakers, and event details in the chapter’s red, white, and navy palette.'),
+        piece('visual-acs-joy', 'ACS: Joy in Surgery', 'Event promotional flyer', 'Graphic design & layout',
+          'A keynote panel flyer for the American College of Surgeons, Metropolitan Washington DC Chapter. Speaker portraits and short biographies sit below a prominent headline, event time, and registration prompt.'),
+      ],
+    },
     {
       label: 'Scenes',
       note: 'Original illustration. Perspective, texture, and mood built from nothing.',
