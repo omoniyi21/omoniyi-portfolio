@@ -31,6 +31,7 @@
 .visual-piece__frame{background:#fffdf8 center/cover no-repeat;border:1px solid var(--visual-line);border-radius:.6rem;box-shadow:0 12px 28px #3123300d;display:block;overflow:hidden;position:relative;transition:transform var(--motion-expressive-short,320ms) cubic-bezier(.22,1,.36,1),box-shadow var(--motion-expressive-short,320ms) ease}
 .visual-piece__frame img{background:#fffdf8;display:block;height:auto;max-height:44rem;object-fit:contain;width:100%}
 .visual-piece--wide .visual-piece__frame img{max-height:none}
+.visual-piece__set{align-items:start;display:grid;gap:clamp(.75rem,1.6vw,1.25rem);grid-template-columns:repeat(2,minmax(0,1fr))}
 .visual-piece__frame>span{align-items:center;background:#f8f7fa;border-top:1px solid #ddd;color:#61566b;display:flex;font:500 .62rem var(--font-family-display);gap:.25rem;justify-content:flex-end;padding:.55rem .7rem}
 .visual-piece__frame:hover{box-shadow:0 22px 40px #31233018;transform:rotate(-.5deg) scale(1.015)}
 .visual-piece__frame:focus-visible,.visual-page a:focus-visible{outline:3px solid #80558c;outline-offset:5px}
