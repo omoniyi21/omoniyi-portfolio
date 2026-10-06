@@ -7,20 +7,32 @@ import { Icon } from "../components/shared/icons/Icon";
 
 const src = name => `/case-studies/${name}.webp`;
 
+function Frame({ image, title, kind }) {
+  return (
+    <a
+      className="visual-piece__frame"
+      href={src(image)}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={`Enlarge: ${title}`}
+      style={{ backgroundImage: `url(/case-studies/previews/${image}.webp)` }}
+    >
+      <img src={src(image)} alt={`${title}: ${kind.toLowerCase()}`} loading="lazy" decoding="async" />
+      <span>View full size <Icon name="arrow-up-right" size={14} strokeWidth={1.5} /></span>
+    </a>
+  );
+}
+
 function Piece({ piece }) {
   return (
     <figure className={`visual-piece${piece.wide ? " visual-piece--wide" : ""}`}>
-      <a
-        className="visual-piece__frame"
-        href={src(piece.image)}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label={`Enlarge: ${piece.title}`}
-        style={{ backgroundImage: `url(/case-studies/previews/${piece.image}.webp)` }}
-      >
-        <img src={src(piece.image)} alt={`${piece.title}: ${piece.kind.toLowerCase()}`} loading="lazy" decoding="async" />
-        <span>View full size <Icon name="arrow-up-right" size={14} strokeWidth={1.5} /></span>
-      </a>
+      {piece.set ? (
+        <div className="visual-piece__set">
+          {piece.set.map(item => <Frame key={item.image} {...item} />)}
+        </div>
+      ) : (
+        <Frame image={piece.image} title={piece.title} kind={piece.kind} />
+      )}
       <figcaption>
         <p className="visual-piece__kind">{piece.kind}</p>
         <h3>{piece.title}</h3>
