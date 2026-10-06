@@ -11,7 +11,9 @@ import Frog from "../assets/images/observations/frog.png";
 import NotFound from "./NotFound";
 
 function InlineLinks({ text }) {
-  return text.split(/(\[[^\]]+\]\(https?:\/\/[^)]+\))/g).map((part, index) => {
+  return text.split(/(\[[^\]]+\]\(https?:\/\/[^)]+\)|\*\*[^*]+\*\*|\*[^*]+\*)/g).map((part, index) => {
+    if (part.startsWith("**") && part.endsWith("**")) return <strong key={index}>{part.slice(2, -2)}</strong>;
+    if (part.startsWith("*") && part.endsWith("*")) return <em key={index}>{part.slice(1, -1)}</em>;
     const match = part.match(/^\[([^\]]+)\]\((https?:\/\/[^)]+)\)$/);
     return match ? <a key={index} href={match[2]}>{match[1]}</a> : part;
   });
@@ -45,7 +47,7 @@ export default function ObservationPost() {
             <h1 ref={titleRef} tabIndex={-1}>{post.title}</h1>
             {post.cardImage && <figure className="observation-card__image observation-post__cover"><img src={post.cardImage} alt={post.cardImageAlt || ""} fetchPriority="high" /></figure>}
           </div>
-          <p className="observation-post__dek">{post.excerpt}</p>
+          <p className="observation-post__dek">{post.excerptItalic ? <em>{post.excerpt}</em> : post.excerpt}</p>
           <p className="observation-post__byline">Words by Omoniyi Alimi · {post.dateLabel}</p>
         </header>
 

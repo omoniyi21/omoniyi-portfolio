@@ -1,4 +1,5 @@
 import { padmeSource } from "./padmeObservation.js";
+import { designStartingObservation } from "./designStartingObservation.js";
 
 const paragraphs = [
   "I’ve been working from home for 7.5 years now, and I can say, pretty confidently, that it’s empowered me to live a lifestyle that fits my needs.",
@@ -79,7 +80,7 @@ const padmeBlocks = padmeParts.slice(2).flatMap(text => {
  const image = { type: "image", src: `/observations/padme/${media.file}`, alt: media.alt, width: media.width, height: media.height };
  return media.before ? [image, block] : [block, image];
 });
-export const observations = [{
+export const observations = [designStartingObservation, {
  slug: "padme-was-a-baddie-in-a-dystopia", number: "002", status: "published",
  publishedAt: "2026-09-27T00:00:00Z", dateLabel: "September 2026", category: "Design / culture",
  title: padmeParts[0].replace(/^# /, ""), excerpt: padmeParts[1],
