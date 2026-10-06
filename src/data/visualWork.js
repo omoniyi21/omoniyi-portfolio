@@ -32,5 +32,19 @@ export const visualWork = {
           'A social piece for OMDesigns. Four lettering styles share one headline, and the message is hidden in the cereal bowl and the coffee.'),
       ],
     },
+    {
+      label: 'Event & brand graphics',
+      note: 'Graphics for celebrations, products, and conferences.',
+      pieces: [
+        piece('visual-zeta-omicron', 'Zeta Omicron anniversary', 'Anniversary graphic', 'Graphic design',
+          'Pink and green, archival photography, and ribbon lettering celebrate 45 years of scholarship, sisterhood, and service.'),
+        piece('visual-vitamin-c-creme', 'Vitamin C Crème', 'Product spotlight', 'Graphic design',
+          'A product spotlight for She’s Royal Beauty Collection, with illustrated ingredients and benefits arranged in a six-panel layout.'),
+        piece('visual-all-surgeons-day-2025', 'All Surgeon’s Day 2025', 'Conference flyer', 'Graphic design',
+          'A conference flyer for the American College of Surgeons Metropolitan Washington DC Chapter, bringing the keynote, schedule, and speakers into one layout.'),
+        piece('visual-joy-in-surgery', 'Joy in Surgery', 'Keynote panel flyer', 'Graphic design',
+          'A keynote panel flyer pairing the event details with speaker portraits and biographies.'),
+      ],
+    },
   ],
 };
