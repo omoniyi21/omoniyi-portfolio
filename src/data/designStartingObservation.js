@@ -191,7 +191,7 @@ const media = [
   },
   {
     "anchor": "Around that same period, I started a small business with my best friend.",
-    "caption": "Jollof for HINT. An iteration in figuring out what our visual world could be.",
+    "caption": "Jollof for HINT. An iteration in figuring out what our visual world would be.",
     "alt": "HINT Jollof rice artwork, repeating orange rice in green bowls labeled Jollof",
     "src": "/observations/design-starting/jollof.webp",
     "width": 1230,
