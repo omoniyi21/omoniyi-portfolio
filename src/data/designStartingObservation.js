@@ -211,7 +211,7 @@ export const designStartingObservation = {
  publishedAt: "2026-10-06T05:00:00Z", dateLabel: "October 2026", category: "Work / practice",
  title: parts[0].replace(/^# /, ""), excerpt: parts[1].slice(1, -1), excerptItalic: true,
  subtitle: "At Some Point, Getting Better at Design Made Me Worse at Starting.",
- // Animated cover (from Omoniyi's GIF, as WebP); reduced-motion visitors get the still.
+ // Looping cover (from Omoniyi's GIF, as WebP); reduced-motion visitors get the still.
  cardImage: "/observations/design-starting/rewind.webp",
  cardImageStill: "/observations/design-starting/rewind-still.webp",
  cardImageWidth: 480, cardImageHeight: 270,
