@@ -9,6 +9,7 @@ import { getPublishedObservations } from "../data/observations";
 import BeehiivEmbed from "../components/observations/BeehiivEmbed";
 import Frog from "../assets/images/observations/frog.png";
 import NotFound from "./NotFound";
+import ObservationCover from "../components/observations/ObservationCover";
 
 function InlineLinks({ text }) {
   return text.split(/(\[[^\]]+\]\(https?:\/\/[^)]+\)|\*\*[^*]+\*\*|\*[^*]+\*)/g).map((part, index) => {
@@ -45,7 +46,7 @@ export default function ObservationPost() {
           <p className="topic-mark">OBS. {post.number} · {topicIcon(post.category) && <Icon name={topicIcon(post.category)} size={18} />}{post.category}</p>
           <div className="observation-post__title-group">
             <h1 ref={titleRef} tabIndex={-1}>{post.title}</h1>
-            {post.cardImage && <figure className="observation-card__image observation-post__cover"><img src={post.cardImage} alt={post.cardImageAlt || ""} fetchPriority="high" /></figure>}
+            {post.cardImage && <figure className="observation-card__image observation-post__cover"><ObservationCover post={post} priority /></figure>}
           </div>
           <p className="observation-post__dek">{post.subtitle && <><em>{post.subtitle}</em><br /></>}{post.excerptItalic ? <em>{post.excerpt}</em> : post.excerpt}</p>
           <p className="observation-post__byline">Words by Omoniyi Alimi · {post.dateLabel}</p>

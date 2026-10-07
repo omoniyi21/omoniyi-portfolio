@@ -208,10 +208,15 @@ const blocks = parts.slice(2).flatMap(text => {
 
 export const designStartingObservation = {
  slug: "getting-better-at-design-made-me-worse-at-starting", number: "003", status: "published",
- publishedAt: "2026-10-06T05:00:00Z", dateLabel: "October 2026", category: "Design / practice",
+ publishedAt: "2026-10-06T05:00:00Z", dateLabel: "October 2026", category: "Work / practice",
  title: parts[0].replace(/^# /, ""), excerpt: parts[1].slice(1, -1), excerptItalic: true,
  subtitle: "At Some Point, Getting Better at Design Made Me Worse at Starting.",
- // Reserved for the user's forthcoming hero GIF; no substitute artwork.
- cardImage: null, cardImageAlt: "",
+ // Animated cover (from Omoniyi's GIF, as WebP); reduced-motion visitors get the still.
+ cardImage: "/observations/design-starting/rewind.webp",
+ cardImageStill: "/observations/design-starting/rewind-still.webp",
+ cardImageWidth: 480, cardImageHeight: 270,
+ cardImageAlt: "Moira Rose from Schitt’s Creek pointing at the camera, captioned “Let’s rewind and try again”",
+ socialImage: "getting-better-at-design-made-me-worse-at-starting",
+ socialImageAlt: "Moira Rose captioned “Let’s rewind and try again”",
  blocks,
 };
