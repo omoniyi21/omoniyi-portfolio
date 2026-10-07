@@ -21,7 +21,7 @@ for (const study of portfolioStudies) {
   pageMetadata[`/${study.slug}`] = page(`${study.client}: ${study.title} | Omoniyi Alimi`, study.summary, study.slug, `${study.client}: ${study.title} case study`);
 }
 for (const post of getPublishedObservations()) {
-  pageMetadata[`/observations/${post.slug}`] = { ...page(`${post.title} | Omoniyi Alimi`, post.excerpt), type: 'article' };
+  pageMetadata[`/observations/${post.slug}`] = { ...page(`${post.title} | Omoniyi Alimi`, post.excerpt, post.socialImage, post.socialImageAlt), type: 'article' };
 }
 export function getPageMetadata(pathname) {
   const path = pathname.replace(/\/+$/, '') || '/';

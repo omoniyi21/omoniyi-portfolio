@@ -9,9 +9,12 @@ import { getPublishedObservations } from "../data/observations";
 import BeehiivEmbed from "../components/observations/BeehiivEmbed";
 import Frog from "../assets/images/observations/frog.png";
 import NotFound from "./NotFound";
+import ObservationCover from "../components/observations/ObservationCover";
 
 function InlineLinks({ text }) {
-  return text.split(/(\[[^\]]+\]\(https?:\/\/[^)]+\))/g).map((part, index) => {
+  return text.split(/(\[[^\]]+\]\(https?:\/\/[^)]+\)|\*\*[^*]+\*\*|\*[^*]+\*)/g).map((part, index) => {
+    if (part.startsWith("**") && part.endsWith("**")) return <strong key={index}>{part.slice(2, -2)}</strong>;
+    if (part.startsWith("*") && part.endsWith("*")) return <em key={index}>{part.slice(1, -1)}</em>;
     const match = part.match(/^\[([^\]]+)\]\((https?:\/\/[^)]+)\)$/);
     return match ? <a key={index} href={match[2]}>{match[1]}</a> : part;
   });
@@ -43,9 +46,9 @@ export default function ObservationPost() {
           <p className="topic-mark">OBS. {post.number} · {topicIcon(post.category) && <Icon name={topicIcon(post.category)} size={18} />}{post.category}</p>
           <div className="observation-post__title-group">
             <h1 ref={titleRef} tabIndex={-1}>{post.title}</h1>
-            {post.cardImage && <figure className="observation-card__image observation-post__cover"><img src={post.cardImage} alt={post.cardImageAlt || ""} fetchPriority="high" /></figure>}
+            {post.cardImage && <figure className="observation-card__image observation-post__cover"><ObservationCover post={post} priority /></figure>}
           </div>
-          <p className="observation-post__dek">{post.excerpt}</p>
+          <p className="observation-post__dek">{post.subtitle && <><em>{post.subtitle}</em><br /></>}{post.excerptItalic ? <em>{post.excerpt}</em> : post.excerpt}</p>
           <p className="observation-post__byline">Words by Omoniyi Alimi · {post.dateLabel}</p>
         </header>
 
@@ -54,7 +57,7 @@ export default function ObservationPost() {
           {post.blocks?.map((block, index) => block.type === "heading"
             ? <h2 key={index}>{block.text}</h2>
             : block.type === "image"
-            ? <figure className="observation-post__media" key={index}><img src={block.src} alt={block.alt} width={block.width} height={block.height} loading="lazy" /></figure>
+            ? <figure className="observation-post__media" key={index}><img src={block.src} alt={block.alt} width={block.width} height={block.height} loading="lazy" />{block.caption && <figcaption>{block.caption}</figcaption>}</figure>
             : <div className="observation-post__paragraph" key={index}><p><InlineLinks text={block.text} /></p></div>)}
           {paragraphs.map((paragraph, index) => (
             <div className="observation-post__paragraph" key={paragraph}>
