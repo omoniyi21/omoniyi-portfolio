@@ -47,7 +47,7 @@ export default function ObservationPost() {
             <h1 ref={titleRef} tabIndex={-1}>{post.title}</h1>
             {post.cardImage && <figure className="observation-card__image observation-post__cover"><img src={post.cardImage} alt={post.cardImageAlt || ""} fetchPriority="high" /></figure>}
           </div>
-          <p className="observation-post__dek">{post.excerptItalic ? <em>{post.excerpt}</em> : post.excerpt}</p>
+          <p className="observation-post__dek">{post.subtitle && <><strong>{post.subtitle}</strong><br /></>}{post.excerptItalic ? <em>{post.excerpt}</em> : post.excerpt}</p>
           <p className="observation-post__byline">Words by Omoniyi Alimi · {post.dateLabel}</p>
         </header>
 

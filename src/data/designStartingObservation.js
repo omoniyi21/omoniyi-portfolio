@@ -1,5 +1,5 @@
 // Approved essay: preserve wording, paragraph breaks, and emphasis.
-export const designStartingSource = `# At Some Point, Getting Better at Design Made Me Worse at Starting
+export const designStartingSource = `# Your Taste is Always going to Outpace You
 
 *On taste, scared starts, simplicity, and why I’m building LaunchKit.*
 
@@ -210,6 +210,7 @@ export const designStartingObservation = {
  slug: "getting-better-at-design-made-me-worse-at-starting", number: "003", status: "published",
  publishedAt: "2026-10-06T05:00:00Z", dateLabel: "October 2026", category: "Design / practice",
  title: parts[0].replace(/^# /, ""), excerpt: parts[1].slice(1, -1), excerptItalic: true,
+ subtitle: "At Some Point, Getting Better at Design Made Me Worse at Starting.",
  // Reserved for the user's forthcoming hero GIF; no substitute artwork.
  cardImage: null, cardImageAlt: "",
  blocks,
