@@ -96,6 +96,7 @@
 .observation-post__reading--sections h2 { break-after: avoid; }
 .observation-post__media { margin: 0 0 1.5rem; break-inside: avoid; }
 .observation-post__media img { display: block; max-width: 100%; width: auto; height: auto; border-radius: .5rem; outline: 1px solid rgb(0 0 0 / 10%); outline-offset: -1px; }
+.observation-post__media figcaption { color: var(--text-secondary); font: 500 1.2rem/1.3 var(--font-family-personal); margin: .75rem 0 0; }
 
 /* Match /work's card spacing and /visual's framed photographs. */
 .observation-card + .observation-card { margin-top: 1.25rem; }

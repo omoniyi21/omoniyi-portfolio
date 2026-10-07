@@ -33,7 +33,7 @@ Honestly, that instinct goes back even further. As a kid I would try to draw car
 
 Years later, Ira Glass would give me language for part of this (shout out This American Life). He talks about the gap between taste and ability, that frustrating period where your taste is good enough to recognize the work you want to make but your skills cannot quite meet it.
 
-Unfortunately, he was right about the solution too, you lowkey just have to start making a lot of shit.
+Unfortunately, he was right about the solution too, you lowkey just have to start making a lot of stuff.
 
 ## Design became a way out
 
@@ -47,7 +47,7 @@ Until then, so much of my creative world had lived inside the Adobe Creative Sui
 
 Around that same period, I started a small business with my best friend. HINT was one of the first places where I really let myself play. There was no client brief sitting above me. It was an idea born from something I cared about with my soul friend, and I felt called to make the visual world worthy of it. I built our logo into a seal on a spinning brass circle. I worked Africa into an embossed sewn patch. I designed pins inspired by things like Jollof rice and the djembe drum.
 
-None of it was perfect, but I was so very proud of the work I’d done. There was a shift happening, with those early AKA graphics, I was asking:
+None of it was perfect, but I was so very proud of the work I’d done. There was a shift happening. With those early AKA graphics, I was asking:
 
 **How do I make the thing I can already see in my head?**
 
@@ -71,7 +71,7 @@ If I were better at that.
 
 If I had more proof.
 
-If I had the sophisticated white man paperwork behind me, maybe I could just do it.
+If I had the institutional paperwork behind me, maybe I could just do it.
 
 Meanwhile, I had spent years working across products, industries, systems and teams. I understood design principles. I understood people. I understood front-end. I understood how to learn the thing I did not know. The issue was not that I knew too little. I had started seeing too much as a way to never begin building.
 
@@ -129,7 +129,7 @@ Confidence, for me, is not believing that the outcome will always be good. True 
 
 The effort matters because I made the thing. I have proof that I can encounter a problem I do not yet know how to solve, and eventually find my way through it.
 
-That kind of confidence survives failure time and time again, and as a human in this day and age, we need that.
+That kind of confidence survives failure time and time again, and as humans in this day and age, we need that.
 
 ## Your taste might always be ahead of you
 
@@ -167,6 +167,7 @@ const parts = designStartingSource.split(/\n\s*\n/);
 const media = [
   {
     "anchor": "The effort matters because I made the thing.",
+    "caption": "Another iteration in learning perspective. Getting my hand closer to what my eyes could see.",
     "alt": "Pencil perspective drawing of a room with a table, hanging light, window, and brick wall",
     "src": "/observations/design-starting/perspective-room.webp",
     "width": 1254,
@@ -174,6 +175,7 @@ const media = [
   },
   {
     "anchor": "The embarrassing versions.",
+    "caption": "Another iteration, and a reminder to myself: take your time. Practice.",
     "alt": "Take Your Time illustration of an hourglass reading Patience takes Practice on a green background",
     "src": "/observations/design-starting/take-your-time.webp",
     "width": 1244,
@@ -181,6 +183,7 @@ const media = [
   },
   {
     "anchor": "That was pretty much the assignment in my head: make it editorial.",
+    "caption": "Pink Vogue. One iteration closer to the editorial world I had in my head.",
     "alt": "Pink Vogue magazine-style cover for Alpha Kappa Alpha spirit week, with pink and green typography surrounding a portrait",
     "src": "/observations/design-starting/pink-vogue.webp",
     "width": 842,
@@ -188,6 +191,7 @@ const media = [
   },
   {
     "anchor": "Around that same period, I started a small business with my best friend.",
+    "caption": "Jollof for HINT. An iteration in figuring out what our visual world could be.",
     "alt": "HINT Jollof rice artwork, repeating orange rice in green bowls labeled Jollof",
     "src": "/observations/design-starting/jollof.webp",
     "width": 1230,
@@ -198,8 +202,8 @@ const blocks = parts.slice(2).flatMap(text => {
  const block = text.startsWith("## ") ? { type: "heading", text: text.slice(3) } : { type: "paragraph", text };
  const image = media.find(item => text.includes(item.anchor));
  if (!image) return [block];
- const { src, alt, width, height } = image;
- return [block, { type: "image", src, alt, width, height }];
+ const { src, alt, width, height, caption } = image;
+ return [block, { type: "image", src, alt, width, height, caption }];
 });
 
 export const designStartingObservation = {

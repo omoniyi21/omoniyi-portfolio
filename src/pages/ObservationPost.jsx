@@ -56,7 +56,7 @@ export default function ObservationPost() {
           {post.blocks?.map((block, index) => block.type === "heading"
             ? <h2 key={index}>{block.text}</h2>
             : block.type === "image"
-            ? <figure className="observation-post__media" key={index}><img src={block.src} alt={block.alt} width={block.width} height={block.height} loading="lazy" /></figure>
+            ? <figure className="observation-post__media" key={index}><img src={block.src} alt={block.alt} width={block.width} height={block.height} loading="lazy" />{block.caption && <figcaption>{block.caption}</figcaption>}</figure>
             : <div className="observation-post__paragraph" key={index}><p><InlineLinks text={block.text} /></p></div>)}
           {paragraphs.map((paragraph, index) => (
             <div className="observation-post__paragraph" key={paragraph}>
