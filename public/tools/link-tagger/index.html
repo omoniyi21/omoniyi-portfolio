@@ -26,7 +26,7 @@
 body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 Inter,system-ui,sans-serif}
 main{max-width:720px;margin:0 auto;padding:32px 16px 64px}
 h1{font-size:24px;margin:0 0 4px;font-weight:600}
-.sub{color:var(--muted);margin:0 0 24px}
+.sub{color:var(--muted);margin:0 0 20px}
 .card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:16px}
 .card h2{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0 0 14px;font-weight:600}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
@@ -35,12 +35,14 @@ label{display:block;font-size:13px;font-weight:500;margin-bottom:6px}
 input,select,textarea{width:100%;font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px 12px}
 textarea{font-family:"JetBrains Mono",monospace;font-size:13px;resize:vertical;min-height:70px}
 input:focus,select:focus,textarea:focus{outline:2px solid var(--accent);outline-offset:1px}
+button:focus-visible,.drop:focus-within{outline:2px solid var(--accent);outline-offset:2px}
 .seg{display:flex;gap:6px;flex-wrap:wrap}
 .seg button{flex:1;min-width:90px;padding:9px 10px;border:1px solid var(--border);background:var(--bg);color:var(--text);border-radius:8px;font:inherit;font-size:14px;cursor:pointer}
 .seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-text);border-color:var(--accent)}
 .out{font-family:"JetBrains Mono",monospace;font-size:13px;background:var(--code-bg);border-radius:8px;padding:12px;word-break:break-all;margin:0 0 12px;min-height:44px}
 .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .btn{padding:10px 16px;border:0;border-radius:8px;background:var(--accent);color:var(--accent-text);font:inherit;font-weight:600;cursor:pointer}
+.btn:disabled{opacity:.45;cursor:not-allowed}
 .btn.ghost{background:transparent;color:var(--text);border:1px solid var(--border);font-weight:500}
 .status{font-size:13px;color:var(--ok)}
 .hint{font-size:13px;color:var(--muted);margin:8px 0 0}
@@ -52,6 +54,28 @@ ul.recent code{flex:1;font-family:"JetBrains Mono",monospace;font-size:12px;word
 ul.recent b{color:var(--text);font-weight:500}
 .small{padding:6px 10px;font-size:13px}
 .empty{color:var(--muted);font-size:13px}
+
+/* Tabs */
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--border);margin:0 0 16px}
+.tabs button{padding:10px 14px;margin-bottom:-1px;border:0;border-bottom:2px solid transparent;background:none;color:var(--muted);font:inherit;font-weight:500;cursor:pointer}
+.tabs button:hover{color:var(--text)}
+.tabs button[aria-selected="true"]{color:var(--text);border-bottom-color:var(--accent)}
+
+/* PDF */
+.drop{position:relative;display:block;border:1.5px dashed var(--border);border-radius:10px;padding:28px 16px;text-align:center;background:var(--bg);cursor:pointer;margin:0}
+.drop:hover,.drop.over{border-color:var(--accent)}
+.drop input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;padding:0;border:0}
+.drop strong{display:block;font-weight:600;margin-bottom:2px}
+.drop span{color:var(--muted);font-size:13px}
+.summary{margin:0 0 12px;font-weight:500}
+ul.links{list-style:none;margin:0 0 14px;padding:0;max-height:340px;overflow:auto;border:1px solid var(--border);border-radius:8px}
+ul.links li{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;padding:9px 12px;border-top:1px solid var(--border);font-size:13px}
+ul.links li:first-child{border-top:0}
+ul.links .tag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:2px 6px;border-radius:4px;background:var(--code-bg);color:var(--muted)}
+ul.links .tag.tagged{color:var(--ok)}
+ul.links .tag.broken{color:var(--warn)}
+ul.links code{flex:1;min-width:0;font-family:"JetBrains Mono",monospace;font-size:12px;word-break:break-all}
+ul.links .was{color:var(--muted);font-size:12px}
 </style>
 </head>
 <body>
@@ -60,168 +84,319 @@ ul.recent b{color:var(--text);font-weight:500}
   <p class="sub">Tracked links to omoniyialimi.com for every application, résumé and outreach note.</p>
 
   <section class="card">
-    <h2>New link</h2>
+    <h2>Tags</h2>
     <div class="grid">
       <div>
         <label for="company">Company</label>
         <input id="company" value="SandboxAQ" autocomplete="off">
       </div>
       <div>
-        <label for="page">Page</label>
-        <select id="page">
-          <option value="/">Home</option>
-          <option value="/work">Work</option>
-          <option value="/house">House</option>
-          <option value="/athletico">Athletico</option>
-          <option value="/library-of-congress">Library of Congress</option>
-          <option value="/copyright-accounting">Copyright Accounting</option>
-          <option value="/usda">USDA</option>
-          <option value="/visual">Visual</option>
-          <option value="/studio/inquire?service=team">Studio one-pager</option>
-        </select>
+        <label for="campaign">Campaign</label>
+        <input id="campaign" value="job-search" autocomplete="off">
       </div>
     </div>
     <div style="margin-top:14px">
-      <label>Where the link goes</label>
-      <div class="seg" id="medium">
+      <label id="mediumLabel">Where the link goes</label>
+      <div class="seg" id="medium" role="group" aria-labelledby="mediumLabel">
         <button type="button" data-v="application" aria-pressed="true">Application</button>
         <button type="button" data-v="resume" aria-pressed="false">Résumé</button>
         <button type="button" data-v="outreach" aria-pressed="false">Outreach</button>
       </div>
     </div>
-    <div style="margin-top:14px">
-      <label for="campaign">Campaign</label>
-      <input id="campaign" value="job-search" autocomplete="off">
-    </div>
   </section>
 
-  <section class="card">
-    <h2>Your link</h2>
-    <p class="out" id="out"></p>
-    <div class="row">
-      <button class="btn" id="copy">Copy link</button>
-      <span class="status" id="status" aria-live="polite"></span>
-    </div>
-    <p class="hint">Paste it on its own. Don't put it inside parentheses or end it with a period, or the page won't load.</p>
-  </section>
+  <div class="tabs" role="tablist" aria-label="What to tag">
+    <button type="button" role="tab" id="tab-link" aria-controls="panel-link" aria-selected="true">Single link</button>
+    <button type="button" role="tab" id="tab-pdf" aria-controls="panel-pdf" aria-selected="false" tabindex="-1">PDF</button>
+  </div>
 
-  <section class="card">
-    <h2>Retag an existing link</h2>
-    <label for="old">Paste a link (for example, from an old résumé)</label>
-    <textarea id="old" placeholder="https://www.omoniyialimi.com/athletico?utm_source=amperos&utm_medium=resume&utm_campaign=job-search"></textarea>
-    <p class="hint">It keeps the page and swaps in the company, medium and campaign from above.</p>
-    <p class="out" id="retagOut" style="margin-top:12px"></p>
-    <div class="row">
-      <button class="btn ghost" id="copyRetag">Copy retagged link</button>
-      <span class="status" id="status2" aria-live="polite"></span>
-    </div>
-    <p class="warn" id="retagWarn" hidden></p>
-  </section>
+  <div role="tabpanel" id="panel-link" aria-labelledby="tab-link">
+    <section class="card">
+      <h2>Your link</h2>
+      <label for="page">Page</label>
+      <select id="page" style="margin-bottom:12px">
+        <option value="/">Home</option>
+        <option value="/work">Work</option>
+        <option value="/house">House</option>
+        <option value="/athletico">Athletico</option>
+        <option value="/library-of-congress">Library of Congress</option>
+        <option value="/copyright-accounting">Copyright Accounting</option>
+        <option value="/usda">USDA</option>
+        <option value="/visual">Visual</option>
+        <option value="/studio/inquire?service=team">Studio one-pager</option>
+      </select>
+      <p class="out" id="out"></p>
+      <div class="row">
+        <button class="btn" id="copy">Copy link</button>
+        <span class="status" id="status" aria-live="polite"></span>
+      </div>
+      <p class="hint">Paste it on its own. Don't put it inside parentheses or end it with a period, or the page won't load.</p>
+    </section>
 
-  <section class="card">
-    <h2>Recent</h2>
-    <ul class="recent" id="recent"></ul>
-  </section>
+    <section class="card">
+      <h2>Retag an existing link</h2>
+      <label for="old">Paste a link (for example, from an old résumé)</label>
+      <textarea id="old" placeholder="https://www.omoniyialimi.com/athletico?utm_source=amperos&utm_medium=resume&utm_campaign=job-search"></textarea>
+      <p class="hint">It keeps the page and swaps in the company, medium and campaign from above.</p>
+      <p class="out" id="retagOut" style="margin-top:12px"></p>
+      <div class="row">
+        <button class="btn ghost" id="copyRetag">Copy retagged link</button>
+        <span class="status" id="status2" aria-live="polite"></span>
+      </div>
+      <p class="warn" id="retagWarn" hidden></p>
+    </section>
+
+    <section class="card">
+      <h2>Recent</h2>
+      <ul class="recent" id="recent"></ul>
+    </section>
+  </div>
+
+  <div role="tabpanel" id="panel-pdf" aria-labelledby="tab-pdf" hidden>
+    <section class="card">
+      <h2>Retag a PDF</h2>
+      <label class="drop" id="drop">
+        <input type="file" id="pdfFile" accept="application/pdf,.pdf">
+        <strong id="dropTitle">Choose a PDF or drop it here</strong>
+        <span id="dropSub">A résumé or portfolio exported from Figma</span>
+      </label>
+      <p class="hint">Every link to omoniyialimi.com gets the tags above, and old tags are swapped out. Links to other sites stay as they are. The file never leaves this browser.</p>
+    </section>
+
+    <section class="card" id="pdfResult" hidden>
+      <h2>Links in this PDF</h2>
+      <p class="summary" id="pdfSummary" aria-live="polite"></p>
+      <p class="warn" id="pdfWarn" hidden></p>
+      <ul class="links" id="pdfLinks"></ul>
+      <div class="row">
+        <button class="btn" id="pdfDownload" disabled>Download tagged PDF</button>
+        <span class="hint" id="pdfName" style="margin:0"></span>
+      </div>
+    </section>
+  </div>
 </main>
 
-<script>
-const BASE='https://www.omoniyialimi.com';
-const $=id=>document.getElementById(id);
-let medium='application';
+<script type="module">
+import { BASE, makeTags, withTags, cleanPasted, retagPdf, taggedFileName } from '/tools/link-tagger/link-tagger.js';
 
-const slug=s=>s.toLowerCase().normalize('NFKD').replace(/[̀-ͯ]/g,'').replace(/&/g,'and').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
+const $ = (id) => document.getElementById(id);
+let medium = 'application';
 
-function tags(){
-  return {utm_source:slug($('company').value)||'company',utm_medium:medium,utm_campaign:slug($('campaign').value)||'job-search'};
-}
-function withTags(url){
-  const u=new URL(url);
-  ['utm_source','utm_medium','utm_campaign','utm_term','utm_content'].forEach(k=>u.searchParams.delete(k));
-  const t=tags();
-  Object.keys(t).forEach(k=>u.searchParams.set(k,t[k]));
-  return u.toString();
-}
-function build(){
-  const link=withTags(BASE+$('page').value);
-  $('out').textContent=link;
+const tags = () => makeTags({ company: $('company').value, medium, campaign: $('campaign').value });
+
+/* Single link */
+function build() {
+  const link = withTags(BASE + $('page').value, tags());
+  $('out').textContent = link;
   retag();
   return link;
 }
-function cleanPasted(raw){
-  let s=raw.trim().split(/\s+/)[0]||'';
-  s=s.replace(/^[(<\[“"']+/,'').replace(/[)\]>.,;:!?”"']+$/,'');
-  if(s && !/^https?:\/\//i.test(s)) s='https://'+s;
-  return s;
-}
-function retag(){
-  const raw=$('old').value;
-  $('retagWarn').hidden=true;
-  if(!raw.trim()){$('retagOut').textContent='';return '';}
-  const cleaned=cleanPasted(raw);
-  try{
-    const out=withTags(cleaned);
-    $('retagOut').textContent=out;
-    if(cleaned!==raw.trim()){$('retagWarn').textContent='Removed stray punctuation around the link.';$('retagWarn').hidden=false;}
+function retag() {
+  const raw = $('old').value;
+  $('retagWarn').hidden = true;
+  if (!raw.trim()) { $('retagOut').textContent = ''; return ''; }
+  const cleaned = cleanPasted(raw);
+  try {
+    const out = withTags(cleaned, tags());
+    $('retagOut').textContent = out;
+    if (cleaned !== raw.trim()) { $('retagWarn').textContent = 'Removed stray punctuation around the link.'; $('retagWarn').hidden = false; }
     return out;
-  }catch(e){
-    $('retagOut').textContent='';
-    $('retagWarn').textContent="That doesn't look like a full link.";
-    $('retagWarn').hidden=false;
+  } catch {
+    $('retagOut').textContent = '';
+    $('retagWarn').textContent = "That doesn't look like a full link.";
+    $('retagWarn').hidden = false;
     return '';
   }
 }
 
-async function copy(text,statusEl){
-  if(!text) return;
-  let ok=false;
-  try{await navigator.clipboard.writeText(text);ok=true;}catch(e){
-    const ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.opacity='0';
-    document.body.appendChild(ta);ta.select();
-    try{ok=document.execCommand('copy');}catch(e2){}
+async function copy(text, statusEl) {
+  if (!text) return;
+  let ok = false;
+  try { await navigator.clipboard.writeText(text); ok = true; } catch {
+    const ta = document.createElement('textarea'); ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    try { ok = document.execCommand('copy'); } catch { /* fall through */ }
     ta.remove();
   }
-  statusEl.textContent=ok?'Copied':'Select the link and copy it';
-  setTimeout(()=>statusEl.textContent='',1800);
-  if(ok) save(text);
+  statusEl.textContent = ok ? 'Copied' : 'Select the link and copy it';
+  setTimeout(() => (statusEl.textContent = ''), 1800);
+  if (ok) save(text);
 }
 
-const KEY='link-tagger-recent';
-function load(){try{return JSON.parse(localStorage.getItem(KEY)||'[]');}catch(e){return memRecent;}}
-let memRecent=[];
-function save(link){
-  let list=load().filter(x=>x!==link);
-  list.unshift(link);list=list.slice(0,12);
-  memRecent=list;
-  try{localStorage.setItem(KEY,JSON.stringify(list));}catch(e){}
+const KEY = 'link-tagger-recent';
+let memRecent = [];
+function load() { try { return JSON.parse(localStorage.getItem(KEY) || '[]'); } catch { return memRecent; } }
+function save(link) {
+  let list = load().filter((x) => x !== link);
+  list.unshift(link); list = list.slice(0, 12);
+  memRecent = list;
+  try { localStorage.setItem(KEY, JSON.stringify(list)); } catch { /* private mode */ }
   renderRecent();
 }
-function renderRecent(){
-  const list=load();
-  const ul=$('recent');ul.innerHTML='';
-  if(!list.length){ul.innerHTML='<li class="empty">Links you copy show up here.</li>';return;}
-  list.forEach(link=>{
-    let label='';
-    try{const u=new URL(link);label=(u.searchParams.get('utm_source')||'')+' · '+(u.searchParams.get('utm_medium')||'')+' · '+(u.pathname==='/'?'home':u.pathname);}catch(e){}
-    const li=document.createElement('li');
-    const c=document.createElement('code');
-    c.innerHTML='<b></b><br>';c.querySelector('b').textContent=label;c.append(link);
-    const b=document.createElement('button');b.className='btn ghost small';b.textContent='Copy';
-    b.onclick=()=>{navigator.clipboard?.writeText(link).then(()=>{b.textContent='Copied';setTimeout(()=>b.textContent='Copy',1500);}).catch(()=>{});};
-    li.append(c,b);ul.append(li);
+function renderRecent() {
+  const list = load();
+  const ul = $('recent'); ul.innerHTML = '';
+  if (!list.length) { ul.innerHTML = '<li class="empty">Links you copy show up here.</li>'; return; }
+  list.forEach((link) => {
+    let label = '';
+    try { const u = new URL(link); label = (u.searchParams.get('utm_source') || '') + ' · ' + (u.searchParams.get('utm_medium') || '') + ' · ' + (u.pathname === '/' ? 'home' : u.pathname); } catch { /* skip */ }
+    const li = document.createElement('li');
+    const c = document.createElement('code');
+    c.innerHTML = '<b></b><br>'; c.querySelector('b').textContent = label; c.append(link);
+    const b = document.createElement('button'); b.className = 'btn ghost small'; b.textContent = 'Copy';
+    b.onclick = () => { navigator.clipboard?.writeText(link).then(() => { b.textContent = 'Copied'; setTimeout(() => (b.textContent = 'Copy'), 1500); }).catch(() => {}); };
+    li.append(c, b); ul.append(li);
   });
 }
 
-document.querySelectorAll('#medium button').forEach(b=>b.onclick=()=>{
-  medium=b.dataset.v;
-  document.querySelectorAll('#medium button').forEach(x=>x.setAttribute('aria-pressed',x===b));
-  build();
-});
-['company','campaign','page'].forEach(id=>$(id).addEventListener('input',build));
-$('old').addEventListener('input',retag);
-$('copy').onclick=()=>copy($('out').textContent,$('status'));
-$('copyRetag').onclick=()=>copy($('retagOut').textContent,$('status2'));
+/* PDF */
+let pdfLib = null;
+let pdfSource = null; // { name, bytes }
+let pdfOutput = null; // { bytes, name }
+let runId = 0;
 
-build();renderRecent();
+const shortUrl = (s) => s.replace(/^https?:\/\/(www\.)?/, '');
+
+async function processPdf() {
+  if (!pdfSource) return;
+  const id = ++runId;
+  $('pdfResult').hidden = false;
+  $('pdfDownload').disabled = true;
+  $('pdfWarn').hidden = true;
+  $('pdfSummary').textContent = 'Reading the PDF…';
+  $('pdfLinks').innerHTML = '';
+  try {
+    pdfLib ||= await import('/tools/link-tagger/vendor/pdf-lib.esm.min.js');
+    const t = tags();
+    const { bytes, results } = await retagPdf(pdfSource.bytes.slice(0), t, pdfLib);
+    if (id !== runId) return;
+
+    const tagged = results.filter((r) => r.kind === 'tagged');
+    const other = results.filter((r) => r.kind === 'skipped');
+    const broken = results.filter((r) => r.kind === 'broken');
+    const fixed = tagged.filter((r) => r.fixed);
+
+    if (!results.length) {
+      $('pdfSummary').textContent = 'No links found in this PDF.';
+      $('pdfWarn').textContent = 'If you can see URLs on the page, they were typed as text in Figma and never linked. Select the text in Figma and add the link, then export again.';
+      $('pdfWarn').hidden = false;
+      pdfOutput = null;
+      return;
+    }
+
+    const parts = [`${tagged.length} site link${tagged.length === 1 ? '' : 's'} tagged ${t.utm_source} · ${t.utm_medium} · ${t.utm_campaign}`];
+    if (other.length) parts.push(`${other.length} other link${other.length === 1 ? '' : 's'} left as is`);
+    $('pdfSummary').textContent = parts.join(', ') + '.';
+
+    const warns = [];
+    if (fixed.length) warns.push(`Fixed stray punctuation on ${fixed.length} link${fixed.length === 1 ? '' : 's'}. Worth fixing in Figma too.`);
+    if (broken.length) warns.push(`${broken.length} link${broken.length === 1 ? " isn't" : "s aren't"} a full web address. Check ${broken.length === 1 ? 'it' : 'them'} in Figma.`);
+    if (!tagged.length) warns.push('None of the links go to omoniyialimi.com, so nothing was tagged.');
+    if (warns.length) { $('pdfWarn').textContent = warns.join(' '); $('pdfWarn').hidden = false; }
+
+    const ul = $('pdfLinks');
+    results.forEach((r) => {
+      const li = document.createElement('li');
+      const badge = document.createElement('span');
+      badge.className = 'tag ' + r.kind;
+      badge.textContent = r.kind === 'tagged' ? 'Tagged' : r.kind === 'broken' ? 'Check' : 'Left as is';
+      const where = document.createElement('code');
+      const note = document.createElement('span');
+      note.className = 'was';
+      if (r.kind === 'tagged') {
+        const before = new URL(/^https?:/i.test(r.before.trim()) ? r.before.trim() : 'https://' + r.before.trim());
+        where.textContent = shortUrl(r.after).split('?')[0];
+        const prev = before.searchParams.get('utm_source');
+        note.textContent = r.fixed ? 'fixed broken ending' : prev === t.utm_source ? 'already tagged' : prev ? `was ${prev}` : 'had no tags';
+      } else {
+        where.textContent = shortUrl(r.before) || '(empty link)';
+      }
+      li.append(badge, where, note);
+      ul.append(li);
+    });
+
+    pdfOutput = { bytes, name: taggedFileName(pdfSource.name, t.utm_source) };
+    $('pdfName').textContent = pdfOutput.name;
+    $('pdfDownload').disabled = tagged.length === 0;
+  } catch (e) {
+    if (id !== runId) return;
+    console.error(e);
+    pdfOutput = null;
+    $('pdfSummary').textContent = "Couldn't read this PDF.";
+    $('pdfWarn').textContent = /encrypt/i.test(String(e)) ? 'It looks password-protected. Export it again from Figma without a password.' : 'Try exporting it again from Figma.';
+    $('pdfWarn').hidden = false;
+  }
+}
+
+async function takeFile(file) {
+  if (!file) return;
+  if (!/\.pdf$/i.test(file.name) && file.type !== 'application/pdf') {
+    $('pdfResult').hidden = false;
+    $('pdfSummary').textContent = 'That file isn’t a PDF.';
+    $('pdfLinks').innerHTML = ''; $('pdfDownload').disabled = true; $('pdfWarn').hidden = true;
+    return;
+  }
+  pdfSource = { name: file.name, bytes: new Uint8Array(await file.arrayBuffer()) };
+  $('dropTitle').textContent = file.name;
+  $('dropSub').textContent = 'Choose a different PDF';
+  processPdf();
+}
+
+$('pdfFile').addEventListener('change', (e) => takeFile(e.target.files[0]));
+const drop = $('drop');
+['dragenter', 'dragover'].forEach((t) => drop.addEventListener(t, (e) => { e.preventDefault(); drop.classList.add('over'); }));
+['dragleave', 'drop'].forEach((t) => drop.addEventListener(t, () => drop.classList.remove('over')));
+drop.addEventListener('drop', (e) => { e.preventDefault(); takeFile(e.dataTransfer.files[0]); });
+
+$('pdfDownload').onclick = () => {
+  if (!pdfOutput) return;
+  const url = URL.createObjectURL(new Blob([pdfOutput.bytes], { type: 'application/pdf' }));
+  const a = document.createElement('a'); a.href = url; a.download = pdfOutput.name;
+  document.body.append(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+};
+
+/* Tabs */
+const TAB_KEY = 'link-tagger-tab';
+const tabs = [...document.querySelectorAll('[role="tab"]')];
+function selectTab(tab, focus) {
+  tabs.forEach((t) => {
+    const on = t === tab;
+    t.setAttribute('aria-selected', on);
+    t.tabIndex = on ? 0 : -1;
+    $(t.getAttribute('aria-controls')).hidden = !on;
+  });
+  if (focus) tab.focus();
+  try { localStorage.setItem(TAB_KEY, tab.id); } catch { /* private mode */ }
+}
+tabs.forEach((t, i) => {
+  t.addEventListener('click', () => selectTab(t));
+  t.addEventListener('keydown', (e) => {
+    if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+    e.preventDefault();
+    selectTab(tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length], true);
+  });
+});
+try { const saved = $(localStorage.getItem(TAB_KEY) || ''); if (saved && tabs.includes(saved)) selectTab(saved); } catch { /* ignore */ }
+
+/* Shared tags */
+let pdfTimer;
+function tagsChanged() {
+  build();
+  if (pdfSource) { clearTimeout(pdfTimer); pdfTimer = setTimeout(processPdf, 300); }
+}
+document.querySelectorAll('#medium button').forEach((b) => (b.onclick = () => {
+  medium = b.dataset.v;
+  document.querySelectorAll('#medium button').forEach((x) => x.setAttribute('aria-pressed', x === b));
+  tagsChanged();
+}));
+['company', 'campaign'].forEach((id) => $(id).addEventListener('input', tagsChanged));
+$('page').addEventListener('input', build);
+$('old').addEventListener('input', retag);
+$('copy').onclick = () => copy($('out').textContent, $('status'));
+$('copyRetag').onclick = () => copy($('retagOut').textContent, $('status2'));
+
+build(); renderRecent();
 </script>
 </body>
 </html>
