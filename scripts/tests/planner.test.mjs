@@ -37,3 +37,83 @@ test('Direct function URL rejects anonymous, bad-purpose and unapproved sessions
  assert.equal((await handler(request(owner,'arbitrary'))).status,400);
  assert.equal((await handler(new Request('https://example.com',{method:'POST'}))).status,405);
 });
+
+import {readThrough,cacheKey,FRESH_MS,STALE_MS} from '../../netlify/lib/planner-cache.mjs';
+import {MAX_IN_FLIGHT,HOME_PAGE} from '../../netlify/lib/planner-notion.mjs';
+
+const json=body=>new Response(JSON.stringify(body),{status:200});
+test('Requests run side by side up to the limit instead of one at a time',async()=>{
+ let open=0,peak=0;
+ const client=createNotionClient('t',async()=>{open++;peak=Math.max(peak,open);await new Promise(r=>setTimeout(r,20));open--;return json({results:[],has_more:false});},async()=>{});
+ const started=Date.now();
+ await Promise.all(Array.from({length:9},(_,i)=>client.query('s'+i)));
+ assert.equal(peak,MAX_IN_FLIGHT);
+ assert.ok(Date.now()-started<1000,'nine reads should not take the old 9 × 350 ms');
+});
+test('A 429 pauses requests for Retry-After, then retries',async()=>{
+ const waits=[];let count=0;
+ const client=createNotionClient('t',async()=>{count++;return count===1?new Response('',{status:429,headers:{'retry-after':'2'}}):json({results:[],has_more:false});},async ms=>{waits.push(ms);});
+ assert.deepEqual(await client.query('s'),[]);
+ assert.equal(count,2);assert.ok(waits[0]>1500&&waits[0]<=2000);
+});
+test('Home opens nested blocks in parallel and keeps page order',async()=>{
+ const block=(id,type,text,has_children=false)=>({id,type,has_children,[type]:{rich_text:text?[{plain_text:text}]:[]}});
+ const tree={
+  [HOME_PAGE]:[block('h1','heading_2','SEASON 01'),block('cols','column_list','',true),block('h2','heading_2','THIS WEEK'),block('t3','to_do','Third')],
+  cols:[block('c1','column','',true),block('c2','column','',true)],
+  c1:[block('p1','paragraph','First')],
+  c2:[block('p2','paragraph','Second')],
+ };
+ const client=createNotionClient('t',async url=>{const id=url.match(/blocks\/([^/]+)\/children/)[1];return json({results:tree[id],has_more:false});},async()=>{});
+ const data=await client.home();
+ assert.deepEqual(data.season.map(x=>x.text),['SEASON 01','First','Second']);
+ assert.deepEqual(data.week.map(x=>x.text),['THIS WEEK','Third']);
+});
+
+const memoryStore=()=>{const m=new Map();return {m,get:async k=>m.has(k)?JSON.parse(m.get(k)):null,setJSON:async(k,v)=>{m.set(k,JSON.stringify(v));}};};
+test('Saved copies: fresh is served, older is served and flagged stale, other days and refreshes read Notion',async()=>{
+ const store=memoryStore();let loads=0;const load=async()=>{loads++;return ['row'];};
+ let t=Date.parse('2026-10-07T15:00:00Z');const now=()=>t;
+ const base={store,section:'tasks',date:'2026-10-07',load,now};
+ assert.equal((await readThrough(base)).cache,'miss');assert.equal(loads,1);
+ assert.ok(store.m.has(cacheKey('tasks','2026-10-07')));
+ t+=FRESH_MS-1;assert.equal((await readThrough(base)).cache,'hit');assert.equal(loads,1);
+ t+=2;const stale=await readThrough(base);assert.equal(stale.cache,'stale');assert.deepEqual(stale.data,['row']);assert.equal(loads,1);
+ assert.equal((await readThrough({...base,force:true})).cache,'refresh');assert.equal(loads,2);
+ t+=STALE_MS+1;assert.equal((await readThrough(base)).cache,'miss');assert.equal(loads,3);
+ assert.equal((await readThrough({...base,date:'2026-10-08'})).cache,'miss');assert.equal(loads,4);
+ assert.equal((await readThrough({...base,store:null})).cache,'miss');
+});
+test('A broken store never breaks the Planner',async()=>{
+ const broken={get:async()=>{throw new Error('down');},setJSON:async()=>{throw new Error('down');}};
+ const copy=await readThrough({store:broken,section:'home',date:'2026-10-07',load:async()=>({ok:true})});
+ assert.deepEqual(copy.data,{ok:true});
+});
+test('Several sections load in one request; unknown names are rejected',async()=>{
+ process.env.TOOLS_AUTH_SECRET='test-secret';process.env.TOOLS_ALLOWED_EMAIL='owner@example.com';delete process.env.NOTION_TOKEN;delete process.env.NOTION_API_KEY;
+ const owner=await signToken('test-secret','session',{sub:'owner@example.com'},60);
+ const ask=q=>handler(new Request(`https://example.com/.netlify/functions/planner-data?${q}`,{headers:{cookie:`${SESSION_COOKIE}=${owner}`}}));
+ assert.equal((await ask('sections=home,nope')).status,400);
+ assert.equal((await ask('sections=')).status,400);
+ assert.equal((await ask('sections=home,tasks')).status,503);
+});
+test('End to end: one request returns every Home section, and a Notion failure stays inside its section',async()=>{
+ process.env.TOOLS_AUTH_SECRET='test-secret';process.env.TOOLS_ALLOWED_EMAIL='owner@example.com';process.env.NOTION_TOKEN='e2e-token';
+ const owner=await signToken('test-secret','session',{sub:'owner@example.com'},60);
+ const realFetch=globalThis.fetch;
+ globalThis.fetch=async url=>{
+  if (String(url).includes('/blocks/')) return json({results:[{id:'h',type:'heading_2',has_children:false,heading_2:{rich_text:[{plain_text:'SEASON 01'}]}}],has_more:false});
+  if (String(url).includes('04952f07')) return new Response('',{status:500});
+  return json({results:[{id:'r',url:'https://notion.so/r',properties:{Name:{type:'title',title:[{plain_text:'Row'}]}}}],has_more:false});
+ };
+ try {
+  const res=await handler(new Request('https://example.com/.netlify/functions/planner-data?sections=home,tasks,rhythm',{headers:{cookie:`${SESSION_COOKIE}=${owner}`}}));
+  assert.equal(res.status,200);
+  const body=await res.json();
+  assert.equal(body.sections.home.data.season[0].text,'SEASON 01');
+  assert.equal(body.sections.tasks.data[0].title,'Row');
+  assert.equal(body.sections.rhythm.code,'notion_unavailable');
+  const single=await handler(new Request('https://example.com/.netlify/functions/planner-data?section=tasks',{headers:{cookie:`${SESSION_COOKIE}=${owner}`}}));
+  assert.equal(single.status,200);assert.equal((await single.json()).data[0].title,'Row');
+ } finally {globalThis.fetch=realFetch;delete process.env.NOTION_TOKEN;}
+});

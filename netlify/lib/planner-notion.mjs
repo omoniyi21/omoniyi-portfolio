@@ -53,22 +53,42 @@ export function homeSections(blocks) {
   }
   return result;
 }
+// Notion allows about 180 requests a minute per connection and lets them come
+// in bursts, so a few requests run side by side instead of one every 350 ms.
+// A 429 pauses every request until Notion's Retry-After has passed.
+export const MAX_IN_FLIGHT = 3;
 export function createNotionClient(token, fetcher = fetch, wait = ms => new Promise(resolve => setTimeout(resolve,ms))) {
-  let nextRequest = 0;
+  let inFlight = 0;
+  let pausedUntil = 0;
+  const queue = [];
+  const next = () => {
+    while (inFlight < MAX_IN_FLIGHT && queue.length) {inFlight++;queue.shift()();}
+  };
+  const slot = () => new Promise(resolve => {queue.push(resolve);next();});
+  const release = () => {inFlight--;next();};
+  async function send(path, body) {
+    const pause = pausedUntil-Date.now();
+    if (pause > 0) await wait(pause);
+    return fetcher(`https://api.notion.com/v1/${path}`, {
+      method:body ? 'POST':'GET',
+      headers:{Authorization:`Bearer ${token}`,'Notion-Version':'2025-09-03','Content-Type':'application/json'},
+      ...(body ? {body:JSON.stringify(body)}:{}), signal:AbortSignal.timeout(15000),
+    });
+  }
   async function request(path, body) {
-    for (let attempt=0; attempt<3; attempt++) {
-      const delay = Math.max(0,nextRequest-Date.now());
-      nextRequest = Date.now()+delay+350;
-      if (delay) await wait(delay);
-      const response = await fetcher(`https://api.notion.com/v1/${path}`, {
-        method:body ? 'POST':'GET',
-        headers:{Authorization:`Bearer ${token}`,'Notion-Version':'2025-09-03','Content-Type':'application/json'},
-        ...(body ? {body:JSON.stringify(body)}:{}), signal:AbortSignal.timeout(15000),
-      });
-      if (response.status === 429 && attempt<2) {await wait(Math.min(5000,Math.max(1000,Number(response.headers.get('retry-after') || 1)*1000)));continue;}
-      if (!response.ok) {const error = new Error('Notion request failed');error.status=response.status;throw error;}
-      return response.json();
-    }
+    await slot();
+    try {
+      for (let attempt=0; attempt<3; attempt++) {
+        const response = await send(path, body);
+        if (response.status === 429 && attempt<2) {
+          const seconds = Number(response.headers.get('retry-after')) || 1;
+          pausedUntil = Math.max(pausedUntil, Date.now()+Math.min(5000,Math.max(1000,seconds*1000)));
+          continue;
+        }
+        if (!response.ok) {const error = new Error('Notion request failed');error.status=response.status;throw error;}
+        return response.json();
+      }
+    } finally {release();}
   }
   async function query(id, body = {}) {
     const rows=[];
@@ -92,18 +112,24 @@ export function createNotionClient(token, fetcher = fetch, wait = ms => new Prom
     } while(cursor);
     return blocks;
   }
+  const NESTED = ['column_list','column','callout','synced_block'];
+  // Opens every nested box on one level at the same time, then the next level,
+  // and keeps the blocks in the order they appear on the page.
+  async function flatten(blocks, depth=0) {
+    const nested = await Promise.all(blocks.map(b => depth<4 && b.has_children && NESTED.includes(b.type)
+      ? children(b.synced_block?.synced_from?.block_id || b.id).then(kids => flatten(kids, depth+1))
+      : []));
+    return blocks.flatMap((b,i) => [b, ...nested[i]]);
+  }
   async function home() {
     const root=await children(HOME_PAGE);
     const end=root.findIndex(b => /^heading_/.test(b.type) && /QUICK LINKS/i.test(textOf(b[b.type]?.rich_text)));
-    async function flatten(blocks,depth=0) {
-      const out=[];
-      for (const b of blocks) {
-        out.push(b);
-        if (depth<4 && b.has_children && ['column_list','column','callout','synced_block'].includes(b.type)) out.push(...await flatten(await children(b.synced_block?.synced_from?.block_id || b.id),depth+1));
-      }
-      return out;
-    }
     return homeSections(await flatten(end<0 ? root:root.slice(0,end)));
   }
   return {query,home};
+}
+
+// One section's data, for the function and the cache refresh.
+export function loadSection(client, section, date) {
+  return section === 'home' ? client.home():client.query(SOURCES[section],queryFor(section,date));
 }
