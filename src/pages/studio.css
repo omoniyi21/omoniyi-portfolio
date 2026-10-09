@@ -1867,3 +1867,50 @@ html[data-motion="reduce"] .studio-client-roll__pause { display: none; }
 .studio-section + .studio-client-roll {
   margin-top: clamp(3.5rem, 7vw, 5rem);
 }
+
+/* Offer polish (Oct 2026) ------------------------------------------------ */
+/* Stage cards: name, then price on its own line, so a long price never runs
+   past the card's padding in the three-column row. */
+.studio-tiers .studio-tier__heading { flex-direction: column; gap: var(--space-2); }
+.studio-tiers .studio-tier__price { text-align: left; white-space: normal; }
+
+/* Process: a timeframe under each step; Admission's node is filled. */
+.studio-process__steps .studio-process__time {
+  margin-top: var(--space-3);
+  font-family: var(--studio-mono);
+  font-size: 0.58rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--studio-ink);
+}
+.studio-process__steps li.is-key .studio-process__node {
+  background: var(--studio-oxblood);
+  border-color: var(--studio-oxblood);
+  color: var(--studio-cream);
+}
+
+/* Sections settle in as they scroll into view. CSS only: browsers without
+   scroll-driven animation show everything as is, nothing starts hidden, and
+   the on-site motion switch or device setting turns it off. */
+@keyframes studio-settle {
+  from { opacity: 0.35; transform: translateY(12px); }
+}
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    html:not([data-motion="reduce"]) .studio-page .studio-section {
+      animation: studio-settle linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 35%;
+    }
+  }
+}
+
+/* A site-wide list rule spaces sibling items, which dropped steps 02 to 04
+   below 01. The connecting line runs from the first node's center to the
+   last node's center instead of past it. */
+.studio-process__steps ol > li { margin: 0; }
+.studio-process__line {
+  left: 1rem;
+  right: calc((100% - 3 * var(--space-5)) / 4 - 1rem);
+}
