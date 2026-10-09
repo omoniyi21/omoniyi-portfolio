@@ -1905,3 +1905,12 @@ html[data-motion="reduce"] .studio-client-roll__pause { display: none; }
     }
   }
 }
+
+/* A site-wide list rule spaces sibling items, which dropped steps 02 to 04
+   below 01. The connecting line runs from the first node's center to the
+   last node's center instead of past it. */
+.studio-process__steps ol > li { margin: 0; }
+.studio-process__line {
+  left: 1rem;
+  right: calc((100% - 3 * var(--space-5)) / 4 - 1rem);
+}
