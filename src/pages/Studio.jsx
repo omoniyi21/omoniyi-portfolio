@@ -19,10 +19,10 @@ const ADMISSION_PAGE = "/studio/admission";
 const CTA = "Tell me what isn’t working";
 
 const PROCESS = [
-  { n: "01", title: "Tell me what isn’t working", desc: "A short inquiry form, then a free 20-minute fit call." },
-  { n: "02", title: "Admission", desc: "A $500 diagnosis: what’s in the way, what to fix first, and a fixed quote." },
-  { n: "03", title: "The work", desc: "The stage the diagnosis calls for, at the price it named." },
-  { n: "04", title: "Handoff", desc: "What changed, why, what was left alone, and what to watch next." },
+  { n: "01", title: "Tell me what isn’t working", desc: "A short inquiry form, then a free 20-minute fit call.", time: "Free · 20 minutes" },
+  { n: "02", title: "Admission", desc: "A $500 diagnosis: what’s in the way, what to fix first, and a fixed quote. Credited toward the work if you book it.", time: "Within 5 business days", key: true },
+  { n: "03", title: "The work", desc: "The stage the diagnosis calls for, at the price it named.", time: "2 weeks to 3 months" },
+  { n: "04", title: "Handoff", desc: "What changed, why, what was left alone, and what to watch next.", time: "At the end" },
 ];
 
 const PRINCIPLES = [
@@ -307,7 +307,7 @@ function ProductTeams() {
   return (
     <section className="studio-section" id="product-teams">
       <div className="studio-section__row">
-        <p className="studio-section__meta">05 / For Product Teams</p>
+        <p className="studio-section__meta">06 / For Product Teams</p>
       </div>
       <div className="studio-team">
         <article className="studio-team__card">
@@ -337,7 +337,7 @@ function Production() {
   return (
     <section className="studio-section" id="production">
       <div className="studio-section__row">
-        <p className="studio-section__meta">06 / How a Production Runs</p>
+        <p className="studio-section__meta">05 / How a Production Runs</p>
         <p className="studio-section__meta studio-section__meta--right">One fixed quote, after the diagnosis</p>
       </div>
 
@@ -382,7 +382,7 @@ function Production() {
             <div className="studio-tier__heading">
               <h3>{stage.name}</h3>
               <div className="studio-tier__price">
-                <span>{stage.id === "feature" ? "Total" : "Quoted fixed"}</span>
+                <span>{stage.id === "feature" ? "Total" : "Quoted after Admission"}</span>
                 <strong>{stage.price}</strong>
               </div>
             </div>
@@ -458,10 +458,11 @@ function Process() {
           <div className="studio-process__line" aria-hidden="true" />
           <ol>
             {PROCESS.map((step) => (
-              <li key={step.n}>
+              <li key={step.n} className={step.key ? "is-key" : undefined}>
                 <span className="studio-process__node">{step.n}</span>
                 <h4>{step.title}</h4>
                 <p>{step.desc}</p>
+                <p className="studio-process__time">{step.time}</p>
               </li>
             ))}
           </ol>
@@ -755,8 +756,8 @@ export default function Studio() {
       <Process />
       <WhatICheck />
       <SelectedWork />
-      <ProductTeams />
       <Production />
+      <ProductTeams />
       <Elsewhere />
       <Questions />
       </main>

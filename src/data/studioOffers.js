@@ -56,12 +56,12 @@ export const STAGES = [
     sub: "Ongoing creative direction",
     price: "From $13,000 per term",
     description:
-      "For businesses with several connected problems, worked through in sequence over three months.",
+      "For businesses with several connected problems, worked through in sequence.",
     items: [
       "A roadmap and sequenced fixes",
       "Measurement and reporting",
       "Continued creative direction",
-      "A 3-month term, renewable",
+      "Renews only if we both say yes",
     ],
     timeline: "3-month term",
     tone: "dark",
