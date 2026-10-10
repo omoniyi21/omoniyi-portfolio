@@ -27,13 +27,13 @@
     <div class="banner" id="sent" role="status" hidden>If that email has a project room, your link is on its way. It expires in 30 minutes. Check spam if it isn’t there in a minute or two.</div>
 
     <form id="form" novalidate>
-      <div>
+      <div id="email-field">
         <label for="email">Email</label>
         <input id="email" name="email" type="email" autocomplete="email" placeholder="you@email.com" required aria-describedby="email-error">
         <p class="field-error" id="email-error" hidden></p>
       </div>
       <div class="hp" aria-hidden="true"><label for="website">Website</label><input id="website" name="website" tabindex="-1" autocomplete="off"></div>
-      <button class="ticket" type="submit" id="submit"><span id="submit-label">Send my sign-in link</span><span class="ticket__stub" aria-hidden="true">Admit one</span></button>
+      <button class="ticket" type="submit" id="submit"><span class="ticket__main" id="submit-label">Send my link</span><span class="ticket__stub" id="submit-stub" aria-hidden="true">Admit one</span></button>
     </form>
 
     <p class="signin__foot" id="resend-row" hidden>Didn’t get it? <button class="linkish" type="button" id="resend">Send it again</button></p>
@@ -55,13 +55,25 @@
   function showError(message) { fieldError.textContent = message; fieldError.hidden = false; email.setAttribute('aria-invalid', 'true'); }
   function clearError() { fieldError.hidden = true; email.removeAttribute('aria-invalid'); }
 
+  // The ticket tears the moment it's pressed, stays torn once the link is
+  // sent ("admitted"), and mends if sending fails so it can be tried again.
+  function tear(on) { submit.classList.toggle('is-torn', on); }
+  function admitted() {
+    $('email-field').hidden = true;
+    submit.classList.add('is-admitted');
+    submit.disabled = true;
+    label.textContent = 'Check your email';
+    $('submit-stub').textContent = 'Admitted';
+  }
+
   async function requestLink(button) {
     clearError();
     var value = email.value.trim();
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) { form.hidden = false; showError('Please enter a valid email address.'); email.focus(); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) { showError('Please enter a valid email address.'); email.focus(); return; }
     var text = button === submit ? label : button;
     var original = text.textContent;
     button.disabled = true;
+    if (button === submit) tear(true);
     text.textContent = 'Sending…';
     try {
       var response = await fetch('/api/portal/request-link', {
@@ -76,18 +88,22 @@
       $('signed-out').hidden = true;
       $('sent').hidden = false;
       $('lede').textContent = 'Check your email for your sign-in link.';
-      form.hidden = true;
       $('resend-row').hidden = false;
-      text.textContent = button === resend ? 'Sent again' : original;
-      if (button === resend) setTimeout(function () { resend.textContent = 'Send it again'; }, 4000);
+      if (button === resend) {
+        resend.textContent = 'Sent again';
+        setTimeout(function () { resend.textContent = 'Send it again'; }, 4000);
+        button.disabled = false;
+      } else {
+        admitted();
+      }
     } catch (error) {
-      form.hidden = false;
+      if (button === submit) { tear(false); button.disabled = false; }
+      else { button.disabled = false; }
+      $('email-field').hidden = false;
       $('resend-row').hidden = true;
       $('sent').hidden = true;
       showError(error.message);
       text.textContent = original;
-    } finally {
-      button.disabled = false;
     }
   }
 

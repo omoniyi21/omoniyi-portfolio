@@ -92,23 +92,74 @@ a { color: inherit; }
 .button--quiet { background: transparent; color: var(--ink); }
 .button--quiet:hover { background: var(--ink); color: var(--cream); border-color: var(--ink); }
 
-/* The ticket: Studio's one expressive control, kept for sign-in. */
+/* The ticket: Studio's one expressive control, kept for sign-in.
+   Flat and 2D like the rest of Studio, but the tear is allowed to move:
+   two halves pivot on their shared bottom corners and open a V along the
+   perforation (the "tilt" tear), with a little overshoot so it feels torn,
+   not faded. Transitions only, so it can mend if the send fails. */
 .ticket {
-  position: relative; width: 100%; min-height: 64px; padding: 0 28px;
-  border: 0; cursor: pointer; color: var(--cream); background: var(--oxblood);
+  --tear-ease: cubic-bezier(.34, 1.56, .64, 1);
+  position: relative; width: 100%; min-height: 64px; padding: 0;
+  border: 0; background: none; cursor: pointer; color: var(--cream);
   font: 700 0.95rem/1.2 var(--sans); letter-spacing: 0.06em;
-  display: flex; align-items: center; justify-content: space-between; gap: 16px;
-  /* half-circle notches on both short edges */
-  -webkit-mask: radial-gradient(circle 10px at 0 50%, #0000 98%, #000) left / 51% 100% no-repeat,
-                radial-gradient(circle 10px at 100% 50%, #0000 98%, #000) right / 51% 100% no-repeat;
-          mask: radial-gradient(circle 10px at 0 50%, #0000 98%, #000) left / 51% 100% no-repeat,
-                radial-gradient(circle 10px at 100% 50%, #0000 98%, #000) right / 51% 100% no-repeat;
+  display: flex; align-items: stretch;
 }
-.ticket::before { content: ""; position: absolute; inset: 7px 18px; border: 1.5px dashed rgba(255, 250, 214, 0.5); pointer-events: none; }
-.ticket__stub { padding-left: 16px; border-left: 1.5px dashed rgba(255, 250, 214, 0.5); font-size: 0.68rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--chrome); white-space: nowrap; }
-.ticket:hover { background: var(--oxblood-light); }
-.ticket:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--cream), 0 0 0 5px var(--focus); -webkit-mask: none; mask: none; }
-.ticket[disabled] { opacity: 0.7; cursor: progress; }
+.ticket__main, .ticket__stub {
+  position: relative; display: flex; align-items: center;
+  background: var(--oxblood);
+  transition: transform .52s var(--tear-ease), background-color .12s;
+}
+.ticket__main {
+  flex: 1; padding: 0 20px 0 30px; justify-content: flex-start;
+  transform-origin: 100% 100%;
+  /* side notch on the left, half notches where the perforation starts and ends */
+  -webkit-mask: radial-gradient(circle 10px at 0 50%, #0000 98%, #000),
+                radial-gradient(circle 5px at 100% 0, #0000 98%, #000),
+                radial-gradient(circle 5px at 100% 100%, #0000 98%, #000);
+  -webkit-mask-composite: source-in, source-in;
+          mask: radial-gradient(circle 10px at 0 50%, #0000 98%, #000),
+                radial-gradient(circle 5px at 100% 0, #0000 98%, #000),
+                radial-gradient(circle 5px at 100% 100%, #0000 98%, #000);
+          mask-composite: intersect;
+}
+.ticket__stub {
+  flex: none; padding: 0 28px 0 18px; justify-content: center;
+  font-size: 0.68rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--chrome); white-space: nowrap;
+  transform-origin: 0 100%;
+  -webkit-mask: radial-gradient(circle 10px at 100% 50%, #0000 98%, #000),
+                radial-gradient(circle 5px at 0 0, #0000 98%, #000),
+                radial-gradient(circle 5px at 0 100%, #0000 98%, #000);
+  -webkit-mask-composite: source-in, source-in;
+          mask: radial-gradient(circle 10px at 100% 50%, #0000 98%, #000),
+                radial-gradient(circle 5px at 0 0, #0000 98%, #000),
+                radial-gradient(circle 5px at 0 100%, #0000 98%, #000);
+          mask-composite: intersect;
+}
+/* inner dashed rule on each half, and the perforation between them */
+.ticket__main::before, .ticket__stub::before {
+  content: ""; position: absolute; top: 7px; bottom: 7px; pointer-events: none;
+  border: 1.5px dashed rgba(255, 250, 214, 0.45);
+}
+.ticket__main::before { left: 18px; right: 0; border-right: 0; }
+.ticket__stub::before { left: 0; right: 18px; border-left: 0; }
+.ticket__stub::after {
+  content: ""; position: absolute; left: 0; top: 6px; bottom: 6px;
+  border-left: 2px dotted rgba(255, 250, 214, 0.7);
+}
+.ticket:hover .ticket__main, .ticket:hover .ticket__stub { background: var(--oxblood-light); }
+.ticket:focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; }
+.ticket[disabled] { cursor: progress; }
+.ticket.is-admitted { cursor: default; }
+
+.ticket.is-torn .ticket__main { transform: rotate(-3.5deg); }
+.ticket.is-torn .ticket__stub { transform: rotate(9deg) translateX(3px); }
+.ticket.is-torn:hover .ticket__main, .ticket.is-torn:hover .ticket__stub { background: var(--oxblood); }
+
+@media (prefers-reduced-motion: reduce) {
+  .ticket__main, .ticket__stub { transition: background-color .12s; }
+  .ticket.is-torn .ticket__main, .ticket.is-torn .ticket__stub { transform: none; }
+  .ticket.is-torn .ticket__stub { opacity: .55; }
+}
 
 /* ---------- status reel ---------- */
 .reel { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; border-top: 1px solid var(--border); }
@@ -181,3 +232,8 @@ a { color: inherit; }
 .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 .signin__foot { margin: 0; font-size: 0.85rem; color: var(--muted); }
 .linkish { background: none; border: 0; padding: 0; font: inherit; color: var(--ink); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+
+@media (max-width: 400px) {
+  .ticket__main { padding: 0 14px 0 26px; }
+  .ticket__stub { padding: 0 24px 0 14px; letter-spacing: 0.18em; }
+}
