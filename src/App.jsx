@@ -7,6 +7,10 @@ import Header from "./components/shared/header/Header";
 import Footer from "./components/shared/footer/Footer";
 import ScrollManager from "./components/shared/ScrollManager";
 import { SpaceTransitionProvider } from "./components/shared/SpaceTransition";
+import { PERSONAL_ORIGIN, isStudioHost, isStudioPath } from "./lib/siteHost";
+
+// Read once: the domain never changes while the app is open.
+const studioHost = isStudioHost();
 
 // Everything except the homepage loads on demand, so a first visit only
 // downloads what it shows. The most-visited next stops warm up when idle,
@@ -69,8 +73,15 @@ const Visual = lazy(loaders.visual);
 export default function App() {
   const { pathname } = useLocation();
   const isKitPage = /^\/uikits?\/?$/.test(pathname);
-  const isStudioPage = /^\/studio(\/inquire|\/admission|\/about)?\/?$/.test(pathname);
+  const isStudioPage = /^\/studio(\/inquire|\/admission|\/about)?\/?$/.test(pathname) || (studioHost && pathname === "/");
+  const leavesStudioDomain = studioHost && !isStudioPath(pathname);
   const hideChrome = isKitPage || isStudioPage;
+
+  // A link inside the app to a portfolio page, followed on the Studio
+  // domain, finishes on the portfolio's own domain.
+  useEffect(() => {
+    if (leavesStudioDomain) window.location.replace(PERSONAL_ORIGIN + pathname + window.location.search + window.location.hash);
+  }, [leavesStudioDomain, pathname]);
 
   useEffect(() => {
     const warm = () => { loaders.work(); loaders.house(); loaders.study(); };
@@ -97,8 +108,8 @@ export default function App() {
       {!hideChrome && <Header />}
 
       <Suspense fallback={<main className="route-loading" aria-busy="true" />}>
-      <Routes>
-        <Route path="/" element={<Home />} />
+      {leavesStudioDomain ? <main className="route-loading" aria-busy="true" /> : <Routes>
+        <Route path="/" element={studioHost ? <Studio /> : <Home />} />
         <Route path="/studio" element={<Studio />} />
         <Route path="/studio/inquire" element={<StudioInquire />} />
         <Route path="/studio/admission" element={<StudioAdmission />} />
@@ -121,7 +132,7 @@ export default function App() {
         <Route path="/sultry-tips" element={<ProjectCaseStudy studyKey="sultry" />} />
         <Route path="/library-of-congress" element={<ProjectCaseStudy studyKey="libraryOfCongress" />} />
         <Route path="*" element={<NotFound />} />
-      </Routes>
+      </Routes>}
       </Suspense>
       {!hideChrome && <Footer />}
     </SpaceTransitionProvider>

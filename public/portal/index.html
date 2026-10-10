@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Project Rooms · Omoniyi Studio</title>
+<link rel="icon" href="/favicons/studio.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat&family=Fraunces:opsz,wght@9..144,400;9..144,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/portal/assets/portal.css">
+</head>
+<body>
+<!-- Owner-only overview. Clients are sent to their own room by portal-gate. -->
+<header class="bar">
+  <a class="bar__brand" href="/portal/"><img src="/portal/assets/eye-light.svg" alt="" width="28" height="28">Omoniyi Studio</a>
+  <a class="bar__out" href="/portal/logout">Sign out</a>
+</header>
+<main class="page">
+  <section class="hero">
+    <p class="label">Owner view</p>
+    <h1>Project rooms</h1>
+    <p class="hero__lede">Every client room, as the client sees it. Clients only ever see their own.</p>
+  </section>
+  <section class="section" aria-label="Rooms">
+    <ul class="rooms">
+      <li><a href="/portal/6ix/"><strong>6IX Chocolate Co.</strong><span>Nawal · ordering site · in review</span></a></li>
+      <li><div class="is-closed"><strong>TaeHamm</strong><span>Room not opened yet</span></div></li>
+    </ul>
+  </section>
+  <section class="section">
+    <div class="section__head">
+      <p class="label">Opening a room</p>
+      <h2>Three steps</h2>
+    </div>
+    <ol class="section__lede">
+      <li>Copy <code>public/portal/6ix/</code> to <code>public/portal/&lt;project&gt;/</code> and rewrite it for the client.</li>
+      <li>In Netlify, add <code>client@email.com=&lt;project&gt;</code> to <code>PORTAL_CLIENTS</code> (comma between clients).</li>
+      <li>Send them <code>omoniyistudio.com/portal</code>. They sign in with that email.</li>
+    </ol>
+  </section>
+</main>
+</body>
+</html>
