@@ -228,3 +228,28 @@ a { color: inherit; }
 .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 .signin__foot { margin: 0; font-size: 0.85rem; color: var(--muted); }
 .linkish { background: none; border: 0; padding: 0; font: inherit; color: var(--ink); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+
+/* ---------- toolbox guides ---------- */
+.bar__nav { display: flex; gap: 20px; }
+.guide { max-width: 720px; }
+.guide .hero h1 { max-width: 18ch; }
+.guide__meta { display: flex; flex-wrap: wrap; gap: 8px 20px; margin: 0; font-size: 0.9rem; color: var(--muted); }
+.guide__meta strong { color: var(--ink); font-weight: 700; }
+.callout { border-left: 3px solid var(--oxblood); background: var(--parchment); padding: 16px 20px; margin: 0 0 24px; }
+.callout p { margin: 0; }
+.callout p + p { margin-top: 8px; }
+.steps { list-style: none; margin: 0; padding: 0; counter-reset: step; display: grid; gap: 0; border-top: 1px solid var(--border); }
+.steps > li { counter-increment: step; display: grid; grid-template-columns: 2.5rem 1fr; gap: 4px 12px; padding: 20px 0; border-bottom: 1px solid var(--border); }
+.steps > li > * { grid-column: 2; }
+.steps > li::before { content: counter(step, decimal-leading-zero); grid-column: 1; grid-row: 1; font: 700 0.75rem/1.9 var(--sans); letter-spacing: 0.16em; color: var(--oxblood-light); }
+.steps strong { font: 500 1.15rem/1.35 var(--serif); }
+.steps p { margin: 0; color: var(--ink-mid); }
+.steps p + p { margin-top: 6px; }
+.path { font-weight: 700; color: var(--ink); }
+.code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 0.9em; background: var(--parchment-deep); padding: 1px 6px; white-space: nowrap; }
+.disclosure { margin: 10px 0 0; font-size: 0.85rem; color: var(--muted); }
+.guides { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.guides a { display: grid; gap: 6px; padding: 22px; border: 1px solid var(--border); background: var(--parchment); text-decoration: none; }
+.guides a:hover { border-color: var(--ink); }
+.guides strong { font: 500 1.3rem/1.2 var(--serif); }
+.guides span { color: var(--ink-mid); }

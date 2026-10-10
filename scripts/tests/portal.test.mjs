@@ -96,6 +96,8 @@ test('The Studio domain shows Studio at its root and sends everything else home'
   assert.equal(away.headers.get('location'), 'https://omoniyialimi.com/work?x=1');
   assert.equal((await go('https://www.omoniyistudio.com/studio')).headers.get('location'), 'https://omoniyistudio.com/studio');
   assert.equal((await go('https://omoniyialimi.com/portal/')).headers.get('location'), 'https://omoniyistudio.com/portal/');
+  assert.equal((await go('https://omoniyistudio.com/toolbox/domain/')).status, 200);
+  assert.equal((await go('https://omoniyialimi.com/toolbox/')).headers.get('location'), 'https://omoniyistudio.com/toolbox/');
   assert.equal((await go('https://omoniyialimi.com/work')).status, 200);
   assert.equal((await go('https://deploy-preview-9--omoniyialimi.netlify.app/portal/')).status, 200);
 });
@@ -103,6 +105,7 @@ test('The Studio domain shows Studio at its root and sends everything else home'
 test('In-app routing keeps Studio paths on the Studio domain', () => {
   assert.equal(isStudioPath('/'), true);
   assert.equal(isStudioPath('/studio/inquire'), true);
+  assert.equal(isStudioPath('/toolbox/analytics/'), true);
   assert.equal(isStudioPath('/house'), false);
   assert.equal(metadataPathFor('/', true), '/studio');
   assert.equal(metadataPathFor('/', false), '/');

@@ -6,12 +6,13 @@
  *                     head, title and favicon are Studio's)
  *   /studio/*         the Studio's other pages
  *   /portal/*         the client portal (guarded by portal-gate)
+ *   /toolbox/*        public client guides
  *   /api/*, files     pass through
  *   anything else     301 to the same path on omoniyialimi.com
  * www.omoniyistudio.com  301 to omoniyistudio.com
  *
  * omoniyialimi.com
- *   /portal/*         302 to the same path on omoniyistudio.com
+ *   /portal/*, /toolbox/*  302 to the same path on omoniyistudio.com
  *
  * Other hosts (deploy previews, localhost) serve everything, so the portal
  * can be tested before the domain resolves.
@@ -23,6 +24,7 @@ const PERSONAL_ORIGIN = "https://omoniyialimi.com";
 
 const isPortal = (path) => path === "/portal" || path.startsWith("/portal/");
 const isStudio = (path) => path === "/studio" || path.startsWith("/studio/");
+const isToolbox = (path) => path === "/toolbox" || path.startsWith("/toolbox/");
 const isFile = (path) => /\.[a-z0-9]{2,5}$/i.test(path);
 
 function redirect(location, status) {
@@ -41,13 +43,13 @@ export default async (request, context) => {
 
   if (host === STUDIO_HOST) {
     if (path === "/") return new URL("/studio/index.html", url);
-    if (isStudio(path) || isPortal(path) || path.startsWith("/api/") || path.startsWith("/.netlify/") || isFile(path)) {
+    if (isStudio(path) || isPortal(path) || isToolbox(path) || path.startsWith("/api/") || path.startsWith("/.netlify/") || isFile(path)) {
       return context.next();
     }
     return redirect(`${PERSONAL_ORIGIN}${path}${url.search}`, 301);
   }
 
-  if (PERSONAL_HOSTS.includes(host) && isPortal(path)) {
+  if (PERSONAL_HOSTS.includes(host) && (isPortal(path) || isToolbox(path))) {
     return redirect(`https://${STUDIO_HOST}${path}${url.search}`, 302);
   }
 
