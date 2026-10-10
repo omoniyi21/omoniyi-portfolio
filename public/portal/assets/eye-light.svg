@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none" stroke="#fffad6" stroke-linecap="round">
+  <!-- Omoniyi Studio eye mark, heavy weight for small sizes. Lid B / Knowing. -->
+  <rect x="9" y="9" width="182" height="182" rx="30" fill="#3b1016" stroke-width="18"/>
+  <path d="M66 52 Q100 34 134 52" stroke-width="12"/>
+  <circle cx="100" cy="112" r="38" stroke-width="13"/>
+  <path d="M85 110 A15 15 0 0 0 115 110 Z" fill="#fffad6" stroke="none"/>
+  <path d="M54 110 Q100 114 146 110" stroke-width="16"/>
+</svg>

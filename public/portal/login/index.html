@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Project Room · Omoniyi Studio</title>
+<link rel="icon" href="/favicons/studio.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/favicons/studio-apple.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat&family=Fraunces:opsz,wght@9..144,400;9..144,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/portal/assets/portal.css">
+</head>
+<body>
+<main class="signin">
+  <div class="signin__card">
+    <div>
+      <img class="signin__mark" src="/portal/assets/eye.svg" alt="" width="44" height="44">
+      <p class="label" style="margin-top:20px">Omoniyi Studio</p>
+      <h1>Your project room</h1>
+    </div>
+    <p class="signin__lede" id="lede">Enter the email you use with me and I’ll send you a sign-in link. No password to remember.</p>
+
+    <div class="banner banner--error" id="expired" role="alert" hidden>That link expired or didn’t work. Send yourself a new one.</div>
+    <div class="banner" id="signed-out" role="status" hidden>You’re signed out.</div>
+    <div class="banner" id="sent" role="status" hidden>If that email has a project room, your link is on its way. It expires in 30 minutes. Check spam if it isn’t there in a minute or two.</div>
+
+    <form id="form" novalidate>
+      <div id="email-field">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" autocomplete="email" placeholder="you@email.com" required aria-describedby="email-error">
+        <p class="field-error" id="email-error" hidden></p>
+      </div>
+      <div class="hp" aria-hidden="true"><label for="website">Website</label><input id="website" name="website" tabindex="-1" autocomplete="off"></div>
+      <div><button class="ticket" type="submit" id="submit"><span class="ticket__main" id="submit-label">Send my link</span><span class="ticket__stub" aria-hidden="true"><span class="ticket__perf"></span><span class="ticket__no"><small>NO.</small><b>01</b></span></span></button></div>
+    </form>
+
+    <p class="signin__foot" id="resend-row" hidden>Didn’t get it? <button class="linkish" type="button" id="resend">Send it again</button></p>
+    <p class="signin__foot">Trouble signing in? Email <a href="mailto:hello@omoniyistudio.com">hello@omoniyistudio.com</a>.</p>
+  </div>
+</main>
+
+<script>
+(function () {
+  var params = new URLSearchParams(location.search);
+  var next = params.get('next') || '';
+  var $ = function (id) { return document.getElementById(id); };
+  var form = $('form'), email = $('email'), submit = $('submit'), label = $('submit-label'), resend = $('resend');
+  var fieldError = $('email-error');
+
+  if (params.get('link') === 'expired') $('expired').hidden = false;
+  if (params.get('signed_out')) $('signed-out').hidden = false;
+
+  function showError(message) { fieldError.textContent = message; fieldError.hidden = false; email.setAttribute('aria-invalid', 'true'); }
+  function clearError() { fieldError.hidden = true; email.removeAttribute('aria-invalid'); }
+
+  // The ticket tears the moment it's pressed, stays torn once the link is
+  // sent ("admitted"), and mends if sending fails so it can be tried again.
+  function tear(on) { submit.classList.toggle('is-torn', on); }
+  function admitted() {
+    $('email-field').hidden = true;
+    submit.classList.add('is-admitted');
+    submit.disabled = true;
+    label.textContent = 'Check your email';
+  }
+
+  async function requestLink(button) {
+    clearError();
+    var value = email.value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) { showError('Please enter a valid email address.'); email.focus(); return; }
+    var text = button === submit ? label : button;
+    var original = text.textContent;
+    button.disabled = true;
+    if (button === submit) tear(true);
+    text.textContent = 'Sending…';
+    try {
+      var response = await fetch('/api/portal/request-link', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: value, next: next, website: $('website').value })
+      });
+      var data = await response.json().catch(function () { return {}; });
+      if (response.status === 429) throw new Error('Too many tries. Wait a minute and try again.');
+      if (!response.ok || !data.ok) throw new Error(data.error || 'The link couldn’t be sent. Try again in a minute.');
+      $('expired').hidden = true;
+      $('signed-out').hidden = true;
+      $('sent').hidden = false;
+      $('lede').textContent = 'Check your email for your sign-in link.';
+      $('resend-row').hidden = false;
+      if (button === resend) {
+        resend.textContent = 'Sent again';
+        setTimeout(function () { resend.textContent = 'Send it again'; }, 4000);
+        button.disabled = false;
+      } else {
+        admitted();
+      }
+    } catch (error) {
+      if (button === submit) { tear(false); button.disabled = false; }
+      else { button.disabled = false; }
+      $('email-field').hidden = false;
+      $('resend-row').hidden = true;
+      $('sent').hidden = true;
+      showError(error.message);
+      text.textContent = original;
+    }
+  }
+
+  form.addEventListener('submit', function (event) { event.preventDefault(); requestLink(submit); });
+  resend.addEventListener('click', function () { requestLink(resend); });
+})();
+</script>
+</body>
+</html>

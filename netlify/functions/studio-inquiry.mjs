@@ -12,6 +12,8 @@ const NOTIFICATION_EMAIL = "contact@omoniyialimi.com";
 const ALLOWED_ORIGINS = [
   "https://omoniyialimi.com",
   "https://www.omoniyialimi.com",
+  "https://omoniyistudio.com",
+  "https://www.omoniyistudio.com",
   "http://localhost:5173",
 ];
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

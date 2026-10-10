@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
+import { metadataPathFor } from '../../lib/siteHost';
 
 // The metadata table imports every case study and post, so it loads on
 // demand instead of in the main bundle. On first load the page's static
@@ -33,7 +34,8 @@ function applyMetadata({ getPageMetadata, metadataTags, faviconFor }, pathname) 
 }
 
 export default function PageMetadata() {
-  const { pathname } = useLocation();
+  const { pathname: routePath } = useLocation();
+  const pathname = metadataPathFor(routePath);
   // Each page's head is written into its static HTML at build time, so on
   // the first page the table is only needed when that prebuilt head is for
   // a different path (a 404 is served the homepage's HTML, for example).

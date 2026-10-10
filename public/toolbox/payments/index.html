@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Connecting Your Payments · Omoniyi Studio Toolbox</title>
+<meta name="description" content="How to give your designer access to your payment platform so your website can take orders, step by step.">
+<link rel="icon" href="/favicons/studio.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/favicons/studio-apple.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat&family=Fraunces:opsz,wght@9..144,400;9..144,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/portal/assets/portal.css">
+</head>
+<body>
+<!-- One tab per platform. To add one: a <button role="tab"> in .tabs and a matching <section role="tabpanel">.
+     Link straight to a platform with /toolbox/payments/#square. -->
+<header class="bar">
+  <a class="bar__brand" href="/"><img src="/portal/assets/eye-light.svg" alt="" width="28" height="28">Omoniyi Studio</a>
+  <nav class="bar__nav" aria-label="Toolbox"><a class="bar__out" href="/toolbox/">Toolbox</a></nav>
+</header>
+
+<main class="page guide">
+  <section class="hero" aria-labelledby="title">
+    <p class="label">Toolbox · Guide</p>
+    <h1 id="title">Connecting your payments</h1>
+    <p class="hero__lede">For your website to take orders, I need access to the platform that handles your payments. Pick yours below. Your money always goes straight to you; I never touch payouts.</p>
+  </section>
+
+  <div class="tabs" role="tablist" aria-label="Payment platform">
+    <button role="tab" id="tab-square" aria-controls="square" aria-selected="true">Square</button>
+  </div>
+
+  <section role="tabpanel" id="square" aria-labelledby="tab-square" tabindex="-1">
+    <p class="guide__meta" style="margin-bottom:24px"><span><strong>Time:</strong> about 10 minutes</span><span><strong>Cost:</strong> free</span><span><strong>You’ll need:</strong> your Square login, on a computer</span></p>
+
+    <div class="callout warn">
+      <p><strong>A heads-up on how much this opens.</strong> Today, the way to do this in Square is to add me to your team with full access. That lets me set up checkout for your site, and it also lets me see your sales and customers. I only use it for your website.</p>
+      <p>I’m building a one-click “Connect Square” button that asks only for what your site needs. When it’s ready, we’ll switch to it and you can remove me from your team.</p>
+    </div>
+
+    <div class="section__head" style="margin-top:32px">
+      <p class="label">Part 1</p>
+      <h2>Add me to your team</h2>
+    </div>
+    <ol class="steps">
+      <li><strong>Open your team</strong><p>Sign in to your Square Dashboard on a computer. Go to <span class="path">Staff</span>, then <span class="path">Team</span>, then <span class="path">Team members</span>, and click <span class="path">Add team member</span>.</p></li>
+      <li><strong>Enter my details</strong><p>First name <span class="code">Omoniyi</span>, last name <span class="code">Alimi</span>, email <span class="code">hello@omoniyistudio.com</span>. Click <span class="path">Next</span>.</p></li>
+      <li><strong>Job details</strong><p>For the job title, type <span class="code">Website</span>. I’m not on your payroll, so if Square asks about pay, choose any option and leave the amount at zero or blank. Click <span class="path">Next</span>.</p></li>
+      <li><strong>Give me access</strong><p>Under access, choose <span class="path">Create a new permission set</span>. Name it <span class="code">Website</span> and choose the <span class="path">Full</span> permission level. Pick your business location, then click <span class="path">Save</span>.</p></li>
+      <li><strong>Leave the rest off</strong><p>Keep <span class="path">Authorized Representative</span> turned off. If Square asks you to generate a passcode, go ahead; I won’t use it. Review and click <span class="path">Done</span>.</p></li>
+    </ol>
+
+    <div class="section__head" style="margin-top:40px">
+      <p class="label">After that</p>
+      <h2>What happens next</h2>
+    </div>
+    <div class="callout">
+      <p>I’ll get an invitation from Square and accept it. Then I connect checkout to your site and send you a test order to try before anything goes live.</p>
+      <p>You can remove me anytime: <span class="path">Staff</span>, then <span class="path">Team</span>, then <span class="path">Team members</span>, select my name, and remove or deactivate me.</p>
+    </div>
+  </section>
+
+  <footer class="foot" style="margin-top:64px">
+    <span>Stuck on a step? Email <a href="mailto:hello@omoniyistudio.com">hello@omoniyistudio.com</a></span>
+    <p class="note">your money, your account ✶</p>
+  </footer>
+</main>
+
+<script>
+(function () {
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('[role=tab]'));
+  function show(id, focus) {
+    var found = false;
+    tabs.forEach(function (tab) {
+      var on = tab.getAttribute('aria-controls') === id;
+      if (on) found = true;
+      tab.setAttribute('aria-selected', on ? 'true' : 'false');
+      tab.tabIndex = on ? 0 : -1;
+      document.getElementById(tab.getAttribute('aria-controls')).hidden = !on;
+      if (on && focus) tab.focus();
+    });
+    return found;
+  }
+  // Open the platform named in the link (e.g. #square), else the first one.
+  if (!show(location.hash.slice(1))) show(tabs[0].getAttribute('aria-controls'));
+  tabs.forEach(function (tab, i) {
+    tab.addEventListener('click', function () {
+      var id = tab.getAttribute('aria-controls');
+      show(id);
+      history.replaceState(null, '', '#' + id);
+    });
+    tab.addEventListener('keydown', function (event) {
+      var step = event.key === 'ArrowRight' ? 1 : event.key === 'ArrowLeft' ? -1 : 0;
+      if (!step) return;
+      var next = tabs[(i + step + tabs.length) % tabs.length];
+      show(next.getAttribute('aria-controls'), true);
+    });
+  });
+})();
+</script>
+</body>
+</html>
