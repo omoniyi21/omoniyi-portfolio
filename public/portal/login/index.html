@@ -9,7 +9,7 @@
 <link rel="apple-touch-icon" href="/favicons/studio-apple.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Caveat&family=Fraunces:opsz,wght@9..144,400;9..144,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Caveat&family=Fraunces:opsz,wght@9..144,400;9..144,500&family=Geist:wght@500&family=Geist+Mono:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/portal/assets/portal.css">
 </head>
 <body>
@@ -33,7 +33,7 @@
         <p class="field-error" id="email-error" hidden></p>
       </div>
       <div class="hp" aria-hidden="true"><label for="website">Website</label><input id="website" name="website" tabindex="-1" autocomplete="off"></div>
-      <button class="ticket" type="submit" id="submit"><span class="ticket__main" id="submit-label">Send my link</span><span class="ticket__stub" id="submit-stub" aria-hidden="true">Admit one</span></button>
+      <div><button class="ticket" type="submit" id="submit"><span class="ticket__main" id="submit-label">Send my link</span><span class="ticket__stub" aria-hidden="true"><span class="ticket__perf"></span><span class="ticket__no"><small>NO.</small><b>01</b></span></span></button></div>
     </form>
 
     <p class="signin__foot" id="resend-row" hidden>Didn’t get it? <button class="linkish" type="button" id="resend">Send it again</button></p>
@@ -63,7 +63,6 @@
     submit.classList.add('is-admitted');
     submit.disabled = true;
     label.textContent = 'Check your email';
-    $('submit-stub').textContent = 'Admitted';
   }
 
   async function requestLink(button) {
