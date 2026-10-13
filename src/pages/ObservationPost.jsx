@@ -10,13 +10,15 @@ import BeehiivEmbed from "../components/observations/BeehiivEmbed";
 import Frog from "../assets/images/observations/frog.png";
 import NotFound from "./NotFound";
 import ObservationCover from "../components/observations/ObservationCover";
+import useMotionReduced from "../lib/useMotionReduced";
 
 function InlineLinks({ text }) {
-  return text.split(/(\[[^\]]+\]\(https?:\/\/[^)]+\)|\*\*[^*]+\*\*|\*[^*]+\*)/g).map((part, index) => {
+  return text.split(/(\[[^\]]+\]\(https?:\/\/[^)]+\)|\*\*\*[^*]+\*\*\*|\*\*[^*]+\*\*|\*[^*]+\*)/g).map((part, index) => {
+    if (part.startsWith("***") && part.endsWith("***")) return <strong key={index}><em>{part.slice(3, -3)}</em></strong>;
     if (part.startsWith("**") && part.endsWith("**")) return <strong key={index}>{part.slice(2, -2)}</strong>;
     if (part.startsWith("*") && part.endsWith("*")) return <em key={index}>{part.slice(1, -1)}</em>;
     const match = part.match(/^\[([^\]]+)\]\((https?:\/\/[^)]+)\)$/);
-    return match ? <a key={index} href={match[2]}>{match[1]}</a> : part;
+    return match ? <a key={index} href={match[2]}><InlineLinks text={match[1]} /></a> : part;
   });
 }
 
@@ -24,6 +26,7 @@ export default function ObservationPost() {
  const { slug } = useParams();
  const post = getPublishedObservations().find(post => post.slug === slug);
  const titleRef = useRef(null);
+ const reduced = useMotionReduced();
 
  // Back to the top of the essay: scroll up (gently, unless motion is
  // reduced) and move keyboard focus to the title so the next Tab starts
@@ -42,7 +45,7 @@ export default function ObservationPost() {
       </header>
 
       <article>
-        <header className={`observation-post__header${post.cardImage ? " observation-post__header--cover" : ""}`}>
+        <header className={`observation-post__header${post.cardImage ? " observation-post__header--cover" : ""}${post.title.length > 70 ? " observation-post__header--long-title" : ""}`}>
           <p className="topic-mark">OBS. {post.number} · {topicIcon(post.category) && <Icon name={topicIcon(post.category)} size={18} />}{post.category}</p>
           <div className="observation-post__title-group">
             <h1 ref={titleRef} tabIndex={-1}>{post.title}</h1>
@@ -57,7 +60,7 @@ export default function ObservationPost() {
           {post.blocks?.map((block, index) => block.type === "heading"
             ? <h2 key={index}>{block.text}</h2>
             : block.type === "image"
-            ? <figure className="observation-post__media" key={index}><img src={block.src} alt={block.alt} width={block.width} height={block.height} loading="lazy" />{block.caption && <figcaption>{block.caption}</figcaption>}</figure>
+            ? <figure className="observation-post__media" key={index}><img src={reduced && block.stillSrc ? block.stillSrc : block.src} alt={block.alt} width={block.width} height={block.height} style={{ maxWidth: block.width }} loading="lazy" />{block.caption && <figcaption>{block.caption}</figcaption>}</figure>
             : <div className="observation-post__paragraph" key={index}><p><InlineLinks text={block.text} /></p></div>)}
           {paragraphs.map((paragraph, index) => (
             <div className="observation-post__paragraph" key={paragraph}>
