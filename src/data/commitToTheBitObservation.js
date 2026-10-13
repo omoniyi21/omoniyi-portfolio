@@ -370,6 +370,8 @@ export const commitToTheBitObservation = {
   title: "Commit to the Bit: Why Hope's Chaos Works and The End of Oak Street's Doesn't",
   excerpt: "Two horror films, one ugly website, and Craigslist. On the art of making chaos work.",
   excerptItalic: true,
-  // The Hope × Oak Street composition will be added when supplied.
+  cardImage: "/observations/commit-to-the-bit/hope-oak-street-hero.png",
+  cardImageAlt: "A blended composition of the families in cars from The End of Oak Street and Hope",
+  cardImageWidth: 2000, cardImageHeight: 2127,
   blocks,
 };
