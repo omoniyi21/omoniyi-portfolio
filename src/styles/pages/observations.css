@@ -95,7 +95,7 @@
 
 .observation-post__reading--sections h2 { break-after: avoid; }
 .observation-post__media { margin: 0 0 1.5rem; break-inside: avoid; }
-.observation-post__media img { display: block; max-width: 100%; width: auto; height: auto; border-radius: .5rem; outline: 1px solid rgb(0 0 0 / 10%); outline-offset: -1px; }
+.observation-post__media img { display: block; max-width: 100%; width: 100%; height: auto; border-radius: .5rem; outline: 1px solid rgb(0 0 0 / 10%); outline-offset: -1px; }
 .observation-post__media figcaption { color: var(--text-secondary); font: 500 1.2rem/1.3 var(--font-family-personal); margin: .75rem 0 0; }
 
 /* Match /work's card spacing and /visual's framed photographs. */
@@ -114,6 +114,7 @@
 .observation-post__header--cover .observation-post__title-group { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: clamp(1.5rem, 3vw, 3rem); align-items: center; }
 .observation-post__header--cover h1 { font-size: clamp(3rem, 5.6vw, 6rem); max-width: none; overflow-wrap: break-word; }
 .observation-post__cover { min-width: 0; }
+.observation-post__header--long-title h1 { font-size: clamp(2.6rem, 5.6vw, 6rem); max-width: 24ch; line-height: 1; overflow-wrap: break-word; }
 @media (max-width: 700px) {
  .observation-post__header--cover .observation-post__title-group { grid-template-columns: minmax(0, 1fr); }
  .observation-post__cover { width: min(100% - 1.5rem, 20rem); justify-self: center; }
