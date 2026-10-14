@@ -216,7 +216,5 @@ export const designStartingObservation = {
  cardImageStill: "/observations/design-starting/rewind-still.webp",
  cardImageWidth: 480, cardImageHeight: 270,
  cardImageAlt: "Moira Rose from Schitt’s Creek pointing at the camera, captioned “Let’s rewind and try again”",
- socialImage: "getting-better-at-design-made-me-worse-at-starting",
- socialImageAlt: "Moira Rose captioned “Let’s rewind and try again”",
  blocks,
 };

@@ -85,6 +85,7 @@ export const observations = [commitToTheBitObservation, designStartingObservatio
  slug: "padme-was-a-baddie-in-a-dystopia", number: "002", status: "published",
  publishedAt: "2026-09-27T00:00:00Z", dateLabel: "September 2026", category: "Design / culture",
  title: padmeParts[0].replace(/^# /, ""), excerpt: padmeParts[1],
+ cardImageWidth: 736, cardImageHeight: 1123,
  cardImage: "/observations/covers/padme.webp", cardImageAlt: "Padmé wearing a pale blue outfit outside a rounded stone building",
  blocks: padmeBlocks,
 }, {
@@ -92,6 +93,7 @@ export const observations = [commitToTheBitObservation, designStartingObservatio
  publishedAt: "2026-08-01T00:00:00Z", dateLabel: "August 2026", category: "Work / remote life",
  title: "Working from home gave me the kind of life I love. Contract work made it feel temporary.",
  excerpt: "A field note on the freedom of remote work, acclimating quickly, the people we miss between meetings, and what permanence might mean now.",
+ cardImageWidth: 480, cardImageHeight: 268,
  cardImage: "/observations/covers/remote-work.webp", cardImageAlt: "A woman smiling in a sunlit room",
  paragraphs, notes,
 }];
