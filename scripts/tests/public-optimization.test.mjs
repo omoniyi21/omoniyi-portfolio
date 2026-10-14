@@ -2,7 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile, access } from 'node:fs/promises';
 import canonicalPublicUrl from '../../netlify/edge-functions/canonical-public-url.js';
-import { pageMetadata, getPageMetadata } from '../../src/data/pageMetadata.js';
+import { getPublishedObservations } from '../../src/data/observations.js';
+import { pageMetadata, getPageMetadata, siteOrigin } from '../../src/data/pageMetadata.js';
 const next = () => new Response('pass');
 
 test('public URLs redirect once, preserve query strings, and canonical URLs pass through', async () => {
@@ -33,5 +34,28 @@ test('built public pages have a single canonical, title, description and social 
     assert.ok(html.includes(`href="${metadata.canonical}"`), route);
     assert.ok(sitemap.includes(`<loc>${metadata.canonical}</loc>`), route);
     await access(`dist${metadata.image}`);
+  }
+});
+
+// Check crawler-facing HTML against the artwork used by the article header.
+test('published blog previews use their header artwork and image metadata', async () => {
+  const escape = value => value.replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
+  for (const post of getPublishedObservations()) {
+    const html = await readFile('dist/observations/' + post.slug + '/index.html', 'utf8');
+    const cover = post.cardImageStill || post.cardImage;
+    const tags = [
+      ['property', 'og:image', siteOrigin + cover],
+      ['name', 'twitter:image', siteOrigin + cover],
+      ['property', 'og:image:alt', post.cardImageAlt],
+      ['name', 'twitter:image:alt', post.cardImageAlt],
+      ['property', 'og:image:type', cover.endsWith('.webp') ? 'image/webp' : 'image/png'],
+      ['property', 'og:image:width', String(post.cardImageWidth)],
+      ['property', 'og:image:height', String(post.cardImageHeight)],
+    ];
+    for (const [attribute, key, value] of tags) {
+      assert.ok(html.includes('<meta ' + attribute + '="' + key + '" content="' + escape(value) + '" />'), post.slug + ': ' + key);
+    }
+    assert.ok(!html.includes('/social/'), post.slug);
+    await access('dist' + cover);
   }
 });

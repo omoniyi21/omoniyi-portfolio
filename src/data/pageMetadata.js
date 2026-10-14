@@ -21,7 +21,20 @@ for (const study of portfolioStudies) {
   pageMetadata[`/${study.slug}`] = page(`${study.client}: ${study.title} | Omoniyi Alimi`, study.summary, study.slug, `${study.client}: ${study.title} case study`);
 }
 for (const post of getPublishedObservations()) {
-  pageMetadata[`/observations/${post.slug}`] = { ...page(`${post.title} | Omoniyi Alimi`, post.seoDescription || post.excerpt, post.socialImage, post.socialImageAlt), type: 'article' };
+  // Sharing follows the article cover, including its reduced-motion still.
+  const image = post.cardImageStill || post.cardImage;
+  if (!image || !post.cardImageAlt || !post.cardImageWidth || !post.cardImageHeight) {
+    throw new Error(`Published observation ${post.slug} needs a cover, alt text, and dimensions.`);
+  }
+  pageMetadata[`/observations/${post.slug}`] = {
+    title: `${post.title} | Omoniyi Alimi`,
+    description: post.seoDescription || post.excerpt,
+    image,
+    imageAlt: post.cardImageAlt,
+    imageWidth: post.cardImageWidth,
+    imageHeight: post.cardImageHeight,
+    type: 'article',
+  };
 }
 export function getPageMetadata(pathname) {
   const path = pathname.replace(/\/+$/, '') || '/';
@@ -37,7 +50,7 @@ export function metadataTags(metadata) {
     ['property', 'og:description', metadata.description],
     ['property', 'og:url', metadata.canonical],
     ['property', 'og:image', `${siteOrigin}${metadata.image}`],
-    ['property', 'og:image:type', 'image/png'],
+    ['property', 'og:image:type', metadata.image.endsWith('.webp') ? 'image/webp' : 'image/png'],
     ['property', 'og:image:width', String(metadata.imageWidth || 1200)],
     ['property', 'og:image:height', String(metadata.imageHeight || 630)],
     ['property', 'og:image:alt', metadata.imageAlt],
