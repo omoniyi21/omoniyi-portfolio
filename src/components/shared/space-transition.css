@@ -1,6 +1,4 @@
-/* Curtain transition between the three spaces (see SpaceTransition.jsx).
-   Always mounted; hidden and click-through while idle. Sits above the
-   floating menu (z-index:1000) so it covers everything. */
+/* One destination card. Only its short, finite entrance sequence animates. */
 .space-curtain {
   position: fixed;
   inset: 0;
@@ -8,67 +6,89 @@
   pointer-events: none;
   visibility: hidden;
   overflow: hidden;
+  color: #18140f;
 }
-
 .space-curtain[data-phase="cover"],
-.space-curtain[data-phase="reveal"] {
-  visibility: visible;
-  pointer-events: auto; /* swallow clicks mid-transition */
-}
-
+.space-curtain[data-phase="reveal"] { visibility: visible; pointer-events: auto; }
 .space-curtain__panel {
   position: absolute;
   inset: 0;
   display: grid;
   place-items: center;
   transform: translateY(100%);
-  box-shadow: 0 -24px 64px rgba(17, 17, 17, 0.18);
-  will-change: transform;
+  box-shadow: 0 -24px 64px rgb(17 17 17 / .12);
 }
-
 .space-curtain[data-phase="cover"] .space-curtain__panel {
   transform: translateY(0);
-  transition: transform 560ms cubic-bezier(0.76, 0, 0.24, 1);
+  transition: transform 360ms cubic-bezier(.76, 0, .24, 1);
 }
-
 .space-curtain[data-phase="reveal"] .space-curtain__panel {
   transform: translateY(-100%);
-  transition: transform 620ms cubic-bezier(0.76, 0, 0.24, 1);
+  transition: transform 440ms cubic-bezier(.76, 0, .24, 1);
 }
-
-/* Curtain colours per destination */
-.space-curtain[data-tone="portfolio"] .space-curtain__panel { background: #111111; }
-.space-curtain[data-tone="studio"] .space-curtain__panel { background: #801919; }
-.space-curtain[data-tone="ui"] .space-curtain__panel { background: linear-gradient(160deg, #d9b8f3 0%, #a88ff0 52%, #7569e3 100%); }
-
-/* The three marks share one grid cell; exactly one shows per beat. Hard
-   cuts (no fade) so the cycle reads as a flash. */
+.space-curtain[data-tone="portfolio"] .space-curtain__panel {
+  background-color: #faf8f2;
+  background-image: linear-gradient(rgb(117 105 227 / .1) 1px, transparent 1px), linear-gradient(90deg, rgb(117 105 227 / .1) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+.space-curtain[data-tone="ui"] .space-curtain__panel { background: #ddd1ff; }
+.space-curtain[data-tone="studio"] .space-curtain__panel { background: #fff; }
 .space-curtain__stage {
-  display: grid;
-  place-items: center;
-  transform: scale(var(--space-mark-scale));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+  width: min(360px, calc(100vw - 64px));
 }
-
-.space-curtain__slot {
-  grid-area: 1 / 1;
-  opacity: 0;
+.space-curtain__character { position: relative; height: 160px; display: grid; place-items: center; }
+.space-curtain__character > img { width: 160px; height: 160px; object-fit: contain; }
+.space-curtain__character--portfolio { animation: space-float 1300ms 360ms ease-in-out both; }
+.space-curtain__character--ui > svg { width: 130px; height: 160px; }
+.space-curtain__spark { position: absolute; font-size: 23px; animation: space-spark 900ms 450ms ease-in-out both; }
+.space-curtain__spark--one { top: 34px; left: -18px; }
+.space-curtain__spark--two { right: -14px; top: 80px; font-size: 15px; animation-delay: 650ms; }
+.space-curtain__typing { position: relative; width: 100%; }
+.space-curtain__lettering { animation: space-type 640ms 380ms steps(12, end) both; }
+.space-curtain__typing--ui .space-curtain__lettering { animation-timing-function: steps(9, end); }
+.space-curtain__portfolio-mark { display: flex; align-items: center; width: 100%; }
+.space-curtain__portfolio-mark > img { width: 74%; height: auto; }
+.space-curtain__alimi { position: relative; display: block; width: 26%; }
+.space-curtain__alimi img { display: block; width: 100%; height: auto; }
+.space-curtain__alimi svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.space-curtain__alimi path { stroke-dasharray: 1; animation: space-underline 240ms 1020ms ease-out both; }
+.space-curtain__typing .space-mark--ui { width: 100%; }
+.space-curtain__typing .space-mark--ui img:first-child { width: 75%; height: auto; }
+.space-curtain__typing .space-mark--ui img:last-child { width: 24%; height: auto; }
+.space-curtain__cursor {
+  position: absolute;
+  top: 18%;
+  bottom: 18%;
+  width: 2px;
+  background: currentColor;
+  left: 0;
+  animation: space-cursor-travel 640ms 380ms steps(12, end) both, space-cursor-blink 300ms 1020ms step-end 2 forwards;
 }
-
-.space-curtain__slot[data-on="true"] { opacity: 1; }
-
-.space-curtain__stage.is-landed .space-curtain__slot[data-on="true"] {
-  animation: space-mark-land 360ms cubic-bezier(0.2, 0.9, 0.3, 1.2);
+.space-curtain__typing--ui .space-curtain__cursor { animation-timing-function: steps(9, end), step-end; }
+/* The existing Studio eye gets one blink; other uses of the mark are untouched. */
+.space-curtain__dio > circle,
+.space-curtain__dio .studio-eye__lid { transform-box: view-box; transform-origin: 100px 112px; animation: space-blink 220ms 780ms ease-in-out both; }
+.space-curtain__dio .studio-eye__sketch { opacity: .3; }
+.space-curtain__stage > .space-mark--studio { gap: 0; }
+.space-curtain__stage > .space-mark--studio > .studio-eye { display: none; }
+.space-curtain__stage .space-mark__studio-words { align-items: center; gap: 10px; }
+.space-curtain__stage .space-mark__studio-name { font-size: clamp(42px, 10vw, 56px); }
+.space-curtain__stage .space-mark__studio-label { font-size: 11px; }
+@keyframes space-type { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0); } }
+@keyframes space-cursor-travel { from { left: 0; } to { left: calc(100% + 6px); } }
+@keyframes space-cursor-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+@keyframes space-underline { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes space-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+@keyframes space-spark { 0%, 100% { opacity: 0; } 45% { opacity: 1; } }
+@keyframes space-blink { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(.06); } }
+@media (max-height: 450px) {
+  .space-curtain__stage { gap: 12px; }
+  .space-curtain__character { height: 110px; }
+  .space-curtain__character > img, .space-curtain__character--ui > svg { height: 110px; width: 110px; }
 }
-
-@keyframes space-mark-land {
-  from { transform: scale(0.94); }
-  to { transform: scale(1); }
-}
-
-/* Marks sized to hold the screen without shouting: roughly a third of the
-   viewport width on desktop, most of it on phones. */
-.space-curtain__stage { --space-mark-scale: 2.1; }
-@media (max-width: 1399px) { .space-curtain__stage { --space-mark-scale: 1.8; } }
-@media (max-width: 999px) { .space-curtain__stage { --space-mark-scale: 1.45; } }
-@media (max-width: 599px) { .space-curtain__stage { --space-mark-scale: 1.1; } }
-
+html[data-motion="reduce"] .space-curtain { display: none; }
+html[data-motion="reduce"] .space-curtain * { animation: none; transition: none; }
