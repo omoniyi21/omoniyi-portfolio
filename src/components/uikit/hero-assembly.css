@@ -1,0 +1,146 @@
+/* ==========================================================================
+   /uikit hero assembly
+   The photo layer always covers the stage; clip-path decides how much of it
+   shows. Settled, it is clipped to the card slot in the screen, so the slot
+   shows the same pixels the wide scene had there: the scenery becomes a
+   component. The insets below mirror the grid, so the settled state needs no
+   JavaScript.
+   ========================================================================== */
+.oui-stage {
+  --stage-pad: 20px;
+  --stage-gap: 20px;
+  --stage-bar: 44px;
+  --slot-right: calc(var(--stage-pad) + var(--stage-gap) + (100% - var(--stage-pad) * 2 - var(--stage-gap)) / 2.1);
+  position: relative;
+  width: 100%;
+  height: 600px;
+  border: 1px solid var(--oui-border);
+  border-radius: 24px;
+  background: var(--oui-surface);
+  text-align: left;
+}
+.oui-stage-photo {
+  position: absolute;
+  inset: 0;
+  border-radius: 24px;
+  overflow: hidden;
+  clip-path: inset(calc(var(--stage-pad) * 2 + var(--stage-bar)) var(--slot-right) var(--stage-pad) var(--stage-pad) round 16px);
+}
+.oui-stage-photo picture, .oui-stage-photo img { display: block; width: 100%; height: 100%; }
+.oui-stage-photo img { object-fit: cover; object-position: 50% 50%; }
+
+.oui-stage-ui {
+  position: absolute;
+  inset: 0;
+  padding: var(--stage-pad);
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  grid-template-rows: var(--stage-bar) auto minmax(0, 1fr);
+  grid-template-areas: "bar bar" "slot intro" "slot list";
+  gap: var(--stage-gap);
+  font-size: 14px;
+  line-height: 1.4;
+}
+.oui-stage-bar { grid-area: bar; display: flex; align-items: center; gap: 8px; }
+.oui-stage-bar strong { font-size: 18px; font-weight: 500; margin-right: 16px; }
+.oui-stage-bar > span:not(.oui-badge):not(.oui-stage-avatar) { padding: 8px 14px; border-radius: 999px; color: var(--oui-muted); }
+.oui-stage-bar > .is-active { background: var(--oui-soft); color: var(--oui-ink) !important; }
+.oui-stage-bar .oui-badge { margin-left: auto; align-self: center; }
+.oui-stage-avatar { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: var(--oui-pink); font-size: 13px; font-weight: 500; }
+
+.oui-stage-slot { grid-area: slot; position: relative; }
+.oui-stage-tag { position: absolute; left: 16px; bottom: 16px; display: flex; gap: 8px; }
+
+.oui-stage-intro { grid-area: intro; display: flex; flex-direction: column; gap: 16px; }
+.oui-page .oui-stage-intro h3 { font-size: 24px; line-height: 1.25; letter-spacing: -.02em; }
+.oui-page .oui-stage-intro p { font-size: 14px; margin-top: 4px; }
+.oui-stage-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.oui-stage-metrics > div { display: flex; flex-direction: column; gap: 6px; padding: 14px; border-radius: 16px; background: var(--oui-soft); }
+.oui-stage-metrics span { font-size: 12px; color: var(--oui-muted); }
+.oui-stage-metrics strong { font-size: 28px; line-height: 1.1; font-weight: 500; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+
+.oui-stage-list { grid-area: list; display: flex; flex-direction: column; gap: 10px; }
+.oui-page .oui-stage-list h4 { font-size: 14px; }
+.oui-stage-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 12px; border-radius: 8px; background: var(--oui-soft); }
+.oui-stage-progress { max-width: calc(100% - 232px); display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 12px; margin-top: 6px; font-size: 13px; }
+.oui-stage-progress small { font-size: 12px; color: var(--oui-muted); font-variant-numeric: tabular-nums; }
+.oui-stage-meter { height: 8px; border-radius: 999px; background: var(--oui-soft); overflow: hidden; }
+.oui-stage-meter span { display: block; width: 75%; height: 100%; border-radius: inherit; background: var(--oui-accent); }
+.oui-stage-row .oui-badge { font-size: 11px; padding: 6px 10px; }
+
+/* Pro pieces float past the frame, so the screen feels layered and real. */
+.oui-stage .oui-badge { text-transform: none; align-self: auto; }
+.oui-stage-toast {
+  position: absolute; top: 20px; right: 20px; z-index: 1;
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 18px 12px 12px;
+  border: 1px solid var(--oui-border); border-radius: 999px;
+  background: var(--oui-surface);
+  box-shadow: 0 4px 14px #1717170d;
+  font-size: 14px;
+}
+.oui-stage-toast small { display: block; font-size: 12px; color: var(--oui-muted); }
+.oui-stage-toast strong { font-weight: 500; }
+.oui-stage-check { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: var(--oui-success); font-size: 14px; }
+.oui-stage-signin {
+  position: absolute; right: -40px; bottom: -96px; width: 248px;
+  display: flex; flex-direction: column; align-items: flex-start; gap: 10px;
+  padding: 20px;
+  border: 1px solid var(--oui-border); border-radius: 24px;
+  background: var(--oui-surface);
+  box-shadow: 0 24px 80px #17171724;
+  font-size: 14px;
+}
+.oui-stage-signin strong { font-size: 20px; font-weight: 500; letter-spacing: -.02em; margin: 4px 0 4px; }
+.oui-stage-field { width: 100%; padding: 10px 12px; border-radius: 8px; background: var(--oui-soft); color: var(--oui-muted); }
+.oui-stage-pill { align-self: stretch; margin-top: 4px; padding: 10px 16px; border: 1px solid var(--oui-border); border-radius: 999px; background: var(--oui-accent); text-align: center; font-weight: 500; }
+
+/* figure margins are reset by .oui-page figure, so restate them at that weight */
+.oui-page .oui-stage { margin: 16px 0 112px; }
+
+/* ---- the moment ---------------------------------------------------------- */
+.oui-stage[data-phase="pre"] .oui-stage-photo { clip-path: inset(0 0 0 0 round 24px); }
+.oui-stage[data-phase="pre"] [data-piece] { opacity: 0; transform: translate(var(--from)); }
+.oui-stage[data-phase="go"] .oui-stage-photo { transition: clip-path 900ms cubic-bezier(.22, 1, .36, 1); }
+.oui-stage[data-phase="go"] [data-piece] {
+  transition: opacity 480ms ease-out var(--d), transform 700ms cubic-bezier(.22, 1, .36, 1) var(--d);
+}
+html[data-motion="reduce"] .oui-stage [data-piece], html[data-motion="reduce"] .oui-stage .oui-stage-photo { transition: none !important; }
+
+/* ---- smaller screens ----------------------------------------------------- */
+@media (max-width: 1180px) {
+  .oui-stage { height: 560px; }
+  .oui-stage-signin { right: -16px; bottom: -130px; }
+  .oui-page .oui-stage { margin-bottom: 150px; }
+  .oui-stage-progress { display: none; }
+
+}
+@media (max-width: 900px) {
+  .oui-stage { --slot-right: calc(var(--stage-pad) + var(--stage-gap) + (100% - var(--stage-pad) * 2 - var(--stage-gap)) / 2); height: 540px; }
+  .oui-page .oui-stage { margin-bottom: 40px; }
+  .oui-stage-ui { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .oui-stage-bar > span:not(.oui-badge):not(.oui-stage-avatar) { display: none; }
+  .oui-stage-signin { display: none; }
+  .oui-stage-progress { max-width: none; }
+  .oui-stage-metrics > div:nth-child(3) { display: none; }
+  .oui-stage-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 600px) {
+  .oui-stage {
+    --stage-pad: 16px;
+    height: 500px;
+  }
+  .oui-page .oui-stage { margin: 8px 0 32px; }
+  .oui-stage-photo { clip-path: inset(182px 16px 108px 16px round 16px); }
+  .oui-stage-ui {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: 150px 210px minmax(0, 1fr);
+    grid-template-areas: "intro" "slot" "list";
+    gap: 16px;
+  }
+  .oui-stage-bar, .oui-stage-toast, .oui-stage-list h4, .oui-stage-row + .oui-stage-row, .oui-stage-progress { display: none; }
+  .oui-page .oui-stage-intro h3 { font-size: 20px; }
+  .oui-stage-intro { gap: 12px; }
+  .oui-stage-metrics strong { font-size: 24px; }
+  .oui-stage-tag .oui-badge--white { display: none; }
+}
