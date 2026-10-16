@@ -15,6 +15,38 @@ const EDITIONS = [
   { id: "pro", name: "LaunchKit Pro", badge: "In the making", description: "A fuller system for the product you’re building.", price: "$49", priceNote: "Planned founding price", features: ["18 component families · 160+ variants", "5 reusable product patterns", "6 starter screens", "Light + dark · semantic variables"], note: "Planned release scope. Join for availability updates." },
 ];
 
+// Page theme: follows the visitor's device until they pick one, then
+// remembers the pick. The hero photo swaps with it (bridge by day, bar at night).
+const THEME_KEY = "oui-theme";
+function usePageTheme() {
+  const [theme, setThemeState] = useState(() => {
+    if (typeof window === "undefined") return "light";
+    try { const saved = localStorage.getItem(THEME_KEY); if (saved === "light" || saved === "dark") return saved; } catch { /* no storage */ }
+    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  });
+  useEffect(() => {
+    const query = window.matchMedia("(prefers-color-scheme: dark)");
+    const follow = event => {
+      try { if (localStorage.getItem(THEME_KEY)) return; } catch { /* no storage */ }
+      setThemeState(event.matches ? "dark" : "light");
+    };
+    query.addEventListener("change", follow);
+    return () => query.removeEventListener("change", follow);
+  }, []);
+  const setTheme = next => {
+    try { localStorage.setItem(THEME_KEY, next); } catch { /* session only */ }
+    setThemeState(next);
+  };
+  return [theme, setTheme];
+}
+
+function ThemeToggle({ theme, setTheme }) {
+  return <div className="oui-theme-controls oui-page-theme" role="group" aria-label="Page color theme">
+    <button aria-pressed={theme === "light"} onClick={() => setTheme("light")}><span aria-hidden="true">☀</span><span className="oui-theme-label"> Light</span></button>
+    <button aria-pressed={theme === "dark"} onClick={() => setTheme("dark")}><span aria-hidden="true">☾</span><span className="oui-theme-label"> Dark</span></button>
+  </div>;
+}
+
 function FreeLink() {
   return <Button to={FREE_KIT} className="oui-button" target="_blank" rel="noopener noreferrer">Get LaunchKit Free</Button>;
 }
@@ -125,6 +157,7 @@ function ReleaseDialog({ onClose }) {
 
 export default function UIKit() {
   const [showRelease, setShowRelease] = useState(false);
+  const [theme, setTheme] = usePageTheme();
   const page = useRef(null);
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) return;
@@ -132,11 +165,11 @@ export default function UIKit() {
     page.current.querySelectorAll("[data-reveal]").forEach(element => observer.observe(element));
     return () => observer.disconnect();
   }, []);
-  return <div className="oui-page" ref={page}>
+  return <div className="oui-page" ref={page} data-theme={theme}>
     <a href="#oui-main" className="oui-skip">Skip to content</a>
-    <header className="oui-nav oui-container"><div className="ecosystem-lockup"><BrandSignature space="ui" /><SpaceSwitcher space="ui" /></div><nav aria-label="UI kit navigation"><a href="#kits">UI kits</a><a href="#playground">Playground</a><a href="#editions">Free vs Pro</a></nav><div className="oui-nav-cta"><FreeLink /></div><a className="oui-mobile-nav" href="#editions">Kits ↓</a></header>
+    <header className="oui-nav oui-container"><div className="ecosystem-lockup"><BrandSignature space="ui" /><SpaceSwitcher space="ui" /></div><nav aria-label="UI kit navigation"><a href="#kits">UI kits</a><a href="#playground">Playground</a><a href="#editions">Free vs Pro</a></nav><ThemeToggle theme={theme} setTheme={setTheme} /><div className="oui-nav-cta"><FreeLink /></div><a className="oui-mobile-nav" href="#editions">Kits ↓</a></header>
     <main id="oui-main">
-      <section className="oui-hero oui-container"><span className="oui-badge oui-badge--pink">Designed by Omoniyi / Built for your next idea</span><h1>Good ideas deserve<br /> a head start.</h1><p>Thoughtful Figma UI kits for getting version one out the door.<br className="oui-desktop-break" /> Reusable components. Clear systems. Room to make it yours.</p><div className="oui-actions"><FreeLink /><Button to="#editions" variant="secondary" className="oui-button" icon="arrow-down">Explore Pro</Button></div><p className="oui-small">Start with Free. Grow into Pro. Make something worth shipping.</p><HeroAssembly /></section>
+      <section className="oui-hero oui-container"><HeroAssembly theme={theme}><span className="oui-badge oui-badge--pink">Designed by Omoniyi / Built for your next idea</span><h1>Good ideas deserve<br /> a head start.</h1><p>Thoughtful Figma UI kits for getting version one out the door.<br className="oui-desktop-break" /> Reusable components. Clear systems. Room to make it yours.</p><div className="oui-actions"><FreeLink /><Button to="#editions" variant="secondary" className="oui-button" icon="arrow-down">Explore Pro</Button></div><p className="oui-small">Start with Free. Grow into Pro. Make something worth shipping.</p></HeroAssembly></section>
       <Playground />
       <section className="oui-product oui-section" id="kits"><div className="oui-container" data-reveal><div className="oui-section-top"><p className="oui-eyebrow">01 / The first kit in the collection</p><span className="oui-eyebrow">Figma UI kit <Icon name="arrow-up-right" size={13} strokeWidth={1.5} /></span></div><div className="oui-product-grid"><div className="oui-product-copy"><span className="oui-badge">✦ LaunchKit UI</span><h2>Your version one,<br />with a head start.</h2><p>The UI system for getting version one out the door. Start with reusable foundations, then connect the pieces into a product that feels like you.</p><ol className="oui-feature-lines"><li>Components you can make your own</li><li>Consistent patterns, screen to screen</li><li>Light + dark, built into the system</li></ol><Button to="#editions" className="oui-button" icon="arrow-down">Choose your LaunchKit</Button></div><ScreenPreview /></div></div></section>
       <section className="oui-editions oui-section oui-container" id="editions" data-reveal><p className="oui-eyebrow">02 / Find your starting point</p><div className="oui-editions-intro"><h2>Start free.<br />Go further with Pro.</h2><p>One system, two ways in. Explore the foundations today, then grow into patterns and starter screens as your product takes shape.</p></div><div className="oui-edition-grid">{EDITIONS.map(edition => <article key={edition.id} className={`oui-edition oui-edition--${edition.id}`}><span className={`oui-badge ${edition.id === "free" ? "oui-badge--green" : "oui-badge--white"}`}>{edition.badge}</span><h3>{edition.name}</h3><p>{edition.description}</p><div className="oui-price"><strong>{edition.price}</strong><span>{edition.priceNote}</span></div><ul>{edition.features.map(feature => <li key={feature}><span aria-hidden="true">✓</span>{feature}</li>)}</ul>{edition.id === "free" ? <FreeLink /> : <Button className="oui-button" variant="secondary" onClick={() => setShowRelease(true)}>Notify me about Pro</Button>}<p className="oui-small oui-edition-note">{edition.note}</p></article>)}</div><p className="oui-small oui-collection-note">A growing collection, one useful kit at a time. More kits will live here as they’re ready.</p></section>
