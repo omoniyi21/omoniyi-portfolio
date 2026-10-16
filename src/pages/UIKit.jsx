@@ -8,10 +8,12 @@ import Button from "../components/shared/button/Button";
 import "./uikit.css";
 import { Icon } from "../components/shared/icons/Icon";
 import HeroAssembly from "../components/uikit/HeroAssembly";
+import AliHello from "../components/uikit/AliHello";
+import phoneFrame from "../assets/images/uikit/phone-frame.webp";
 
 const FREE_KIT = "https://www.figma.com/community/file/1679586204488729025";
 const EDITIONS = [
-  { id: "free", name: "LaunchKit Free", badge: "Available now", description: "A thoughtful first step for your next idea.", price: "$0", priceNote: "Free to get started", features: ["Reusable component foundations", "Light + dark, Soft + Depth", "Auto Layout for flexible layouts", "A starting point for your MVP"], note: "Open the free kit on Figma Community." },
+  { id: "free", name: "LaunchKit Free", badge: "Available now", description: "Warm by default, yours in three changes.", price: "$0", priceNote: "Free to get started", features: ["10 component sets, 101 variants", "3 patterns and a starter screen", "Light + dark, Soft + Depth", "Accessibility notes and 5 AI prompts"], note: "Duplicate it free on Figma." },
   { id: "pro", name: "LaunchKit Pro", badge: "In the making", description: "Everything in Free, plus more.", price: "$49", priceNote: "Planned founding price", features: ["Everything in LaunchKit Free", "Plus more, shaped by what you build", "First look for the release list", "Founding price for early sign-ups"], note: "Still taking shape. Join the list and hear first." },
 ];
 
@@ -40,11 +42,17 @@ function usePageTheme() {
   return [theme, setTheme];
 }
 
+// One switch per axis: the label on each side says what the two ends are.
+function ModeSwitch({ label, off, on, checked, onChange, className = "" }) {
+  return <button type="button" role="switch" aria-checked={checked} aria-label={label} className={`oui-mode-switch ${className}`} onClick={() => onChange(!checked)}>
+    <span className="oui-mode-end" aria-hidden="true">{off}</span>
+    <span className="oui-mode-track" aria-hidden="true"><span /></span>
+    <span className="oui-mode-end" aria-hidden="true">{on}</span>
+  </button>;
+}
+
 function ThemeToggle({ theme, setTheme }) {
-  return <div className="oui-theme-controls oui-page-theme" role="group" aria-label="Page color theme">
-    <button aria-pressed={theme === "light"} onClick={() => setTheme("light")}><span aria-hidden="true">☀</span><span className="oui-theme-label"> Light</span></button>
-    <button aria-pressed={theme === "dark"} onClick={() => setTheme("dark")}><span aria-hidden="true">☾</span><span className="oui-theme-label"> Dark</span></button>
-  </div>;
+  return <ModeSwitch className="oui-page-theme" label="Dark mode" off="☀" on="☾" checked={theme === "dark"} onChange={dark => setTheme(dark ? "dark" : "light")} />;
 }
 
 function FreeLink() {
@@ -61,16 +69,10 @@ function Playground() {
     <section className="oui-play-section oui-container" id="playground" aria-label="Interactive component playground">
       <div className="oui-playground" data-theme={theme} data-feel={feel}>
         <div className="oui-demo-toolbar">
-          <p className="oui-eyebrow">The component playground</p>
+          <p className="oui-eyebrow">Same screen. Two feels.</p>
           <div className="oui-demo-switches">
-          <div className="oui-theme-controls" role="group" aria-label="Demo color theme">
-            <button aria-pressed={theme === "light"} onClick={() => setTheme("light")}><span aria-hidden="true">☀</span> Light</button>
-            <button aria-pressed={theme === "dark"} onClick={() => setTheme("dark")}><span aria-hidden="true">☾</span> Dark</button>
-          </div>
-          <div className="oui-theme-controls" role="group" aria-label="Demo feel">
-            <button aria-pressed={feel === "soft"} onClick={() => setFeel("soft")}>Soft</button>
-            <button aria-pressed={feel === "depth"} onClick={() => setFeel("depth")}>Depth</button>
-          </div>
+            <ModeSwitch label="Dark theme" off="Light" on="Dark" checked={theme === "dark"} onChange={dark => setTheme(dark ? "dark" : "light")} />
+            <ModeSwitch label="Depth feel" off="Soft" on="Depth" checked={feel === "depth"} onChange={depth => setFeel(depth ? "depth" : "soft")} />
           </div>
         </div>
         <div className="oui-demo-grid">
@@ -97,7 +99,7 @@ function Playground() {
         </div>
         <p className="oui-demo-hint">Try it: switch the theme and the feel · hover a button · save your changes</p>
       </div>
-      <ul className="oui-capability-strip" aria-label="Kit foundations">{["Made in Figma", "Auto Layout", "Semantic variables", "Light + dark", "Soft + Depth"].map(label => <li key={label}>{label}</li>)}</ul>
+      <ul className="oui-capability-strip" aria-label="Kit foundations">{["10 component sets", "101 variants", "Light + dark", "Soft + Depth", "5 AI prompts"].map(label => <li key={label}>{label}</li>)}</ul>
     </section>
   );
 }
@@ -106,6 +108,8 @@ function PhonePreview() {
   return <figure className="oui-preview oui-preview--phone" aria-label="Illustrative LaunchKit phone screen with a search field, filters, a project card, settings and an invite form">
     <div className="oui-phone-stage" aria-hidden="true">
       <div className="oui-phone">
+        <img className="oui-phone-frame" src={phoneFrame} alt="" width="720" height="1306" loading="lazy" decoding="async" />
+        <div className="oui-phone-screen">
         <div className="oui-phone-top"><strong>✦ Orbit</strong><span className="oui-phone-avatar">A</span></div>
         <div className="oui-phone-hello"><h3>Good morning, Alex</h3><span>Here’s what’s moving forward.</span></div>
         <span className="oui-phone-field oui-phone-search">Search projects</span>
@@ -122,9 +126,10 @@ function PhonePreview() {
         <label className="oui-phone-label">Invite a teammate</label>
         <span className="oui-phone-field">name@studio.com</span>
         <div className="oui-phone-actions"><span className="oui-phone-btn">Send invite</span><span className="oui-phone-btn is-ghost">Later</span></div>
+        </div>
       </div>
       <div className="oui-phone-float oui-phone-toast"><span className="oui-stage-check"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3.5 8.5 6.5 11.5 12.5 4.5" /></svg></span><span><strong>Invite sent</strong><small>Just now</small></span></div>
-      <div className="oui-phone-float oui-phone-stat"><span>Ready to ship</span><strong>04</strong></div>
+      <div className="oui-phone-float oui-phone-stat"><AliHello className="oui-phone-ali" /><span>Ready to ship</span><strong>04</strong></div>
     </div>
     <figcaption>Same foundations. A whole new starting point.<span>Illustrative component preview</span></figcaption>
   </figure>;
@@ -190,10 +195,10 @@ export default function UIKit() {
     <main id="oui-main">
       <section className="oui-hero oui-container"><HeroAssembly theme={theme}><span className="oui-badge oui-badge--pink">Designed by Omoniyi / Built for your next idea</span><h1>Good ideas deserve<br /> a head start.</h1><p>Thoughtful Figma UI kits for getting version one out the door.<br className="oui-desktop-break" /> Reusable components. Clear systems. Room to make it yours.</p><div className="oui-actions"><FreeLink /><Button to="#editions" variant="secondary" className="oui-button" icon="arrow-down">Explore Pro</Button></div><p className="oui-small">Start with Free. Grow into Pro. Make something worth shipping.</p></HeroAssembly></section>
       <Playground />
-      <section className="oui-product oui-section" id="kits"><div className="oui-container" data-reveal><div className="oui-section-top"><p className="oui-eyebrow">01 / The first kit in the collection</p><span className="oui-eyebrow">Figma UI kit <Icon name="arrow-up-right" size={13} strokeWidth={1.5} /></span></div><div className="oui-product-grid"><div className="oui-product-copy"><span className="oui-badge">✦ LaunchKit UI</span><h2>Your version one,<br />with a head start.</h2><p>The UI system for getting version one out the door. Start with reusable foundations, then connect the pieces into a product that feels like you.</p><ol className="oui-feature-lines"><li>Components you can make your own</li><li>Consistent patterns, screen to screen</li><li>Light + dark, Soft + Depth, built in</li></ol><Button to="#editions" className="oui-button" icon="arrow-down">Choose your LaunchKit</Button></div><PhonePreview /></div></div></section>
-      <section className="oui-editions oui-section oui-container" id="editions" data-reveal><p className="oui-eyebrow">02 / Find your starting point</p><div className="oui-editions-intro"><h2>Start free.<br />Go further with Pro.</h2><p>One system, two ways in. Explore the foundations today, then grow into patterns and starter screens as your product takes shape.</p></div><div className="oui-edition-grid">{EDITIONS.map(edition => <article key={edition.id} className={`oui-edition oui-edition--${edition.id}`}><span className={`oui-badge ${edition.id === "free" ? "oui-badge--green" : "oui-badge--white"}`}>{edition.badge}</span><h3>{edition.name}</h3><p>{edition.description}</p><div className="oui-price"><strong>{edition.price}</strong><span>{edition.priceNote}</span></div><ul>{edition.features.map(feature => <li key={feature}><span aria-hidden="true">✓</span>{feature}</li>)}</ul>{edition.id === "free" ? <FreeLink /> : <Button className="oui-button" variant="secondary" onClick={() => setShowRelease(true)}>Notify me about Pro</Button>}<p className="oui-small oui-edition-note">{edition.note}</p></article>)}</div><p className="oui-small oui-collection-note">A growing collection, one useful kit at a time. More kits will live here as they’re ready.</p></section>
+      <section className="oui-product oui-section" id="kits"><div className="oui-container" data-reveal><div className="oui-section-top"><p className="oui-eyebrow">01 / The first kit in the collection</p><span className="oui-eyebrow">Figma UI kit <Icon name="arrow-up-right" size={13} strokeWidth={1.5} /></span></div><div className="oui-product-grid"><div className="oui-product-copy"><span className="oui-badge">✦ LaunchKit UI</span><h2>Ship the first<br />believable version.</h2><p>Warm by default, yours in three changes. Duplicate the file, swap what makes it yours, and ship.</p><ol className="oui-feature-lines"><li>Swap the accent</li><li>Swap the type</li><li>Pick the feel: Soft or Depth</li></ol><Button to="#editions" className="oui-button" icon="arrow-down">Choose your LaunchKit</Button></div><PhonePreview /></div></div></section>
+      <section className="oui-editions oui-section oui-container" id="editions" data-reveal><p className="oui-eyebrow">02 / Find your starting point</p><div className="oui-editions-intro"><h2>Start free.<br />Go further with Pro.</h2><p>One system, two ways in. Start with Free today. Pro builds on it, shaped by what you make.</p></div><div className="oui-edition-grid">{EDITIONS.map(edition => <article key={edition.id} className={`oui-edition oui-edition--${edition.id}`}><span className={`oui-badge ${edition.id === "free" ? "oui-badge--green" : "oui-badge--white"}`}>{edition.badge}</span><h3>{edition.name}</h3><p>{edition.description}</p><div className="oui-price"><strong>{edition.price}</strong><span>{edition.priceNote}</span></div><ul>{edition.features.map(feature => <li key={feature}><span aria-hidden="true">✓</span>{feature}</li>)}</ul>{edition.id === "free" ? <FreeLink /> : <Button className="oui-button" variant="secondary" onClick={() => setShowRelease(true)}>Notify me about Pro</Button>}<p className="oui-small oui-edition-note">{edition.note}</p></article>)}</div><p className="oui-small oui-collection-note">A growing collection, one useful kit at a time. More kits will live here as they’re ready.</p></section>
       <section className="oui-maker oui-section"><div className="oui-container oui-maker-grid" data-reveal><span className="oui-maker-star" aria-hidden="true">✦</span><div><p className="oui-eyebrow">A note from Omoniyi</p><h2>Deeply opinionated about the details.<br />So you can focus on the idea.</h2><p>I make complex systems feel clear, useful, and human. Omoniyi UI brings that same care to the components you use and reuse every day.</p><p className="oui-small">Omoniyi Alimi / Product designer & system thinker</p></div></div></section>
-      <section className="oui-faq oui-section"><div className="oui-container oui-faq-grid" data-reveal><h2>A few things<br />you might<br className="oui-desktop-break" /> be wondering.</h2><div>{[["Where do I start?", "Start with LaunchKit Free on Figma Community. Explore the foundations, then adapt them to your next idea."], ["Is LaunchKit Pro available?", "Pro is in the making. Join the release list for an update when it’s ready. The planned founding price is $49."], ["Can I make it feel like my brand?", "That’s the idea. Use the editable components and shared styles as a starting point, then shape the details around your product."]].map(([question, answer]) => <article key={question}><h3>{question}</h3><p>{answer}</p></article>)}</div></div></section>
+      <section className="oui-faq oui-section"><div className="oui-container oui-faq-grid" data-reveal><h2>A few things<br />you might<br className="oui-desktop-break" /> be wondering.</h2><div>{[["Where do I start?", "Start with LaunchKit Free on Figma Community. Explore the foundations, then adapt them to your next idea."], ["Is LaunchKit Pro available?", "Pro is in the making. Join the release list for an update when it’s ready. The planned founding price is $49."], ["Can I make it feel like my brand?", "That’s the idea. Warm by default, yours in three changes: swap the accent, swap the type, pick the feel."]].map(([question, answer]) => <article key={question}><h3>{question}</h3><p>{answer}</p></article>)}</div></div></section>
       <section className="oui-closing oui-section"><div className="oui-container" data-reveal><h2>Make room for your next good idea.</h2><FreeLink /><p className="oui-small">Start small. Make it yours.</p></div></section>
     </main>
     <footer className="oui-footer oui-container"><Link className="oui-wordmark" to="/uikit" aria-label="Omoniyi UI home"><BrandMark space="ui" /></Link><Link to="/">Portfolio <Icon name="arrow-right" size={14} strokeWidth={1.5} /></Link><a href={FREE_KIT} target="_blank" rel="noopener noreferrer">Figma Community <Icon name="arrow-up-right" size={14} strokeWidth={1.5} /></a><span>Made with care in Dallas, TX</span></footer>
