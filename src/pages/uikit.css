@@ -364,3 +364,36 @@ html[data-motion="reduce"] .oui-page .oui-button:hover, html[data-motion="reduce
 .oui-mode-switch .oui-mode-end { opacity: .55; transition: opacity var(--motion-productive-short); }
 .oui-mode-switch[aria-checked="false"] .oui-mode-end:first-child, .oui-mode-switch[aria-checked="true"] .oui-mode-end:last-child { opacity: 1; }
 .oui-page .oui-page-theme { padding: 6px 12px; background: var(--oui-soft); }
+
+/* Footer-only character lockup. Keep the drawn lettering and let its ink
+   follow the theme; Ali's face stays legible when her body turns white. */
+.oui-footer .oui-wordmark { display: inline-flex; align-items: center; gap: 8px; }
+.oui-footer-word { display: block; width: 170px; height: 44px; background: currentColor; mask: var(--footer-wordmark) center / contain no-repeat; }
+.oui-footer-ali { width: 55px; height: 68px; flex: none; color: #18140f; }
+.oui-page[data-theme="dark"] .oui-footer .oui-wordmark { color: #fff; --ali-body: #fff; }
+
+/* Keep arrows beside their labels, including icons nested inside labels.
+   No hover drift: the drawn diagonals already have their own direction. */
+.oui-footer > a:not(.oui-wordmark),
+.oui-section-top > .oui-eyebrow,
+.oui-page .oui-button .button__label { display: inline-flex; align-items: center; gap: 8px; }
+.oui-footer > a:not(.oui-wordmark) { white-space: nowrap; }
+.oui-page .icon { flex-shrink: 0; }
+.oui-page .oui-button .button__icon { transition: none; }
+.oui-page .oui-button:hover .button__icon { transform: none; }
+
+/* The page theme switch always uses the kit's Depth control treatment. */
+.oui-page .oui-page-theme {
+  border: 1px solid var(--oui-border);
+  background: var(--oui-surface);
+  box-shadow: inset 0 1px 0 #ffffffa6, 0 4px 10px -2px #1717171f, 0 1px 2px #17171712;
+}
+.oui-page-theme .oui-mode-track { background: var(--oui-soft); }
+.oui-page-theme .oui-mode-track span { box-shadow: 0 1px 2px #17171733; }
+.oui-page .oui-page-theme:active { box-shadow: inset 0 1px 3px #17171724; }
+.oui-page[data-theme="dark"] .oui-page-theme {
+  box-shadow: inset 0 1px 0 #ffffff14, 0 4px 10px -2px #00000066, 0 1px 2px #0000004d;
+}
+.oui-page[data-theme="dark"] .oui-page-theme .oui-mode-track { box-shadow: inset 0 1px 3px #00000066; }
+.oui-page[data-theme="dark"] .oui-page-theme:active { box-shadow: inset 0 1px 3px #00000066; }
+.oui-page .oui-page-theme:focus-visible { outline: 2px solid var(--oui-ink); outline-offset: 4px; }
