@@ -1,6 +1,7 @@
 /* ==========================================================================
    /uikit hero: the hero is a LaunchKit screen
-   Start: the photo fills the stage with the hero copy on it, over the fog.
+   Start: the photo fills the stage with the hero copy on it, white and
+   right-aligned over a soft shade on the fog.
    End: the photo is a card on the left, the copy lives in the right column,
    and a few pieces settle around them. The photo layer always covers the
    stage; clip-path decides how much shows, so the card keeps the exact pixels
@@ -73,25 +74,48 @@
 .oui-page[data-theme="dark"] .oui-stage-ali { color: #fffad6; }
 
 /* the hero copy, settled: left-aligned in the right column */
-.oui-hero-copy { position: relative; z-index: 2; align-self: center; display: flex; flex-direction: column; align-items: flex-start; gap: 20px; padding-block: 24px; transform-origin: 50% 50%; }
+.oui-copy-wrap { position: relative; z-index: 2; align-self: center; transform-origin: 50% 50%; }
+.oui-hero-copy { display: flex; flex-direction: column; align-items: flex-start; gap: 20px; padding-block: 24px; }
 .oui-hero .oui-hero-copy .oui-badge { align-self: flex-start; }
 .oui-page .oui-hero-copy h1 { font-size: clamp(40px, 4.3vw, 62px); max-width: none; }
 .oui-hero-copy .oui-actions { justify-content: flex-start; }
 .oui-hero-copy .oui-desktop-break { display: none; }
+/* the opening twin: right-aligned and white, laid exactly over the real copy */
+.oui-hero-ghost { position: absolute; inset: 0; align-items: flex-end; text-align: right; opacity: 0; pointer-events: none; }
+.oui-hero .oui-hero-ghost .oui-badge { align-self: flex-end; }
+.oui-hero-ghost .oui-actions { justify-content: flex-end; }
+.oui-page .oui-hero-ghost h1, .oui-page .oui-hero-ghost p { color: #fff; }
+
+/* Depth, once settled: the kit's clay shadows (a top highlight, a key and an
+   ambient shadow) land on the window and every card. */
+.oui-shell { --depth-1: inset 0 1px 0 #ffffffa6, 0 4px 10px -2px #1717171f, 0 1px 2px #17171712; --depth-2: inset 0 1px 0 #ffffffa6, 0 12px 28px -6px #1717171f, 0 2px 4px #17171712; }
+.oui-page[data-theme="dark"] .oui-shell { --depth-1: inset 0 1px 0 #ffffff14, 0 4px 10px -2px #00000066, 0 1px 2px #0000004d; --depth-2: inset 0 1px 0 #ffffff14, 0 12px 28px -6px #00000073, 0 2px 4px #0000004d; }
+.oui-shell { box-shadow: var(--depth-2); }
+.oui-stage-slot { border-radius: 24px; box-shadow: var(--depth-2); }
+.oui-stage-toast, .oui-shell .oui-hero-copy .oui-button { box-shadow: var(--depth-1); }
+.oui-stage-signin { box-shadow: var(--depth-2), 0 24px 80px #17171724; }
+
+/* the shade behind the white opening text, so it reads on the pale fog */
+.oui-stage-photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to left, #110f16a8 0%, #110f1694 42%, #110f1600 78%); opacity: 0; pointer-events: none; }
 
 /* ---- the moment ---------------------------------------------------------- */
-.oui-shell[data-phase="pre"] { border-color: transparent; }
+.oui-shell[data-phase="pre"] { border-color: transparent; box-shadow: none; }
+.oui-shell[data-phase="pre"] .oui-stage-slot, .oui-shell[data-phase="pre"] .oui-stage-toast, .oui-shell[data-phase="pre"] .oui-hero-copy .oui-button { box-shadow: none; }
 .oui-shell[data-phase="pre"] .oui-stage-photo { clip-path: inset(0 0 0 0 round 24px); }
+.oui-shell[data-phase="pre"] .oui-stage-photo::after { opacity: 1; }
 .oui-shell[data-phase="pre"] [data-piece] { opacity: 0; transform: translate(var(--from)); }
-.oui-shell[data-phase="pre"] .oui-hero-copy { transform: translate(var(--copy-x, 0), var(--copy-y, 0)) scale(1.2); }
-/* on the fog the grey lead drops to about 3:1, so it reads in ink until it lands */
-.oui-shell[data-phase="pre"] .oui-hero-copy p { color: var(--oui-ink); }
-.oui-shell[data-phase="go"] { transition: border-color 600ms ease-out; }
-.oui-shell[data-phase="go"] .oui-stage-photo { transition: clip-path 900ms cubic-bezier(.22, 1, .36, 1); }
-.oui-shell[data-phase="go"] .oui-hero-copy { transition: transform 900ms cubic-bezier(.22, 1, .36, 1); }
-.oui-shell[data-phase="go"] .oui-hero-copy p { transition: color 600ms ease-out 400ms; }
+.oui-shell[data-phase="pre"] .oui-copy-wrap { transform: translate(var(--copy-x, 0), var(--copy-y, 0)) scale(1.2); }
+.oui-shell[data-phase="pre"] .oui-copy-wrap > .oui-hero-copy:not(.oui-hero-ghost) { opacity: 0; }
+.oui-shell[data-phase="pre"] .oui-hero-ghost { opacity: 1; }
+
+.oui-shell[data-phase="go"] { transition: border-color 800ms ease-out 900ms, box-shadow 700ms ease-out 1600ms; }
+.oui-shell[data-phase="go"] .oui-stage-photo { transition: clip-path 1500ms cubic-bezier(.22, 1, .36, 1) 100ms; }
+.oui-shell[data-phase="go"] .oui-stage-photo::after { transition: opacity 900ms ease-out 200ms; }
+.oui-shell[data-phase="go"] .oui-copy-wrap { transition: transform 1500ms cubic-bezier(.22, 1, .36, 1) 100ms; }
+.oui-shell[data-phase="go"] .oui-copy-wrap > .oui-hero-copy { transition: opacity 500ms ease-in-out 550ms; }
+.oui-shell[data-phase="go"] .oui-stage-slot, .oui-shell[data-phase="go"] .oui-stage-toast, .oui-shell[data-phase="go"] .oui-hero-copy .oui-button { transition: box-shadow 700ms ease-out 1600ms; }
 .oui-shell[data-phase="go"] [data-piece] {
-  transition: opacity 480ms ease-out var(--d), transform 700ms cubic-bezier(.22, 1, .36, 1) var(--d);
+  transition: opacity 600ms ease-out var(--d), transform 900ms cubic-bezier(.22, 1, .36, 1) var(--d), box-shadow 700ms ease-out 1600ms;
 }
 html[data-motion="reduce"] .oui-shell, html[data-motion="reduce"] .oui-shell * { transition: none !important; }
 
@@ -101,11 +125,14 @@ html[data-motion="reduce"] .oui-shell, html[data-motion="reduce"] .oui-shell * {
   .oui-stage { grid-template-columns: minmax(0, 1fr); grid-template-rows: 300px auto; min-height: 0; }
   .oui-stage-photo { bottom: auto; height: 300px; clip-path: inset(0 round 24px); }
   .oui-shell[data-phase="pre"] .oui-stage-photo { clip-path: inset(0 round 24px); }
-  .oui-shell[data-phase="pre"] .oui-hero-copy { transform: none; }
-  .oui-shell[data-phase="pre"] .oui-hero-copy p { color: inherit; }
+  .oui-shell[data-phase="pre"] .oui-copy-wrap { transform: none; }
+  .oui-shell[data-phase="pre"] .oui-copy-wrap > .oui-hero-copy:not(.oui-hero-ghost) { opacity: 1; }
+  .oui-hero-ghost, .oui-shell[data-phase="pre"] .oui-hero-ghost { display: none; }
+  .oui-stage-photo::after { display: none; }
   .oui-stage-signin { position: relative; right: auto; bottom: auto; width: auto; grid-row: 2; display: none; }
   .oui-stage-slot { grid-row: 1; }
-  .oui-hero-copy { grid-row: 2; padding-block: 8px 0; }
+  .oui-copy-wrap { grid-row: 2; }
+  .oui-hero-copy { padding-block: 8px 0; }
   .oui-stage-photo img { object-position: 22% 55%; }
 }
 @media (max-width: 600px) {

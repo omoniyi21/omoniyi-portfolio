@@ -15,8 +15,8 @@ import "./hero-assembly.css";
 // complete. It plays once per visitor, only when the photo is in view, never
 // on a deep link; a click, tap, key or scrolling past jumps to the end.
 const PLAYED_KEY = "oui-hero-played";
-const HOLD_MS = 350;
-const RUN_MS = 2000;
+const HOLD_MS = 500;
+const RUN_MS = 3400;
 const PHOTOS = {
   light: { set: `${bridge1400} 1400w, ${bridge2600} 2600w`, src: bridge1400, alt: "the Golden Gate Bridge in fog" },
   dark: { set: `${bar1400} 1400w, ${bar2600} 2600w`, src: bar1400, alt: "an empty bar at night" },
@@ -42,12 +42,12 @@ export default function HeroAssembly({ theme = "light", children }) {
   // little larger) with a transform, so its settled place in the right column
   // stays the real layout. Going to "go" drops the transform and it glides home.
   const shell = useRef(null);
-  const copy = useRef(null);
+  const wrap = useRef(null);
   useLayoutEffect(() => {
     if (phase !== "pre") return undefined;
     const place = () => {
       const box = stage.current?.getBoundingClientRect();
-      const text = copy.current?.getBoundingClientRect();
+      const text = wrap.current?.getBoundingClientRect();
       if (!box || !text) return;
       // over the fog on the right, clear of the bridge on the left
       const dx = box.left + box.width * 0.64 - (text.left + text.width / 2);
@@ -116,7 +116,7 @@ export default function HeroAssembly({ theme = "light", children }) {
 
   return (
     <div ref={shell} className="oui-shell" data-phase={phase}>
-      <div className="oui-shell-bar" aria-hidden="true" {...piece(0, "0, -10px")}>
+      <div className="oui-shell-bar" aria-hidden="true" {...piece(200, "0, -10px")}>
         <span className="oui-shell-brand">✦ LaunchKit</span>
         <span className="oui-shell-tabs"><span className="is-active">Overview</span><span>Components</span><span>Pro</span></span>
         <span className="oui-shell-end"><span className="oui-badge">＋ Create</span><span className="oui-shell-avatar">O</span></span>
@@ -126,12 +126,12 @@ export default function HeroAssembly({ theme = "light", children }) {
           <img ref={photo} src={shot.src} srcSet={shot.set} sizes="(max-width: 700px) 100vw, 1312px" alt={`Omoniyi’s photo of ${shot.alt}`} width="1400" height="636" fetchPriority="high" decoding="async" />
         </div>
         <div className="oui-stage-slot" aria-hidden="true">
-          <span className="oui-stage-toast" {...piece(600, "0, -12px")}>
+          <span className="oui-stage-toast" {...piece(1000, "0, -12px")}>
             <span className="oui-stage-check"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3.5 8.5 6.5 11.5 12.5 4.5" /></svg></span>
             <span><strong>Version one shipped</strong><small>Just now</small></span>
           </span>
-          <span className="oui-stage-tag" {...piece(760, "0, 12px")}><span className="oui-badge oui-badge--white">Field notes</span><span className="oui-badge oui-badge--green">Ready to ship</span></span>
-          <div className="oui-stage-signin" {...piece(900, "24px, 16px")}>
+          <span className="oui-stage-tag" {...piece(1250, "0, 12px")}><span className="oui-badge oui-badge--white">Field notes</span><span className="oui-badge oui-badge--green">Ready to ship</span></span>
+          <div className="oui-stage-signin" {...piece(1450, "24px, 16px")}>
             <AliHello className="oui-stage-ali" />
             <span className="oui-badge">Pro preview</span>
             <strong>Welcome back</strong>
@@ -140,7 +140,13 @@ export default function HeroAssembly({ theme = "light", children }) {
             <span className="oui-stage-pill">Sign in</span>
           </div>
         </div>
-        <div ref={copy} className="oui-hero-copy">{children}</div>
+        <div ref={wrap} className="oui-copy-wrap">
+          <div className="oui-hero-copy">{children}</div>
+          {/* A right-aligned, white twin of the copy for the opening frame. It
+              crossfades into the real (left-aligned) copy while both travel,
+              since text alignment itself can't animate. Gone once settled. */}
+          {phase !== "settled" && <div className="oui-hero-copy oui-hero-ghost" aria-hidden="true" inert>{children}</div>}
+        </div>
       </div>
     </div>
   );
