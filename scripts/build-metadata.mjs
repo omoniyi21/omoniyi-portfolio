@@ -1,12 +1,13 @@
 import { readFile, writeFile, mkdir, access } from 'node:fs/promises';
-import { pageMetadata, getPageMetadata, metadataTags, faviconFor } from '../src/data/pageMetadata.js';
+import { pageMetadata, unlistedPages, getPageMetadata, metadataTags, faviconFor } from '../src/data/pageMetadata.js';
 
 const escape = value => value.replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
 const template = (await readFile('dist/index.html', 'utf8'))
   .replace(/<title>[\s\S]*?<\/title>/g, '')
   .replace(/<meta\s+(?:name|property)="(?:description|og:[^"]+|twitter:[^"]+)"[^>]*>/g, '')
   .replace(/<link\s+rel="canonical"[^>]*>/g, '');
-for (const route of [...Object.keys(pageMetadata), '/uikits']) {
+const prerenderRoutes = [...Object.keys(pageMetadata), ...Object.keys(unlistedPages), '/uikits'];
+for (const route of prerenderRoutes) {
   const metadata = getPageMetadata(route);
   await access(`dist${metadata.image}`);
   const head = `<title>${escape(metadata.title)}</title>\n<link rel="canonical" href="${escape(metadata.canonical)}" />\n` + metadataTags(metadata).map(([attribute, key, content]) => `<meta ${attribute}="${key}" content="${escape(content)}" />`).join('\n');
@@ -16,7 +17,7 @@ for (const route of [...Object.keys(pageMetadata), '/uikits']) {
   const html = template.replaceAll('/favicons/portfolio.svg', faviconFor(route)).replaceAll('/favicons/portfolio-apple.png', faviconFor(route).replace('.svg', '-apple.png'));
   await writeFile(`${directory}/index.html`, html.replace('</head>', `${head}\n${preload}\n</head>`));
 }
-console.log(`Generated metadata for ${Object.keys(pageMetadata).length + 1} routes.`);
+console.log(`Generated metadata for ${prerenderRoutes.length} routes.`);
 
 // Sitemap: one <url> per canonical route, reusing the same metadata used
 // for prerendering so it can never drift out of sync with the real routes.
@@ -26,4 +27,4 @@ const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://w
 await writeFile('dist/sitemap.xml', sitemap);
 console.log(`Generated sitemap.xml with ${sitemapUrls.length} URLs.`);
 // Exact rewrites precede Netlify's SPA fallback, including links without a trailing slash.
-await writeFile('dist/_redirects', [...Object.keys(pageMetadata), '/uikits'].filter(route => route !== '/').map(route => `${route} ${route}/index.html 200`).join('\n') + '\n' + await readFile('public/_redirects', 'utf8'));
+await writeFile('dist/_redirects', prerenderRoutes.filter(route => route !== '/').map(route => `${route} ${route}/index.html 200`).join('\n') + '\n' + await readFile('public/_redirects', 'utf8'));

@@ -36,10 +36,15 @@ for (const post of getPublishedObservations()) {
     type: 'article',
   };
 }
+// Unlisted pages: prerendered with noindex, left out of the sitemap, and
+// never linked from the site. Share the link directly.
+export const unlistedPages = {
+  '/skylight': { ...page('Skylight Interview Deck | Omoniyi Alimi', 'Case studies from Omoniyi Alimi for the Skylight Senior/Staff Product Designer role on the U.S. Air Force contract.'), noindex: true },
+};
 export function getPageMetadata(pathname) {
   const path = pathname.replace(/\/+$/, '') || '/';
   const canonicalPath = path === '/uikits' ? '/uikit' : path;
-  return { ...(pageMetadata[canonicalPath] || page('Page Not Found | Omoniyi Alimi', 'This page could not be found. Explore Omoniyi Alimi’s selected work, studio, and observations.')), canonical: `${siteOrigin}${canonicalPath}` };
+  return { ...(pageMetadata[canonicalPath] || unlistedPages[canonicalPath] || page('Page Not Found | Omoniyi Alimi', 'This page could not be found. Explore Omoniyi Alimi’s selected work, studio, and observations.')), canonical: `${siteOrigin}${canonicalPath}` };
 }
 export function metadataTags(metadata) {
   return [
@@ -59,6 +64,7 @@ export function metadataTags(metadata) {
     ['name', 'twitter:description', metadata.description],
     ['name', 'twitter:image', `${siteOrigin}${metadata.image}`],
     ['name', 'twitter:image:alt', metadata.imageAlt],
+    ...(metadata.noindex ? [['name', 'robots', 'noindex, nofollow']] : []),
   ];
 }
 

@@ -69,13 +69,16 @@ const HouseCaseStudy = lazy(loaders.house);
 const ProjectCaseStudy = lazy(loaders.study);
 const Resume = lazy(loaders.resume);
 const Visual = lazy(loaders.visual);
+// Unlisted interview deck: not linked anywhere, so it never preloads.
+const SkylightDeck = lazy(() => import("./pages/SkylightDeck"));
 
 export default function App() {
   const { pathname } = useLocation();
   const isKitPage = /^\/uikits?\/?$/.test(pathname);
   const isStudioPage = /^\/studio(\/inquire|\/admission|\/about)?\/?$/.test(pathname) || (studioHost && pathname === "/");
   const leavesStudioDomain = studioHost && !isStudioPath(pathname);
-  const hideChrome = isKitPage || isStudioPage;
+  const isDeckPage = /^\/skylight\/?$/.test(pathname);
+  const hideChrome = isKitPage || isStudioPage || isDeckPage;
 
   // A link inside the app to a portfolio page, followed on the Studio
   // domain, finishes on the portfolio's own domain.
@@ -131,6 +134,7 @@ export default function App() {
         <Route path="/wedding-identity" element={<ProjectCaseStudy studyKey="wedding" />} />
         <Route path="/sultry-tips" element={<ProjectCaseStudy studyKey="sultry" />} />
         <Route path="/library-of-congress" element={<ProjectCaseStudy studyKey="libraryOfCongress" />} />
+        <Route path="/skylight" element={<SkylightDeck />} />
         <Route path="*" element={<NotFound />} />
       </Routes>}
       </Suspense>

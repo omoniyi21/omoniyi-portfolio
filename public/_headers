@@ -14,3 +14,9 @@
 # Self-hosted fonts change rarely; cache for 30 days.
 /fonts/*
   Cache-Control: public, max-age=2592000
+
+# Unlisted interview deck: keep it out of search results.
+/skylight
+  X-Robots-Tag: noindex, nofollow
+/skylight/*
+  X-Robots-Tag: noindex, nofollow

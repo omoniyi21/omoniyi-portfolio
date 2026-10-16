@@ -11,6 +11,8 @@ const loadMetadata = () => import('../../data/pageMetadata.js');
 function applyMetadata({ getPageMetadata, metadataTags, faviconFor }, pathname) {
   const metadata = getPageMetadata(pathname);
   document.title = metadata.title;
+  // Only unlisted pages carry robots; clear it when leaving one.
+  if (!metadata.noindex) document.head.querySelector('meta[name="robots"]')?.remove();
   for (const [attribute, key, content] of metadataTags(metadata)) {
     let element = document.head.querySelector(`meta[${attribute}="${key}"]`);
     if (!element) {
