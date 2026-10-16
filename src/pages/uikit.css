@@ -9,6 +9,7 @@
   --oui-pink: #ffeaf0;
   --oui-border: #dfd9cf;
   --oui-success: #d9efdf;
+  --oui-on-accent: #171717;
   background: var(--oui-page);
   color: var(--oui-ink);
   font-family: var(--font-family-display);
@@ -29,15 +30,16 @@
 .oui-page .oui-small { font-size: 14px; line-height: 1.5; }
 .oui-page .oui-muted { color: var(--oui-muted); }
 .oui-page .oui-eyebrow { font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: .035em; line-height: 1.5; }
-.oui-badge { display: inline-flex; align-items: center; align-self: flex-start; padding: 8px 12px; border-radius: 999px; background: var(--oui-accent); color: var(--oui-ink); font-size: 12px; font-weight: 500; line-height: 1.4; }
+.oui-badge { display: inline-flex; align-items: center; align-self: flex-start; padding: 8px 12px; border-radius: 999px; background: var(--oui-accent); color: var(--oui-on-accent); font-size: 12px; font-weight: 500; line-height: 1.4; }
+.oui-badge--green, .oui-badge--pink, .oui-badge--white { color: var(--oui-ink); }
 .oui-badge--green { background: var(--oui-success); }
 .oui-badge--pink { background: var(--oui-pink); }
 .oui-badge--white { background: var(--oui-surface); }
-.oui-page .oui-button { background: var(--oui-accent); border: 1px solid var(--oui-border); box-shadow: none; color: var(--oui-ink); font-family: inherit; font-size: 16px; font-weight: 500; min-height: 49px; padding: 12px 24px; line-height: 24px; max-width: 100%; white-space: normal; text-align: center; transition: background var(--motion-productive-short), transform var(--motion-productive-short), box-shadow var(--motion-productive-short); }
+.oui-page .oui-button { background: var(--oui-accent); border: 1px solid var(--oui-border); box-shadow: none; color: var(--oui-on-accent); font-family: inherit; font-size: 16px; font-weight: 500; min-height: 49px; padding: 12px 24px; line-height: 24px; max-width: 100%; white-space: normal; text-align: center; transition: background var(--motion-productive-short), transform var(--motion-productive-short), box-shadow var(--motion-productive-short); }
 .oui-page .oui-button::before, .oui-page .oui-button::after { display: none; }
-.oui-page .oui-button.button--secondary { background: var(--oui-surface); }
-.oui-page .oui-button:hover { background: var(--oui-pink); box-shadow: 0 4px 14px #1717170d; transform: translateY(-2px); filter: none; }
-.oui-page .oui-button:active { transform: translateY(0); background: var(--oui-soft); }
+.oui-page .oui-button.button--secondary { background: var(--oui-surface); color: var(--oui-ink); }
+.oui-page .oui-button:hover { background: var(--oui-pink); color: var(--oui-ink); box-shadow: 0 4px 14px #1717170d; transform: translateY(-2px); filter: none; }
+.oui-page .oui-button:active { transform: translateY(0); background: var(--oui-soft); color: var(--oui-ink); }
 .oui-page .oui-button:disabled { background: var(--oui-soft); color: var(--oui-muted); opacity: .7; }
 .oui-nav { width: min(100% - 64px, 1376px); min-height: 113px; display: flex; align-items: center; gap: 32px; }
 .oui-wordmark { font-size: 24px; line-height: 1.25; font-weight: 500; letter-spacing: -.025em; white-space: nowrap; }
@@ -46,14 +48,14 @@
 .oui-nav nav a, .oui-footer a:not(.oui-wordmark), .oui-mobile-nav { font-size: 14px; padding-block: 12px; }
 .oui-nav nav a:hover, .oui-footer a:hover { text-decoration: underline; text-underline-offset: 5px; }
 .oui-mobile-nav { display: none; }
-.oui-hero { padding-block: 64px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 24px; }
+.oui-hero { padding-block: 24px 64px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 24px; }
 .oui-hero .oui-badge { align-self: center; text-transform: uppercase; }
 .oui-hero h1 { max-width: 1040px; }
 .oui-hero > p { max-width: 900px; }
 .oui-actions { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
 .oui-play-section { padding-block: 64px; scroll-margin-top: 24px; }
 .oui-playground { max-width: 1168px; margin-inline: auto; border: 1px solid var(--oui-border); border-radius: 24px; padding: 32px; background: var(--oui-surface); transition: background var(--motion-productive-long), color var(--motion-productive-long), border-color var(--motion-productive-long); }
-.oui-playground[data-theme="dark"] { --oui-ink: #fff; --oui-muted: #d9cdec; --oui-surface: #302a3c; --oui-soft: #241f2e; --oui-accent: #74609e; --oui-pink: #66518c; --oui-border: #665775; --oui-success: #51466a; }
+.oui-playground[data-theme="dark"] { --oui-ink: #fff; --oui-on-accent: #fff; --oui-muted: #d9cdec; --oui-surface: #302a3c; --oui-soft: #241f2e; --oui-accent: #74609e; --oui-pink: #66518c; --oui-border: #665775; --oui-success: #51466a; }
 .oui-demo-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-bottom: 24px; }
 .oui-theme-controls { display: flex; gap: 8px; }
 .oui-theme-controls button, .oui-switch { border: 0; min-height: 44px; border-radius: 999px; padding: 10px 14px; background: var(--oui-soft); color: var(--oui-ink); font-size: 12px; white-space: nowrap; }
@@ -106,6 +108,9 @@
 .oui-edition-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
 .oui-edition { display: flex; flex-direction: column; align-items: flex-start; gap: 24px; padding: 40px; border: 1px solid var(--oui-border); border-radius: 24px; background: var(--oui-surface); min-width: 0; }
 .oui-edition--pro { background: var(--oui-accent); }
+/* Lavender stays lavender in both themes, so text on it is always the dark
+   on-accent (muted is only 4.3:1 on lavender). */
+.oui-edition--pro, .oui-page .oui-edition--pro h3, .oui-page .oui-edition--pro p, .oui-edition--pro .oui-price span, .oui-preview figcaption { color: var(--oui-on-accent); }
 .oui-edition > .oui-badge { text-transform: uppercase; }
 .oui-edition h3 { font-size: 32px; line-height: 1.2; letter-spacing: -.04em; }
 .oui-price { display: flex; gap: 16px; align-items: center; }
@@ -245,3 +250,26 @@
 .oui-page .oui-button, .oui-preview { transition-timing-function: var(--ease-productive); }
 html[data-motion="reduce"] .oui-page *, html[data-motion="reduce"] .oui-page *::before, html[data-motion="reduce"] .oui-page *::after { animation: none !important; transition: none !important; }
 html[data-motion="reduce"] .oui-page .oui-button:hover, html[data-motion="reduce"] .oui-preview:hover { transform: none; }
+
+/* ==========================================================================
+   Page theme. Dark is the same sunny brand at night: plum ground, butter
+   text, and lavender that stays lavender so the pills glow.
+   ========================================================================== */
+.oui-page[data-theme="dark"] {
+  --oui-page: #1c1824; --oui-ink: #fffad6; --oui-muted: #d9cdec; --oui-surface: #302a3c; --oui-soft: #241f2e;
+  --oui-accent: #ddd1ff; --oui-pink: #66518c; --oui-border: #665775; --oui-success: #51466a;
+  color-scheme: dark;
+}
+.oui-page[data-theme="dark"] .oui-maker { background: #120f18; }
+/* the drawn wordmark is a dark-ink file; flip it to light on the plum ground */
+.oui-page[data-theme="dark"] .ecosystem-wordmark img:first-child { filter: invert(1); }
+.oui-page[data-theme="dark"] :focus-visible { outline-color: var(--oui-ink); }
+/* the playground keeps its own light/dark switch, whatever the page theme */
+.oui-playground[data-theme="light"] { --oui-page: #fffad6; --oui-ink: #171717; --oui-muted: #62606b; --oui-surface: #fff; --oui-soft: #f7f4fd; --oui-accent: #ddd1ff; --oui-pink: #ffeaf0; --oui-border: #dfd9cf; --oui-success: #d9efdf; color: var(--oui-ink); }
+.oui-page-theme { display: flex; gap: 4px; padding: 4px; border-radius: 999px; background: var(--oui-soft); }
+.oui-page .oui-page-theme button { min-height: 40px; background: transparent; color: var(--oui-ink); cursor: pointer; }
+.oui-page .oui-page-theme button[aria-pressed="true"] { background: var(--oui-accent); color: var(--oui-on-accent); }
+@media (max-width: 600px) {
+  .oui-page-theme .oui-theme-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .oui-page .oui-page-theme button { min-width: 44px; padding-inline: 12px; }
+}
