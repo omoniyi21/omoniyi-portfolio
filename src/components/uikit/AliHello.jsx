@@ -22,7 +22,7 @@ export default function AliHello({ className = "" }) {
       </g>
       <rect x="82" y="280" width="30" height="13" rx="6.5" fill="#ddd1ff" stroke="currentColor" strokeWidth="4" />
       <rect x="128" y="280" width="30" height="13" rx="6.5" fill="#ddd1ff" stroke="currentColor" strokeWidth="4" />
-      <rect x="50" y="120" width="140" height="136" rx="30" fill="#7569E3" stroke="currentColor" strokeWidth="8" />
+      <rect x="50" y="120" width="140" height="136" rx="30" fill="var(--ali-body, #7569E3)" stroke="currentColor" strokeWidth="8" />
       <rect x="53" y="122" width="139" height="136" rx="30" fill="none" stroke="currentColor" strokeWidth="2.4" transform="rotate(-1.5 120 188)" />
       <circle cx="83" cy="66" r="10" fill="#FF8DB6" stroke="currentColor" strokeWidth="4" />
       <circle cx="159" cy="62" r="10" fill="#ddd1ff" stroke="currentColor" strokeWidth="4" />
