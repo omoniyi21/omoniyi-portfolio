@@ -2,21 +2,24 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react
 import { useSearchParams } from "react-router-dom";
 import floating from "../assets/branding/celestial/stardust-asteroid.webp";
 import thinking from "../assets/branding/sd-variants/sd-thinking.webp";
-import movie from "../assets/branding/sd-variants/sd-watching-a-movie.webp";
 import sleeping from "../assets/branding/sd-variants/sd-sleeping.webp";
-import lost from "../assets/branding/stardust-creature-kit/png/1024/lost-confused.webp";
 import exploring from "../assets/branding/sd-variants/sd-exploring.webp";
 import "./skylight-deck.css";
 
 // Unlisted interview deck for Skylight (U.S. Air Force). Not linked from the
 // site, left out of the sitemap, and served with noindex (see pageMetadata.js
 // and public/_headers). Slides are drawn on a fixed 1920x1080 stage and scaled
-// to fit, so the layout holds on any screen share.
+// to fit, so the layout holds on any screen share. Every claim here comes from
+// the published case studies; outcomes stay as modest as those pages are.
 
-const SD = { floating, thinking, movie, sleeping, lost, exploring };
+const SD = { floating, thinking, sleeping, exploring };
+const HOUSE_PROTOTYPE = "https://www.figma.com/proto/hn1KPlUQVOIlVMKbz1id6I?node-id=151-3362&starting-point-node-id=151-3362";
+// Same path rule as the case study pages: accounting screens are blurred copies.
+const shotSrc = (name) => `/case-studies/${name}.webp${name.startsWith("payments-") ? "?redacted=1" : ""}`;
 
 const Kicker = ({ children }) => <p className="deck__kicker">{children}</p>;
 const H = ({ children, size = 104 }) => <h2 className="deck__h" style={{ fontSize: size }}>{children}</h2>;
+const Lede = ({ children }) => <p className="deck__text">{children}</p>;
 const Points = ({ items }) => (
   <div className="deck__points">
     {items.map(([n, t]) => (
@@ -34,11 +37,67 @@ const Flow = ({ from, to }) => (
     <span className="deck__flow-to">{to}</span>
   </div>
 );
+const Shot = ({ name, caption, tall = false }) => (
+  <figure className={`deck__shot${tall ? " deck__shot--tall" : ""}`}>
+    <img src={shotSrc(name)} alt={caption} decoding="async" />
+    <figcaption>{caption}{name.startsWith("payments-") && <strong> Data blurred for confidentiality.</strong>}</figcaption>
+  </figure>
+);
+const Split = ({ children, media }) => (
+  <div className="deck__split">
+    <div className="deck__split-copy">{children}</div>
+    <div className="deck__split-media">{media}</div>
+  </div>
+);
+// Wide legacy screens (3:1 to 15:1) read best as a full-width band under the copy.
+const Band = ({ head, side, media }) => (
+  <div className="deck__band">
+    <div className="deck__band-copy">
+      <div>{head}</div>
+      <div>{side}</div>
+    </div>
+    <div className="deck__band-media">{media}</div>
+  </div>
+);
+const Facts = ({ items }) => (
+  <dl className="deck__facts">
+    {items.map(([k, v]) => (
+      <div key={k}><dt>{k}</dt><dd>{v}</dd></div>
+    ))}
+  </dl>
+);
+const Stack = ({ items }) => (
+  <div className="deck__stack">
+    {items.map(([a, b]) => (
+      <div key={a} className="deck__stack-item">
+        <p className="deck__stack-a">{a}</p>
+        <p className="deck__stack-b">{b}</p>
+      </div>
+    ))}
+  </div>
+);
+const Learned = ({ rows }) => (
+  <div className="deck__learned" role="table" aria-label="Observation, principle and product response">
+    <div className="deck__learned-row deck__learned-head" role="row">
+      {["What we saw", "Principle", "What the product did"].map((h) => <p key={h} role="columnheader">{h}</p>)}
+    </div>
+    {rows.map((r) => (
+      <div key={r[0]} className="deck__learned-row" role="row">
+        {r.map((c) => <p key={c} role="cell">{c}</p>)}
+      </div>
+    ))}
+  </div>
+);
+const Pause = ({ story }) => (<>
+  <Kicker>{story}</Kicker>
+  <H size={150}>Questions on<br /><em className="deck__accent">this one?</em></H>
+  <p className="deck__lede">Before we move on.</p>
+</>);
 
 const slides = [
   {
     title: "Introduction", section: "Skylight · Senior/Staff Product Designer", sd: "floating", pos: "br",
-    notes: ["Thank them for the time; frame the next 60 to 90 minutes.", "Two case studies, one vignette, then alignment and conversation."],
+    notes: ["Thank Mike for the time; frame the hour.", "Two deep stories, a pause for questions after each, then open conversation."],
     body: (<>
       <Kicker>Skylight · U.S. Air Force</Kicker>
       <H size={150}>Designing for the<br /><em className="deck__accent">operational</em> reality.</H>
@@ -47,12 +106,12 @@ const slides = [
   },
   {
     title: "Agenda", section: "Today", sd: "exploring", pos: "tr",
-    notes: ["Set time expectations per section.", "Invite interruptions and questions throughout."],
+    notes: ["Say the positioning line out loud, then the agenda.", "\"Interrupt me anytime. I'll also pause after each story.\""],
     body: (<>
       <Kicker>Today</Kicker>
-      <H>What we’ll walk through</H>
+      <H size={80}>I design for systems where the information is dense, the stakes are high, and the next step has to be right.</H>
       <ol className="deck__agenda">
-        {["U.S. Copyright Office: Accounting & Payments Discovery", "U.S. House: Committee Voting Platform", "Vignette: Sultry Tips", "Skylight & Air Force alignment"].map((t, i) => (
+        {["U.S. Copyright Office: Accounting discovery", "U.S. House: Committee voting platform", "How I'd work at Skylight", "Conversation"].map((t, i) => (
           <li key={t}>
             <span className="deck__agenda-n">0{i + 1}</span>
             <span>{t}</span>
@@ -61,68 +120,197 @@ const slides = [
       </ol>
     </>),
   },
+
+  // Story 1: Copyright Office accounting (15 to 18 min)
   {
-    title: "Copyright Office: Context", section: "01 · U.S. Copyright Office", sd: "thinking", pos: "tr",
-    notes: ["Accounting had been living inside the admin workspace.", "Why separation was needed to properly understand it."],
+    title: "Accounting: Context", section: "01 · U.S. Copyright Office",
+    notes: ["Modernizing accounting meant learning how payments, deposit accounts, registrations and staff actions relate.", "The legacy interface wasn't just old. It held years of operational requirements.", "About 2 minutes."],
+    body: (<Band
+      head={<><Kicker>01 · U.S. Copyright Office</Kicker><H size={68}>Understanding the accounting rules before redesigning them</H></>}
+      side={<Facts items={[["Role", "UX Designer, Accounting Discovery"], ["Team", "Product, accounting SMEs, engineering, QA"], ["I owned", "SME research, legacy analysis, workflow mapping, requirements, product modeling"]]} />}
+      media={<Shot name="payments-legacy" caption="The starting point: legacy Siebel account, transaction and payment-allocation views." />}
+    />),
+  },
+  {
+    title: "Accounting: Problem", section: "01 · U.S. Copyright Office",
+    notes: ["Different payment paths, account rules and unresolved transactions created dependencies beyond any one form.", "Staff needed to understand both the record and its consequences."],
+    body: (<Band
+      head={<><Kicker>01 · The problem</Kicker><H size={76}>A payment is more than an amount.</H></>}
+      side={<Stack items={[["Multiple entry paths", "Paper checks, online payments and other service paths needed different handling."], ["Account lifecycle rules", "Balances, reminders, closure and inactivation shaped what could happen next."], ["Exceptions crossed boundaries", "Failed postings and unpaid records needed investigation across linked records."]]} />}
+      media={<Shot name="payments-transactions" caption="Transactions carry balances, identifiers, posting status and comments in one view." />}
+    />),
+  },
+  {
+    title: "Accounting: Its own room", section: "01 · U.S. Copyright Office", sd: "thinking", pos: "br",
+    notes: ["Say this one plainly. It's influence beyond the screens.", "Accounting was being folded into the admin workspace. I coordinated the stakeholder conversations and made the case for its own workspace.", "Be ready with who you convinced and how."],
     body: (<>
-      <Kicker>01 · U.S. Copyright Office</Kicker>
-      <H>Accounting &amp; Payments<br />Discovery</H>
-      <Flow from="Buried in the admin workspace" to="Its own dedicated discovery" />
+      <Kicker>01 · Making the case</Kicker>
+      <H size={88}>Giving accounting its own room</H>
+      <Flow from="Folded into the admin workspace" to="Its own workspace and team" />
+      <Points items={[["Team", "A dedicated accounting track"], ["2×", "SME sessions coordinated every week"], ["Weekly", "Design-decision touchpoint"]]} />
     </>),
   },
   {
-    title: "Copyright Office: Cadence", section: "01 · U.S. Copyright Office", sd: "exploring", pos: "br",
-    notes: ["Who the SMEs were and how sessions were structured.", "How trust was built through consistent cadence."],
+    title: "Accounting: How the work ran", section: "01 · U.S. Copyright Office",
+    notes: ["Follow the records and the handoffs.", "SMEs showed when payment records were created, what was already automated, and where accounting depended on other service units.", "I paired that with legacy analysis before proposing any interface change."],
+    body: (<Band
+      head={<><Kicker>01 · How the work ran</Kicker><H size={76}>Follow the records and the handoffs.</H></>}
+      side={<><Lede>Over 2.5 months of discovery, SME sessions showed when payment records were created, which rules were already automated, and where accounting depended on other service units.</Lede><Lede>I paired that with legacy analysis before proposing any interface change.</Lede></>}
+      media={<div className="deck__band-pair"><Shot name="payments-balance" caption="Deposit-account summary: balance and account type as context." /><Shot name="payments-journal" caption="Account journal and record detail." /></div>}
+    />),
+  },
+  {
+    title: "Accounting: Deconstructing Siebel", section: "01 · U.S. Copyright Office",
+    notes: ["Walk one real workflow that was hard to untangle: a payment, its allocation, and the fees and service requests it links to.", "Show how mapping the dependencies changed what the team decided."],
+    body: (<Band
+      head={<><Kicker>01 · Making sense of legacy</Kicker><H size={76}>Deconstructing Siebel</H></>}
+      side={<Stack items={[["Deconstruct", "Legacy Siebel workflows, step by step"], ["Model", "Payments, allocations, fees and service requests, made visible"], ["Decide", "What the new product must keep before anything gets simpler"]]} />}
+      media={<Shot name="payments-allocation" caption="Payment allocation links a payment to downstream fees and service-request identifiers." />}
+    />),
+  },
+  {
+    title: "Accounting: What research changed", section: "01 · U.S. Copyright Office",
+    notes: ["This is the heart of the story. Spend about 3 minutes.", "Line to land: \"Research stopped us from building something that already existed.\""],
     body: (<>
-      <Kicker>01 · How the work ran</Kicker>
-      <H>A steady rhythm<br />with the experts</H>
-      <Points items={[["2×", "SME sessions led every week"], ["2.5", "Months of sustained discovery"], ["SMEs", "Accounting experts at the table"]]} />
+      <Kicker>01 · What research changed</Kicker>
+      <H size={76}>A missing cue is not a missing capability.</H>
+      <Learned rows={[
+        ["SMEs confirmed low-balance reminders already existed.", "Check operational behavior before proposing automation.", "Prioritize account visibility instead of another reminder."],
+        ["Some physical-payment paths needed manual record creation.", "Expose actions where the workflow and role require them.", "Manual creation became a scoped requirement, not a global action."],
+        ["A failed posting had consequences a short status couldn't explain.", "Keep exception context beside the record.", "Status, comments and linked records stay together."],
+      ]} />
     </>),
   },
   {
-    title: "Copyright Office: Legacy", section: "01 · U.S. Copyright Office", sd: "lost", pos: "tr",
-    notes: ["Walk through a Siebel workflow that was hardest to untangle.", "Show how the dependency model changed the team’s decisions."],
+    title: "Accounting: Decisions", section: "01 · U.S. Copyright Office",
+    notes: ["The tradeoff: everyone wanted a simpler screen, but a cleaner screen still had to support investigation.", "Add one thing you'd do differently (yours to fill)."],
+    body: (<Band
+      head={<><Kicker>01 · Decisions and the tradeoff</Kicker><H size={68}>Simplify the model without losing the rules.</H><p className="deck__callout"><strong>Tradeoff.</strong> A cleaner screen still had to support investigation.</p></>}
+      side={<Stack items={[["Keep account health close", "Balance and account type as decision context"], ["Retain traceability", "Transactions, allocations and service records stay linked"], ["Explain exceptions", "A payment state travels with what explains it"]]} />}
+      media={<Shot name="payments-exception" caption="Posting failures and fee adjustments appear alongside transaction state." />}
+    />),
+  },
+  {
+    title: "Accounting: Outcome", section: "01 · U.S. Copyright Office", sd: "exploring", pos: "br",
+    notes: ["Be honest about scope: structured discovery and clear requirements, not a shipped replacement.", "Bridge: \"Air Force systems carry the same thing: rules that live in old screens and in people's heads. This is how I find them before we change anything.\""],
     body: (<>
-      <Kicker>01 · Making sense of legacy</Kicker>
-      <H>Deconstructing Siebel</H>
-      <div className="deck__pair">
-        {[["Deconstruct", "Legacy Siebel workflows, step by step"], ["Model", "Complex financial dependencies, made visible"]].map(([a, b]) => (
-          <div key={a} className="deck__pair-item">
-            <p className="deck__pair-a">{a}</p>
-            <p className="deck__pair-b">{b}</p>
-          </div>
-        ))}
-      </div>
+      <Kicker>01 · Outcome</Kicker>
+      <H size={80}>A stronger foundation for the next product decision</H>
+      <Points items={[["People", "SME knowledge became explicit input to product decisions"], ["Product", "Clarity on manual payments, existing reminders and exceptions"], ["System", "Records, lifecycle rules, permissions and handoffs in the model"]]} />
+      <p className="deck__quote">“Understanding what should stay is as important as deciding what should change.”</p>
     </>),
   },
   {
-    title: "House: Context", section: "02 · U.S. House of Representatives", sd: "floating", pos: "br",
-    notes: ["Describe the paper vote process and its risks.", "What one digital record means for the committee."],
-    body: (<>
+    title: "Questions: Copyright Office", section: "01 · U.S. Copyright Office", sd: "thinking", pos: "br",
+    notes: ["Aim for 5 to 8 minutes.", "Likely: getting access to users, SME disagreement, what to keep from the legacy system."],
+    body: <Pause story="01 · Pause" />,
+  },
+
+  // Story 2: U.S. House voting platform (15 to 18 min)
+  {
+    title: "House: Context", section: "02 · U.S. House of Representatives",
+    notes: ["A 0-to-1 product for high-stakes users, from research to a working prototype and the system behind it."],
+    body: (<Split media={<Shot name="house-dashboard" caption="Committee Referrals: the shared starting point for legislative activity." tall />}>
       <Kicker>02 · U.S. House of Representatives</Kicker>
-      <H>Committee Voting<br />Platform</H>
-      <Flow from="Paper votes" to="One digital record" />
-    </>),
+      <H size={68}>Moving committee votes from paper to one digital record</H>
+      <Facts items={[["Role", "UI/UX Designer, 2024 to 2025"], ["Team", "PM, engineers, QA, House leadership, SMEs"], ["I owned", "Research, workflows, prototypes, design system, specs, user stories and acceptance criteria"]]} />
+      <div className="deck__chips">{["0 → 1 product", "3× a week with leadership", "30+ USWDS components"].map((t) => <span key={t}>{t}</span>)}</div>
+    </Split>),
   },
   {
-    title: "House: Research", section: "02 · U.S. House of Representatives", sd: "thinking", pos: "br",
-    notes: ["Who was interviewed: leadership and clerks.", "Key insight that reshaped the direction."],
-    body: (<>
+    title: "House: Problem", section: "02 · U.S. House of Representatives",
+    notes: ["Committee vote information had been collected and displayed inconsistently.", "The product had to keep the rules and records behind the work while giving staff a clear starting point."],
+    body: (<Band
+      head={<><Kicker>02 · The problem</Kicker><H size={76}>Find. Understand. Act. Complete.</H><Lede>Committee vote information had been collected and displayed inconsistently.</Lede></>}
+      side={<Stack items={[["Locate the right referral", "A central list with useful filters and recognizable bill records"], ["Keep context available", "Sponsors, dates and referral history during decisions"], ["Make the action explicit", "Committee rules as clear choices, without losing the official record"]]} />}
+      media={<Shot name="house-filters" caption="Committee and date filters narrow the referral list." />}
+    />),
+  },
+  {
+    title: "House: Listening first", section: "02 · U.S. House of Representatives",
+    notes: ["Who was interviewed: committee leadership and clerks.", "Live prototypes surfaced business rules and missing requirements that interviews alone didn't."],
+    body: (<Split media={<><Shot name="house-table" caption="Bill numbers, titles and dates give each referral a recognizable place." /><Shot name="house-context" caption="The Referral Brief at the point of review." /></>}>
       <Kicker>02 · Listening first</Kicker>
-      <div className="deck__stat">
-        <p className="deck__stat-n">18</p>
-        <p className="deck__stat-t">interviews with committee leadership and clerks</p>
+      <div className="deck__stat deck__stat--compact">
+        <p className="deck__stat-n">~18</p>
+        <p className="deck__stat-t">interviews across two research rounds</p>
       </div>
+      <Lede>Plus recurring leadership sessions and live prototypes that exposed business rules and missing requirements.</Lede>
+    </Split>),
+  },
+  {
+    title: "House: What I learned", section: "02 · U.S. House of Representatives",
+    notes: ["Three recurring needs shaped the interaction model. About 3 minutes."],
+    body: (<>
+      <Kicker>02 · What I learned</Kicker>
+      <H size={76}>Clarity comes from keeping context close.</H>
+      <Learned rows={[
+        ["Staff needed legislative info while completing tasks.", "Keep decision support inside the workflow.", "The Referral Brief opens beside the referral list."],
+        ["Voting rules had meaningful choices and exceptions.", "Organize actions into understandable sections.", "Roll-call details separate meeting context, outcome and each member's choice."],
+        ["Users first had to identify and understand a bill.", "Create a clear operational starting point.", "Committee Referrals combines filters, records and detail access."],
+      ]} />
     </>),
   },
   {
-    title: "House: Design", section: "02 · U.S. House of Representatives", sd: "exploring", pos: "tr",
-    notes: ["Show a high-density screen and explain why density was right.", "Where USWDS was extended and how it stayed consistent."],
+    title: "House: Decisions", section: "02 · U.S. House of Representatives",
+    notes: ["Principles: zero-error under pressure, high-density data, context close, USWDS extended.", "Add one thing you'd do differently (yours to fill)."],
+    body: (<Split media={<Shot name="house-brief" caption="The brief overlays the list, keeping the task and its context connected." tall />}>
+      <Kicker>02 · Decisions and the tradeoff</Kicker>
+      <H size={68}>Zero-error, under pressure</H>
+      <Stack items={[["A focused place per stage", "Referrals, roster and voting as separate modules, not one long form"], ["Bring the brief to the decision", "Legislative detail stays next to the action"], ["Let staff tune the table", "Dense records stay inspectable on a shared data model"]]} />
+      <p className="deck__callout"><strong>Tradeoff.</strong> A denser view, balanced by a focused overlay and a clear way back.</p>
+    </Split>),
+  },
+  {
+    title: "House: Prototype", section: "02 · U.S. House of Representatives",
+    notes: ["Walk it: find a referral, open its brief, record a roll-call vote. Data is illustrative.", "If the prototype won't load, stay on this slide and narrate from the screen."],
+    body: (<Split media={<Shot name="house-vote" caption="Roll-call context, tally and voting controls in one view." tall />}>
+      <Kicker>02 · The experience</Kicker>
+      <H size={76}>One product, three connected jobs.</H>
+      <ol className="deck__steps">
+        {["Find and review referrals", "Maintain the committee roster", "Record a roll-call vote"].map((t) => <li key={t}>{t}</li>)}
+      </ol>
+      <a className="deck__link" href={HOUSE_PROTOTYPE} target="_blank" rel="noopener noreferrer">Open the working prototype ↗</a>
+      <p className="deck__small">Figma prototype. Data shown is illustrative.</p>
+    </Split>),
+  },
+  {
+    title: "House: The system", section: "02 · U.S. House of Representatives",
+    notes: ["Figma specs, Azure DevOps stories and acceptance criteria carried decisions into engineering.", "Accessibility: built on USWDS, with explicit Yea, Nay and Present choices. Mention your WCAG 2.1 AA practice (NVDA, JAWS, WAVE)."],
+    body: (<Split media={<Shot name="house-design-system" caption="The component sheet: 18 of the 30+ components." tall />}>
+      <Kicker>02 · The system behind it</Kicker>
+      <H size={76}>A shared language for future committee work</H>
+      <Stack items={[["30+ components", "USWDS-based filters, tables, forms, navigation and voting"], ["Carried into engineering", "Figma specs, Azure DevOps stories and acceptance criteria"], ["Accessible by default", "Explicit Yea, Nay and Present choices for every member"]]} />
+    </Split>),
+  },
+  {
+    title: "House: Outcome", section: "02 · U.S. House of Representatives", sd: "exploring", pos: "br",
+    notes: ["No post-launch efficiency metric is claimed.", "Say: when I left, two committees were the test group for the rollout."],
     body: (<>
-      <Kicker>02 · Design principles</Kicker>
-      <H>Zero-error, under pressure</H>
+      <Kicker>02 · Outcome</Kicker>
+      <H size={80}>A clearer model of legislative work</H>
+      <Points items={[["People", "Staff and SMEs shaped how referrals are found, reviewed and voted on"], ["Product", "Referrals, rosters and roll-call records in one experience"], ["Rollout", "Two committees were the test group when I left"]]} />
+      <p className="deck__quote">“My role was not to make legislative work simple. It was to make its complexity navigable.”</p>
+    </>),
+  },
+  {
+    title: "Questions: House", section: "02 · U.S. House of Representatives", sd: "thinking", pos: "br",
+    notes: ["Aim for 5 to 8 minutes.", "Likely: engineering handoff, when to extend USWDS, accessibility and Section 508."],
+    body: <Pause story="02 · Pause" />,
+  },
+
+  {
+    title: "How I'd work at Skylight", section: "03 · Skylight & the Air Force", sd: "exploring", pos: "br",
+    notes: ["One beat on how you work now (30 seconds): \"I stay close to the code. LaunchKit is a product I designed and shipped, and I prototype with AI tools to get to something testable faster.\""],
+    body: (<>
+      <Kicker>03 · Skylight &amp; the Air Force</Kicker>
+      <H size={88}>Leave teams more capable</H>
       <div className="deck__trio">
-        {[["High-density data", "Everything a clerk needs, at a glance"], ["Context close", "Decisions next to the information behind them"], ["USWDS, extended", "Built on the standard, shaped for operations"]].map(([a, b]) => (
+        {[
+          ["Build capacity", "Onboarded a colleague onto the design system, ran a search-component audit and presented it together. Design reviews and a UX forum kept teams aligned."],
+          ["Ground the work", "SME cadence, legacy analysis and leadership sessions three times a week. I learn the rules before I change the screens."],
+          ["Hand off stronger", "Specs, user stories with acceptance criteria, documented component behavior and shared Figma and Angular libraries."],
+        ].map(([a, b]) => (
           <div key={a} className="deck__trio-item">
             <p className="deck__trio-a">{a}</p>
             <p className="deck__trio-b">{b}</p>
@@ -132,29 +320,8 @@ const slides = [
     </>),
   },
   {
-    title: "Sultry Tips", section: "03 · Vignette", sd: "movie", pos: "br",
-    notes: ["Keep this short and personal.", "Connect craft and hospitality back to utilitarian government tools."],
-    body: (<>
-      <Kicker>03 · Vignette</Kicker>
-      <H size={140}><em className="deck__italic">Sultry Tips</em></H>
-      <div className="deck__tags">
-        {["Typographic craft", "Restraint", "Design hospitality"].map((t) => <span key={t}>{t}</span>)}
-      </div>
-      <p className="deck__quote">“Utilitarian systems deserve care too.”</p>
-    </>),
-  },
-  {
-    title: "Skylight & Air Force", section: "04 · Alignment", sd: "exploring", pos: "tr",
-    notes: ["Tie each value to a concrete moment from the case studies.", "Why the Air Force contract specifically excites you."],
-    body: (<>
-      <Kicker>04 · Skylight &amp; the Air Force</Kicker>
-      <H>Leave teams more capable</H>
-      <Points items={[["Build", "Capacity inside government teams"], ["Ground", "Design in operational reality"], ["Hand off", "Teams stronger than when we arrived"]]} />
-    </>),
-  },
-  {
     title: "Thank you", section: "Conversation", sd: "sleeping", pos: "br",
-    notes: ["Open the floor.", "Have questions ready about the team, the contract, and success in 6 months."],
+    notes: ["Open the floor.", "Ask two or three: who the Air Force users are and how much access the team has; what the design team looks like; the hardest design problem on the contract; a strong first 90 days."],
     body: (<>
       <Kicker>Conversation</Kicker>
       <H size={170}>Thank you.</H>
@@ -163,6 +330,9 @@ const slides = [
     </>),
   },
 ];
+
+// Every screenshot in the deck, so they can load ahead of the slides that use them.
+const allShots = ["payments-legacy", "payments-transactions", "payments-balance", "payments-journal", "payments-allocation", "payments-exception", "house-dashboard", "house-filters", "house-table", "house-context", "house-brief", "house-vote", "house-design-system"];
 
 function useStageScale(ref) {
   const [scale, setScale] = useState(0.5);
@@ -217,6 +387,11 @@ export default function SkylightDeck() {
     };
   }, [go, idx, toggleFullscreen, total]);
 
+  useEffect(() => {
+    const imgs = allShots.map((name) => { const img = new Image(); img.src = shotSrc(name); return img; });
+    return () => imgs.forEach((img) => { img.src = ""; });
+  }, []);
+
   const slide = slides[idx];
   return (
     <main className="deck" aria-label="Skylight interview deck">
@@ -241,7 +416,7 @@ export default function SkylightDeck() {
             <span>Omoniyi Alimi</span><span>{slide.section}</span>
           </header>
           <div key={idx} className="deck__body">{slide.body}</div>
-          <img key={`sd-${idx}`} src={SD[slide.sd]} alt="" aria-hidden="true" className={`deck__sd deck__sd--${slide.pos}`} />
+          {slide.sd && <img key={`sd-${idx}`} src={SD[slide.sd]} alt="" aria-hidden="true" className={`deck__sd deck__sd--${slide.pos}`} />}
           <footer className="deck__folio">
             <span>omoniyialimi.com</span>
             <span className="deck__count">{String(idx + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}</span>
