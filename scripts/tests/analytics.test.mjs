@@ -35,3 +35,35 @@ test('the tag waits for the page to load, while events queue right away',async()
  windowHandlers.load();
  assert.equal(nodes.length,1);
 });
+test('a company link becomes the company_tag user property, channels do not',async()=>{
+ for(const [query,expected] of [['?utm_source=modus&utm_medium=application&utm_campaign=job-search','modus'],['?utm_source=instagram&utm_medium=social','none'],['?utm_source=pinterest&utm_medium=outreach','none'],['?utm_source=a%20b','none'],['','none']]){
+ const {analytics}=await setup('omoniyialimi.com');const saved={};
+ window.location.href=`https://omoniyialimi.com/house${query}`;window.localStorage={getItem:k=>saved[k]??null,setItem:(k,v)=>{saved[k]=v;}};
+ analytics.initializeAnalytics();
+ const set=window.dataLayer.find(x=>x[0]==='set');
+ assert.equal(set?set[2].company_tag:'none',expected);
+ }
+});
+test('a remembered company tag is reused on a later visit without the link',async()=>{
+ const {analytics}=await setup('omoniyialimi.com');
+ window.localStorage={getItem:k=>k==='omoniyi-company-tag'?'skylight-jhu':null,setItem:()=>{}};
+ analytics.initializeAnalytics();
+ assert.equal(window.dataLayer.find(x=>x[0]==='set')[2].company_tag,'skylight-jhu');
+});
+test('named outbound links and data-track elements send their own events',async()=>{
+ const {analytics,handlers}=await setup('omoniyialimi.com');analytics.initializeAnalytics();
+ for(const [href,name] of [['https://www.figma.com/design/ZdQgGWYa2JVXtn57IIMShQ/Stardust','stardust_origin_click'],['https://www.linkedin.com/in/someone/details/recommendations/','recommendations_click'],['https://www.linkedin.com/in/someone','linkedin_click'],['https://gumroad.com/l/launchkit','outbound_click']]){
+ handlers.click({target:{closest:sel=>sel==='[data-track]'?null:{href}}});assert.equal(window.dataLayer.at(-1)[1],name);
+ }
+ assert.equal(window.dataLayer.at(-1)[2].link_domain,'gumroad.com');
+ handlers.click({target:{closest:sel=>sel==='[data-track]'?{dataset:{track:'nav_click',label:'resume'}}:null}});
+ const last=window.dataLayer.at(-1);assert.deepEqual([last[1],last[2]],['nav_click',{page_path:'/work',label:'resume'}]);
+});
+test('the studio domain is tracked too',async()=>{
+ const {analytics,nodes}=await setup('omoniyistudio.com');analytics.initializeAnalytics();
+ assert.equal(nodes.length,1);assert.equal(analytics.pageTypeFor('/'),'studio');
+});
+test('page types group case studies and posts',async()=>{
+ const {analytics}=await setup('omoniyialimi.com');
+ assert.equal(analytics.pageTypeFor('/house/'),'case_study');assert.equal(analytics.pageTypeFor('/observations/commit-to-the-bit'),'blog_post');assert.equal(analytics.pageTypeFor('/resume/experience'),'resume');assert.equal(analytics.pageTypeFor('/'),'home');
+});

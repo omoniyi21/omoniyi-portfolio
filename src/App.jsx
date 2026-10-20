@@ -8,6 +8,7 @@ import Footer from "./components/shared/footer/Footer";
 import ScrollManager from "./components/shared/ScrollManager";
 import { SpaceTransitionProvider } from "./components/shared/SpaceTransition";
 import { PERSONAL_ORIGIN, isStudioHost, isStudioPath } from "./lib/siteHost";
+import { watchPageRead } from "./lib/analytics";
 
 // Read once: the domain never changes while the app is open.
 const studioHost = isStudioHost();
@@ -84,6 +85,11 @@ export default function App() {
   // domain, finishes on the portfolio's own domain.
   useEffect(() => {
     if (leavesStudioDomain) window.location.replace(PERSONAL_ORIGIN + pathname + window.location.search + window.location.hash);
+  }, [leavesStudioDomain, pathname]);
+
+  // Starts the real_read timer for each page a visitor lands on.
+  useEffect(() => {
+    if (!leavesStudioDomain) watchPageRead(pathname);
   }, [leavesStudioDomain, pathname]);
 
   useEffect(() => {
