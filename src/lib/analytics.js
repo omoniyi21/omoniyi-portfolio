@@ -12,6 +12,8 @@ const COMPANY_KEY = "omoniyi-company-tag";
 const CHANNEL_SOURCES = new Set([
   "instagram", "insta-post", "ig", "linkedin", "linkedin-post", "pinterest", "tiktok",
   "twitter", "x", "threads", "facebook", "my-blog", "beehiiv", "reddit", "family",
+  // Older Pinterest and blog pins used these as their source.
+  "omoniyi-studio", "pinterest-blog", "google-maps-vialinkedinpost",
 ]);
 const CHANNEL_MEDIUMS = new Set(["social", "newsletter"]);
 

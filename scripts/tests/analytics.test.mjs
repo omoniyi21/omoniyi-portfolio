@@ -36,7 +36,7 @@ test('the tag waits for the page to load, while events queue right away',async()
  assert.equal(nodes.length,1);
 });
 test('a company link becomes the company_tag user property, channels do not',async()=>{
- for(const [query,expected] of [['?utm_source=modus&utm_medium=application&utm_campaign=job-search','modus'],['?utm_source=instagram&utm_medium=social','none'],['?utm_source=pinterest&utm_medium=outreach','none'],['?utm_source=a%20b','none'],['','none']]){
+ for(const [query,expected] of [['?utm_source=modus&utm_medium=application&utm_campaign=job-search','modus'],['?utm_source=instagram&utm_medium=social','none'],['?utm_source=pinterest&utm_medium=outreach','none'],['?utm_source=a%20b','none'],['?utm_source=omoniyi-studio&utm_medium=outreach&utm_campaign=job-search','none'],['?utm_source=pinterest-blog&utm_medium=outreach','none'],['','none']]){
  const {analytics}=await setup('omoniyialimi.com');const saved={};
  window.location.href=`https://omoniyialimi.com/house${query}`;window.localStorage={getItem:k=>saved[k]??null,setItem:(k,v)=>{saved[k]=v;}};
  analytics.initializeAnalytics();
