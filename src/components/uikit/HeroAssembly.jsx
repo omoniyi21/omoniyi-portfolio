@@ -1,6 +1,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { isMotionReduced } from "../../lib/motionPreference";
 import AliHello from "./AliHello";
+import useHeroDemo, { SETTLED } from "./useHeroDemo";
 import bridge1400 from "../../assets/images/uikit/hero-bridge-1400.webp";
 import bridge2600 from "../../assets/images/uikit/hero-bridge-2600.webp";
 import bar1400 from "../../assets/images/uikit/hero-bar-1400.webp";
@@ -14,13 +15,15 @@ import "./hero-assembly.css";
 // The settled screen is the default markup, so with motion off the page is
 // complete. It plays once per visitor, only when the photo is in view, never
 // on a deep link; a click, tap, key or scrolling past jumps to the end.
+// Once settled, the same pieces run a short live flow (see useHeroDemo).
 const PLAYED_KEY = "oui-hero-played";
 const HOLD_MS = 500;
 const RUN_MS = 3400;
 const PHOTOS = {
-  light: { set: `${bridge1400} 1400w, ${bridge2600} 2600w`, src: bridge1400, alt: "the Golden Gate Bridge in fog" },
-  dark: { set: `${bar1400} 1400w, ${bar2600} 2600w`, src: bar1400, alt: "an empty bar at night" },
+  light: { set: `${bridge1400} 1400w, ${bridge2600} 2600w`, src: bridge1400, alt: "the Golden Gate Bridge in fog", title: "Fog over the bridge" },
+  dark: { set: `${bar1400} 1400w, ${bar2600} 2600w`, src: bar1400, alt: "an empty bar at night", title: "Last call at the bar" },
 };
+const check = <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M3.5 8.5 6.5 11.5 12.5 4.5" /></svg>;
 
 function shouldPlay() {
   if (typeof window === "undefined" || isMotionReduced() || window.location.hash) return false;
@@ -37,6 +40,8 @@ export default function HeroAssembly({ theme = "light", children }) {
   const stage = useRef(null);
   const photo = useRef(null);
   const shot = PHOTOS[theme] ?? PHOTOS.light;
+  const demo = useHeroDemo({ enabled: phase === "settled", title: shot.title, stageRef: stage });
+  const f = demo.active ? demo.frame : SETTLED;
 
   // Before the first paint, place the copy over the wide photo (and a
   // little larger) with a transform, so its settled place in the right column
@@ -125,21 +130,40 @@ export default function HeroAssembly({ theme = "light", children }) {
         <div className="oui-stage-photo">
           <img ref={photo} src={shot.src} srcSet={shot.set} sizes="(max-width: 700px) 100vw, 1312px" alt={`Omoniyi’s photo of ${shot.alt}`} width="1400" height="636" fetchPriority="high" decoding="async" />
         </div>
-        <div className="oui-stage-slot" aria-hidden="true">
-          <span className="oui-stage-toast" {...piece(1000, "0, -12px")}>
-            <span className="oui-stage-check"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3.5 8.5 6.5 11.5 12.5 4.5" /></svg></span>
+        <div className="oui-stage-slot" aria-hidden="true" data-demo={demo.active ? "on" : undefined}>
+          <span className="oui-stage-toast" data-out={f.toast ? undefined : ""} {...piece(1000, "0, -12px")}>
+            <span className="oui-stage-check">{check}</span>
             <span><strong>Version one shipped</strong><small>Just now</small></span>
           </span>
-          <span className="oui-stage-tag" {...piece(1250, "0, 12px")}><span className="oui-badge oui-badge--white">Field notes</span><span className="oui-badge oui-badge--green">Ready to ship</span></span>
-          <div className="oui-stage-signin" {...piece(1450, "24px, 16px")}>
+          <span className="oui-stage-tag" {...piece(1250, "0, 12px")}>
+            <span className="oui-badge oui-badge--white">Field notes</span>
+            <span className={`oui-badge oui-stage-ready${f.ready ? " oui-badge--green is-on" : " oui-badge--white"}`}><span className="oui-stage-ready-mark">{check}</span>Ready to ship</span>
+          </span>
+          <div className="oui-stage-signin" data-card={f.card} {...piece(1450, "24px, 16px")}>
             <AliHello className="oui-stage-ali" />
-            <span className="oui-badge">Pro preview</span>
-            <strong>Welcome back</strong>
-            <span className="oui-stage-field">you@studio.com</span>
-            <span className="oui-stage-field">••••••••</span>
-            <span className="oui-stage-pill">Sign in</span>
+            <div className="oui-stage-face oui-stage-face--signin">
+              <span className="oui-badge">Pro preview</span>
+              <strong>Welcome back</strong>
+              <span className={`oui-stage-field${f.typing === "email" ? " is-focus" : ""}`}>{f.email || <span className="oui-stage-placeholder">Email</span>}{f.typing === "email" && <span className="oui-stage-caret" />}</span>
+              <span className={`oui-stage-field${f.typing === "pass" ? " is-focus" : ""}`}>{f.pass ? "•".repeat(f.pass) : <span className="oui-stage-placeholder">Password</span>}{f.typing === "pass" && <span className="oui-stage-caret" />}</span>
+              <span className={`oui-stage-pill${f.card === "signin" && f.pressing ? " is-pressed" : ""}`}>{f.signing ? <><span className="oui-stage-spinner" />Signing in</> : "Sign in"}</span>
+            </div>
+            <div className="oui-stage-face oui-stage-face--draft">
+              <span className="oui-badge">{f.live ? "Field notes · Live" : f.ready ? "Field notes · Ready" : "Field notes · Draft"}</span>
+              <span className="oui-stage-cover"><img src={shot.src} alt="" width="56" height="40" loading="lazy" decoding="async" /><span>Cover photo<small>Added</small></span></span>
+              <span className={`oui-stage-field oui-stage-field--title${f.typing === "title" ? " is-focus" : ""}`}>{f.title || <span className="oui-stage-placeholder">Post title</span>}{f.typing === "title" && <span className="oui-stage-caret" />}</span>
+              <span className={`oui-stage-pill${f.card === "draft" && f.pressing ? " is-pressed" : ""}${f.live ? " is-live" : ""}`}>{f.publishing ? <><span className="oui-stage-spinner" />Publishing</> : f.live ? <>{check}Live</> : "Publish"}</span>
+            </div>
           </div>
         </div>
+        {demo.active && (
+          <button type="button" className="oui-stage-control" onClick={demo.toggle} aria-label={demo.status === "playing" ? "Pause the demo" : "Play the demo"}>
+            {demo.status === "playing"
+              ? <svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><rect x="3.5" y="3" width="3" height="10" rx="1" fill="currentColor" /><rect x="9.5" y="3" width="3" height="10" rx="1" fill="currentColor" /></svg>
+              : <svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M5 3.2v9.6a.6.6 0 0 0 .9.5l7.6-4.8a.6.6 0 0 0 0-1L5.9 2.7a.6.6 0 0 0-.9.5Z" fill="currentColor" /></svg>}
+            <span>{demo.status === "playing" ? "Pause" : demo.status === "done" ? "Replay" : "Play"}</span>
+          </button>
+        )}
         <div ref={wrap} className="oui-copy-wrap">
           <div className="oui-hero-copy">{children}</div>
           {/* A right-aligned, white twin of the copy for the opening frame. It
