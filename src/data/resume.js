@@ -21,10 +21,10 @@ export const resumes = {
       "Senior Product Designer with nine years designing and building products for government, healthcare, and enterprise teams. I lead from discovery through delivery: researching how people actually work, turning dense legacy processes into clear workflows, and building the design systems that let engineering teams ship them consistently. Comfortable in code (HTML, CSS, JavaScript, React) and fluent with AI prototyping tools. Available for full-time roles, and for fractional and contract work through Omoniyi Studio.",
     highlightsTitle: "Career Highlights",
     highlights: [
-      { text: "Led end-to-end design of a new voting platform used across all of Congress, partnering directly with U.S. House leadership from discovery to implementation-ready specs.", link: { label: "voting platform", to: "/house" } },
+      { text: "Led end-to-end design of a new committee voting platform for the U.S. House, built to scale across all committees and in pilot with two when I left, partnering directly with House leadership from discovery to implementation-ready specs.", link: { label: "voting platform", to: "/house" } },
       { text: "Built and scaled design systems across three federal platforms (House, Library of Congress, USDA), including 30+ USWDS components with tokens, states, and documentation." },
       { text: "Designed permissions, user-management, and governance tools for the Enterprise Copyright System, serving 100,000+ users and application submissions.", link: { label: "Enterprise Copyright System", to: "/library-of-congress" } },
-      { text: "Ran research from 80+ hours of stakeholder discovery to usability testing with 100+ participants, and turned findings into shipped product decisions." },
+      { text: "Ran research from 80+ hours of stakeholder discovery to usability testing with about 100 participants, and turned findings into shipped product decisions." },
       { text: "Designed to WCAG 2.1 AA and Section 508 across federal and healthcare products, validated with manual and tool-based testing." },
     ],
     experienceTitle: "Professional Experience",
@@ -43,7 +43,7 @@ export const resumes = {
           { text: "Wrote user stories and implementation-ready specs, partnering with engineering and QA through delivery." },
         ] },
         { name: "U.S. House of Representatives", sub: "Enterprise Voting Modernization · Mar 2024 – Mar 2025", to: "/house", bullets: [
-          { text: "Led end-to-end design of a new voting platform for all of Congress, translating complex legislative processes into a clear digital workflow." },
+          { text: "Led end-to-end design of a new committee voting platform for the U.S. House, translating complex legislative processes into a clear digital workflow; designed for rollout to every committee, with two in pilot when I left." },
           { text: "Partnered with House leadership and subject-matter experts in recurring discovery sessions to define requirements, flows, and product direction." },
           { text: "Built a USWDS-based design system of 30+ components with documented states, keyboard and focus behavior, tokens, and specs that became the foundation for future development." },
           { text: "Used interactive prototypes to align stakeholders and resolve ambiguity before engineering implementation." },
@@ -58,8 +58,8 @@ export const resumes = {
       ] },
       { company: "Apex Systems", role: "UI/UX Developer", dates: "Oct 2021 – Jan 2023", projects: [
         { name: "Athletico", sub: "Patient Onboarding & Scheduling Platform", to: "/athletico", bullets: [
-          { text: "Redesigned patient onboarding and appointment scheduling for a multi-location healthcare provider across desktop, tablet, and mobile." },
-          { text: "Facilitated usability testing with 100+ participants and turned findings into iterative improvements to registration and scheduling." },
+          { text: "Built the redesigned patient onboarding and scheduling experience for a multi-location healthcare provider across desktop, tablet, and mobile, working in Figma with the design system lead and making design changes as the build required." },
+          { text: "Ran usability testing with QA across about 100 participants and turned findings into changes to registration and scheduling." },
           { text: "Partnered with PMs, engineers, and designers on flows, prototypes, and production-ready UI within the existing design system." },
         ] },
       ] },
@@ -89,13 +89,13 @@ export const resumes = {
     title: "Product & Experience Designer",
     tagline: "I turn complex systems into worlds people can find their way through.",
     summary:
-      "Product and experience designer who designs and builds. For nine years I’ve made complicated things feel human, from a voting platform for the U.S. Congress to a portfolio built as a hand-made field notebook. I bring research with real people, a systems mind for keeping a visual world consistent, front-end skills to prototype in code, and accessibility practice rooted in designing for everyone who shows up. Now focused on interactive, experiential, and creative-technology work.",
+      "Product and experience designer who designs and builds. For nine years I’ve made complicated things feel human, from a committee voting platform for the U.S. House to a portfolio built as a hand-made field notebook. I bring research with real people, a systems mind for keeping a visual world consistent, front-end skills to prototype in code, and accessibility practice rooted in designing for everyone who shows up. Now focused on interactive, experiential, and creative-technology work.",
     highlightsTitle: "Selected Work",
     highlights: [
       { text: "omoniyialimi.com: a portfolio designed and coded as a world, with a notebook visual language, a hero that changes its story for each visitor, and ambient motion.", link: { label: "omoniyialimi.com", to: "/" } },
       { text: "LaunchKit UI: a UI kit I designed and launched, from brand and visual language to components and launch page.", link: { label: "LaunchKit UI", to: "/uikit" } },
       { link: { label: "Wedding identity case study", to: "/wedding-identity" }, text: "Wedding identity case study: creative direction for a wedding celebration, anchored by an original illustrated emblem that joins cowrie shells (Black American heritage) and pomegranates (Armenian heritage), designed to carry across menus, a custom newspaper, and keepsakes." },
-      { text: "U.S. House voting platform: translating the rules and rituals of legislative voting into an interface all of Congress relies on.", link: { label: "U.S. House voting platform", to: "/house" } },
+      { text: "U.S. House voting platform: translating the rules and rituals of legislative voting into an interface built for every House committee, in pilot with two when I left.", link: { label: "U.S. House voting platform", to: "/house" } },
     ],
     experienceTitle: "Experience",
     experience: [
@@ -107,7 +107,7 @@ export const resumes = {
       ] }] },
       { company: "Aretum", role: "UI/UX Designer", dates: "Mar 2024 – Jul 2026", projects: [
         { name: "U.S. House of Representatives", sub: "Voting Platform · Mar 2024 – Mar 2025", to: "/house", bullets: [
-          { text: "Led end-to-end design of a new voting platform for all of Congress, turning an intricate legislative process into a clear, confident interaction." },
+          { text: "Led end-to-end design of a new committee voting platform for the U.S. House, turning an intricate legislative process into a clear, confident interaction built to scale across all committees." },
           { text: "Ran recurring discovery with House leadership and used interactive prototypes to align stakeholders before anything was built." },
           { text: "Built a 30+ component design system with documented states and behaviors that carried one consistent visual language across the product." },
         ] },
@@ -124,8 +124,8 @@ export const resumes = {
       ] },
       { company: "Apex Systems", role: "UI/UX Developer", dates: "Oct 2021 – Jan 2023", projects: [
         { name: "Athletico", sub: "Patient Onboarding & Scheduling", to: "/athletico", bullets: [
-          { text: "Redesigned the patient journey from registration to scheduling across desktop, tablet, and mobile for a multi-location provider." },
-          { text: "Tested with 100+ participants and iterated the experience directly from what people did and said." },
+          { text: "Built the redesigned patient journey from registration to scheduling across desktop, tablet, and mobile for a multi-location provider, making design changes in Figma alongside the design system lead." },
+          { text: "Ran usability testing with QA across about 100 participants and iterated the experience directly from what people did and said." },
         ] },
       ] },
       { company: "The Day Publishing", role: "Front-End Designer & Developer", dates: "Dec 2018 – Oct 2021", projects: [

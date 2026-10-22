@@ -26,7 +26,7 @@ function markSeen() {
   }
 }
 
-export default function LaunchKitPopup() {
+export default function LaunchKitPopup({ enabled = true }) {
   const [open, setOpen] = useState(false);
   const [status, setStatus] = useState("idle");
   const [error, setError] = useState("");
@@ -34,9 +34,10 @@ export default function LaunchKitPopup() {
   const shownRef = useRef(false);
 
   // Automatic trigger only — scroll depth or a dwell timer, whichever comes
-  // first, gated by a cooldown so it doesn't show on every visit.
+  // first, gated by a cooldown so it doesn't show on every visit. It only
+  // arms while enabled (the homepage passes false for someone hiring).
   useEffect(() => {
-    if (shownRef.current || withinCooldown()) return;
+    if (!enabled || shownRef.current || withinCooldown()) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     let timeoutId;
@@ -57,7 +58,7 @@ export default function LaunchKitPopup() {
       window.removeEventListener("scroll", onScroll);
       clearTimeout(timeoutId);
     };
-  }, []);
+  }, [enabled]);
 
   useEffect(() => {
     const el = dialogRef.current;
@@ -143,13 +144,13 @@ export default function LaunchKitPopup() {
             </div>
           ) : (
             <form data-analytics-form="launchkit_home_popup" onSubmit={submit}>
-              <p className="lk-popup__eyebrow">Early access · Admit one</p>
+              <p className="lk-popup__eyebrow">LaunchKit UI · Admit one</p>
               <h2 id="lk-popup-title">
-                Get early access
+                Get the next kit
                 <br />
-                to LaunchKit UI.
+                before anyone else.
               </h2>
-              <p>Ready-to-use kits for people building on their own, plus the occasional note on what I’m making.</p>
+              <p>LaunchKit Free is live. Join the list for Pro and the kits after it, plus the occasional note on what I’m making.</p>
               <label className="lk-popup__field">
                 <span>Email address</span>
                 <input type="email" name="email" placeholder="you@example.com" required maxLength={254} autoComplete="email" disabled={status === "sending"} />

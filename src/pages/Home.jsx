@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import useSectionReveal from "../lib/useSectionReveal";
 import "../lib/reveal.css";
 
@@ -13,6 +13,7 @@ import RecommendationQuote from "../components/shared/RecommendationQuote";
 function Home() {
   const homeRef = useRef(null);
   useSectionReveal(homeRef);
+  const [persona, setPersona] = useState("hiring");
   return (
     <main ref={homeRef} className="section home-journal">
       <div
@@ -24,7 +25,7 @@ function Home() {
       >
         
       <div className="home-journal__opening">
-        <Hero />
+        <Hero persona={persona} onPersonaChange={setPersona} />
 
       </div>
       <RecommendationQuote />
@@ -33,7 +34,8 @@ function Home() {
       <ObservationsNotebook />
       <WriteMe />
       </div>
-      <LaunchKitPopup />
+      {/* Someone hiring never sees the LaunchKit popup. */}
+      <LaunchKitPopup enabled={persona === "building"} />
     </main>
   );
 }

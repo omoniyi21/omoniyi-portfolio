@@ -1,4 +1,3 @@
-import { useState } from "react";
 import HeroContent from "./HeroContent";
 import WorkSlider from "../work/WorkSlider";
 import ProcessSection from "../process/ProcessSection";
@@ -7,9 +6,9 @@ import "./hero.css";
 import "../../styles/pages/hero-journal.css";
 import "./hero-desk.css";
 
-export default function Hero() {
-  // Persona lives here so the copy and the work pile both follow it.
-  const [persona, setPersona] = useState("hiring");
+export default function Hero({ persona, onPersonaChange }) {
+  // Persona lives on the homepage so the copy, the work pile and the
+  // LaunchKit popup all follow it.
 
   return (
     <section className="hero hero-journal hero-desk">
@@ -27,7 +26,7 @@ export default function Hero() {
           </div>
           <div className="desk-surface__grid">
             <div className="desk-surface__paper">
-              <HeroContent persona={persona} onPersonaChange={setPersona} />
+              <HeroContent persona={persona} onPersonaChange={onPersonaChange} />
             </div>
             <div className="desk-surface__work desk-surface__work--photos">
               <WorkSlider persona={persona} />

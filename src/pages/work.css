@@ -97,3 +97,19 @@
 .work-archive:hover strong{text-decoration:underline;text-underline-offset:4px}
 .work-archive:focus-visible{outline:3px solid var(--color-lavender-500);outline-offset:4px}
 @media(max-width:760px){.work-archive{grid-template-columns:1fr auto}.work-archive__meta{grid-column:1/-1}}
+
+/* ---------- card facts: role and one stated result ---------- */
+.work-card__facts{display:grid;gap:.45rem;margin:-.4rem 0 1.4rem}
+.work-card__facts div{display:grid;gap:.75rem;grid-template-columns:4.5rem 1fr}
+.work-card__facts dt{color:var(--text-secondary);font:700 .62rem/1.7 var(--font-family-display);letter-spacing:.14em;text-transform:uppercase}
+.work-card__facts dd{font-size:.95rem;line-height:1.45;margin:0}
+
+/* ---------- groups: product work first, studio work after ---------- */
+.work-group--studio{margin:clamp(3.5rem,7vw,6rem) auto 0;max-width:100rem}
+.work-group__label{font:700 .68rem var(--font-family-display);letter-spacing:.16em;margin:0 0 1.4rem;text-transform:uppercase}
+.work-group__label b{color:var(--color-lavender-500);margin-left:.4rem}
+.work-bento--studio{grid-template-columns:repeat(3,minmax(0,1fr))}
+.work-bento--studio .work-card{min-height:28rem}
+.work-bento--studio .work-card:last-child:nth-child(even){grid-column:auto}
+@media(max-width:1100px){.work-bento--studio{grid-template-columns:repeat(2,minmax(0,1fr))}.work-bento--studio .work-card:last-child:nth-child(odd){grid-column:1/-1}}
+@media(max-width:760px){.work-bento--studio{grid-template-columns:1fr}.work-bento--studio .work-card,.work-bento--studio .work-card:last-child:nth-child(odd){grid-column:auto}}
