@@ -61,7 +61,8 @@ export default function Resume({ variant = "product" }) {
             <span>{contact.location}</span>
             <a href={`mailto:${contact.email}`}>{contact.email}</a>
             <a href={`https://${contact.site}`}>{contact.site}</a>
-            <a href={contact.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
+            {/* The full address prints, so a downloaded or printed copy keeps it. */}
+            <a href={contact.linkedin} target="_blank" rel="noreferrer">{contact.linkedin.replace(/^https:\/\/(www\.)?/, "")}</a>
           </p>
           <p className="resume-head__summary">{r.summary}</p>
         </header>
@@ -115,7 +116,9 @@ export default function Resume({ variant = "product" }) {
 
         <section className="resume-section" aria-labelledby="resume-education">
           <h2 id="resume-education">Education</h2>
-          <p><strong>{r.education[0]}</strong> · {r.education[1]}</p>
+          {r.education.map(([school, detail]) => (
+            <p key={school}><strong>{school}</strong> · {detail}</p>
+          ))}
         </section>
       </article>
     </main>

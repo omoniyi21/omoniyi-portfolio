@@ -33,18 +33,23 @@ export const resumes = {
         { text: "Designed, built, and shipped omoniyialimi.com end-to-end: React front end, prerendered routes for search and link previews, accessible navigation, and GA4 funnel instrumentation.", link: { label: "omoniyialimi.com", to: "/" } },
         { text: "Designed and launched LaunchKit UI, a startup UI kit with a free community edition and a Pro tier: component architecture, Figma variables, tokens, and documentation.", link: { label: "LaunchKit UI", to: "/uikit" } },
         { text: "Launched Omoniyi Studio, a product design practice for small businesses, including service tiers and a qualification-to-booking flow.", link: { label: "Omoniyi Studio", to: "/studio" } },
+        { text: "Scoped, designed, and built a client portal for Omoniyi Studio with Claude and ChatGPT, owning requirements, prioritization, and the client workflow end to end." },
+        { text: "Designed and built a Claude skill that audits small-business websites against a conversion rubric and returns prioritized fixes, used in the studio’s sales process." },
       ] }] },
       { company: "Aretum", role: "UI/UX Designer", dates: "Mar 2024 – Jul 2026", projects: [
         { name: "Library of Congress", sub: "Enterprise Copyright System Modernization · Mar 2025 – Jul 2026", to: "/library-of-congress", bullets: [
           { text: "Led product discovery and UX research for the modernization of the Enterprise Copyright System, partnering with technical leadership and subject-matter experts across registration and financial operations." },
           { text: "Designed administration tools for role-based permissions, user management, and platform governance across a system processing 100,000+ users and submissions." },
           { text: "Defined the experience for a new financial management workspace through discovery with accounting stakeholders.", link: { label: "financial management workspace", to: "/copyright-accounting" } },
+          { text: "Designed data-dense dashboards for the copyright system’s operational data." },
+          { text: "Mentored a designer on the search component, onboarding her into the design system’s patterns and documentation as we designed it together." },
           { text: "Expanded the platform design system with new components, design tokens, and documentation that set UI standards across the product." },
           { text: "Wrote user stories and implementation-ready specs, partnering with engineering and QA through delivery." },
         ] },
         { name: "U.S. House of Representatives", sub: "Enterprise Voting Modernization · Mar 2024 – Mar 2025", to: "/house", bullets: [
           { text: "Led end-to-end design of a new committee voting platform for the U.S. House, translating complex legislative processes into a clear digital workflow; designed for rollout to every committee, with two in pilot when I left." },
           { text: "Partnered with House leadership and subject-matter experts in recurring discovery sessions to define requirements, flows, and product direction." },
+          { text: "Designed data-dense dashboards for committee vote data." },
           { text: "Built a USWDS-based design system of 30+ components with documented states, keyboard and focus behavior, tokens, and specs that became the foundation for future development." },
           { text: "Used interactive prototypes to align stakeholders and resolve ambiguity before engineering implementation." },
         ] },
@@ -60,6 +65,7 @@ export const resumes = {
         { name: "Athletico", sub: "Patient Onboarding & Scheduling Platform", to: "/athletico", bullets: [
           { text: "Built the redesigned patient onboarding and scheduling experience for a multi-location healthcare provider across desktop, tablet, and mobile, working in Figma with the design system lead and making design changes as the build required." },
           { text: "Ran usability testing with QA across about 100 participants and turned findings into changes to registration and scheduling." },
+          { text: "Shipped accessibility CSS fixes through GitHub pull requests and code review with engineering." },
           { text: "Partnered with PMs, engineers, and designers on flows, prototypes, and production-ready UI within the existing design system." },
         ] },
       ] },
@@ -75,12 +81,12 @@ export const resumes = {
       ] },
     ],
     skills: [
-      ["Product", "Product strategy, UX research, information architecture, interaction design, prototyping, user stories & acceptance criteria"],
+      ["Product", "Product strategy, UX research, information architecture, interaction design, prototyping, dashboards, user stories & acceptance criteria"],
       ["Systems", "Design systems, component libraries, design tokens, Figma variables, USWDS, enterprise platforms, legacy modernization"],
       ["Accessibility", "WCAG 2.1 AA, Section 508, keyboard & focus design, accessible forms, WAVE, Accessibility Insights, NVDA, JAWS"],
-      ["Build & tools", "Figma, FigJam, HTML, CSS, JavaScript, React, Blazor, Claude, OpenAI, GitHub, Netlify, Azure DevOps"],
+      ["Build & tools", "Figma, FigJam, HTML, CSS, JavaScript, React, Blazor, Claude, ChatGPT, GitHub, Netlify, Azure DevOps"],
     ],
-    education: ["Florida State University", "Bachelor of Social Work, 2016"],
+    education: [["Florida State University", "Bachelor of Social Work, 2016"], ["BloomTech", "Software Development, 2018"]],
   },
 
   experience: {
@@ -104,6 +110,8 @@ export const resumes = {
         { text: "Designed and launched LaunchKit UI, a startup UI kit with a free community edition and a Pro tier, from visual language and components to launch page.", link: { label: "LaunchKit UI", to: "/uikit" } },
         { link: { label: "wedding-identity case study", to: "/wedding-identity" }, text: "Created a wedding-identity case study for a boutique event-design studio, extending the visual world it had established: an original illustrated emblem in four colorways, eight décor and keepsake concepts, and tablescape direction." },
         { text: "Launched Omoniyi Studio, a design practice for small businesses, with productized service tiers and a designed intake-to-booking journey.", link: { label: "Omoniyi Studio", to: "/studio" } },
+        { text: "Designed and built client websites end-to-end, and a client portal shaped around how clients actually work with the studio, built with Claude and ChatGPT." },
+        { text: "Built a Claude skill that audits small-business websites against a conversion rubric, used in the studio’s sales process." },
       ] }] },
       { company: "Aretum", role: "UI/UX Designer", dates: "Mar 2024 – Jul 2026", projects: [
         { name: "U.S. House of Representatives", sub: "Voting Platform · Mar 2024 – Mar 2025", to: "/house", bullets: [
@@ -114,6 +122,7 @@ export const resumes = {
         { name: "Library of Congress", sub: "Copyright System Modernization · Mar 2025 – Jul 2026", to: "/library-of-congress", bullets: [
           { text: "Led discovery and research through interviews, journey mapping, and prototypes to redesign workflows for a system serving 100,000+ users and submissions." },
           { text: "Expanded the design system with components, tokens, and documentation, and designed accessible experiences for a public-facing federal service." },
+          { text: "Mentored a designer on the search component, bringing her into the design system as we designed it together." },
         ] },
       ] },
       { company: "Coretec", role: "UI/UX Developer", dates: "Dec 2022 – Aug 2023", projects: [
@@ -144,9 +153,9 @@ export const resumes = {
     skills: [
       ["Experience design", "Interaction design, prototyping, world-building & narrative UX, journey mapping, multi-surface experiences"],
       ["Visual", "Visual systems, UI craft, typography, brand & graphic design, design systems as visual language"],
-      ["Build", "HTML, CSS, JavaScript, React, Blazor, WordPress, Netlify, AI-assisted prototyping (Claude, OpenAI)"],
+      ["Build", "HTML, CSS, JavaScript, React, Blazor, WordPress, Netlify, GitHub, AI-assisted building (Claude, ChatGPT)"],
       ["Research & inclusion", "Usability testing, interviews, inclusive and accessible design (WCAG 2.1 AA) for public audiences"],
     ],
-    education: ["Florida State University", "Bachelor of Social Work, 2016: human behavior, communities, and social systems"],
+    education: [["Florida State University", "Bachelor of Social Work, 2016: human behavior, communities, and social systems"], ["BloomTech", "Software Development, 2018"]],
   },
 };
