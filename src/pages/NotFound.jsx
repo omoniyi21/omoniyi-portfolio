@@ -1,9 +1,18 @@
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { trackNotFound } from "../lib/analytics";
 import confusedStardust from "../assets/branding/stardust-creature-kit/png/1024/lost-confused.webp";
 import "./not-found.css";
 import TagButton from "../components/shared/paper/TagButton";
 import StampButton from "../components/shared/paper/StampButton";
 
 export default function NotFound() {
+  const { pathname, search } = useLocation();
+
+  useEffect(() => {
+    trackNotFound(pathname, search);
+  }, [pathname, search]);
+
   return (
     <main className="not-found" aria-labelledby="not-found-title">
       <div className="not-found__dust not-found__dust--one" aria-hidden="true" />
