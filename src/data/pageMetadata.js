@@ -40,6 +40,7 @@ for (const post of getPublishedObservations()) {
 // never linked from the site. Share the link directly.
 export const unlistedPages = {
   '/skylight': { ...page('Skylight Interview Deck | Omoniyi Alimi', 'Case studies from Omoniyi Alimi for the Skylight Senior/Staff Product Designer role on the U.S. Air Force contract.'), noindex: true },
+  '/ateam': { ...page('People and Agents in One Workspace | Omoniyi Alimi', 'A walkthrough from Omoniyi Alimi for the A.Team Product Designer mission: how clients, agents and I share one workspace, and who sees and approves what.'), noindex: true },
 };
 export function getPageMetadata(pathname) {
   const path = pathname.replace(/\/+$/, '') || '/';

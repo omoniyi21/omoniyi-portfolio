@@ -1,0 +1,167 @@
+/* A.Team walkthrough (/ateam). Unlisted: plain warm paper, one handwritten
+   note as the page's only expressive moment. No motion. */
+
+.walkthrough {
+  --wt-line: rgb(23 21 29 / 14%);
+  --wt-accent: var(--brand-primary);
+  background: var(--background-page);
+  color: var(--text-primary);
+  font-family: var(--font-family-body);
+  min-height: 100svh;
+  padding: calc(var(--nav-height, 4.5rem) + 2.5rem) clamp(1rem, 4vw, 3rem) 5rem;
+}
+
+.walkthrough > * {
+  margin-inline: auto;
+  max-width: 56rem;
+}
+
+.walkthrough__intro { margin-bottom: 2rem; position: relative; }
+
+.walkthrough__eyebrow,
+.walkthrough__label {
+  color: var(--text-secondary);
+  font: 600 .74rem/1.4 var(--font-family-body);
+  letter-spacing: .16em;
+  margin: 0 0 .75rem;
+  text-transform: uppercase;
+}
+
+.walkthrough h1 {
+  font: 500 clamp(2.4rem, 6vw, 4.25rem)/1.02 var(--font-family-display);
+  letter-spacing: -.02em;
+  margin: 0;
+  max-width: 14ch;
+}
+
+.walkthrough__note {
+  color: var(--wt-accent);
+  font: 500 1.35rem/1 var(--font-family-personal);
+  margin: .75rem 0 0;
+  transform: rotate(-2deg);
+  transform-origin: left center;
+}
+
+.walkthrough__question {
+  border-left: 3px solid var(--wt-accent);
+  margin-bottom: 2rem;
+  padding: .25rem 0 .25rem 1.25rem;
+}
+
+.walkthrough__question p:last-child {
+  font: 400 clamp(1.15rem, 2.2vw, 1.4rem)/1.45 var(--font-family-display);
+  margin: 0;
+  max-width: 44rem;
+}
+
+.walkthrough__video { margin-bottom: 3rem; margin-top: 0; }
+
+.walkthrough__video video {
+  aspect-ratio: 1440 / 900;
+  background: #17151d;
+  border-radius: 1rem;
+  box-shadow: 0 24px 60px rgb(49 35 48 / 12%);
+  display: block;
+  height: auto;
+  outline: 1px solid rgb(0 0 0 / 10%);
+  outline-offset: -1px;
+  width: 100%;
+}
+
+.walkthrough__video figcaption {
+  color: var(--text-secondary);
+  font-size: .9rem;
+  line-height: 1.5;
+  margin-top: .75rem;
+}
+
+.walkthrough__answer h2 {
+  font: 500 clamp(1.6rem, 3vw, 2.1rem)/1.15 var(--font-family-display);
+  margin: 0 0 1rem;
+}
+
+.walkthrough__lede {
+  font-size: 1.08rem;
+  line-height: var(--leading-body, 1.65);
+  margin: 0 0 1.75rem;
+  max-width: 46rem;
+}
+
+.walkthrough__points {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.walkthrough__point {
+  background: rgb(255 255 255 / 70%);
+  border: 1px solid var(--wt-line);
+  border-radius: .9rem;
+  padding: 1.25rem;
+}
+
+.walkthrough__point h3 {
+  font: 600 1rem/1.3 var(--font-family-body);
+  margin: 0 0 .5rem;
+}
+
+.walkthrough__point p {
+  font-size: .95rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.walkthrough__background {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 1.75rem 0 0;
+  max-width: 46rem;
+}
+
+.walkthrough__transcript {
+  border-top: 1px solid var(--wt-line);
+  margin-top: 3rem;
+  padding-top: 1.25rem;
+}
+
+.walkthrough__transcript summary {
+  cursor: pointer;
+  font-weight: 600;
+  width: fit-content;
+}
+
+.walkthrough__transcript p {
+  line-height: 1.7;
+  margin: 1rem 0 0;
+  max-width: 46rem;
+}
+
+.walkthrough__next {
+  border-top: 1px solid var(--wt-line);
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem 1.5rem;
+  margin-top: 2rem;
+  padding-top: 1.25rem;
+}
+
+.walkthrough__next a {
+  color: var(--text-primary);
+  font-weight: 600;
+  text-decoration-color: var(--wt-accent);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+.walkthrough__next a:hover { color: var(--wt-accent); }
+
+.walkthrough a:focus-visible,
+.walkthrough summary:focus-visible,
+.walkthrough video:focus-visible {
+  outline: 3px solid var(--wt-accent);
+  outline-offset: 3px;
+}
+
+@media (max-width: 760px) {
+  .walkthrough__points { grid-template-columns: 1fr; }
+}

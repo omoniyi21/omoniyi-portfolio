@@ -65,5 +65,5 @@ test('the studio domain is tracked too',async()=>{
 });
 test('page types group case studies and posts',async()=>{
  const {analytics}=await setup('omoniyialimi.com');
- assert.equal(analytics.pageTypeFor('/house/'),'case_study');assert.equal(analytics.pageTypeFor('/observations/commit-to-the-bit'),'blog_post');assert.equal(analytics.pageTypeFor('/resume/experience'),'resume');assert.equal(analytics.pageTypeFor('/'),'home');
+ assert.equal(analytics.pageTypeFor('/house/'),'case_study');assert.equal(analytics.pageTypeFor('/observations/commit-to-the-bit'),'blog_post');assert.equal(analytics.pageTypeFor('/resume/experience'),'resume');assert.equal(analytics.pageTypeFor('/ateam/'),'walkthrough');assert.equal(analytics.pageTypeFor('/'),'home');
 });

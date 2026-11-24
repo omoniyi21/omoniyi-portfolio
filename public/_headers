@@ -20,3 +20,11 @@
   X-Robots-Tag: noindex, nofollow
 /skylight/*
   X-Robots-Tag: noindex, nofollow
+
+# Unlisted A.Team walkthrough and its video.
+/ateam
+  X-Robots-Tag: noindex, nofollow
+/ateam/*
+  X-Robots-Tag: noindex, nofollow
+/media/*
+  X-Robots-Tag: noindex, nofollow

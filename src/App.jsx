@@ -72,6 +72,7 @@ const Resume = lazy(loaders.resume);
 const Visual = lazy(loaders.visual);
 // Unlisted interview deck: not linked anywhere, so it never preloads.
 const SkylightDeck = lazy(() => import("./pages/SkylightDeck"));
+const ATeamWalkthrough = lazy(() => import("./pages/ATeamWalkthrough"));
 
 export default function App() {
   const { pathname } = useLocation();
@@ -141,6 +142,7 @@ export default function App() {
         <Route path="/sultry-tips" element={<ProjectCaseStudy studyKey="sultry" />} />
         <Route path="/library-of-congress" element={<ProjectCaseStudy studyKey="libraryOfCongress" />} />
         <Route path="/skylight" element={<SkylightDeck />} />
+        <Route path="/ateam" element={<ATeamWalkthrough />} />
         <Route path="*" element={<NotFound />} />
       </Routes>}
       </Suspense>
