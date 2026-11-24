@@ -180,6 +180,7 @@ export function pageTypeFor(pathname) {
   if (clean.startsWith("/studio")) return "studio";
   if (clean.startsWith("/uikit")) return "uikit";
   if (clean === "/skylight") return "deck";
+  if (clean === "/ateam") return "walkthrough";
   if (clean === "/work" || clean === "/visual" || clean === "/about") return clean.slice(1);
   return "other";
 }
