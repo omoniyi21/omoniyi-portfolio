@@ -1,13 +1,10 @@
-/* A.Team walkthrough (/ateam). Unlisted: warm paper, graph grid, one
-   handwritten note as the page's only expressive moment. No motion. */
+/* A.Team walkthrough (/ateam). Unlisted: plain warm paper, one handwritten
+   note as the page's only expressive moment. No motion. */
 
 .walkthrough {
   --wt-line: rgb(23 21 29 / 14%);
   --wt-accent: var(--brand-primary);
-  background:
-    linear-gradient(to right, var(--paper-grid-color, rgb(117 105 227 / 8%)) 1px, transparent 1px) 0 0 / 24px 24px,
-    linear-gradient(to bottom, var(--paper-grid-color, rgb(117 105 227 / 8%)) 1px, transparent 1px) 0 0 / 24px 24px,
-    var(--background-page);
+  background: var(--background-page);
   color: var(--text-primary);
   font-family: var(--font-family-body);
   min-height: 100svh;
@@ -167,8 +164,4 @@
 
 @media (max-width: 760px) {
   .walkthrough__points { grid-template-columns: 1fr; }
-}
-
-@media (max-width: 600px) {
-  .walkthrough { background: var(--background-page); }
 }
